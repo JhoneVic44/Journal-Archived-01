@@ -10,24 +10,19 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>JhoneVic's Diary</title>
+    <title>The Unspoken Chapters — JhoneVic's Diary</title>
 
 
-    <!-- Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
         crossorigin
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap"
         rel="stylesheet"
     >
 
@@ -41,50 +36,101 @@
 
         html,
         body {
+
             margin: 0;
+
             width: 100%;
-            min-height: 100%;
+
+            height: 100%;
+
+            overflow: hidden;
+
         }
 
 
         body {
 
-            min-height: 100vh;
-
             background:
-                radial-gradient(
-                    circle at 50% 45%,
-                    #ffffff 0%,
-                    #faf9f6 45%,
-                    #eeeae3 100%
+                linear-gradient(
+                    135deg,
+                    #0b0c0d,
+                    #181a1c 50%,
+                    #292b2d
                 );
 
-            color: #1c1c1c;
+            color: #eeeae1;
 
             font-family:
                 "Manrope",
                 Arial,
                 sans-serif;
+
         }
 
 
         /* =========================
-           MAIN PAGE
+           BACKGROUND
         ========================= */
 
-        .page {
+        .background {
 
-            min-height: 100vh;
+            position: fixed;
 
-            position: relative;
+            inset: 0;
 
-            display: flex;
+            pointer-events: none;
 
-            align-items: center;
+            z-index: 0;
 
-            justify-content: center;
+        }
 
-            overflow: hidden;
+
+        .background::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 800px;
+
+            height: 800px;
+
+            top: -400px;
+
+            right: -150px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.12),
+                    rgba(255,255,255,0.03) 40%,
+                    transparent 70%
+                );
+
+        }
+
+
+        /* Decorative vertical line */
+
+        .background::after {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            bottom: 0;
+
+            left: 9%;
+
+            width: 1px;
+
+            background:
+                rgba(255,255,255,0.08);
+
         }
 
 
@@ -92,271 +138,374 @@
            NAVIGATION
         ========================= */
 
-        .navigation {
+        nav {
 
-            position: absolute;
+            position: fixed;
 
             top: 0;
+
             left: 0;
+
+            right: 0;
+
+            z-index: 10;
 
             width: 100%;
 
-            padding:
-                28px 45px;
+            height: 85px;
 
-            display: grid;
-
-            grid-template-columns:
-                1fr auto 1fr;
-
-            align-items: center;
-
-            z-index: 10;
-        }
-
-
-        .left-navigation {
+            padding: 0 7%;
 
             display: flex;
 
             align-items: center;
 
-            gap: 28px;
+            justify-content: space-between;
 
-            justify-content: flex-start;
         }
 
 
-        .right-navigation {
+        .logo {
 
-            display: flex;
-
-            justify-content: flex-end;
-        }
-
-
-        .navigation a {
-
-            color: #333;
-
-            text-decoration: none;
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            letter-spacing:
-                0.12em;
-
-            text-transform: uppercase;
-
-            transition:
-                opacity 0.2s ease;
-        }
-
-
-        .navigation a:hover {
-
-            opacity: 0.5;
-        }
-
-
-        /* =========================
-           LOGIN BUTTON
-        ========================= */
-
-        .login-button {
-
-            padding:
-                9px 19px;
-
-            border:
-                1px solid #333;
-
-            border-radius: 999px;
-
-            background: transparent;
-
-            color: #333;
-
-            font-family:
-                "Manrope",
-                Arial,
-                sans-serif;
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            letter-spacing:
-                0.12em;
-
-            text-transform: uppercase;
-
-            cursor: pointer;
-
-            transition:
-                background 0.2s ease,
-                color 0.2s ease;
-        }
-
-
-        .login-button:hover {
-
-            background: #222;
-
-            color: #fff;
-        }
-
-
-        /* =========================
-           CENTER TITLE
-        ========================= */
-
-        .hero {
-
-            position: relative;
-
-            z-index: 2;
-
-            text-align: center;
-
-            padding:
-                30px 25px;
-        }
-
-
-        .eyebrow {
-
-            margin-bottom: 24px;
-
-            color: #888;
+            color: #f0ece3;
 
             font-size: 11px;
 
             font-weight: 600;
 
-            letter-spacing:
-                0.28em;
+            letter-spacing: 0.18em;
 
             text-transform: uppercase;
+
         }
 
 
-        .title {
+        .links {
 
-            margin: 0;
+            display: flex;
 
-            font-size:
-                clamp(
-                    52px,
-                    8vw,
-                    105px
-                );
+            align-items: center;
 
-            font-weight: 600;
+            gap: 32px;
 
-            line-height: 0.95;
-
-            letter-spacing:
-                -0.065em;
         }
 
 
-        .subtitle {
+        .links a {
 
-            max-width: 500px;
+            color: #aaa9a3;
 
-            margin:
-                28px auto 0;
+            text-decoration: none;
 
-            color: #777;
+            font-size: 10px;
 
-            font-size: 15px;
+            letter-spacing: 0.14em;
 
-            line-height: 1.8;
+            text-transform: uppercase;
 
-            font-weight: 400;
+            transition: color 0.25s ease;
+
         }
 
 
-        .decorative-line {
+        .links a:hover {
 
-            width: 70px;
+            color: #eeeae1;
 
-            height: 1px;
-
-            margin:
-                32px auto 0;
-
-            background: #bdb9b1;
         }
 
 
-        .archive-label {
+        .links .active {
 
-            margin-top: 22px;
+            color: #eeeae1;
 
-            color: #999;
+        }
+
+
+        /* =========================
+           MAIN INTRODUCTION
+        ========================= */
+
+        .page {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            height: 100vh;
+
+            padding-top: 85px;
+
+            display: grid;
+
+            grid-template-columns: 38% 62%;
+
+        }
+
+
+        /* =========================
+           LEFT SIDE
+           FIXED
+        ========================= */
+
+        .left {
+
+            position: fixed;
+
+            top: 85px;
+
+            left: 0;
+
+            width: 38%;
+
+            height:
+                calc(100vh - 85px);
+
+            padding:
+                100px 7% 100px 16%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: flex-start;
+
+            z-index: 4;
+
+        }
+
+
+        .eyebrow {
+
+            margin-bottom: 25px;
+
+            color: #777a7d;
 
             font-size: 10px;
 
             font-weight: 600;
 
-            letter-spacing:
-                0.2em;
+            letter-spacing: 0.3em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .left h1 {
+
+            margin: 0;
+
+            color: #eeeae1;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size:
+                clamp(
+                    55px,
+                    7vw,
+                    90px
+                );
+
+            font-weight: 400;
+
+            line-height: .95;
+
+            letter-spacing: -0.05em;
+
+        }
+
+
+        .left-note {
+
+            max-width: 300px;
+
+            margin-top: 35px;
+
+            color: #85878a;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
         }
 
 
         /* =========================
-           BACKGROUND DETAILS
+           RIGHT SIDE
+           ONLY THIS SCROLLS
         ========================= */
 
-        .circle {
+        .content {
 
-            position: absolute;
+            grid-column: 2;
 
-            width: 520px;
+            height:
+                calc(100vh - 85px);
 
-            height: 520px;
+            overflow-y: auto;
 
-            border-radius: 50%;
+            padding:
+                100px 10% 100px 7%;
 
-            border:
-                1px solid
-                rgba(80, 75, 65, 0.08);
-
-            top: 50%;
-
-            left: 50%;
-
-            transform:
-                translate(-50%, -50%);
         }
 
 
-        .circle::before {
+        .content::-webkit-scrollbar {
 
-            content: "";
+            width: 5px;
 
-            position: absolute;
+        }
 
-            width: 380px;
 
-            height: 380px;
+        .content::-webkit-scrollbar-track {
 
-            border-radius: 50%;
+            background: transparent;
 
-            border:
-                1px solid
-                rgba(80, 75, 65, 0.06);
+        }
 
-            top: 50%;
 
-            left: 50%;
+        .content::-webkit-scrollbar-thumb {
 
-            transform:
-                translate(-50%, -50%);
+            background:
+                rgba(255,255,255,0.18);
+
+            border-radius: 10px;
+
+        }
+
+
+        .content {
+
+            scrollbar-width: thin;
+
+            scrollbar-color:
+                rgba(255,255,255,0.18)
+                transparent;
+
+        }
+
+
+        /* =========================
+           INTRODUCTION TEXT
+        ========================= */
+
+        .content h2 {
+
+            margin:
+                0 0 30px;
+
+            color: #eeeae1;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size: 46px;
+
+            font-weight: 400;
+
+            line-height: 1.15;
+
+        }
+
+
+        .opening {
+
+            max-width: 720px;
+
+            margin:
+                0 0 65px;
+
+            color: #aaa9a3;
+
+            font-size: 16px;
+
+            line-height: 2;
+
+        }
+
+
+        .section {
+
+            max-width: 720px;
+
+            margin-bottom: 55px;
+
+        }
+
+
+        .section h3 {
+
+            margin:
+                0 0 16px;
+
+            color: #e4e0d8;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.08em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .section p {
+
+            margin: 0;
+
+            color: #999a99;
+
+            font-size: 14px;
+
+            line-height: 1.95;
+
+        }
+
+
+        .rule {
+
+            width: 100%;
+
+            height: 1px;
+
+            margin:
+                70px 0 45px;
+
+            background:
+                rgba(255,255,255,0.10);
+
+        }
+
+
+        .final {
+
+            max-width: 720px;
+
+            padding-bottom: 80px;
+
+            color: #aaa8a1;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size: 18px;
+
+            line-height: 1.9;
+
+            font-style: italic;
+
         }
 
 
@@ -364,26 +513,24 @@
            FOOTER
         ========================= */
 
-        .footer {
+        footer {
 
-            position: absolute;
+            position: fixed;
 
-            bottom: 25px;
+            left: 7%;
 
-            left: 0;
+            bottom: 28px;
 
-            width: 100%;
+            z-index: 6;
 
-            text-align: center;
+            color: #5d5f62;
 
-            color: #aaa;
+            font-size: 9px;
 
-            font-size: 10px;
-
-            letter-spacing:
-                0.16em;
+            letter-spacing: 0.2em;
 
             text-transform: uppercase;
+
         }
 
 
@@ -391,100 +538,124 @@
            MOBILE
         ========================= */
 
-        @media (max-width: 650px) {
+        @media (max-width: 800px) {
 
-            .navigation {
+            html,
+            body {
+
+                overflow: auto;
+
+            }
+
+
+            .background::after {
+
+                display: none;
+
+            }
+
+
+            nav {
 
                 padding:
-                    22px 20px;
+                    0 25px;
 
-                grid-template-columns:
-                    1fr auto;
-
-                grid-template-areas:
-                    "left login";
             }
 
 
-            .left-navigation {
+            .links {
 
-                grid-area: left;
+                gap: 14px;
 
-                gap: 18px;
             }
 
 
-            .right-navigation {
+            .links a {
 
-                grid-area: login;
+                font-size: 8px;
+
             }
 
 
-            .navigation a,
-            .login-button {
+            .page {
 
-                font-size: 10px;
+                height: auto;
 
-                letter-spacing:
-                    0.08em;
+                display: block;
+
+                padding-top: 85px;
+
             }
 
 
-            .login-button {
+            .left {
+
+                position: relative;
+
+                top: auto;
+
+                left: auto;
+
+                width: 100%;
+
+                height: auto;
 
                 padding:
-                    8px 14px;
+                    65px 25px 50px;
+
             }
 
 
-            .hero {
-
-                padding:
-                    90px 20px;
-            }
-
-
-            .eyebrow {
-
-                font-size: 9px;
-
-                letter-spacing:
-                    0.2em;
-            }
-
-
-            .title {
+            .left h1 {
 
                 font-size:
                     clamp(
-                        44px,
-                        13vw,
-                        70px
+                        52px,
+                        15vw,
+                        78px
                     );
+
             }
 
 
-            .subtitle {
+            .content {
+
+                height: auto;
+
+                overflow: visible;
+
+                padding:
+                    50px 25px 90px;
+
+            }
+
+
+            .content h2 {
+
+                font-size: 36px;
+
+            }
+
+
+            .opening,
+            .section p {
 
                 font-size: 14px;
 
-                max-width: 340px;
             }
 
 
-            .circle {
+            footer {
 
-                width: 360px;
+                position: relative;
 
-                height: 360px;
-            }
+                left: auto;
 
+                bottom: auto;
 
-            .circle::before {
+                padding:
+                    0 25px 35px;
 
-                width: 270px;
-
-                height: 270px;
             }
 
         }
@@ -497,99 +668,234 @@
 <body>
 
 
-    <main class="page">
+<div class="background"></div>
 
 
-        <!-- Decorative background -->
+<!-- =========================
+     NAVIGATION
+========================== -->
 
-        <div class="circle"></div>
+<nav>
 
+    <div class="logo">
 
-        <!-- Navigation -->
+        JhoneVic's Diary
 
-        <nav class="navigation">
-
-
-            <div class="left-navigation">
-
-                <a href="introduction.html">
-                    Introduction
-                </a>
-
-                <a href="#">
-                    Timeline
-                </a>
-
-            </div>
+    </div>
 
 
-            <!-- Center spacer -->
+    <div class="links">
 
-            <div></div>
-
-
-            <!-- Login -->
-
-            <div class="right-navigation">
-
-                <button
-                    class="login-button"
-                    type="button"
-                >
-                    Login
-                </button>
-
-            </div>
+        <a
+            href="introduction.html"
+            class="active"
+        >
+            Introduction
+        </a>
 
 
-        </nav>
+        <a href="about.html">
+            About
+        </a>
 
 
-        <!-- Main title -->
-
-        <section class="hero">
-
-
-            <div class="eyebrow">
-                Personal Archive
-            </div>
+        <a href="timeline.html">
+            Timeline
+        </a>
 
 
-            <h1 class="title">
-                JhoneVic's Diary
-            </h1>
+        <a href="login.html">
+            Login
+        </a>
+
+    </div>
+
+</nav>
 
 
-            <p class="subtitle">
+<!-- =========================
+     PAGE
+========================== -->
 
-                A personal collection of memories,
-                thoughts, experiences, and moments
-                preserved through the years.
+<main class="page">
+
+
+    <!-- LEFT SIDE -->
+
+    <section class="left">
+
+
+        <div class="eyebrow">
+
+            The Archive
+
+        </div>
+
+
+        <h1>
+
+            The Unspoken<br>
+            Chapters
+
+        </h1>
+
+
+        <p class="left-note">
+
+            A digital home for memories,
+            handwritten history, and the
+            ordinary moments worth preserving.
+
+        </p>
+
+
+    </section>
+
+
+    <!-- RIGHT SIDE -->
+
+    <article class="content">
+
+
+        <h2>
+
+            The Beginning
+
+        </h2>
+
+
+        <p class="opening">
+
+            This website was created to preserve
+            and share the personal diaries of
+            JhoneVic—a handwritten record of his
+            life spanning from adolescence to adulthood.
+
+        </p>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                A Life Between Pages
+
+            </h3>
+
+
+            <p>
+
+                What began as handwritten entries
+                in personal notebooks became a record
+                of years lived, remembered, and quietly
+                documented. Each page carries a moment
+                in time—thoughts that once existed only
+                on paper and in the mind of the person
+                who wrote them.
 
             </p>
-
-
-            <div class="decorative-line"></div>
-
-
-            <div class="archive-label">
-                2013 — 2026
-            </div>
-
 
         </section>
 
 
-        <!-- Footer -->
-
-        <footer class="footer">
-
-            JhoneVic's Personal Archive
-
-        </footer>
+        <section class="section">
 
 
-    </main>
+            <h3>
+
+                Why These Pages Remain
+
+            </h3>
+
+
+            <p>
+
+                The purpose of this archive is simple:
+                to keep these memories from disappearing.
+                The original notebooks are part of a
+                fragile history, and time naturally changes
+                paper, ink, and memory.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                More Than a Diary
+
+            </h3>
+
+
+            <p>
+
+                These pages are not meant to tell the
+                story of someone famous. They document
+                an ordinary life—its quiet moments,
+                uncertainties, relationships, dreams,
+                mistakes, and small victories.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                The Unspoken
+
+            </h3>
+
+
+            <p>
+
+                Some things are easier to write than
+                to say. A diary becomes a place where
+                thoughts can exist without interruption,
+                without an audience, and without the need
+                to explain themselves.
+
+                These are the chapters that were once
+                private. They are now being preserved
+                with the same honesty with which they
+                were originally written.
+
+            </p>
+
+        </section>
+
+
+        <div class="rule"></div>
+
+
+        <p class="final">
+
+            This is an ongoing preservation of a life
+            as it was experienced and remembered—
+            one page, one year, and one chapter at a time.
+
+        </p>
+
+
+    </article>
+
+
+</main>
+
+
+<footer>
+
+    Personal Archive · 2013—2026
+
+</footer>
 
 
 </body>
