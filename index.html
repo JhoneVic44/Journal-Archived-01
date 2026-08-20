@@ -3,36 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="tdAng7yWVp7TfkuTYrCMKViTOgF34qGPQ8BhTMif6oA" />
-    
+
     <title>Jhonevic's Diary</title>
 
     <meta name="description" content="Jhonevic's personal diary and journal.">
+
+    <style>
+        body {
+            margin: 0;
+            background: #faf9f6;
+            color: #252525;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 120px 25px 80px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 48px;
+            font-weight: normal;
+            letter-spacing: -1px;
+        }
+
+        .intro {
+            margin: 20px auto 55px;
+            max-width: 500px;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #666;
+        }
+
+        .diaries {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .diaries a {
+            display: block;
+            padding: 16px 20px;
+            border: 1px solid #d8d8d8;
+            border-radius: 6px;
+            color: #252525;
+            text-decoration: none;
+            font-size: 17px;
+            background: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .diaries a:hover {
+            background: #f2f2f2;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 70px;
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Jhonevic's Diary</h1>
+    <main class="container">
 
-    <p>
-        Welcome to my personal diary.
-    </p>
+        <h1>Jhonevic's Diary</h1>
 
-    <h2>My Diaries</h2>
+        <p class="intro">
+            A personal collection of memories, thoughts, experiences,
+            and moments preserved through the years.
+        </p>
 
-    <ul>
-        <li>
+        <div class="diaries">
             <a href="2013.html">2013 Diary</a>
-        </li>
-
-        <li>
             <a href="2014.html">2014 Diary</a>
-        </li>
-
-        <li>
             <a href="2026.html">2026 Diary</a>
-        </li>
-    </ul>
+        </div>
+
+        <footer>
+            Jhonevic's Personal Archive
+        </footer>
+
+    </main>
 
 </body>
 </html>
