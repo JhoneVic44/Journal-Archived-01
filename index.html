@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -10,6 +11,9 @@
     >
 
     <title>JhoneVic's Diary</title>
+
+
+    <!-- Manrope -->
 
     <link
         rel="preconnect"
@@ -23,9 +27,10 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
+
 
     <style>
 
@@ -33,30 +38,213 @@
             box-sizing: border-box;
         }
 
+
+        html,
         body {
             margin: 0;
+            min-height: 100%;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background: #faf9f6;
+
+            color: #171717;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+        }
+
+
+        .page {
+
             min-height: 100vh;
 
             display: flex;
+
             align-items: center;
-            justify-content: center;
 
-            background: #faf9f6;
-            color: #222;
-
-            font-family: "Manrope", sans-serif;
-
-            text-align: center;
+            padding:
+                60px 7vw;
         }
 
-        h1 {
+
+        .content {
+
+            width: 100%;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+        }
+
+
+        .small-label {
+
+            margin-bottom: 28px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.22em;
+
+            text-transform: uppercase;
+
+            color: #777;
+        }
+
+
+        .title {
+
             margin: 0;
 
-            font-size: clamp(42px, 8vw, 72px);
+            font-size:
+                clamp(
+                    70px,
+                    13vw,
+                    190px
+                );
+
+            font-weight: 600;
+
+            line-height: 0.88;
+
+            letter-spacing:
+                -0.075em;
+        }
+
+
+        .diary {
+
+            margin-top: 28px;
+
+            font-size:
+                clamp(
+                    20px,
+                    3vw,
+                    38px
+                );
 
             font-weight: 500;
 
-            letter-spacing: -2px;
+            letter-spacing:
+                0.42em;
+
+            text-transform: uppercase;
+
+            color: #555;
+
+            padding-left:
+                0.42em;
+        }
+
+
+        .line {
+
+            width: 100%;
+
+            height: 1px;
+
+            margin-top: 55px;
+
+            background: #d8d6d1;
+        }
+
+
+        .description {
+
+            max-width: 540px;
+
+            margin-top: 28px;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            color: #777;
+        }
+
+
+        .number {
+
+            margin-top: 60px;
+
+            font-size: 12px;
+
+            letter-spacing: 0.16em;
+
+            color: #999;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .page {
+
+                padding:
+                    40px 24px;
+            }
+
+
+            .small-label {
+
+                margin-bottom: 22px;
+
+                font-size: 10px;
+            }
+
+
+            .title {
+
+                font-size:
+                    clamp(
+                        58px,
+                        18vw,
+                        110px
+                    );
+
+                letter-spacing:
+                    -0.065em;
+            }
+
+
+            .diary {
+
+                margin-top: 20px;
+
+                font-size: 18px;
+
+                letter-spacing:
+                    0.28em;
+
+                padding-left:
+                    0.28em;
+            }
+
+
+            .line {
+
+                margin-top: 40px;
+            }
+
+
+            .description {
+
+                font-size: 14px;
+            }
+
+
+            .number {
+
+                margin-top: 45px;
+            }
+
         }
 
     </style>
@@ -66,13 +254,47 @@
 
 <body>
 
-    <main>
 
-        <h1>
-            JhoneVic's Diary
-        </h1>
+    <main class="page">
+
+
+        <div class="content">
+
+
+            <div class="small-label">
+                Personal Archive
+            </div>
+
+
+            <h1 class="title">
+                JhoneVic's
+            </h1>
+
+
+            <div class="diary">
+                Diary
+            </div>
+
+
+            <div class="line"></div>
+
+
+            <p class="description">
+                Memories, thoughts, experiences,
+                and moments preserved through the years.
+            </p>
+
+
+            <div class="number">
+                ARCHIVE / 01
+            </div>
+
+
+        </div>
+
 
     </main>
+
 
 </body>
 
