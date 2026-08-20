@@ -4,110 +4,391 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>2013 Diary — Jhonevic's Diary</title>
+    <title>JhoneVic's Diary</title>
+
+    <!-- Handwritten font for the diary title -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
+            min-height: 100vh;
             background: #faf9f6;
             color: #252525;
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 25px;
+        .page {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
             text-align: center;
+
+            padding: 40px 25px;
         }
+
+        /* Diary title */
 
         h1 {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 42px;
-            font-weight: normal;
-            margin-bottom: 15px;
+            margin: 0;
+
+            font-family: "Caveat", cursive;
+
+            font-size: clamp(52px, 9vw, 76px);
+
+            font-weight: 600;
+
+            letter-spacing: 0;
         }
 
-        .subtitle {
-            color: #777;
-            margin-bottom: 45px;
-        }
+        /* Introduction */
 
-        .months {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .intro {
+            max-width: 520px;
 
-        .months a {
-            display: block;
-            padding: 18px 10px;
-            background: #ffffff;
-            border: 1px solid #d8d8d8;
-            border-radius: 7px;
-            color: #252525;
-            text-decoration: none;
+            margin: 24px auto 42px;
+
+            color: #666;
+
             font-size: 17px;
-            transition: 0.2s;
+
+            line-height: 1.7;
         }
 
-        .months a:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
+        /* Google login button */
+
+        .google-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 12px;
+
+            min-width: 260px;
+
+            padding: 13px 22px;
+
+            border: 1px solid #d5d5d5;
+
+            border-radius: 6px;
+
+            background: #ffffff;
+
+            color: #252525;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.2s ease;
         }
 
-        .back {
-            display: inline-block;
-            margin-top: 50px;
-            color: #777;
-            text-decoration: none;
+        .google-button:hover {
+            background: #f7f7f7;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+
+            transform: translateY(-1px);
+        }
+
+        .google-button:active {
+            transform: translateY(0);
+        }
+
+        .google-button:disabled {
+            cursor: default;
+            transform: none;
+        }
+
+        /* Google icon */
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+
+            display: block;
+
+            flex-shrink: 0;
+        }
+
+        /* Private archive message */
+
+        .note {
+            margin-top: 22px;
+
+            color: #999;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        /* Login status */
+
+        #status {
+            min-height: 20px;
+
+            margin-top: 18px;
+
+            color: #666;
+
             font-size: 14px;
         }
 
-        .back:hover {
-            color: #222;
+        /* Footer */
+
+        footer {
+            position: absolute;
+
+            bottom: 28px;
+
+            color: #999;
+
+            font-size: 13px;
         }
 
+        /* Mobile */
+
         @media (max-width: 600px) {
-            .months {
-                grid-template-columns: repeat(2, 1fr);
+
+            .page {
+                padding: 30px 20px;
+            }
+
+            .intro {
+                font-size: 16px;
+            }
+
+            .google-button {
+                width: 100%;
+
+                max-width: 300px;
+            }
+
+            footer {
+                position: static;
+
+                margin-top: 70px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
 
-    <main class="container">
+    <main class="page">
 
-        <h1>2013 Diary</h1>
 
-        <p class="subtitle">
-            Choose a month to explore my diary.
+        <h1>
+            JhoneVic's Diary
+        </h1>
+
+
+        <p class="intro">
+            A personal archive of memories, thoughts,
+            experiences, and moments preserved through the years.
         </p>
 
-        <div class="months">
 
-            <a href="2013.html#january">January</a>
-            <a href="#february">February</a>
-            <a href="#march">March</a>
-            <a href="#april">April</a>
-            <a href="#may">May</a>
-            <a href="#june">June</a>
-            <a href="#july">July</a>
-            <a href="#august">August</a>
-            <a href="#september">September</a>
-            <a href="#october">October</a>
-            <a href="#november">November</a>
-            <a href="#december">December</a>
+        <button
+            id="google-login"
+            class="google-button"
+            type="button"
+        >
 
-        </div>
+            <!-- Google G icon -->
 
-        <a class="back" href="index.html">← Back to Jhonevic's Diary</a>
+            <svg
+                class="google-icon"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+            >
+
+                <path
+                    fill="#EA4335"
+                    d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.44 30.47 0 24 0 14.61 0 6.49 5.38 2.56 13.22l7.98 6.19C12.43 13.17 17.74 9.5 24 9.5z"
+                />
+
+                <path
+                    fill="#4285F4"
+                    d="M46.98 24.55c0-1.64-.15-3.22-.42-4.74H24v9h12.94c-.56 2.9-2.22 5.36-4.73 7.02l7.64 5.93C44.3 37.56 46.98 31.53 46.98 24.55z"
+                />
+
+                <path
+                    fill="#FBBC05"
+                    d="M10.54 28.91A14.46 14.46 0 0 1 9.5 24c0-1.7.37-3.34 1.04-4.91l-7.98-6.19A23.98 23.98 0 0 0 0 24c0 3.88.93 7.57 2.56 11.1l7.98-6.19z"
+                />
+
+                <path
+                    fill="#34A853"
+                    d="M24 48c6.48 0 11.93-2.14 15.9-5.82l-7.64-5.93c-2.12 1.42-4.84 2.25-8.26 2.25-6.26 0-11.57-3.67-13.46-8.91l-7.98 6.19C6.49 42.62 14.61 48 24 48z"
+                />
+
+            </svg>
+
+
+            <span>
+                Continue with Google
+            </span>
+
+        </button>
+
+
+        <p class="note">
+            Sign in to enter the private diary archive.
+        </p>
+
+
+        <p id="status"></p>
+
+
+        <footer>
+            JhoneVic's Personal Archive
+        </footer>
+
 
     </main>
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://ktytetimukmaqkxmzkha.supabase.co";
+
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljrI1K8N";
+
+
+        const REDIRECT_URL =
+            "https://jhonevic44.github.io/Journal-Archived-01/login-test.html";
+
+
+        const { createClient } = supabase;
+
+
+        const client = createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+        const button =
+            document.getElementById("google-login");
+
+
+        const status =
+            document.getElementById("status");
+
+
+        /* Google sign-in */
+
+        button.addEventListener(
+            "click",
+            async () => {
+
+                button.disabled = true;
+
+                status.textContent =
+                    "Opening Google sign-in...";
+
+
+                const { error } =
+                    await client.auth.signInWithOAuth({
+
+                        provider: "google",
+
+                        options: {
+
+                            redirectTo:
+                                REDIRECT_URL
+
+                        }
+
+                    });
+
+
+                if (error) {
+
+                    button.disabled = false;
+
+                    status.textContent =
+                        "Login error: " +
+                        error.message;
+
+                }
+
+            }
+        );
+
+
+        /* Check existing login */
+
+        (async () => {
+
+            const {
+                data: { session }
+            } = await client.auth.getSession();
+
+
+            if (session?.user) {
+
+                const name =
+                    session.user.user_metadata?.full_name ||
+                    session.user.user_metadata?.name ||
+                    session.user.email ||
+                    "Google user";
+
+
+                status.textContent =
+                    "Signed in successfully as " +
+                    name +
+                    ".";
+
+
+                button.innerHTML =
+                    "✓ Google account connected";
+
+
+                button.disabled = true;
+
+            }
+
+        })();
+
+    </script>
 
 </body>
 </html>
