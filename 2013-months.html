@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>2013 Diary — Jhonevic's Diary</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #faf9f6;
+            color: #252525;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 25px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 42px;
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 45px;
+        }
+
+        .months {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .months a {
+            display: block;
+            padding: 18px 10px;
+            background: #ffffff;
+            border: 1px solid #d8d8d8;
+            border-radius: 7px;
+            color: #252525;
+            text-decoration: none;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        .months a:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 50px;
+            color: #777;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #222;
+        }
+
+        @media (max-width: 600px) {
+            .months {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>2013 Diary</h1>
+
+        <p class="subtitle">
+            Choose a month to explore my diary.
+        </p>
+
+        <div class="months">
+
+            <a href="#january">January</a>
+            <a href="#february">February</a>
+            <a href="#march">March</a>
+            <a href="#april">April</a>
+            <a href="#may">May</a>
+            <a href="#june">June</a>
+            <a href="#july">July</a>
+            <a href="#august">August</a>
+            <a href="#september">September</a>
+            <a href="#october">October</a>
+            <a href="#november">November</a>
+            <a href="#december">December</a>
+
+        </div>
+
+        <a class="back" href="index.html">← Back to Jhonevic's Diary</a>
+
+    </main>
+
+</body>
+</html>
