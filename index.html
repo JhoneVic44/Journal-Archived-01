@@ -10,10 +10,11 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>The Unspoken Chapters — JhoneVic's Diary</title>
+    <title>JhoneVic's Diary</title>
 
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
     <link
         rel="preconnect"
@@ -36,7 +37,6 @@
 
         html,
         body {
-
             margin: 0;
 
             width: 100%;
@@ -44,12 +44,10 @@
             height: 100%;
 
             overflow: hidden;
-
         }
 
 
         body {
-
             background:
                 linear-gradient(
                     135deg,
@@ -64,7 +62,6 @@
                 "Manrope",
                 Arial,
                 sans-serif;
-
         }
 
 
@@ -73,7 +70,6 @@
         ========================= */
 
         .background {
-
             position: fixed;
 
             inset: 0;
@@ -81,12 +77,10 @@
             pointer-events: none;
 
             z-index: 0;
-
         }
 
 
         .background::before {
-
             content: "";
 
             position: absolute;
@@ -108,14 +102,12 @@
                     rgba(255,255,255,0.03) 40%,
                     transparent 70%
                 );
-
         }
 
 
         /* Decorative vertical line */
 
         .background::after {
-
             content: "";
 
             position: absolute;
@@ -130,7 +122,6 @@
 
             background:
                 rgba(255,255,255,0.08);
-
         }
 
 
@@ -139,7 +130,6 @@
         ========================= */
 
         nav {
-
             position: fixed;
 
             top: 0;
@@ -161,12 +151,10 @@
             align-items: center;
 
             justify-content: space-between;
-
         }
 
 
         .logo {
-
             color: #f0ece3;
 
             font-size: 11px;
@@ -176,23 +164,19 @@
             letter-spacing: 0.18em;
 
             text-transform: uppercase;
-
         }
 
 
         .links {
-
             display: flex;
 
             align-items: center;
 
             gap: 32px;
-
         }
 
 
         .links a {
-
             color: #aaa9a3;
 
             text-decoration: none;
@@ -203,31 +187,21 @@
 
             text-transform: uppercase;
 
-            transition: color 0.25s ease;
-
+            transition:
+                color 0.25s ease;
         }
 
 
         .links a:hover {
-
             color: #eeeae1;
-
-        }
-
-
-        .links .active {
-
-            color: #eeeae1;
-
         }
 
 
         /* =========================
-           MAIN INTRODUCTION
+           MAIN PAGE
         ========================= */
 
         .page {
-
             position: relative;
 
             z-index: 2;
@@ -240,18 +214,16 @@
 
             display: grid;
 
-            grid-template-columns: 38% 62%;
-
+            grid-template-columns:
+                38% 62%;
         }
 
 
         /* =========================
-           LEFT SIDE
-           FIXED
+           LEFT SIDE — FIXED
         ========================= */
 
         .left {
-
             position: fixed;
 
             top: 85px;
@@ -264,7 +236,7 @@
                 calc(100vh - 85px);
 
             padding:
-                100px 7% 100px 16%;
+                100px 12% 100px 16%;
 
             display: flex;
 
@@ -273,12 +245,10 @@
             justify-content: flex-start;
 
             z-index: 4;
-
         }
 
 
         .eyebrow {
-
             margin-bottom: 25px;
 
             color: #777a7d;
@@ -290,12 +260,10 @@
             letter-spacing: 0.3em;
 
             text-transform: uppercase;
-
         }
 
 
         .left h1 {
-
             margin: 0;
 
             color: #eeeae1;
@@ -307,9 +275,9 @@
 
             font-size:
                 clamp(
-                    55px,
-                    7vw,
-                    90px
+                    50px,
+                    5.7vw,
+                    76px
                 );
 
             font-weight: 400;
@@ -317,13 +285,11 @@
             line-height: .95;
 
             letter-spacing: -0.05em;
-
         }
 
 
         .left-note {
-
-            max-width: 300px;
+            max-width: 270px;
 
             margin-top: 35px;
 
@@ -332,17 +298,14 @@
             font-size: 13px;
 
             line-height: 1.8;
-
         }
 
 
         /* =========================
-           RIGHT SIDE
-           ONLY THIS SCROLLS
+           RIGHT SIDE — ONLY SCROLLS
         ========================= */
 
         .content {
-
             grid-column: 2;
 
             height:
@@ -351,52 +314,42 @@
             overflow-y: auto;
 
             padding:
-                100px 10% 100px 7%;
-
+                100px 10% 100px 10%;
         }
 
 
         .content::-webkit-scrollbar {
-
             width: 5px;
-
         }
 
 
         .content::-webkit-scrollbar-track {
-
             background: transparent;
-
         }
 
 
         .content::-webkit-scrollbar-thumb {
-
             background:
                 rgba(255,255,255,0.18);
 
             border-radius: 10px;
-
         }
 
 
         .content {
-
             scrollbar-width: thin;
 
             scrollbar-color:
                 rgba(255,255,255,0.18)
                 transparent;
-
         }
 
 
         /* =========================
-           INTRODUCTION TEXT
+           INTRODUCTION
         ========================= */
 
         .content h2 {
-
             margin:
                 0 0 30px;
 
@@ -412,13 +365,11 @@
             font-weight: 400;
 
             line-height: 1.15;
-
         }
 
 
         .opening {
-
-            max-width: 720px;
+            max-width: 700px;
 
             margin:
                 0 0 65px;
@@ -428,23 +379,21 @@
             font-size: 16px;
 
             line-height: 2;
-
         }
 
 
         .section {
-
-            max-width: 720px;
+            max-width: 700px;
 
             margin-bottom: 55px;
-
         }
 
 
-        .section h3 {
+        /* Heading and sentence are now close */
 
+        .section h3 {
             margin:
-                0 0 16px;
+                0 0 5px;
 
             color: #e4e0d8;
 
@@ -456,11 +405,11 @@
 
             text-transform: uppercase;
 
+            line-height: 1.4;
         }
 
 
         .section p {
-
             margin: 0;
 
             color: #999a99;
@@ -468,12 +417,10 @@
             font-size: 14px;
 
             line-height: 1.95;
-
         }
 
 
         .rule {
-
             width: 100%;
 
             height: 1px;
@@ -483,15 +430,13 @@
 
             background:
                 rgba(255,255,255,0.10);
-
         }
 
 
         .final {
+            max-width: 700px;
 
-            max-width: 720px;
-
-            padding-bottom: 80px;
+            padding-bottom: 100px;
 
             color: #aaa8a1;
 
@@ -505,7 +450,6 @@
             line-height: 1.9;
 
             font-style: italic;
-
         }
 
 
@@ -514,7 +458,6 @@
         ========================= */
 
         footer {
-
             position: fixed;
 
             left: 7%;
@@ -530,7 +473,6 @@
             letter-spacing: 0.2em;
 
             text-transform: uppercase;
-
         }
 
 
@@ -542,54 +484,41 @@
 
             html,
             body {
-
                 overflow: auto;
-
             }
 
 
             .background::after {
-
                 display: none;
-
             }
 
 
             nav {
-
                 padding:
                     0 25px;
-
             }
 
 
             .links {
-
                 gap: 14px;
-
             }
 
 
             .links a {
-
                 font-size: 8px;
-
             }
 
 
             .page {
-
                 height: auto;
 
                 display: block;
 
                 padding-top: 85px;
-
             }
 
 
             .left {
-
                 position: relative;
 
                 top: auto;
@@ -602,51 +531,41 @@
 
                 padding:
                     65px 25px 50px;
-
             }
 
 
             .left h1 {
-
                 font-size:
                     clamp(
                         52px,
                         15vw,
                         78px
                     );
-
             }
 
 
             .content {
-
                 height: auto;
 
                 overflow: visible;
 
                 padding:
                     50px 25px 90px;
-
             }
 
 
             .content h2 {
-
                 font-size: 36px;
-
             }
 
 
             .opening,
             .section p {
-
                 font-size: 14px;
-
             }
 
 
             footer {
-
                 position: relative;
 
                 left: auto;
@@ -655,7 +574,6 @@
 
                 padding:
                     0 25px 35px;
-
             }
 
         }
@@ -678,18 +596,13 @@
 <nav>
 
     <div class="logo">
-
         JhoneVic's Diary
-
     </div>
 
 
     <div class="links">
 
-        <a
-            href="introduction.html"
-            class="active"
-        >
+        <a href="introduction.html">
             Introduction
         </a>
 
@@ -714,7 +627,7 @@
 
 
 <!-- =========================
-     PAGE
+     MAIN PAGE
 ========================== -->
 
 <main class="page">
@@ -724,19 +637,14 @@
 
     <section class="left">
 
-
         <div class="eyebrow">
-
             The Archive
-
         </div>
 
 
         <h1>
-
             The Unspoken<br>
             Chapters
-
         </h1>
 
 
@@ -748,7 +656,6 @@
 
         </p>
 
-
     </section>
 
 
@@ -758,9 +665,7 @@
 
 
         <h2>
-
-            The Beginning
-
+            About This Website
         </h2>
 
 
@@ -776,23 +681,19 @@
 
         <section class="section">
 
-
             <h3>
-
-                A Life Between Pages
-
+                Preservation of a Fragile History
             </h3>
-
 
             <p>
 
-                What began as handwritten entries
-                in personal notebooks became a record
-                of years lived, remembered, and quietly
-                documented. Each page carries a moment
-                in time—thoughts that once existed only
-                on paper and in the mind of the person
-                who wrote them.
+                The original notebooks are aging.
+                The pages are yellowing, the ink is fading,
+                and the paper is becoming brittle.
+                Transcribing these entries into a digital
+                format ensures that the stories, thoughts,
+                and emotions they contain will not be lost
+                to time.
 
             </p>
 
@@ -801,21 +702,22 @@
 
         <section class="section">
 
-
             <h3>
-
-                Why These Pages Remain
-
+                Family Access and Legacy
             </h3>
-
 
             <p>
 
-                The purpose of this archive is simple:
-                to keep these memories from disappearing.
-                The original notebooks are part of a
-                fragile history, and time naturally changes
-                paper, ink, and memory.
+                This archive is primarily intended for
+                family members—a way to look back on
+                shared memories, understand the experiences
+                that shaped their relative, and connect
+                with a personal history that might otherwise
+                be forgotten.
+
+                It is a gift for future generations:
+                a window into the life of someone they may
+                only know as a distant memory or a family name.
 
             </p>
 
@@ -824,21 +726,22 @@
 
         <section class="section">
 
-
             <h3>
-
-                More Than a Diary
-
+                Preserving the Unfiltered Truth
             </h3>
-
 
             <p>
 
-                These pages are not meant to tell the
-                story of someone famous. They document
-                an ordinary life—its quiet moments,
-                uncertainties, relationships, dreams,
-                mistakes, and small victories.
+                The diaries are not edited, polished,
+                or rewritten.
+
+                They remain exactly as they were written—
+                raw, honest, and unpolished.
+
+                This website honors that authenticity by
+                presenting the entries with minimal alteration,
+                preserving the voice, the tone, and the
+                imperfections that make them real.
 
             </p>
 
@@ -847,26 +750,21 @@
 
         <section class="section">
 
-
             <h3>
-
-                The Unspoken
-
+                A Record of Ordinary Life
             </h3>
-
 
             <p>
 
-                Some things are easier to write than
-                to say. A diary becomes a place where
-                thoughts can exist without interruption,
-                without an audience, and without the need
-                to explain themselves.
+                This is not the story of a public figure
+                or a famous person.
 
-                These are the chapters that were once
-                private. They are now being preserved
-                with the same honesty with which they
-                were originally written.
+                It is the story of an ordinary individual—
+                his crushes, his struggles, his joys,
+                his anxieties, and his quiet moments of growth.
+
+                It is a reminder that every life, no matter
+                how private, deserves to be remembered.
 
             </p>
 
@@ -878,9 +776,11 @@
 
         <p class="final">
 
-            This is an ongoing preservation of a life
-            as it was experienced and remembered—
-            one page, one year, and one chapter at a time.
+            This website is an ongoing project.
+            As more entries are transcribed and preserved,
+            they will be added to this archive.
+
+            Thank you for being part of this journey.
 
         </p>
 
@@ -892,9 +792,7 @@
 
 
 <footer>
-
     Personal Archive · 2013—2026
-
 </footer>
 
 
