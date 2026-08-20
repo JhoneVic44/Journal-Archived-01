@@ -1,318 +1,596 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Who is JhoneVic? — JhoneVic's Diary</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>JhoneVic's Diary</title>
 
     <meta
         name="description"
-        content="Learn about JhoneVic and the personal diary archive documenting his life, memories, experiences, growth, and self-discovery."
+        content="JhoneVic's personal diary archive."
     >
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    <!-- Title font -->
 
-        body {
-            margin: 0;
-            background: #faf9f6;
-            color: #252525;
-            font-family: Georgia, "Times New Roman", serif;
-        }
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-        .page {
-            max-width: 780px;
-            margin: 0 auto;
-            padding: 70px 25px 90px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 75px;
-        }
-
-        h1,
-        h2 {
-            font-family: "Caveat", cursive;
-            font-weight: 600;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: clamp(52px, 9vw, 76px);
-            letter-spacing: 0;
-        }
-
-        .subtitle {
-            max-width: 600px;
-            margin: 20px auto 0;
-            color: #777;
-            font-size: 17px;
-            line-height: 1.7;
-        }
-
-        section {
-            margin-bottom: 60px;
-        }
-
-        h2 {
-            margin: 0 0 22px;
-            font-size: 38px;
-            line-height: 1.2;
-        }
-
-        p {
-            margin: 0 0 20px;
-            font-size: 17px;
-            line-height: 1.85;
-        }
-
-        strong {
-            font-weight: bold;
-        }
-
-        .back {
-            display: inline-block;
-            margin-bottom: 55px;
-            color: #666;
-            text-decoration: none;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 14px;
-        }
-
-        .back:hover {
-            color: #222;
-        }
-
-        .closing {
-            margin-top: 75px;
-            padding-top: 35px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-style: italic;
-        }
-
-        footer {
-            margin-top: 80px;
-            text-align: center;
-            color: #999;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 13px;
-        }
-
-        @media (max-width: 600px) {
-
-            .page {
-                padding: 45px 20px 70px;
-            }
-
-            header {
-                margin-bottom: 55px;
-            }
-
-            p {
-                font-size: 16px;
-                line-height: 1.8;
-            }
-
-            h2 {
-                font-size: 34px;
-            }
-        }
-    </style>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap"
         rel="stylesheet"
     >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background: #faf9f6;
+
+            color: #252525;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        .page {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 40px 25px;
+        }
+
+
+        /* Main diary title */
+
+        h1 {
+
+            margin: 0;
+
+            font-family:
+                "Caveat",
+                cursive;
+
+            font-size:
+                clamp(52px, 9vw, 76px);
+
+            font-weight: 600;
+
+            letter-spacing: 0;
+        }
+
+
+        /* Introduction */
+
+        .intro {
+
+            max-width: 520px;
+
+            margin:
+                24px auto 38px;
+
+            color: #666;
+
+            font-size: 17px;
+
+            line-height: 1.7;
+        }
+
+
+        /* Google login button */
+
+        .google-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            min-width: 260px;
+
+            padding: 13px 22px;
+
+            border:
+                1px solid #d5d5d5;
+
+            border-radius: 6px;
+
+            background: #ffffff;
+
+            color: #252525;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .google-button:hover {
+
+            background: #f7f7f7;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.08);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .google-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .google-button:disabled {
+
+            cursor: default;
+
+            transform: none;
+        }
+
+
+        /* Google G icon */
+
+        .google-icon {
+
+            width: 20px;
+
+            height: 20px;
+
+            display: block;
+
+            flex-shrink: 0;
+        }
+
+
+        /* Private archive note */
+
+        .note {
+
+            margin-top: 20px;
+
+            color: #999;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* About button */
+
+        .about-button {
+
+            margin-top: 25px;
+
+            padding: 8px 12px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #555;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            text-decoration:
+                underline;
+
+            text-underline-offset: 4px;
+
+            transition:
+                color 0.2s ease;
+        }
+
+
+        .about-button:hover {
+
+            color: #111;
+        }
+
+
+        /* Login status */
+
+        #status {
+
+            min-height: 20px;
+
+            margin-top: 15px;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        /* Footer */
+
+        footer {
+
+            position: absolute;
+
+            bottom: 28px;
+
+            color: #999;
+
+            font-size: 13px;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .page {
+
+                padding:
+                    30px 20px;
+            }
+
+
+            .intro {
+
+                font-size: 16px;
+            }
+
+
+            .google-button {
+
+                width: 100%;
+
+                max-width: 300px;
+            }
+
+
+            footer {
+
+                position: static;
+
+                margin-top: 60px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
+
     <main class="page">
 
-        <a class="back" href="index.html">
-            ← Back to JhoneVic's Diary
-        </a>
+
+        <!-- Website title -->
+
+        <h1>
+            JhoneVic's Diary
+        </h1>
 
 
-        <header>
+        <!-- Website introduction -->
 
-            <h1>
-                Who is JhoneVic?
-            </h1>
+        <p class="intro">
 
-            <p class="subtitle">
-                A personal archive of memories, thoughts,
-                experiences, and moments preserved through the years.
-            </p>
+            A personal archive of memories,
+            thoughts, experiences, and moments
+            preserved through the years.
 
-        </header>
+        </p>
 
 
-        <section>
+        <!-- Google Login -->
 
-            <h2>
-                Who is JhoneVic?
-            </h2>
+        <button
+            id="google-login"
+            class="google-button"
+            type="button"
+        >
 
-            <p>
-                JhoneVic M. Casaña is a diarist, observer, and chronicler
-                of his own life—a quiet witness to the ordinary and
-                extraordinary moments that shape a person from adolescence
-                into adulthood.
-            </p>
+            <svg
+                class="google-icon"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+            >
 
-            <p>
-                Born and raised in the Philippines, he began writing in
-                2013 at the age of 14, never imagining that his personal
-                notebook entries would one day become a documented record
-                of nearly a decade and a half of growth, heartbreak,
-                resilience, and self-discovery.
-            </p>
+                <path
+                    fill="#EA4335"
+                    d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.44 30.47 0 24 0 14.61 0 6.49 5.38 2.56 13.22l7.98 6.19C12.43 13.17 17.74 9.5 24 9.5z"
+                />
 
-        </section>
+                <path
+                    fill="#4285F4"
+                    d="M46.98 24.55c0-1.64-.15-3.22-.42-4.74H24v9h12.94c-.56 2.9-2.22 5.36-4.73 7.02l7.64 5.93C44.3 37.56 46.98 31.53 46.98 24.55z"
+                />
 
+                <path
+                    fill="#FBBC05"
+                    d="M10.54 28.91A14.46 14.46 0 0 1 9.5 24c0-1.7.37-3.34 1.04-4.91l-7.98-6.19A23.98 23.98 0 0 0 0 24c0 3.88.93 7.57 2.56 11.1l7.98-6.19z"
+                />
 
-        <section>
+                <path
+                    fill="#34A853"
+                    d="M24 48c6.48 0 11.93-2.14 15.9-5.82l-7.64-5.93c-2.12 1.42-4.84 2.25-8.26 2.25-6.26 0-11.57-3.67-13.46-8.91l-7.98 6.19C6.49 42.62 14.61 48 24 48z"
+                />
 
-            <h2>
-                The Diaries
-            </h2>
-
-            <p>
-                JhoneVic's diaries are not polished memoirs or literary
-                exercises. They are raw, unedited, and deeply honest
-                accounts of daily life—written in a natural mix of Filipino
-                and English, often switching between languages mid-sentence,
-                filled with slang, self-deprecating humor, and the unfiltered
-                voice of a young person navigating the chaos of growing up.
-            </p>
-
-            <p>
-                The collection spans three distinct periods:
-            </p>
-
-            <p>
-                <strong>2013–2014 (Ages 14–16):</strong>
-                The early years. These diaries capture the intense,
-                world-ending emotions of first love, first heartbreak,
-                and the turbulence of teenage life. At the center is his
-                complicated feelings for a classmate—a relationship that
-                would define much of his emotional landscape during these
-                years.
-            </p>
-
-            <p>
-                He writes about school, classmates, family, and a local
-                computer shop where he would often go to catch glimpses
-                of her. The tone is dramatic, playful, and deeply earnest—
-                a young person learning what it means to love, lose, and hope.
-            </p>
-
-            <p>
-                <strong>2026 (Age 27–28):</strong>
-                The adult years. The diary returns after a long silence,
-                and the voice has matured. JhoneVic is now navigating the
-                complexities of adulthood, rebuilding relationships,
-                managing the challenges of daily life, and discovering
-                new perspectives on love, family, anxiety, social awkwardness,
-                and loneliness.
-            </p>
-
-        </section>
+            </svg>
 
 
-        <section>
+            <span>
+                Continue with Google
+            </span>
 
-            <h2>
-                Key Themes
-            </h2>
-
-            <p>
-                <strong>First Love and Heartbreak:</strong>
-                JhoneVic's early diaries capture the intensity of first love—
-                the longing, jealousy, hope, rejection, and emotional whiplash
-                of being a teenager in love for the first time.
-            </p>
-
-            <p>
-                <strong>Family and Belonging:</strong>
-                Throughout the diaries, family is both a source of comfort
-                and frustration. Relationships evolve, circumstances change,
-                and different periods of living with relatives become
-                formative experiences.
-            </p>
-
-            <p>
-                <strong>Mental Health and Self-Awareness:</strong>
-                The 2026 diary marks a significant shift toward greater
-                self-reflection. The diary becomes a place to examine emotions,
-                uncertainty, relationships, and the challenges of adulthood
-                day by day.
-            </p>
-
-            <p>
-                <strong>The Act of Writing Itself:</strong>
-                Perhaps the most profound theme is JhoneVic's relationship
-                with his own diary. At 14, it was an emotional outlet.
-                By adulthood, it had become a tool for self-analysis—a mirror
-                reflecting how much a person can change while still remaining
-                recognizably themselves.
-            </p>
-
-        </section>
+        </button>
 
 
-        <section>
+        <!-- Private archive message -->
 
-            <h2>
-                Final Words
-            </h2>
+        <p class="note">
 
-            <p>
-                JhoneVic is not a famous author, a public figure, or a
-                polished storyteller. He is simply someone who chose to
-                write down his life—the good days and the bad, the moments
-                of joy and the nights of loneliness, the crushes that faded
-                and the connections that endured.
-            </p>
+            Sign in to enter the private diary archive.
 
-            <p>
-                His diaries are a testament to the power of writing:
-                not as a performance, but as a way to understand oneself.
-                They are proof that the stories of ordinary people, told
-                with honesty and vulnerability, can be just as compelling
-                as any epic.
-            </p>
+        </p>
 
-            <p>
-                He is a keeper of fragments—a collector of moments—and
-                through his words, we are invited to witness the quiet,
-                messy, and deeply human process of becoming who we are.
-            </p>
 
-            <p class="closing">
-                JhoneVic continues to write. His diaries are preserved and
-                transcribed as a personal archive—a legacy of honesty,
-                growth, and the enduring belief that our stories, no matter
-                how small, deserve to be told.
-            </p>
+        <!-- Public introduction -->
 
-        </section>
+        <button
+            id="about-button"
+            class="about-button"
+            type="button"
+        >
+
+            About This Website
+
+        </button>
+
+
+        <!-- Login status -->
+
+        <p id="status"></p>
 
 
         <footer>
+
             JhoneVic's Personal Archive
+
         </footer>
+
 
     </main>
 
+
+    <!-- Supabase -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script>
+
+
+        const SUPABASE_URL =
+            "https://ktytetimukmaqkxmzkha.supabase.co";
+
+
+        /*
+         * IMPORTANT:
+         * Put your existing Supabase Publishable Key here.
+         *
+         * Do NOT put a secret key here.
+         */
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljrI1K8N";
+
+
+        /*
+         * After Google login, return to the main
+         * website entrance.
+         */
+
+        const REDIRECT_URL =
+            "https://jhonevic44.github.io/Journal-Archived-01/index.html";
+
+
+        const { createClient } =
+            supabase;
+
+
+        const client =
+            createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        const googleButton =
+            document.getElementById(
+                "google-login"
+            );
+
+
+        const aboutButton =
+            document.getElementById(
+                "about-button"
+            );
+
+
+        const status =
+            document.getElementById(
+                "status"
+            );
+
+
+        /*
+         * About This Website
+         */
+
+        aboutButton.addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    "about.html";
+
+            }
+        );
+
+
+        /*
+         * Google Login
+         */
+
+        googleButton.addEventListener(
+            "click",
+            async () => {
+
+                googleButton.disabled =
+                    true;
+
+                status.textContent =
+                    "Opening Google sign-in...";
+
+
+                const { error } =
+                    await client.auth.signInWithOAuth({
+
+                        provider: "google",
+
+                        options: {
+
+                            redirectTo:
+                                REDIRECT_URL
+
+                        }
+
+                    });
+
+
+                if (error) {
+
+                    googleButton.disabled =
+                        false;
+
+                    status.textContent =
+                        "Login error: " +
+                        error.message;
+
+                }
+
+            }
+        );
+
+
+        /*
+         * Check existing login session
+         */
+
+        (async () => {
+
+            const {
+
+                data: { session }
+
+            } = await client.auth.getSession();
+
+
+            if (session?.user) {
+
+                const name =
+
+                    session.user
+                        .user_metadata
+                        ?.full_name ||
+
+                    session.user
+                        .user_metadata
+                        ?.name ||
+
+                    session.user.email ||
+
+                    "Google user";
+
+
+                status.textContent =
+
+                    "Signed in successfully as " +
+                    name +
+                    ".";
+
+
+            }
+
+        })();
+
+    </script>
+
+
 </body>
+
 </html>
