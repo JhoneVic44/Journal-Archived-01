@@ -31,10 +31,10 @@
 
         h1 {
             margin: 0;
-            font-family: "Caveat", cursive;
-            font-size: clamp(52px, 9vw, 76px);
-            font-weight: 600;
-            letter-spacing: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(40px, 8vw, 64px);
+            font-weight: normal;
+            letter-spacing: -1.5px;
         }
 
         .intro {
@@ -50,21 +50,15 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-
             min-width: 260px;
             padding: 13px 22px;
-
             border: 1px solid #d5d5d5;
             border-radius: 6px;
-
             background: #ffffff;
             color: #252525;
-
             font-size: 16px;
             font-weight: 500;
-
             cursor: pointer;
-
             transition:
                 background 0.2s ease,
                 box-shadow 0.2s ease,
@@ -108,7 +102,6 @@
         }
 
         @media (max-width: 600px) {
-
             .page {
                 padding: 30px 20px;
             }
@@ -140,7 +133,6 @@
             A personal archive of memories, thoughts,
             experiences, and moments preserved through the years.
         </p>
-
 
         <button
             id="google-login"
@@ -175,20 +167,17 @@
 
         </button>
 
-
         <p class="note">
             Sign in to enter the private diary archive.
         </p>
 
         <p id="status"></p>
 
-
         <footer>
             JhoneVic's Personal Archive
         </footer>
 
     </main>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -198,11 +187,10 @@
             "https://ktytetimukmaqkxmzkha.supabase.co";
 
         const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljrI1K8N";
+            "PASTE-YOUR-PUBLISHABLE-KEY-HERE";
 
         const REDIRECT_URL =
             "https://jhonevic44.github.io/Journal-Archived-01/login-test.html";
-
 
         const { createClient } = supabase;
 
@@ -211,13 +199,11 @@
             SUPABASE_PUBLISHABLE_KEY
         );
 
-
         const button =
             document.getElementById("google-login");
 
         const status =
             document.getElementById("status");
-
 
         button.addEventListener("click", async () => {
 
@@ -225,7 +211,6 @@
 
             status.textContent =
                 "Opening Google sign-in...";
-
 
             const { error } =
                 await client.auth.signInWithOAuth({
@@ -238,7 +223,6 @@
 
                 });
 
-
             if (error) {
 
                 button.disabled = false;
@@ -250,13 +234,11 @@
 
         });
 
-
         (async () => {
 
             const {
                 data: { session }
             } = await client.auth.getSession();
-
 
             if (session?.user) {
 
@@ -266,10 +248,8 @@
                     session.user.email ||
                     "Google user";
 
-
                 status.textContent =
                     "Signed in successfully as " + name + ".";
-
 
                 button.innerHTML =
                     "✓ Google account connected";
