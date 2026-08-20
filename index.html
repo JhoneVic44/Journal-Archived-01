@@ -17,10 +17,7 @@
         content="JhoneVic's personal diary archive."
     >
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
         rel="preconnect"
@@ -81,7 +78,7 @@
             padding: 13px 22px;
             border: 1px solid #d5d5d5;
             border-radius: 6px;
-            background: #ffffff;
+            background: #fff;
             color: #252525;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
@@ -95,8 +92,7 @@
 
         .google-button:hover {
             background: #f7f7f7;
-            box-shadow:
-                0 3px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
             transform: translateY(-1px);
         }
 
@@ -123,18 +119,14 @@
             line-height: 1.5;
         }
 
-        /* PUBLIC INTRODUCTION LINK */
-
         .about-button {
             display: inline-block;
             margin-top: 25px;
             padding: 8px 12px;
-            border: none;
-            background: transparent;
             color: #555;
+            background: transparent;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 14px;
-            cursor: pointer;
             text-decoration: underline;
             text-underline-offset: 4px;
         }
@@ -176,6 +168,7 @@
                 position: static;
                 margin-top: 60px;
             }
+
         }
 
     </style>
@@ -193,15 +186,11 @@
 
 
         <p class="intro">
-
             A personal archive of memories,
             thoughts, experiences, and moments
             preserved through the years.
-
         </p>
 
-
-        <!-- GOOGLE LOGIN -->
 
         <button
             id="google-login"
@@ -227,7 +216,7 @@
 
                 <path
                     fill="#FBBC05"
-                    d="M10.54 28.91A14.46 14.46 0 0 1 9.5 24c0-1.7.37-3.34 1.04-4.91l-7.98-6.19A23.98 23.98 0 0 0 0 24c0 3.88.93 7.57 2.56 11.1l7.98-6.19z"
+                    d="M10.54 28.91A14.46 14.46 0 0 1 9.5 24c0-1.7.37-3.34 1.04-4.91l-7.98-6.19C1.23 16.43 0 20.11 0 24c0 3.88.93 7.57 2.56 11.1l7.98-6.19z"
                 />
 
                 <path
@@ -236,7 +225,6 @@
                 />
 
             </svg>
-
 
             <span>
                 Continue with Google
@@ -250,11 +238,11 @@
         </p>
 
 
-        <!-- ABOUT THIS WEBSITE -->
+        <!-- PUBLIC INTRODUCTION -->
 
         <a
             class="about-button"
-            href="https://jhonevic44.github.io/Journal-Archived-01/about.html"
+            href="./introduction.html"
         >
             About This Website
         </a>
@@ -270,11 +258,7 @@
     </main>
 
 
-    <!-- SUPABASE -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
     <script>
@@ -282,12 +266,6 @@
         const SUPABASE_URL =
             "https://ktytetimukmaqkxmzkha.supabase.co";
 
-
-        /*
-         * KEEP YOUR EXISTING WORKING PUBLISHABLE KEY HERE.
-         *
-         * Do NOT use a secret key.
-         */
 
         const SUPABASE_PUBLISHABLE_KEY =
             "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljrI1K8N";
@@ -308,20 +286,12 @@
 
 
         const googleButton =
-            document.getElementById(
-                "google-login"
-            );
+            document.getElementById("google-login");
 
 
         const status =
-            document.getElementById(
-                "status"
-            );
+            document.getElementById("status");
 
-
-        /*
-         * GOOGLE LOGIN
-         */
 
         googleButton.addEventListener(
             "click",
@@ -339,10 +309,7 @@
                         provider: "google",
 
                         options: {
-
-                            redirectTo:
-                                REDIRECT_URL
-
+                            redirectTo: REDIRECT_URL
                         }
 
                     });
@@ -361,10 +328,6 @@
             }
         );
 
-
-        /*
-         * CHECK EXISTING SESSION
-         */
 
         (async () => {
 
