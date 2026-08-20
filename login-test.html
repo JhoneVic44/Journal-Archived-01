@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Google Login Test — JhoneVic's Diary</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #faf9f6;
+            color: #252525;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .card {
+            width: min(90%, 420px);
+            padding: 40px 28px;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: normal;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+            color: #252525;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #f3f3f3;
+        }
+
+        #status {
+            margin-top: 18px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+
+        <h1>JhoneVic's Diary</h1>
+
+        <p>Google sign-in test</p>
+
+        <button id="google-login">
+            Continue with Google
+        </button>
+
+        <p id="status"></p>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://ktytetimukmaqkxmzkha.supabase.co";
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "PASTE-YOUR-PUBLISHABLE-KEY-HERE";
+
+        const REDIRECT_URL =
+            "https://jhonevic44.github.io/Journal-Archived-01/login-test.html";
+
+
+        const { createClient } = supabase;
+
+        const client = createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+        const status =
+            document.getElementById("status");
+
+        const button =
+            document.getElementById("google-login");
+
+
+        button.addEventListener("click", async () => {
+
+            status.textContent =
+                "Opening Google sign-in...";
+
+            const { error } =
+                await client.auth.signInWithOAuth({
+
+                    provider: "google",
+
+                    options: {
+                        redirectTo: REDIRECT_URL
+                    }
+
+                });
+
+
+            if (error) {
+
+                status.textContent =
+                    "Login error: " + error.message;
+
+            }
+
+        });
+
+
+        (async () => {
+
+            const {
+                data: { session }
+            } = await client.auth.getSession();
+
+
+            if (session?.user) {
+
+                const name =
+                    session.user.user_metadata?.full_name ||
+                    session.user.user_metadata?.name ||
+                    session.user.email ||
+                    "Google user";
+
+
+                status.textContent =
+                    "Signed in successfully as " + name + ".";
+
+
+                button.textContent =
+                    "Google account connected";
+
+                button.disabled = true;
+
+            }
+
+        })();
+
+    </script>
+
+</body>
+</html>
