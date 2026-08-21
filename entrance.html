@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +19,7 @@
         name="description"
         content="The entrance to The Unspoken Chapters, a personal diary archive."
     >
+
 
     <!-- =========================
          SUPABASE
@@ -162,6 +163,7 @@
             position: absolute;
 
             top: 32px;
+
             right: 8%;
 
             z-index: 5;
@@ -177,6 +179,17 @@
             text-transform: uppercase;
 
             white-space: nowrap;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.4s ease;
+        }
+
+
+        .user-name.visible {
+
+            opacity: 1;
         }
 
 
@@ -535,11 +548,7 @@
     <div
         class="user-name"
         id="user-name"
-    >
-
-        Loading...
-
-    </div>
+    ></div>
 
 
     <div class="entrance-content">
@@ -604,23 +613,41 @@ const supabaseClient =
     );
 
 
-async function loadUser() {
+/* =========================
+   LOAD AUTHENTICATED USER
+========================== */
 
-    const {
-        data: {
-            user
-        },
-        error
-    } =
-        await supabaseClient.auth.getUser();
+async function loadAuthenticatedUser() {
+
+    const userNameElement =
+        document.getElementById("user-name");
 
 
     /*
-     * If there is no authenticated user,
-     * send them back to the login page.
+     * First ask Supabase for the
+     * currently restored session.
      */
 
-    if (error || !user) {
+    const {
+        data: {
+            session
+        },
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    /*
+     * If there is a real authentication
+     * error, return to login.
+     */
+
+    if (error) {
+
+        console.error(
+            "Supabase session error:",
+            error
+        );
 
         window.location.href =
             "./login.html";
@@ -631,27 +658,158 @@ async function loadUser() {
 
 
     /*
-     * Get the Google account's full name.
+     * If the OAuth session has not
+     * finished restoring yet, wait for
+     * the authentication state event.
+     */
+
+    if (!session) {
+
+        const {
+            data: {
+                subscription
+            }
+        } =
+            supabaseClient.auth.onAuthStateChange(
+                async function (
+                    event,
+                    newSession
+                ) {
+
+                    if (
+                        newSession &&
+                        newSession.user
+                    ) {
+
+                        subscription.unsubscribe();
+
+                        displayUserName(
+                            newSession.user
+                        );
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * Give Supabase a short amount
+         * of time to restore the session.
+         */
+
+        setTimeout(
+            async function () {
+
+                const {
+                    data: {
+                        session: currentSession
+                    }
+                } =
+                    await supabaseClient.auth.getSession();
+
+
+                if (
+                    currentSession &&
+                    currentSession.user
+                ) {
+
+                    subscription.unsubscribe();
+
+                    displayUserName(
+                        currentSession.user
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * No authenticated session
+                 * was found.
+                 */
+
+                subscription.unsubscribe();
+
+                window.location.href =
+                    "./login.html";
+
+            },
+            2500
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * Session already exists.
+     */
+
+    displayUserName(
+        session.user
+    );
+
+}
+
+
+/* =========================
+   DISPLAY GOOGLE FULL NAME
+========================== */
+
+function displayUserName(user) {
+
+    const userNameElement =
+        document.getElementById("user-name");
+
+
+    /*
+     * Google normally provides
+     * full_name in user_metadata.
      */
 
     const fullName =
         user.user_metadata?.full_name ||
         user.user_metadata?.name ||
-        "Reader";
+        "";
 
 
     /*
-     * Display the Google full name.
+     * If no name was supplied,
+     * don't display an incorrect
+     * fallback.
      */
 
-    document
-        .getElementById("user-name")
-        .textContent = fullName;
+    if (!fullName) {
+
+        console.warn(
+            "Google full name was not provided."
+        );
+
+        return;
+
+    }
+
+
+    userNameElement.textContent =
+        fullName;
+
+
+    userNameElement.classList.add(
+        "visible"
+    );
 
 }
 
 
-loadUser();
+/* =========================
+   START
+========================== */
+
+loadAuthenticatedUser();
 
 </script>
 
@@ -659,4 +817,4 @@ loadUser();
 </body>
 
 </html>
-
+```
