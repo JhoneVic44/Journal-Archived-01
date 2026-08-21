@@ -1,203 +1,877 @@
-/* =========================
-   MOBILE
-========================== */
+<!DOCTYPE html>
+<html lang="en">
 
-@media (max-width: 800px) {
+<head>
 
-    html,
-    body {
+    <meta charset="UTF-8">
 
-        overflow: auto;
-    }
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
+    <title>JhoneVic's Diary</title>
 
-    /* =========================
-       MOBILE NAVIGATION
-    ========================== */
 
-    nav {
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-        height: auto;
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
 
-        min-height: 110px;
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
 
-        padding:
-            18px 25px 16px;
 
-        display: flex;
+    <style>
 
-        flex-direction: column;
+        * {
+            box-sizing: border-box;
+        }
 
-        align-items: center;
 
-        justify-content: flex-start;
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-        gap: 15px;
 
-        background:
-            rgba(11,12,13,0.96);
+        body {
 
-        backdrop-filter: blur(10px);
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b0c0d,
+                    #181a1c 50%,
+                    #292b2d
+                );
 
-        -webkit-backdrop-filter: blur(10px);
-    }
+            color: #eeeae1;
 
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+        }
 
-    .logo {
 
-        padding-top: 0;
+        /* =========================
+           BACKGROUND
+        ========================== */
 
-        font-size: 11px;
+        .background {
 
-        text-align: center;
-    }
+            position: fixed;
 
+            inset: 0;
 
-    .links {
+            pointer-events: none;
 
-        width: 100%;
+            z-index: 0;
+        }
 
-        display: flex;
 
-        flex-wrap: wrap;
+        .background::before {
 
-        justify-content: center;
+            content: "";
 
-        align-items: center;
+            position: absolute;
 
-        gap:
-            10px 18px;
-    }
+            width: 800px;
 
+            height: 800px;
 
-    .links a {
+            top: -400px;
 
-        font-size: 9px;
+            right: -150px;
 
-        line-height: 1.5;
+            border-radius: 50%;
 
-        white-space: nowrap;
-    }
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.12),
+                    rgba(255,255,255,0.03) 40%,
+                    transparent 70%
+                );
+        }
 
 
-    /* =========================
-       MAIN PAGE
-    ========================== */
+        /* =========================
+           NAVIGATION
+        ========================== */
 
-    .page {
+        nav {
 
-        height: auto;
+            position: fixed;
 
-        display: block;
+            top: 0;
 
-        padding-top: 110px;
-    }
+            left: 0;
 
+            right: 0;
 
-    .left {
+            z-index: 10;
 
-        position: relative;
+            width: 100%;
 
-        top: auto;
+            height: 85px;
 
-        left: auto;
+            padding: 0 7%;
 
-        width: 100%;
+            display: flex;
 
-        height: auto;
+            align-items: center;
 
-        padding:
-            55px 25px 45px;
-    }
+            justify-content: space-between;
+        }
 
 
-    .left h1 {
+        .logo {
 
-        font-size:
-            clamp(
-                48px,
-                14vw,
-                72px
-            );
-    }
+            color: #f0ece3;
 
+            font-size: 11px;
 
-    .content {
+            font-weight: 600;
 
-        height: auto;
+            letter-spacing: 0.18em;
 
-        overflow: visible;
+            text-transform: uppercase;
+        }
 
-        padding:
-            50px 25px 90px;
-    }
 
+        .links {
 
-    .content h2 {
+            display: flex;
 
-        font-size: 36px;
-    }
+            align-items: center;
 
+            gap: 32px;
+        }
 
-    .opening,
-    .section p {
 
-        font-size: 14px;
-    }
+        .links a {
 
+            color: #aaa9a3;
 
-    footer {
+            text-decoration: none;
 
-        position: relative;
+            font-size: 10px;
 
-        left: auto;
+            letter-spacing: 0.14em;
 
-        bottom: auto;
+            text-transform: uppercase;
 
-        padding:
-            0 25px 35px;
-    }
+            transition:
+                color 0.25s ease;
+        }
 
-}
 
+        .links a:hover,
+        .links a.active {
 
-/* =========================
-   VERY SMALL PHONES
-========================== */
+            color: #eeeae1;
+        }
 
-@media (max-width: 430px) {
 
-    nav {
+        /* =========================
+           MAIN PAGE
+        ========================== */
 
-        padding:
-            17px 15px 14px;
+        .page {
 
-        gap: 13px;
-    }
+            position: relative;
 
+            z-index: 2;
 
-    .logo {
+            width: 100%;
 
-        font-size: 10px;
-    }
+            height: 100vh;
 
+            padding-top: 85px;
 
-    .links {
+            display: grid;
 
-        gap:
-            9px 14px;
-    }
+            grid-template-columns:
+                38% 62%;
+        }
 
 
-    .links a {
+        /* =========================
+           LEFT SIDE — FIXED
+        ========================== */
 
-        font-size: 8px;
-    }
+        .left {
 
+            position: fixed;
 
-    .page {
+            top: 85px;
 
-        padding-top: 105px;
-    }
+            left: 0;
 
-}
+            width: 38%;
+
+            height:
+                calc(100vh - 85px);
+
+            padding:
+                70px 12% 100px 16%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: flex-start;
+
+            z-index: 4;
+        }
+
+
+        .eyebrow {
+
+            margin-bottom: 22px;
+
+            color: #777a7d;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.3em;
+
+            text-transform: uppercase;
+        }
+
+
+        .left h1 {
+
+            margin: 0;
+
+            color: #eeeae1;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size:
+                clamp(
+                    45px,
+                    5.1vw,
+                    68px
+                );
+
+            font-weight: 400;
+
+            line-height: .95;
+
+            letter-spacing: -0.05em;
+        }
+
+
+        .left-note {
+
+            max-width: 270px;
+
+            margin-top: 30px;
+
+            color: #85878a;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           RIGHT SIDE — ONLY SCROLLS
+        ========================== */
+
+        .content {
+
+            grid-column: 2;
+
+            height:
+                calc(100vh - 85px);
+
+            overflow-y: auto;
+
+            padding:
+                100px 10% 100px 10%;
+        }
+
+
+        .content::-webkit-scrollbar {
+
+            width: 5px;
+        }
+
+
+        .content::-webkit-scrollbar-track {
+
+            background: transparent;
+        }
+
+
+        .content::-webkit-scrollbar-thumb {
+
+            background:
+                rgba(255,255,255,0.18);
+
+            border-radius: 10px;
+        }
+
+
+        .content {
+
+            scrollbar-width: thin;
+
+            scrollbar-color:
+                rgba(255,255,255,0.18)
+                transparent;
+        }
+
+
+        /* =========================
+           INTRODUCTION CONTENT
+        ========================== */
+
+        .content h2 {
+
+            margin:
+                0 0 30px;
+
+            color: #eeeae1;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size: 46px;
+
+            font-weight: 400;
+
+            line-height: 1.15;
+        }
+
+
+        .opening {
+
+            max-width: 700px;
+
+            margin:
+                0 0 65px;
+
+            color: #aaa9a3;
+
+            font-size: 16px;
+
+            line-height: 2;
+        }
+
+
+        .section {
+
+            max-width: 700px;
+
+            margin-bottom: 55px;
+        }
+
+
+        .section h3 {
+
+            margin:
+                0 0 5px;
+
+            color: #e4e0d8;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.08em;
+
+            text-transform: uppercase;
+
+            line-height: 1.4;
+        }
+
+
+        .section p {
+
+            margin: 0;
+
+            color: #999a99;
+
+            font-size: 14px;
+
+            line-height: 1.95;
+        }
+
+
+        .rule {
+
+            width: 100%;
+
+            height: 1px;
+
+            margin:
+                70px 0 45px;
+
+            background:
+                rgba(255,255,255,0.10);
+        }
+
+
+        .final {
+
+            max-width: 700px;
+
+            padding-bottom: 100px;
+
+            color: #aaa8a1;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size: 18px;
+
+            line-height: 1.9;
+
+            font-style: italic;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+
+            position: fixed;
+
+            left: 7%;
+
+            bottom: 28px;
+
+            z-index: 6;
+
+            color: #5d5f62;
+
+            font-size: 9px;
+
+            letter-spacing: 0.2em;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 800px) {
+
+            html,
+            body {
+
+                overflow: auto;
+            }
+
+
+            nav {
+
+                padding:
+                    0 25px;
+            }
+
+
+            .links {
+
+                gap: 13px;
+
+                flex-wrap: wrap;
+
+                justify-content: flex-end;
+            }
+
+
+            .links a {
+
+                font-size: 8px;
+            }
+
+
+            .page {
+
+                height: auto;
+
+                display: block;
+
+                padding-top: 85px;
+            }
+
+
+            .left {
+
+                position: relative;
+
+                top: auto;
+
+                left: auto;
+
+                width: 100%;
+
+                height: auto;
+
+                padding:
+                    55px 25px 45px;
+            }
+
+
+            .left h1 {
+
+                font-size:
+                    clamp(
+                        48px,
+                        14vw,
+                        72px
+                    );
+            }
+
+
+            .content {
+
+                height: auto;
+
+                overflow: visible;
+
+                padding:
+                    50px 25px 90px;
+            }
+
+
+            .content h2 {
+
+                font-size: 36px;
+            }
+
+
+            .opening,
+            .section p {
+
+                font-size: 14px;
+            }
+
+
+            footer {
+
+                position: relative;
+
+                left: auto;
+
+                bottom: auto;
+
+                padding:
+                    0 25px 35px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="background"></div>
+
+
+<!-- =========================
+     NAVIGATION
+========================== -->
+
+<nav>
+
+    <div class="logo">
+
+        JhoneVic's Diary
+
+    </div>
+
+
+    <div class="links">
+
+
+        <!-- HOME -->
+
+        <a
+            href="./index.html"
+            class="active"
+        >
+
+            Home
+
+        </a>
+
+
+        <!-- INTRODUCTION -->
+
+        <a href="./introduction.html">
+
+            Introduction
+
+        </a>
+
+
+        <!-- REFLECTIONS -->
+
+        <a href="./reflections.html">
+
+            Reflection | Photographs
+
+        </a>
+
+
+        <!-- TIMELINE -->
+
+        <a href="./timeline.html">
+
+            Timeline
+
+        </a>
+
+
+        <!-- LOGIN -->
+
+        <a href="./login.html">
+
+            Login
+
+        </a>
+
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     MAIN PAGE
+========================== -->
+
+<main class="page">
+
+
+    <!-- =========================
+         LEFT SIDE
+    ========================== -->
+
+    <section class="left">
+
+
+        <div class="eyebrow">
+
+            The Archive
+
+        </div>
+
+
+        <h1>
+
+            The Unspoken<br>
+            Chapters
+
+        </h1>
+
+
+        <p class="left-note">
+
+            A digital home for memories,
+            handwritten history, and the
+            ordinary moments worth preserving.
+
+        </p>
+
+
+    </section>
+
+
+    <!-- =========================
+         RIGHT SIDE
+    ========================== -->
+
+    <article class="content">
+
+
+        <h2>
+
+            About This Website
+
+        </h2>
+
+
+        <p class="opening">
+
+            This website was created to preserve
+            and share the personal diaries of
+            JhoneVic—a handwritten record of his
+            life spanning from adolescence to adulthood.
+
+        </p>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                Preservation of a Fragile History
+
+            </h3>
+
+
+            <p>
+
+                The original notebooks are aging.
+                The pages are yellowing, the ink is fading,
+                and the paper is becoming brittle.
+                Transcribing these entries into a digital
+                format ensures that the stories, thoughts,
+                and emotions they contain will not be lost
+                to time.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                Family Access and Legacy
+
+            </h3>
+
+
+            <p>
+
+                This archive is primarily intended for
+                family members—a way to look back on
+                shared memories, understand the experiences
+                that shaped their relative, and connect
+                with a personal history that might otherwise
+                be forgotten.
+
+                It is a gift for future generations:
+                a window into the life of someone they may
+                only know as a distant memory or a family name.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                Preserving the Unfiltered Truth
+
+            </h3>
+
+
+            <p>
+
+                The diaries are not edited, polished,
+                or rewritten.
+
+                They remain exactly as they were written—
+                raw, honest, and unpolished.
+
+                This website honors that authenticity by
+                presenting the entries with minimal alteration,
+                preserving the voice, the tone, and the
+                imperfections that make them real.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                A Record of Ordinary Life
+
+            </h3>
+
+
+            <p>
+
+                This is not the story of a public figure
+                or a famous person.
+
+                It is the story of an ordinary individual—
+                his crushes, his struggles, his joys,
+                his anxieties, and his quiet moments of growth.
+
+                It is a reminder that every life, no matter
+                how private, deserves to be remembered.
+
+            </p>
+
+        </section>
+
+
+        <div class="rule"></div>
+
+
+        <p class="final">
+
+            This website is an ongoing project.
+            As more entries are transcribed and preserved,
+            they will be added to this archive.
+
+            Thank you for being part of this journey.
+
+        </p>
+
+
+    </article>
+
+
+</main>
+
+
+<footer>
+
+    Personal Archive · 2013—2026
+
+</footer>
+
+
+</body>
+
+</html>
