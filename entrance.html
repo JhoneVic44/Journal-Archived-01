@@ -50,6 +50,10 @@
 
     <style>
 
+        /* =========================
+           RESET
+        ========================== */
+
         * {
             box-sizing: border-box;
         }
@@ -161,35 +165,19 @@
 
             right: 8%;
 
-            z-index: 10;
+            z-index: 5;
 
-            color: #eeeae1;
+            color: #aaa9a3;
 
-            font-size: 10px;
+            font-size: 9px;
 
-            font-weight: 600;
+            font-weight: 500;
 
             letter-spacing: 0.12em;
 
             text-transform: uppercase;
 
             white-space: nowrap;
-
-            padding:
-                8px 12px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.12);
-
-            background:
-                rgba(0,0,0,0.25);
-
-            backdrop-filter:
-                blur(8px);
-
-            -webkit-backdrop-filter:
-                blur(8px);
 
             opacity: 0;
 
@@ -395,6 +383,10 @@
             }
 
 
+            /* =========================
+               MOBILE USER NAME
+            ========================== */
+
             .user-name {
 
                 top: 22px;
@@ -495,9 +487,6 @@
                 right: 20px;
 
                 font-size: 7px;
-
-                padding:
-                    6px 9px;
             }
 
 
@@ -558,8 +547,7 @@
     <div
         class="user-name"
         id="user-name"
-    >
-    </div>
+    ></div>
 
 
     <div class="entrance-content">
@@ -625,19 +613,44 @@ const supabaseClient =
 
 
 /* =================================================
-   SHOW USER NAME
+   DISPLAY GOOGLE USER NAME
 ================================================= */
 
-function showUserName(user) {
+function displayUserName(user) {
 
-    const element =
+    const userNameElement =
         document.getElementById("user-name");
 
 
-    if (!element) {
+    if (!user || !userNameElement) {
 
-        console.error(
-            "User name element was not found."
+        return;
+
+    }
+
+
+    /*
+     * Google normally supplies
+     * the user's full name through
+     * user_metadata.
+     */
+
+    const fullName =
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        "";
+
+
+    /*
+     * If Google did not provide
+     * a name, simply leave the
+     * username area hidden.
+     */
+
+    if (!fullName) {
+
+        console.warn(
+            "Google full name was not provided."
         );
 
         return;
@@ -645,165 +658,75 @@ function showUserName(user) {
     }
 
 
-    if (!user) {
-
-        console.error(
-            "No user object received."
-        );
-
-        return;
-
-    }
+    userNameElement.textContent =
+        fullName;
 
 
-    console.log(
-        "Logged-in user:",
-        user
-    );
-
-
-    console.log(
-        "Google/Supabase metadata:",
-        user.user_metadata
-    );
-
-
-    const metadata =
-        user.user_metadata || {};
-
-
-    /*
-     * Check the common Google
-     * profile-name fields.
-     */
-
-    let name =
-        metadata.full_name;
-
-
-    if (!name) {
-
-        name =
-            metadata.name;
-
-    }
-
-
-    if (!name) {
-
-        name =
-            metadata.given_name;
-
-    }
-
-
-    if (!name) {
-
-        name =
-            metadata.first_name;
-
-    }
-
-
-    if (!name) {
-
-        name =
-            metadata.preferred_username;
-
-    }
-
-
-    /*
-     * Last fallback:
-     * use the email address.
-     */
-
-    if (!name) {
-
-        name =
-            user.email;
-
-    }
-
-
-    if (!name) {
-
-        name =
-            "Google User";
-
-    }
-
-
-    /*
-     * Put the name into the page.
-     */
-
-    element.textContent =
-        name;
-
-
-    /*
-     * Make the name visible.
-     */
-
-    element.classList.add(
+    userNameElement.classList.add(
         "visible"
-    );
-
-
-    console.log(
-        "Name displayed:",
-        name
     );
 
 }
 
 
 /* =================================================
-   CHECK CURRENT USER
+   CHECK CURRENT AUTHENTICATION
 ================================================= */
 
-async function checkUser() {
+async function checkAuthentication() {
 
     console.log(
-        "Checking current Google login..."
+        "Checking Supabase authentication..."
     );
 
-
-    /*
-     * getUser() asks Supabase's
-     * authentication server for
-     * the authenticated user.
-     */
 
     const {
         data,
         error
     } =
-        await supabaseClient.auth.getUser();
+        await supabaseClient.auth.getSession();
 
 
     if (error) {
 
         console.error(
-            "getUser() error:",
+            "Unable to check authentication:",
             error
         );
 
+        /*
+         * IMPORTANT:
+         *
+         * Do NOT immediately redirect to login.
+         *
+         * The OAuth callback/session restoration
+         * can still be completing.
+         */
+
         return;
 
     }
 
 
-    const user =
-        data?.user;
+    const session =
+        data?.session;
 
 
-    if (user) {
+    if (
+        session &&
+        session.user
+    ) {
 
-        showUserName(
-            user
+        console.log(
+            "Authenticated user found:",
+            session.user.email
         );
+
+
+        displayUserName(
+            session.user
+        );
+
 
         return;
 
@@ -811,80 +734,97 @@ async function checkUser() {
 
 
     /*
-     * If there isn't a user yet,
-     * listen for the OAuth session.
+     * No session is currently available.
+     *
+     * We DO NOT redirect here.
+     *
+     * Instead, we wait for Supabase's
+     * authentication event below.
      */
 
     console.log(
-        "Waiting for authentication..."
-    );
-
-
-    const {
-        data: authData
-    } =
-        supabaseClient.auth.onAuthStateChange(
-            function (
-                event,
-                session
-            ) {
-
-                console.log(
-                    "Authentication event:",
-                    event
-                );
-
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showUserName(
-                        session.user
-                    );
-
-                }
-
-            }
-        );
-
-
-    /*
-     * Check again after a short delay.
-     */
-
-    setTimeout(
-        async function () {
-
-            const {
-                data: {
-                    user: currentUser
-                }
-            } =
-                await supabaseClient.auth.getUser();
-
-
-            if (currentUser) {
-
-                showUserName(
-                    currentUser
-                );
-
-            }
-
-        },
-        1500
+        "No session yet. Waiting for Supabase authentication..."
     );
 
 }
 
 
 /* =================================================
-   START
+   LISTEN FOR AUTHENTICATION EVENTS
 ================================================= */
 
-checkUser();
+const {
+    data: {
+        subscription
+    }
+} =
+    supabaseClient.auth.onAuthStateChange(
+        function (
+            event,
+            session
+        ) {
+
+            console.log(
+                "Supabase auth event:",
+                event
+            );
+
+
+            /*
+             * Google login completed.
+             */
+
+            if (
+                event === "SIGNED_IN" &&
+                session &&
+                session.user
+            ) {
+
+                console.log(
+                    "Google login successful."
+                );
+
+
+                displayUserName(
+                    session.user
+                );
+
+            }
+
+
+            /*
+             * Supabase may also restore an
+             * existing session through
+             * INITIAL_SESSION.
+             */
+
+            if (
+                event === "INITIAL_SESSION" &&
+                session &&
+                session.user
+            ) {
+
+                console.log(
+                    "Existing session restored."
+                );
+
+
+                displayUserName(
+                    session.user
+                );
+
+            }
+
+        }
+    );
+
+
+/* =================================================
+   START AUTHENTICATION CHECK
+================================================= */
+
+checkAuthentication();
+
 
 </script>
 
