@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +10,6 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-
-    <!-- =========================
-         GOOGLE / SEO
-    ========================== -->
 
     <title>
         Who is JhoneVic M. Casaña? | JhoneVic's Diary
@@ -37,11 +34,6 @@
         rel="canonical"
         href="https://jhonevic44.github.io/Journal-Archived-01/introduction.html"
     >
-
-
-    <!-- =========================
-         OPEN GRAPH
-    ========================== -->
 
     <meta
         property="og:type"
@@ -78,11 +70,6 @@
         content="JhoneVic in 2013"
     >
 
-
-    <!-- =========================
-         TWITTER / X
-    ========================== -->
-
     <meta
         name="twitter:card"
         content="summary_large_image"
@@ -102,11 +89,6 @@
         name="twitter:image"
         content="https://raw.githubusercontent.com/JhoneVic44/Journal-Archived-01/main/493435368_3950431161874319_5839165339105535926_n.jpg"
     >
-
-
-    <!-- =========================
-         PERSON STRUCTURED DATA
-    ========================== -->
 
     <script type="application/ld+json">
     {
@@ -129,11 +111,6 @@
     }
     </script>
 
-
-    <!-- =========================
-         WEBSITE STRUCTURED DATA
-    ========================== -->
-
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -149,11 +126,6 @@
         }
     }
     </script>
-
-
-    <!-- =========================
-         WEB PAGE STRUCTURED DATA
-    ========================== -->
 
     <script type="application/ld+json">
     {
@@ -179,11 +151,6 @@
     }
     </script>
 
-
-    <!-- =========================
-         FONTS
-    ========================== -->
-
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -200,27 +167,21 @@
         rel="stylesheet"
     >
 
-
     <style>
 
         * {
             box-sizing: border-box;
         }
 
-
         html,
         body {
             margin: 0;
-
             width: 100%;
             height: 100%;
-
             overflow: hidden;
         }
 
-
         body {
-
             background:
                 linear-gradient(
                     135deg,
@@ -237,35 +198,20 @@
                 sans-serif;
         }
 
-
-        /* =========================
-           BACKGROUND
-        ========================== */
-
         .background {
-
             position: fixed;
-
             inset: 0;
-
             pointer-events: none;
-
             z-index: 0;
         }
 
-
         .background::before {
-
             content: "";
-
             position: absolute;
-
             width: 800px;
             height: 800px;
-
             top: -400px;
             right: -150px;
-
             border-radius: 50%;
 
             background:
@@ -277,113 +223,57 @@
                 );
         }
 
-
-        .background::after {
-
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-            bottom: 0;
-
-            left: 9%;
-
-            width: 1px;
-
-            background:
-                rgba(255,255,255,0.08);
-        }
-
-
-        /* =========================
-           NAVIGATION
-        ========================== */
+        /* Left vertical background line removed */
 
         nav {
-
             position: fixed;
-
             top: 0;
             left: 0;
             right: 0;
-
             z-index: 10;
-
             height: 85px;
-
             padding: 0 7%;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
         }
 
-
         .logo {
-
             color: #f0ece3;
-
             font-size: 11px;
-
             font-weight: 600;
-
             letter-spacing: 0.18em;
-
             text-transform: uppercase;
         }
 
-
         .links {
-
             display: flex;
-
             align-items: center;
-
             gap: 32px;
         }
 
-
         .links a {
-
             color: #aaa9a3;
-
             text-decoration: none;
-
             font-size: 10px;
-
             letter-spacing: 0.14em;
-
             text-transform: uppercase;
 
             transition:
                 color 0.25s ease;
         }
 
-
         .links a:hover,
         .links .active {
-
             color: #eeeae1;
         }
 
-
-        /* =========================
-           PAGE
-        ========================== */
-
         .page {
-
             position: relative;
-
             z-index: 2;
-
             width: 100%;
-
             height: 100vh;
-
             padding-top: 85px;
 
             display: grid;
@@ -392,56 +282,34 @@
                 30% 70%;
         }
 
-
-        /* =========================
-           LEFT SIDE
-        ========================== */
-
         .left {
-
             position: fixed;
-
             top: 85px;
             left: 0;
-
             width: 30%;
-
-            height:
-                calc(100vh - 85px);
+            height: calc(100vh - 85px);
 
             padding:
                 70px 5% 80px 13%;
 
             display: flex;
-
             flex-direction: column;
-
             justify-content: flex-start;
 
             z-index: 4;
         }
 
-
         .eyebrow {
-
             margin-bottom: 22px;
-
             color: #777a7d;
-
             font-size: 10px;
-
             font-weight: 600;
-
             letter-spacing: 0.3em;
-
             text-transform: uppercase;
         }
 
-
         .left h1 {
-
             margin: 0;
-
             color: #eeeae1;
 
             font-family:
@@ -457,34 +325,23 @@
                 );
 
             font-weight: 400;
-
             line-height: .95;
-
             letter-spacing: -0.05em;
         }
 
-
-        
         .left-note {
-
             max-width: 220px;
-
             margin-top: 25px;
-
             color: #777a7d;
-
             font-size: 11px;
-
             line-height: 1.8;
         }
-
 
         /* =========================
            RIGHT CONTENT
         ========================== */
 
         .content {
-
             grid-column: 2;
 
             height:
@@ -492,34 +349,31 @@
 
             overflow-y: auto;
 
+            /*
+             * Moved the introduction content upward.
+             * Previous: 90px
+             * New: 55px
+             */
             padding:
-                90px 8% 120px 16%;
+                55px 8% 120px 16%;
         }
 
-
         .content::-webkit-scrollbar {
-
             width: 5px;
         }
 
-
         .content::-webkit-scrollbar-track {
-
             background: transparent;
         }
 
-
         .content::-webkit-scrollbar-thumb {
-
             background:
                 rgba(255,255,255,0.18);
 
             border-radius: 10px;
         }
 
-
         .content {
-
             scrollbar-width: thin;
 
             scrollbar-color:
@@ -527,47 +381,24 @@
                 transparent;
         }
 
-
-        /* =========================
-           ARTICLE
-        ========================== */
-
         article {
-
             max-width: 820px;
         }
 
-
         .article-label {
-
             margin-bottom: 12px;
-
             color: #777a7d;
-
             font-size: 10px;
-
             font-weight: 600;
-
             letter-spacing: 0.25em;
-
             text-transform: uppercase;
-
             text-align: left;
         }
 
-
-        /* =========================
-           PHOTOGRAPH
-        ========================== */
-
         .intro-photo {
-
             display: block;
-
             width: 220px;
-
             max-width: 100%;
-
             height: auto;
 
             margin:
@@ -588,9 +419,7 @@
             opacity: 0.96;
         }
 
-
         .photo-caption {
-
             margin:
                 -5px 0 20px;
 
@@ -599,21 +428,12 @@
             color: #777a7d;
 
             font-size: 9px;
-
             letter-spacing: 0.16em;
-
             text-transform: uppercase;
-
             text-align: center;
         }
 
-
-        /* =========================
-           MAIN TITLE
-        ========================== */
-
         article h2 {
-
             margin:
                 0 0 14px;
 
@@ -625,93 +445,54 @@
                 serif;
 
             font-size: 46px;
-
             font-weight: 400;
-
             line-height: 1.15;
-
             letter-spacing: -0.04em;
         }
 
-
-        /* =========================
-           SECTION TITLES
-        ========================== */
-
         article h3 {
-
             margin:
                 32px 0 4px;
 
             color: #e4e0d8;
 
             font-size: 16px;
-
             font-weight: 600;
-
             letter-spacing: 0.1em;
-
             text-transform: uppercase;
-
             line-height: 1.35;
         }
 
-
         article h4 {
-
             margin:
                 18px 0 3px;
 
             color: #ddd9d0;
 
             font-size: 13px;
-
             font-weight: 600;
-
             line-height: 1.4;
         }
 
-
-        /* =========================
-           PARAGRAPHS
-        ========================== */
-
         article p {
-
             margin: 0;
-
             color: #aaa9a3;
-
             font-size: 15px;
-
             line-height: 2;
         }
-
 
         article h2 + p {
-
             color: #b9b6ae;
-
             font-size: 17px;
-
             line-height: 2;
         }
 
-
         .period {
-
             margin-top: 20px;
         }
 
-
-        /* =========================
-           FINAL
-        ========================== */
-
         .final-rule {
-
             width: 100%;
-
             height: 1px;
 
             margin:
@@ -721,11 +502,8 @@
                 rgba(255,255,255,0.10);
         }
 
-
         .final-words {
-
             margin: 0;
-
             color: #e0dcd4;
 
             font-family:
@@ -741,15 +519,11 @@
                 );
 
             font-weight: 400;
-
             line-height: 1.35;
         }
 
-
         .closing {
-
             margin-top: 30px;
-
             padding-bottom: 70px;
 
             color: #888985;
@@ -760,36 +534,22 @@
                 serif;
 
             font-size: 16px;
-
             line-height: 1.9;
-
             font-style: italic;
         }
 
-
-        /* =========================
-           FOOTER
-        ========================== */
-
         footer {
-
             position: fixed;
-
             left: 18%;
-
             bottom: 28px;
-
             z-index: 6;
 
             color: #5d5f62;
 
             font-size: 9px;
-
             letter-spacing: 0.2em;
-
             text-transform: uppercase;
         }
-
 
         /* =========================
            MOBILE
@@ -799,64 +559,40 @@
 
             html,
             body {
-
                 overflow: auto;
             }
 
-
-            .background::after {
-
-                display: none;
-            }
-
-
             nav {
-
                 padding:
                     0 25px;
             }
 
-
             .links {
-
                 gap: 13px;
             }
 
-
             .links a {
-
                 font-size: 8px;
             }
 
-
             .page {
-
                 height: auto;
-
                 display: block;
-
                 padding-top: 85px;
             }
 
-
             .left {
-
                 position: relative;
-
                 top: auto;
                 left: auto;
-
                 width: 100%;
-
                 height: auto;
 
                 padding:
                     55px 25px 45px;
             }
 
-
             .left h1 {
-
                 font-size:
                     clamp(
                         48px,
@@ -865,61 +601,45 @@
                     );
             }
 
-
             .content {
-
                 height: auto;
-
                 overflow: visible;
 
+                /*
+                 * Also moved mobile content upward.
+                 */
                 padding:
-                    45px 25px 80px;
+                    25px 25px 80px;
             }
 
-
             .intro-photo {
-
                 width: 200px;
 
                 margin:
                     0 0 18px 0;
             }
 
-
             .photo-caption {
-
                 width: 200px;
             }
 
-
             article h2 {
-
                 font-size: 46px;
-
                 margin-bottom: 14px;
             }
 
-
             article h3 {
-
                 font-size: 14px;
             }
 
-
             article p {
-
                 font-size: 14px;
-
                 line-height: 1.9;
             }
 
-
             footer {
-
                 position: relative;
-
                 left: auto;
-
                 bottom: auto;
 
                 padding:
@@ -934,7 +654,6 @@
 
 
 <body>
-
 
 <div class="background"></div>
 
@@ -954,54 +673,28 @@
 
     <div class="links">
 
-
-        <!-- HOME -->
-
         <a href="./index.html">
-
             Home
-
         </a>
-
-
-        <!-- INTRODUCTION -->
 
         <a
             href="./introduction.html"
             class="active"
         >
-
             Introduction
-
         </a>
-
-
-        <!-- REFLECTIONS -->
 
         <a href="./reflections.html">
-
             Reflection | Photographs
-
         </a>
-
-
-        <!-- TIMELINE -->
 
         <a href="./timeline.html">
-
             Timeline
-
         </a>
-
-
-        <!-- LOGIN -->
 
         <a href="./login.html">
-
             Login
-
         </a>
-
 
     </div>
 
@@ -1015,29 +708,17 @@
 <main class="page">
 
 
-    <!-- =========================
-         LEFT SIDE
-    ========================== -->
-
     <section class="left">
 
-
         <div class="eyebrow">
-
             The Archive
-
         </div>
 
-
         <h1>
-
             The Unspoken<br>
             Chapters
-
         </h1>
 
-
-       
         <p class="left-note">
 
             A digital home for memories,
@@ -1046,28 +727,17 @@
 
         </p>
 
-
     </section>
 
 
-    <!-- =========================
-         RIGHT SIDE
-    ========================== -->
-
     <section class="content">
-
 
         <article>
 
-
             <div class="article-label">
-
                 The Person Behind the Diaries
-
             </div>
 
-
-            <!-- 2013 PHOTOGRAPH -->
 
             <img
                 class="intro-photo"
@@ -1077,16 +747,12 @@
 
 
             <div class="photo-caption">
-
                 JhoneVic · 2013
-
             </div>
 
 
             <h2>
-
                 Who is JhoneVic?
-
             </h2>
 
 
@@ -1109,9 +775,7 @@
 
 
             <h3>
-
                 The Diaries
-
             </h3>
 
 
@@ -1132,13 +796,9 @@
 
             <div class="period">
 
-
                 <h4>
-
                     2013–2014 (Ages 14–16):
-
                 </h4>
-
 
                 <p>
 
@@ -1159,19 +819,14 @@
 
                 </p>
 
-
             </div>
 
 
             <div class="period">
 
-
                 <h4>
-
                     2026 (Age 27–28):
-
                 </h4>
-
 
                 <p>
 
@@ -1191,30 +846,19 @@
 
                 </p>
 
-
             </div>
 
 
-            <!-- =========================
-                 KEY THEMES
-            ========================== -->
-
             <h3>
-
                 Key Themes
-
             </h3>
 
 
             <div class="period">
 
-
                 <h4>
-
                     First Love and Heartbreak:
-
                 </h4>
-
 
                 <p>
 
@@ -1230,19 +874,14 @@
 
                 </p>
 
-
             </div>
 
 
             <div class="period">
 
-
                 <h4>
-
                     Family and Belonging:
-
                 </h4>
-
 
                 <p>
 
@@ -1259,19 +898,14 @@
 
                 </p>
 
-
             </div>
 
 
             <div class="period">
 
-
                 <h4>
-
                     Mental Health and Self-Awareness:
-
                 </h4>
-
 
                 <p>
 
@@ -1287,19 +921,14 @@
 
                 </p>
 
-
             </div>
 
 
             <div class="period">
 
-
                 <h4>
-
                     The Act of Writing Itself:
-
                 </h4>
-
 
                 <p>
 
@@ -1317,21 +946,14 @@
 
                 </p>
 
-
             </div>
 
-
-            <!-- =========================
-                 FINAL WORDS
-            ========================== -->
 
             <div class="final-rule"></div>
 
 
             <h3>
-
                 Final Words
-
             </h3>
 
 
@@ -1383,12 +1005,9 @@
 
             </p>
 
-
         </article>
 
-
     </section>
-
 
 </main>
 
@@ -1403,3 +1022,4 @@
 </body>
 
 </html>
+```
