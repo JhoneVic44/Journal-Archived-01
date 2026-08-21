@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +20,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.googleapis.com"
+        href="https://fonts.gstatic.com"
         crossorigin
     >
 
@@ -96,11 +95,9 @@
             position: absolute;
 
             width: 800px;
-
             height: 800px;
 
             top: -400px;
-
             right: -150px;
 
             border-radius: 50%;
@@ -124,13 +121,10 @@
             position: fixed;
 
             top: 0;
-
             left: 0;
             right: 0;
 
             z-index: 10;
-
-            width: 100%;
 
             height: 85px;
 
@@ -200,6 +194,7 @@
 
         /* =========================
            MAIN PAGE
+           MATCHED TO INTRODUCTION
         ========================== */
 
         .page {
@@ -217,12 +212,13 @@
             display: grid;
 
             grid-template-columns:
-                38% 62%;
+                30% 70%;
         }
 
 
         /* =========================
-           LEFT SIDE — FIXED
+           LEFT SIDE
+           MATCHED TO INTRODUCTION
         ========================== */
 
         .left {
@@ -230,16 +226,15 @@
             position: fixed;
 
             top: 85px;
-
             left: 0;
 
-            width: 38%;
+            width: 30%;
 
             height:
                 calc(100vh - 85px);
 
             padding:
-                70px 12% 100px 16%;
+                55px 5% 80px 13%;
 
             display: flex;
 
@@ -295,20 +290,21 @@
 
         .left-note {
 
-            max-width: 270px;
+            max-width: 220px;
 
-            margin-top: 30px;
+            margin-top: 25px;
 
-            color: #85878a;
+            color: #777a7d;
 
-            font-size: 13px;
+            font-size: 11px;
 
             line-height: 1.8;
         }
 
 
         /* =========================
-           RIGHT SIDE — ONLY SCROLLS
+           RIGHT SIDE
+           MATCHED TO INTRODUCTION
         ========================== */
 
         .content {
@@ -321,7 +317,7 @@
             overflow-y: auto;
 
             padding:
-                100px 10% 100px 10%;
+                65px 8% 120px 16%;
         }
 
 
@@ -377,6 +373,8 @@
             font-weight: 400;
 
             line-height: 1.15;
+
+            letter-spacing: -0.04em;
         }
 
 
@@ -477,7 +475,7 @@
 
             position: fixed;
 
-            left: 7%;
+            left: 18%;
 
             bottom: 28px;
 
@@ -529,7 +527,6 @@
             /* =========================
                MOBILE NAVIGATION
                MATCHES INTRODUCTION
-               AND REFLECTION
             ========================== */
 
             nav {
@@ -537,15 +534,16 @@
                 position: fixed;
 
                 top: 0;
-
                 left: 0;
                 right: 0;
 
+                z-index: 1000;
+
                 width: 100%;
 
-                height: auto;
+                min-height: auto;
 
-                min-height: 0;
+                height: auto;
 
                 padding:
                     22px 20px 18px;
@@ -568,8 +566,6 @@
 
                 -webkit-backdrop-filter:
                     blur(10px);
-
-                z-index: 10;
             }
 
 
@@ -635,7 +631,7 @@
 
                 display: block;
 
-                padding-top: 145px;
+                padding-top: 120px;
             }
 
 
@@ -648,7 +644,6 @@
                 position: relative;
 
                 top: auto;
-
                 left: auto;
 
                 width: 100%;
@@ -842,6 +837,14 @@
 
             nav {
 
+                position: fixed;
+
+                top: 0;
+                left: 0;
+                right: 0;
+
+                z-index: 1000;
+
                 padding:
                     20px 15px 16px;
 
@@ -872,7 +875,7 @@
 
             .page {
 
-                padding-top: 135px;
+                padding-top: 105px;
             }
 
 
@@ -1225,4 +1228,3 @@
 </body>
 
 </html>
-
