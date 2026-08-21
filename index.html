@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,26 +11,19 @@
 
     <title>JhoneVic's Diary</title>
 
-
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap"
         rel="stylesheet"
     >
 
-
     <style>
 
         * {
             box-sizing: border-box;
         }
-
 
         html,
         body {
@@ -41,9 +33,7 @@
             overflow: hidden;
         }
 
-
         body {
-
             background:
                 linear-gradient(
                     135deg,
@@ -60,35 +50,22 @@
                 sans-serif;
         }
 
-
-        /* =========================
-           BACKGROUND
-        ========================= */
-
         .background {
-
             position: fixed;
-
             inset: 0;
-
             pointer-events: none;
-
             z-index: 0;
         }
 
-
         .background::before {
-
             content: "";
 
             position: absolute;
 
             width: 800px;
-
             height: 800px;
 
             top: -400px;
-
             right: -150px;
 
             border-radius: 50%;
@@ -102,17 +79,12 @@
                 );
         }
 
-
-        /* Decorative vertical line */
-
         .background::after {
-
             content: "";
 
             position: absolute;
 
             top: 0;
-
             bottom: 0;
 
             left: 9%;
@@ -123,25 +95,20 @@
                 rgba(255,255,255,0.08);
         }
 
-
         /* =========================
            NAVIGATION
-        ========================= */
+        ========================== */
 
         nav {
-
             position: fixed;
 
             top: 0;
-
             left: 0;
-
             right: 0;
 
             z-index: 10;
 
             width: 100%;
-
             height: 85px;
 
             padding: 0 7%;
@@ -149,13 +116,10 @@
             display: flex;
 
             align-items: center;
-
             justify-content: space-between;
         }
 
-
         .logo {
-
             color: #f0ece3;
 
             font-size: 11px;
@@ -167,9 +131,7 @@
             text-transform: uppercase;
         }
 
-
         .links {
-
             display: flex;
 
             align-items: center;
@@ -177,9 +139,7 @@
             gap: 32px;
         }
 
-
         .links a {
-
             color: #aaa9a3;
 
             text-decoration: none;
@@ -194,25 +154,30 @@
                 color 0.25s ease;
         }
 
-
         .links a:hover {
-
             color: #eeeae1;
         }
 
+        /* LOGIN LINK */
+
+        .links .login-link {
+            color: #aaa9a3;
+        }
+
+        .links .login-link:hover {
+            color: #eeeae1;
+        }
 
         /* =========================
            MAIN PAGE
-        ========================= */
+        ========================== */
 
         .page {
-
             position: relative;
 
             z-index: 2;
 
             width: 100%;
-
             height: 100vh;
 
             padding-top: 85px;
@@ -223,28 +188,20 @@
                 38% 62%;
         }
 
-
         /* =========================
-           LEFT SIDE — FIXED
-        ========================= */
+           LEFT SIDE
+        ========================== */
 
         .left {
-
             position: fixed;
 
             top: 85px;
-
             left: 0;
 
             width: 38%;
 
             height:
                 calc(100vh - 85px);
-
-            /*
-             * Elevated position and
-             * slightly smaller title.
-             */
 
             padding:
                 70px 12% 100px 16%;
@@ -258,9 +215,7 @@
             z-index: 4;
         }
 
-
         .eyebrow {
-
             margin-bottom: 22px;
 
             color: #777a7d;
@@ -274,9 +229,7 @@
             text-transform: uppercase;
         }
 
-
         .left h1 {
-
             margin: 0;
 
             color: #eeeae1;
@@ -285,10 +238,6 @@
                 "Playfair Display",
                 Georgia,
                 serif;
-
-            /*
-             * Reduced from the previous size.
-             */
 
             font-size:
                 clamp(
@@ -304,9 +253,7 @@
             letter-spacing: -0.05em;
         }
 
-
         .left-note {
-
             max-width: 270px;
 
             margin-top: 30px;
@@ -318,13 +265,11 @@
             line-height: 1.8;
         }
 
-
         /* =========================
-           RIGHT SIDE — ONLY SCROLLS
-        ========================= */
+           RIGHT SIDE
+        ========================== */
 
         .content {
-
             grid-column: 2;
 
             height:
@@ -336,30 +281,22 @@
                 100px 10% 100px 10%;
         }
 
-
         .content::-webkit-scrollbar {
-
             width: 5px;
         }
 
-
         .content::-webkit-scrollbar-track {
-
             background: transparent;
         }
 
-
         .content::-webkit-scrollbar-thumb {
-
             background:
                 rgba(255,255,255,0.18);
 
             border-radius: 10px;
         }
 
-
         .content {
-
             scrollbar-width: thin;
 
             scrollbar-color:
@@ -367,13 +304,11 @@
                 transparent;
         }
 
-
         /* =========================
            INTRODUCTION CONTENT
-        ========================= */
+        ========================== */
 
         .content h2 {
-
             margin:
                 0 0 30px;
 
@@ -391,9 +326,7 @@
             line-height: 1.15;
         }
 
-
         .opening {
-
             max-width: 700px;
 
             margin:
@@ -406,19 +339,13 @@
             line-height: 2;
         }
 
-
         .section {
-
             max-width: 700px;
 
             margin-bottom: 55px;
         }
 
-
-        /* Heading and sentence remain close */
-
         .section h3 {
-
             margin:
                 0 0 5px;
 
@@ -435,9 +362,7 @@
             line-height: 1.4;
         }
 
-
         .section p {
-
             margin: 0;
 
             color: #999a99;
@@ -447,9 +372,7 @@
             line-height: 1.95;
         }
 
-
         .rule {
-
             width: 100%;
 
             height: 1px;
@@ -461,9 +384,7 @@
                 rgba(255,255,255,0.10);
         }
 
-
         .final {
-
             max-width: 700px;
 
             padding-bottom: 100px;
@@ -482,13 +403,11 @@
             font-style: italic;
         }
 
-
         /* =========================
            FOOTER
-        ========================= */
+        ========================== */
 
         footer {
-
             position: fixed;
 
             left: 7%;
@@ -506,47 +425,35 @@
             text-transform: uppercase;
         }
 
-
         /* =========================
            MOBILE
-        ========================= */
+        ========================== */
 
         @media (max-width: 800px) {
 
             html,
             body {
-
                 overflow: auto;
             }
 
-
             .background::after {
-
                 display: none;
             }
 
-
             nav {
-
                 padding:
                     0 25px;
             }
 
-
             .links {
-
                 gap: 14px;
             }
 
-
             .links a {
-
                 font-size: 8px;
             }
 
-
             .page {
-
                 height: auto;
 
                 display: block;
@@ -554,13 +461,10 @@
                 padding-top: 85px;
             }
 
-
             .left {
-
                 position: relative;
 
                 top: auto;
-
                 left: auto;
 
                 width: 100%;
@@ -571,9 +475,7 @@
                     55px 25px 45px;
             }
 
-
             .left h1 {
-
                 font-size:
                     clamp(
                         48px,
@@ -582,9 +484,7 @@
                     );
             }
 
-
             .content {
-
                 height: auto;
 
                 overflow: visible;
@@ -593,32 +493,24 @@
                     50px 25px 90px;
             }
 
-
             .content h2 {
-
                 font-size: 36px;
             }
 
-
             .opening,
             .section p {
-
                 font-size: 14px;
             }
 
-
             footer {
-
                 position: relative;
 
                 left: auto;
-
                 bottom: auto;
 
                 padding:
                     0 25px 35px;
             }
-
         }
 
     </style>
@@ -627,7 +519,6 @@
 
 
 <body>
-
 
 <div class="background"></div>
 
@@ -639,9 +530,7 @@
 <nav>
 
     <div class="logo">
-
         JhoneVic's Diary
-
     </div>
 
 
@@ -651,18 +540,24 @@
             Introduction
         </a>
 
-
         <a href="reflections.html">
             Reflection | Photographs
         </a>
-
 
         <a href="timeline.html">
             Timeline
         </a>
 
+        <!--
+            Clicking Login sends the visitor
+            directly to login.html.
+            Google authentication is handled there.
+        -->
 
-        <a href="login.html">
+        <a
+            href="login.html"
+            class="login-link"
+        >
             Login
         </a>
 
@@ -682,19 +577,14 @@
 
     <section class="left">
 
-
         <div class="eyebrow">
-
             The Archive
-
         </div>
 
 
         <h1>
-
             The Unspoken<br>
             Chapters
-
         </h1>
 
 
@@ -706,7 +596,6 @@
 
         </p>
 
-
     </section>
 
 
@@ -716,9 +605,7 @@
 
 
         <h2>
-
             About This Website
-
         </h2>
 
 
@@ -734,13 +621,9 @@
 
         <section class="section">
 
-
             <h3>
-
                 Preservation of a Fragile History
-
             </h3>
-
 
             <p>
 
@@ -759,13 +642,9 @@
 
         <section class="section">
 
-
             <h3>
-
                 Family Access and Legacy
-
             </h3>
-
 
             <p>
 
@@ -787,13 +666,9 @@
 
         <section class="section">
 
-
             <h3>
-
                 Preserving the Unfiltered Truth
-
             </h3>
-
 
             <p>
 
@@ -815,13 +690,9 @@
 
         <section class="section">
 
-
             <h3>
-
                 A Record of Ordinary Life
-
             </h3>
-
 
             <p>
 
@@ -861,9 +732,7 @@
 
 
 <footer>
-
     Personal Archive · 2013—2026
-
 </footer>
 
 
