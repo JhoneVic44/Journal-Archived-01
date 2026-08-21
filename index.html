@@ -3,461 +3,596 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Login | JhoneVic's Diary</title>
+    <title>JhoneVic's Diary</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
-    rel="stylesheet"
->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
 
-<style>
 
-* {
-    box-sizing: border-box;
-}
+    <style>
 
-html,
-body {
-    margin: 0;
-    width: 100%;
-    min-height: 100%;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-body {
 
-    min-height: 100vh;
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-    background:
-        linear-gradient(
-            135deg,
-            #0b0c0d,
-            #181a1c 50%,
-            #292b2d
-        );
 
-    color: #eeeae1;
+        body {
 
-    font-family:
-        "Manrope",
-        Arial,
-        sans-serif;
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b0c0d,
+                    #181a1c 50%,
+                    #292b2d
+                );
 
-    display: flex;
-    flex-direction: column;
-}
+            color: #eeeae1;
 
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+        }
 
-/* =========================
-   BACKGROUND
-========================= */
 
-.background {
+        /* =========================
+           BACKGROUND
+        ========================= */
 
-    position: fixed;
-    inset: 0;
+        .background {
 
-    pointer-events: none;
+            position: fixed;
 
-    z-index: 0;
-}
+            inset: 0;
 
-.background::before {
+            pointer-events: none;
 
-    content: "";
+            z-index: 0;
+        }
 
-    position: absolute;
 
-    width: 800px;
-    height: 800px;
+        .background::before {
 
-    top: -400px;
-    right: -150px;
+            content: "";
 
-    border-radius: 50%;
+            position: absolute;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,0.12),
-            rgba(255,255,255,0.03) 40%,
-            transparent 70%
-        );
-}
+            width: 800px;
 
+            height: 800px;
 
-/* =========================
-   NAVIGATION
-========================= */
+            top: -400px;
 
-nav {
+            right: -150px;
 
-    position: relative;
+            border-radius: 50%;
 
-    z-index: 5;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.12),
+                    rgba(255,255,255,0.03) 40%,
+                    transparent 70%
+                );
+        }
 
-    height: 85px;
 
-    padding: 0 7%;
+        /* =========================
+           NAVIGATION
+        ========================= */
 
-    display: flex;
+        nav {
 
-    align-items: center;
+            position: fixed;
 
-    justify-content: space-between;
-}
+            top: 0;
 
+            left: 0;
 
-.logo {
+            right: 0;
 
-    color: #f0ece3;
+            z-index: 10;
 
-    font-size: 11px;
+            width: 100%;
 
-    font-weight: 600;
+            height: 85px;
 
-    letter-spacing: 0.18em;
+            padding: 0 7%;
 
-    text-transform: uppercase;
-}
+            display: flex;
 
+            align-items: center;
 
-.links {
+            justify-content: space-between;
+        }
 
-    display: flex;
 
-    align-items: center;
+        .logo {
 
-    gap: 32px;
-}
+            color: #f0ece3;
 
+            font-size: 11px;
 
-.links a {
+            font-weight: 600;
 
-    color: #aaa9a3;
+            letter-spacing: 0.18em;
 
-    text-decoration: none;
+            text-transform: uppercase;
+        }
 
-    font-size: 10px;
 
-    letter-spacing: 0.14em;
+        .links {
 
-    text-transform: uppercase;
+            display: flex;
 
-    transition:
-        color 0.25s ease;
-}
+            align-items: center;
 
+            gap: 32px;
+        }
 
-.links a:hover {
 
-    color: #eeeae1;
-}
+        .links a {
 
+            color: #aaa9a3;
 
-/* =========================
-   LOGIN
-========================= */
+            text-decoration: none;
 
-main {
+            font-size: 10px;
 
-    position: relative;
+            letter-spacing: 0.14em;
 
-    z-index: 2;
+            text-transform: uppercase;
 
-    flex: 1;
+            transition:
+                color 0.25s ease;
+        }
 
-    display: flex;
 
-    align-items: center;
+        .links a:hover,
+        .links a.active {
 
-    justify-content: center;
+            color: #eeeae1;
+        }
 
-    padding: 40px 25px 100px;
-}
 
+        /* =========================
+           MAIN PAGE
+        ========================= */
 
-.login {
+        .page {
 
-    width: 100%;
+            position: relative;
 
-    max-width: 470px;
+            z-index: 2;
 
-    text-align: center;
-}
+            width: 100%;
 
+            height: 100vh;
 
-.eyebrow {
+            padding-top: 85px;
 
-    margin-bottom: 24px;
+            display: grid;
 
-    color: #777a7d;
+            grid-template-columns:
+                38% 62%;
+        }
 
-    font-size: 10px;
 
-    font-weight: 600;
+        /* =========================
+           LEFT SIDE — FIXED
+        ========================= */
 
-    letter-spacing: 0.3em;
+        .left {
 
-    text-transform: uppercase;
-}
+            position: fixed;
 
+            top: 85px;
 
-h1 {
+            left: 0;
 
-    margin: 0;
+            width: 38%;
 
-    color: #eeeae1;
+            height:
+                calc(100vh - 85px);
 
-    font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
+            padding:
+                70px 12% 100px 16%;
 
-    font-size:
-        clamp(
-            45px,
-            5.1vw,
-            68px
-        );
+            display: flex;
 
-    font-weight: 400;
+            flex-direction: column;
 
-    line-height: .95;
+            justify-content: flex-start;
 
-    letter-spacing: -0.05em;
-}
+            z-index: 4;
+        }
 
 
-.rule {
+        .eyebrow {
 
-    width: 55px;
+            margin-bottom: 22px;
 
-    height: 1px;
+            color: #777a7d;
 
-    margin: 35px auto 25px;
+            font-size: 10px;
 
-    background:
-        rgba(255,255,255,0.25);
-}
+            font-weight: 600;
 
+            letter-spacing: 0.3em;
 
-.description {
+            text-transform: uppercase;
+        }
 
-    max-width: 330px;
 
-    margin: 0 auto 35px;
+        .left h1 {
 
-    color: #777a7d;
+            margin: 0;
 
-    font-size: 11px;
+            color: #eeeae1;
 
-    line-height: 1.8;
-}
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
 
+            font-size:
+                clamp(
+                    45px,
+                    5.1vw,
+                    68px
+                );
 
-/* =========================
-   GOOGLE BUTTON
-========================= */
+            font-weight: 400;
 
-.google-button {
+            line-height: .95;
 
-    display: flex;
+            letter-spacing: -0.05em;
+        }
 
-    align-items: center;
 
-    justify-content: center;
+        .left-note {
 
-    gap: 12px;
+            max-width: 270px;
 
-    width: 100%;
+            margin-top: 30px;
 
-    max-width: 320px;
+            color: #85878a;
 
-    margin: 0 auto;
+            font-size: 13px;
 
-    padding: 14px 22px;
+            line-height: 1.8;
+        }
 
-    border:
-        1px solid
-        rgba(255,255,255,0.20);
 
-    background:
-        rgba(255,255,255,0.03);
+        /* =========================
+           RIGHT SIDE — ONLY SCROLLS
+        ========================= */
 
-    color: #aaa9a3;
+        .content {
 
-    font-family:
-        "Manrope",
-        Arial,
-        sans-serif;
+            grid-column: 2;
 
-    font-size: 10px;
+            height:
+                calc(100vh - 85px);
 
-    font-weight: 500;
+            overflow-y: auto;
 
-    letter-spacing: 0.12em;
+            padding:
+                100px 10% 100px 10%;
+        }
 
-    text-transform: uppercase;
 
-    cursor: pointer;
+        .content::-webkit-scrollbar {
 
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        color 0.25s ease;
-}
+            width: 5px;
+        }
 
 
-.google-button:hover {
+        .content::-webkit-scrollbar-track {
 
-    background:
-        rgba(255,255,255,0.08);
+            background: transparent;
+        }
 
-    border-color:
-        rgba(255,255,255,0.35);
 
-    color: #eeeae1;
-}
+        .content::-webkit-scrollbar-thumb {
 
+            background:
+                rgba(255,255,255,0.18);
 
-.google-icon {
+            border-radius: 10px;
+        }
 
-    color: #eeeae1;
 
-    font-family: Arial, sans-serif;
+        .content {
 
-    font-size: 14px;
+            scrollbar-width: thin;
 
-    font-weight: 500;
-}
+            scrollbar-color:
+                rgba(255,255,255,0.18)
+                transparent;
+        }
 
 
-/* =========================
-   NOTICE
-========================= */
+        /* =========================
+           INTRODUCTION CONTENT
+        ========================= */
 
-.notice {
+        .content h2 {
 
-    margin-top: 25px;
+            margin:
+                0 0 30px;
 
-    color: #5d5f62;
+            color: #eeeae1;
 
-    font-size: 9px;
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
 
-    line-height: 1.7;
-}
+            font-size: 46px;
 
+            font-weight: 400;
 
-/* =========================
-   FOOTER
-========================= */
+            line-height: 1.15;
+        }
 
-footer {
 
-    position: relative;
+        .opening {
 
-    z-index: 3;
+            max-width: 700px;
 
-    padding: 0 7% 28px;
+            margin:
+                0 0 65px;
 
-    color: #5d5f62;
+            color: #aaa9a3;
 
-    font-size: 9px;
+            font-size: 16px;
 
-    letter-spacing: 0.2em;
+            line-height: 2;
+        }
 
-    text-transform: uppercase;
 
-    text-align: center;
-}
+        .section {
 
+            max-width: 700px;
 
-/* =========================
-   MOBILE
-========================= */
+            margin-bottom: 55px;
+        }
 
-@media (max-width: 800px) {
 
-    nav {
+        .section h3 {
 
-        padding: 0 25px;
+            margin:
+                0 0 5px;
 
-    }
+            color: #e4e0d8;
 
-    .links {
+            font-size: 12px;
 
-        gap: 13px;
+            font-weight: 600;
 
-        flex-wrap: wrap;
+            letter-spacing: 0.08em;
 
-        justify-content: flex-end;
+            text-transform: uppercase;
 
-    }
+            line-height: 1.4;
+        }
 
-    .links a {
 
-        font-size: 8px;
+        .section p {
 
-    }
+            margin: 0;
 
-}
+            color: #999a99;
 
+            font-size: 14px;
 
-@media (max-width: 600px) {
+            line-height: 1.95;
+        }
 
-    nav {
 
-        height: auto;
+        .rule {
 
-        min-height: 85px;
+            width: 100%;
 
-        padding: 0 20px;
+            height: 1px;
 
-    }
+            margin:
+                70px 0 45px;
 
-    .links {
+            background:
+                rgba(255,255,255,0.10);
+        }
 
-        gap: 10px;
 
-    }
+        .final {
 
-    main {
+            max-width: 700px;
 
-        padding:
-            30px 25px 80px;
+            padding-bottom: 100px;
 
-    }
+            color: #aaa8a1;
 
-    footer {
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
 
-        padding:
-            0 25px 25px;
+            font-size: 18px;
 
-    }
+            line-height: 1.9;
 
-}
+            font-style: italic;
+        }
 
-</style>
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            position: fixed;
+
+            left: 7%;
+
+            bottom: 28px;
+
+            z-index: 6;
+
+            color: #5d5f62;
+
+            font-size: 9px;
+
+            letter-spacing: 0.2em;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            html,
+            body {
+
+                overflow: auto;
+            }
+
+
+            nav {
+
+                padding:
+                    0 25px;
+            }
+
+
+            .links {
+
+                gap: 13px;
+
+                flex-wrap: wrap;
+
+                justify-content: flex-end;
+            }
+
+
+            .links a {
+
+                font-size: 8px;
+            }
+
+
+            .page {
+
+                height: auto;
+
+                display: block;
+
+                padding-top: 85px;
+            }
+
+
+            .left {
+
+                position: relative;
+
+                top: auto;
+
+                left: auto;
+
+                width: 100%;
+
+                height: auto;
+
+                padding:
+                    55px 25px 45px;
+            }
+
+
+            .left h1 {
+
+                font-size:
+                    clamp(
+                        48px,
+                        14vw,
+                        72px
+                    );
+            }
+
+
+            .content {
+
+                height: auto;
+
+                overflow: visible;
+
+                padding:
+                    50px 25px 90px;
+            }
+
+
+            .content h2 {
+
+                font-size: 36px;
+            }
+
+
+            .opening,
+            .section p {
+
+                font-size: 14px;
+            }
+
+
+            footer {
+
+                position: relative;
+
+                left: auto;
+
+                bottom: auto;
+
+                padding:
+                    0 25px 35px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -470,7 +605,7 @@ footer {
 
 <!-- =========================
      NAVIGATION
-========================= -->
+========================== -->
 
 <nav>
 
@@ -483,12 +618,20 @@ footer {
 
     <div class="links">
 
-        <a href="./index.html">
+
+        <!-- HOME -->
+
+        <a
+            href="./index.html"
+            class="active"
+        >
 
             Home
 
         </a>
 
+
+        <!-- INTRODUCTION -->
 
         <a href="./introduction.html">
 
@@ -497,6 +640,8 @@ footer {
         </a>
 
 
+        <!-- REFLECTIONS -->
+
         <a href="./reflections.html">
 
             Reflection | Photographs
@@ -504,11 +649,23 @@ footer {
         </a>
 
 
+        <!-- TIMELINE -->
+
         <a href="./timeline.html">
 
             Timeline
 
         </a>
+
+
+        <!-- LOGIN -->
+
+        <a href="./login.html">
+
+            Login
+
+        </a>
+
 
     </div>
 
@@ -516,12 +673,17 @@ footer {
 
 
 <!-- =========================
-     LOGIN
-========================= -->
+     MAIN PAGE
+========================== -->
 
-<main>
+<main class="page">
 
-    <section class="login">
+
+    <!-- =========================
+         LEFT SIDE
+    ========================== -->
+
+    <section class="left">
 
 
         <div class="eyebrow">
@@ -539,43 +701,166 @@ footer {
         </h1>
 
 
-        <div class="rule"></div>
+        <p class="left-note">
 
-
-        <p class="description">
-
-            Enter the archive with your
-            Google account.
-
-        </p>
-
-
-        <button
-            type="button"
-            class="google-button"
-            id="google-login"
-        >
-
-            <span class="google-icon">
-                G
-            </span>
-
-            <span>
-                Continue with Google
-            </span>
-
-        </button>
-
-
-        <p class="notice">
-
-            Access is restricted to
-            authorized readers.
+            A digital home for memories,
+            handwritten history, and the
+            ordinary moments worth preserving.
 
         </p>
 
 
     </section>
+
+
+    <!-- =========================
+         RIGHT SIDE
+    ========================== -->
+
+    <article class="content">
+
+
+        <h2>
+
+            About This Website
+
+        </h2>
+
+
+        <p class="opening">
+
+            This website was created to preserve
+            and share the personal diaries of
+            JhoneVic—a handwritten record of his
+            life spanning from adolescence to adulthood.
+
+        </p>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                Preservation of a Fragile History
+
+            </h3>
+
+
+            <p>
+
+                The original notebooks are aging.
+                The pages are yellowing, the ink is fading,
+                and the paper is becoming brittle.
+                Transcribing these entries into a digital
+                format ensures that the stories, thoughts,
+                and emotions they contain will not be lost
+                to time.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                Family Access and Legacy
+
+            </h3>
+
+
+            <p>
+
+                This archive is primarily intended for
+                family members—a way to look back on
+                shared memories, understand the experiences
+                that shaped their relative, and connect
+                with a personal history that might otherwise
+                be forgotten.
+
+                It is a gift for future generations:
+                a window into the life of someone they may
+                only know as a distant memory or a family name.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                Preserving the Unfiltered Truth
+
+            </h3>
+
+
+            <p>
+
+                The diaries are not edited, polished,
+                or rewritten.
+
+                They remain exactly as they were written—
+                raw, honest, and unpolished.
+
+                This website honors that authenticity by
+                presenting the entries with minimal alteration,
+                preserving the voice, the tone, and the
+                imperfections that make them real.
+
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+
+            <h3>
+
+                A Record of Ordinary Life
+
+            </h3>
+
+
+            <p>
+
+                This is not the story of a public figure
+                or a famous person.
+
+                It is the story of an ordinary individual—
+                his crushes, his struggles, his joys,
+                his anxieties, and his quiet moments of growth.
+
+                It is a reminder that every life, no matter
+                how private, deserves to be remembered.
+
+            </p>
+
+        </section>
+
+
+        <div class="rule"></div>
+
+
+        <p class="final">
+
+            This website is an ongoing project.
+            As more entries are transcribed and preserved,
+            they will be added to this archive.
+
+            Thank you for being part of this journey.
+
+        </p>
+
+
+    </article>
+
 
 </main>
 
@@ -585,66 +870,6 @@ footer {
     Personal Archive · 2013—2026
 
 </footer>
-
-
-<!-- =========================
-     SUPABASE GOOGLE LOGIN
-========================= -->
-
-<script>
-
-const SUPABASE_URL =
-    "https://ktytetimukmaqkxmzkha.supabase.co";
-
-
-const SUPABASE_KEY =
-    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljrI1K8N";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-document
-    .getElementById("google-login")
-    .addEventListener(
-        "click",
-        async function () {
-
-            const { error } =
-                await supabaseClient.auth.signInWithOAuth({
-
-                    provider: "google",
-
-                    options: {
-
-                        redirectTo:
-                            window.location.origin +
-                            "/Journal-Archived-01/index.html"
-
-                    }
-
-                });
-
-
-            if (error) {
-
-                console.error(error);
-
-                alert(
-                    "Login failed: " +
-                    error.message
-                );
-
-            }
-
-        }
-    );
-
-</script>
 
 
 </body>
