@@ -329,36 +329,23 @@
 
         /* =========================
            LEFT SIDE
-           
-           MATCHES THE ACTUAL
-           INTRODUCTION CONTENT START
-           
-           Introduction:
-           top: 85px
-           padding-top: 55px
-           
-           Actual content position:
-           85px + 55px = 140px
-           
-           Reflection uses 140px directly
-           so the content has a fixed,
-           deterministic vertical position.
+           SAME AS INTRODUCTION
         ========================== */
 
         .left {
 
             position: fixed;
 
-            top: 140px;
+            top: 85px;
             left: 0;
 
             width: 30%;
 
             height:
-                calc(100vh - 140px);
+                calc(100vh - 85px);
 
             padding:
-                0 5% 80px 13%;
+                55px 5% 80px 13%;
 
             display: flex;
 
@@ -761,6 +748,8 @@
 
             /* =========================
                MOBILE PAGE
+               EXACTLY MATCHES
+               INTRODUCTION
             ========================== */
 
             .page {
@@ -772,23 +761,23 @@
                 display: block;
 
                 padding-top: 120px;
+
+                margin: 0;
             }
 
 
             /* =========================
                MOBILE LEFT
-
-               EXACT SAME CONTENT
-               POSITIONING AS
-               INTRODUCTION.HTML
+               EXACTLY MATCHES
+               INTRODUCTION
             ========================== */
 
             .left {
 
                 position: relative;
 
-                top: auto;
-                left: auto;
+                top: 0;
+                left: 0;
 
                 width: 100%;
 
@@ -797,11 +786,15 @@
                 padding:
                     45px 25px 35px;
 
+                margin: 0;
+
                 display: block;
             }
 
 
             .eyebrow {
+
+                margin-top: 0;
 
                 margin-bottom: 18px;
 
@@ -814,6 +807,8 @@
             .left h1 {
 
                 max-width: 100%;
+
+                margin: 0;
 
                 font-size:
                     clamp(
@@ -1030,13 +1025,22 @@
             .page {
 
                 padding-top: 105px;
+
+                margin: 0;
             }
 
 
             .left {
 
+                position: relative;
+
+                top: 0;
+                left: 0;
+
                 padding:
                     40px 20px 30px;
+
+                margin: 0;
             }
 
 
