@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | JhoneVic's Diary</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b0c0d,
+            #181a1c 50%,
+            #292b2d
+        );
+
+    color: #eeeae1;
+
+    font-family:
+        "Manrope",
+        Arial,
+        sans-serif;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* BACKGROUND */
+
+.background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.background::before {
+    content: "";
+
+    position: absolute;
+
+    width: 800px;
+    height: 800px;
+
+    top: -400px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.12),
+            rgba(255,255,255,0.03) 40%,
+            transparent 70%
+        );
+}
+
+.background::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    left: 9%;
+
+    width: 1px;
+
+    background:
+        rgba(255,255,255,0.08);
+}
+
+
+/* NAVIGATION */
+
+nav {
+    position: relative;
+
+    z-index: 5;
+
+    height: 85px;
+
+    padding: 0 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: #f0ece3;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.back {
+    color: #aaa9a3;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    transition: color 0.25s ease;
+}
+
+.back:hover {
+    color: #eeeae1;
+}
+
+
+/* MAIN */
+
+main {
+    position: relative;
+
+    z-index: 2;
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 25px 100px;
+}
+
+.login {
+    width: 100%;
+    max-width: 470px;
+
+    text-align: center;
+}
+
+
+/* TITLE */
+
+.eyebrow {
+    margin-bottom: 24px;
+
+    color: #777a7d;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0;
+
+    color: #eeeae1;
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            45px,
+            5.1vw,
+            68px
+        );
+
+    font-weight: 400;
+
+    line-height: .95;
+
+    letter-spacing: -0.05em;
+}
+
+.rule {
+    width: 55px;
+    height: 1px;
+
+    margin: 35px auto 25px;
+
+    background:
+        rgba(255,255,255,0.25);
+}
+
+.description {
+    max-width: 330px;
+
+    margin: 0 auto 35px;
+
+    color: #777a7d;
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+/* GOOGLE BUTTON */
+
+.google-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    width: 100%;
+    max-width: 320px;
+
+    margin: 0 auto;
+
+    padding: 14px 22px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.20);
+
+    background:
+        rgba(255,255,255,0.03);
+
+    color: #aaa9a3;
+
+    font-family:
+        "Manrope",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+}
+
+.google-button:hover {
+    background:
+        rgba(255,255,255,0.08);
+
+    border-color:
+        rgba(255,255,255,0.35);
+
+    color: #eeeae1;
+}
+
+.google-icon {
+    color: #eeeae1;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+
+/* NOTICE */
+
+.notice {
+    margin-top: 25px;
+
+    color: #5d5f62;
+
+    font-size: 9px;
+
+    line-height: 1.7;
+}
+
+
+/* FOOTER */
+
+footer {
+    position: relative;
+
+    z-index: 3;
+
+    padding: 0 7% 28px;
+
+    color: #5d5f62;
+
+    font-size: 9px;
+
+    letter-spacing: 0.2em;
+
+    text-transform: uppercase;
+
+    text-align: center;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    nav {
+        padding: 0 25px;
+    }
+
+    main {
+        padding: 30px 25px 80px;
+    }
+
+    footer {
+        padding: 0 25px 25px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="background"></div>
+
+
+<nav>
+
+    <div class="logo">
+        JhoneVic's Diary
+    </div>
+
+    <a
+        href="introduction.html"
+        class="back"
+    >
+        Back
+    </a>
+
+</nav>
+
+
+<main>
+
+<section class="login">
+
+    <div class="eyebrow">
+        The Archive
+    </div>
+
+
+    <h1>
+        The Unspoken<br>
+        Chapters
+    </h1>
+
+
+    <div class="rule"></div>
+
+
+    <p class="description">
+        Enter the archive with your
+        Google account.
+    </p>
+
+
+    <button
+        class="google-button"
+        id="google-login"
+    >
+
+        <span class="google-icon">
+            G
+        </span>
+
+        <span>
+            Continue with Google
+        </span>
+
+    </button>
+
+
+    <p class="notice">
+        Access is restricted to
+        authorized readers.
+    </p>
+
+</section>
+
+</main>
+
+
+<footer>
+    Personal Archive · 2013—2026
+</footer>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://ktytetimukmaqkxmzkha.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljrI1K8N";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+document
+    .getElementById("google-login")
+    .addEventListener(
+        "click",
+        async function () {
+
+            const { error } =
+                await supabaseClient.auth.signInWithOAuth({
+
+                    provider: "google",
+
+                    options: {
+
+                        redirectTo:
+                            "https://jhonevic44.github.io/Journal-Archived-01/login.html"
+
+                    }
+
+                });
+
+
+            if (error) {
+
+                console.error(error);
+
+                alert(
+                    "Login failed: " +
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
