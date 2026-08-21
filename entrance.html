@@ -622,7 +622,10 @@ function displayUserName(user) {
         document.getElementById("user-name");
 
 
-    if (!user || !userNameElement) {
+    if (
+        !user ||
+        !userNameElement
+    ) {
 
         return;
 
@@ -630,201 +633,202 @@ function displayUserName(user) {
 
 
     /*
-     * Google normally supplies
-     * the user's full name through
-     * user_metadata.
+     * Google/Supabase can store the
+     * person's name under different
+     * metadata fields.
      */
 
+    const metadata =
+        user.user_metadata || {};
+
+
     const fullName =
-        user.user_metadata?.full_name ||
-        user.user_metadata?.name ||
+        metadata.full_name ||
+        metadata.name ||
+        metadata.preferred_username ||
         "";
 
 
     /*
-     * If Google did not provide
-     * a name, simply leave the
-     * username area hidden.
+     * If Google did not provide a name,
+     * use the email address instead.
+     *
+     * This guarantees that something
+     * identifying the signed-in account
+     * can still appear.
      */
 
-    if (!fullName) {
-
-        console.warn(
-            "Google full name was not provided."
-        );
-
-        return;
-
-    }
+    const displayName =
+        fullName ||
+        user.email ||
+        "Signed in";
 
 
     userNameElement.textContent =
-        fullName;
+        displayName;
 
 
     userNameElement.classList.add(
         "visible"
     );
 
+
+    console.log(
+        "Displaying user:",
+        displayName
+    );
+
 }
 
 
 /* =================================================
-   CHECK CURRENT AUTHENTICATION
+   GET CURRENT USER
 ================================================= */
 
-async function checkAuthentication() {
+async function getCurrentUser() {
 
-    console.log(
-        "Checking Supabase authentication..."
-    );
+    try {
+
+        /*
+         * getUser() asks Supabase for
+         * the authenticated user.
+         */
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getUser();
 
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getSession();
+        if (
+            !error &&
+            data &&
+            data.user
+        ) {
+
+            displayUserName(
+                data.user
+            );
+
+            return true;
+
+        }
 
 
-    if (error) {
+        /*
+         * If getUser() does not have
+         * the user yet, try the current
+         * session as a fallback.
+         */
+
+        const {
+            data: sessionData
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        const session =
+            sessionData?.session;
+
+
+        if (
+            session &&
+            session.user
+        ) {
+
+            displayUserName(
+                session.user
+            );
+
+            return true;
+
+        }
+
+
+    } catch (error) {
 
         console.error(
-            "Unable to check authentication:",
+            "Authentication check failed:",
             error
         );
 
-        /*
-         * IMPORTANT:
-         *
-         * Do NOT immediately redirect to login.
-         *
-         * The OAuth callback/session restoration
-         * can still be completing.
-         */
-
-        return;
-
     }
 
 
-    const session =
-        data?.session;
-
-
-    if (
-        session &&
-        session.user
-    ) {
-
-        console.log(
-            "Authenticated user found:",
-            session.user.email
-        );
-
-
-        displayUserName(
-            session.user
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * No session is currently available.
-     *
-     * We DO NOT redirect here.
-     *
-     * Instead, we wait for Supabase's
-     * authentication event below.
-     */
-
-    console.log(
-        "No session yet. Waiting for Supabase authentication..."
-    );
+    return false;
 
 }
 
 
 /* =================================================
-   LISTEN FOR AUTHENTICATION EVENTS
+   AUTH STATE LISTENER
 ================================================= */
 
-const {
-    data: {
-        subscription
-    }
-} =
-    supabaseClient.auth.onAuthStateChange(
-        function (
-            event,
-            session
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Supabase auth event:",
+            event
+        );
+
+
+        /*
+         * This is triggered after Google
+         * finishes signing in.
+         */
+
+        if (
+            session &&
+            session.user
         ) {
 
-            console.log(
-                "Supabase auth event:",
-                event
+            displayUserName(
+                session.user
             );
 
-
-            /*
-             * Google login completed.
-             */
-
-            if (
-                event === "SIGNED_IN" &&
-                session &&
-                session.user
-            ) {
-
-                console.log(
-                    "Google login successful."
-                );
-
-
-                displayUserName(
-                    session.user
-                );
-
-            }
-
-
-            /*
-             * Supabase may also restore an
-             * existing session through
-             * INITIAL_SESSION.
-             */
-
-            if (
-                event === "INITIAL_SESSION" &&
-                session &&
-                session.user
-            ) {
-
-                console.log(
-                    "Existing session restored."
-                );
-
-
-                displayUserName(
-                    session.user
-                );
-
-            }
-
         }
-    );
+
+    }
+);
 
 
 /* =================================================
-   START AUTHENTICATION CHECK
+   START
 ================================================= */
 
-checkAuthentication();
+getCurrentUser();
 
+
+/*
+ * OAuth can finish restoring the session
+ * slightly after the page loads.
+ *
+ * Check again shortly afterward.
+ */
+
+setTimeout(
+    function () {
+
+        getCurrentUser();
+
+    },
+    1000
+);
+
+
+setTimeout(
+    function () {
+
+        getCurrentUser();
+
+    },
+    2500
+);
 
 </script>
 
