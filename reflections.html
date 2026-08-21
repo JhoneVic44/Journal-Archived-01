@@ -33,6 +33,11 @@
         href="https://jhonevic44.github.io/Journal-Archived-01/reflections.html"
     >
 
+
+    <!-- =========================
+         OPEN GRAPH
+    ========================== -->
+
     <meta
         property="og:type"
         content="website"
@@ -58,6 +63,11 @@
         content="JhoneVic's Diary"
     >
 
+
+    <!-- =========================
+         TWITTER / X
+    ========================== -->
+
     <meta
         name="twitter:card"
         content="summary"
@@ -72,6 +82,11 @@
         name="twitter:description"
         content="A collection of photographs, memories, and reflections preserved as part of JhoneVic's personal archive."
     >
+
+
+    <!-- =========================
+         STRUCTURED DATA
+    ========================== -->
 
     <script type="application/ld+json">
     {
@@ -94,6 +109,11 @@
     }
     </script>
 
+
+    <!-- =========================
+         FONTS
+    ========================== -->
+
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -110,6 +130,7 @@
         rel="stylesheet"
     >
 
+
     <style>
 
         /* =========================
@@ -119,6 +140,7 @@
         * {
             box-sizing: border-box;
         }
+
 
         html,
         body {
@@ -130,6 +152,7 @@
 
             overflow: hidden;
         }
+
 
         body {
 
@@ -165,6 +188,7 @@
             z-index: 0;
         }
 
+
         .background::before {
 
             content: "";
@@ -191,7 +215,6 @@
 
         /* =========================
            NAVIGATION
-           SAME AS INTRODUCTION
         ========================== */
 
         nav {
@@ -215,6 +238,7 @@
             justify-content: space-between;
         }
 
+
         .logo {
 
             color: #f0ece3;
@@ -230,6 +254,7 @@
             white-space: nowrap;
         }
 
+
         .links {
 
             display: flex;
@@ -240,6 +265,7 @@
 
             gap: 32px;
         }
+
 
         .links a {
 
@@ -259,6 +285,7 @@
                 color 0.25s ease;
         }
 
+
         .links a:hover,
         .links .active {
 
@@ -267,7 +294,7 @@
 
 
         /* =========================
-           PAGE
+           MAIN PAGE
         ========================== */
 
         .page {
@@ -317,6 +344,7 @@
             z-index: 4;
         }
 
+
         .eyebrow {
 
             margin-bottom: 22px;
@@ -331,6 +359,7 @@
 
             text-transform: uppercase;
         }
+
 
         .left h1 {
 
@@ -357,17 +386,18 @@
             letter-spacing: -0.05em;
         }
 
+
         .left-note {
 
             max-width: 220px;
 
-            margin-top: 25px;
+            margin-top: 20px;
 
             color: #777a7d;
 
             font-size: 11px;
 
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
 
@@ -388,15 +418,18 @@
                 65px 8% 120px 16%;
         }
 
+
         .content::-webkit-scrollbar {
 
             width: 5px;
         }
 
+
         .content::-webkit-scrollbar-track {
 
             background: transparent;
         }
+
 
         .content::-webkit-scrollbar-thumb {
 
@@ -405,6 +438,7 @@
 
             border-radius: 10px;
         }
+
 
         .content {
 
@@ -425,9 +459,10 @@
             max-width: 820px;
         }
 
+
         .article-label {
 
-            margin-bottom: 12px;
+            margin-bottom: 18px;
 
             color: #777a7d;
 
@@ -438,9 +473,8 @@
             letter-spacing: 0.25em;
 
             text-transform: uppercase;
-
-            text-align: left;
         }
+
 
         article h2 {
 
@@ -468,6 +502,7 @@
             letter-spacing: -0.04em;
         }
 
+
         article p {
 
             margin: 0;
@@ -478,6 +513,7 @@
 
             line-height: 2;
         }
+
 
         .opening {
 
@@ -512,6 +548,7 @@
 
             text-transform: uppercase;
         }
+
 
         .reserved span {
 
@@ -564,7 +601,6 @@
 
         /* =================================================
            MOBILE
-           LOCKED TO INTRODUCTION BEHAVIOR
         ================================================= */
 
         @media (max-width: 800px) {
@@ -583,6 +619,7 @@
                 overflow-y: auto;
             }
 
+
             body {
 
                 background:
@@ -594,14 +631,10 @@
                     );
             }
 
-            .background::after {
-
-                display: none;
-            }
-
 
             /* =========================
-               FIXED MOBILE NAVIGATION
+               MOBILE NAVIGATION
+               MATCHES INTRODUCTION
             ========================== */
 
             nav {
@@ -616,7 +649,7 @@
 
                 height: auto;
 
-                min-height: 112px;
+                min-height: 0;
 
                 padding:
                     22px 20px 18px;
@@ -634,12 +667,13 @@
                 background:
                     rgba(11,12,13,0.97);
 
-                backdrop-filter:
-                    blur(10px);
+                backdrop-filter: blur(10px);
 
-                -webkit-backdrop-filter:
-                    blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+
+                z-index: 10;
             }
+
 
             .logo {
 
@@ -656,6 +690,7 @@
                 letter-spacing: 0.18em;
             }
 
+
             .links {
 
                 width: 100%;
@@ -671,6 +706,7 @@
                 gap:
                     12px 18px;
             }
+
 
             .links a {
 
@@ -690,7 +726,7 @@
 
 
             /* =========================
-               PAGE
+               MOBILE PAGE
             ========================== */
 
             .page {
@@ -701,12 +737,12 @@
 
                 display: block;
 
-                padding-top: 112px;
+                padding-top: 145px;
             }
 
 
             /* =========================
-               LEFT
+               MOBILE LEFT
             ========================== */
 
             .left {
@@ -726,6 +762,7 @@
                 display: block;
             }
 
+
             .eyebrow {
 
                 margin-bottom: 18px;
@@ -734,6 +771,7 @@
 
                 letter-spacing: 0.25em;
             }
+
 
             .left h1 {
 
@@ -755,6 +793,7 @@
                 overflow-wrap: normal;
             }
 
+
             .left-note {
 
                 max-width: 290px;
@@ -768,7 +807,7 @@
 
 
             /* =========================
-               CONTENT
+               MOBILE CONTENT
             ========================== */
 
             .content {
@@ -783,12 +822,14 @@
                     25px 25px 80px;
             }
 
+
             article {
 
                 width: 100%;
 
                 max-width: none;
             }
+
 
             .article-label {
 
@@ -800,6 +841,11 @@
 
                 letter-spacing: 0.20em;
             }
+
+
+            /* =========================
+               MOBILE MAIN TITLE
+            ========================== */
 
             article h2 {
 
@@ -824,6 +870,11 @@
                 overflow-wrap: normal;
             }
 
+
+            /* =========================
+               MOBILE PARAGRAPHS
+            ========================== */
+
             article p {
 
                 width: 100%;
@@ -839,10 +890,16 @@
                 word-wrap: break-word;
             }
 
+
             .opening {
 
                 max-width: 100%;
             }
+
+
+            /* =========================
+               MOBILE RESERVED AREA
+            ========================== */
 
             .reserved {
 
@@ -852,14 +909,17 @@
                     45px 0;
             }
 
+
             .reserved span {
 
                 font-size: 20px;
+
+                line-height: 1.5;
             }
 
 
             /* =========================
-               FOOTER
+               MOBILE FOOTER
             ========================== */
 
             footer {
@@ -893,24 +953,25 @@
 
             nav {
 
-                min-height: 108px;
-
                 padding:
                     20px 15px 16px;
 
                 gap: 16px;
             }
 
+
             .logo {
 
                 font-size: 10px;
             }
+
 
             .links {
 
                 gap:
                     10px 15px;
             }
+
 
             .links a {
 
@@ -919,16 +980,19 @@
                 letter-spacing: 0.10em;
             }
 
+
             .page {
 
-                padding-top: 108px;
+                padding-top: 135px;
             }
+
 
             .left {
 
                 padding:
                     40px 20px 30px;
             }
+
 
             .left h1 {
 
@@ -940,16 +1004,19 @@
                     );
             }
 
+
             .left-note {
 
                 font-size: 11px;
             }
+
 
             .content {
 
                 padding:
                     22px 20px 70px;
             }
+
 
             article h2 {
 
@@ -961,11 +1028,25 @@
                     );
             }
 
+
             article p {
 
                 font-size: 13.5px;
 
                 line-height: 1.9;
+            }
+
+
+            .reserved {
+
+                padding:
+                    40px 0;
+            }
+
+
+            .reserved span {
+
+                font-size: 19px;
             }
 
         }
@@ -997,6 +1078,8 @@
     <div class="links">
 
 
+        <!-- HOME -->
+
         <a href="./index.html">
 
             Home
@@ -1004,12 +1087,16 @@
         </a>
 
 
+        <!-- INTRODUCTION -->
+
         <a href="./introduction.html">
 
             Introduction
 
         </a>
 
+
+        <!-- REFLECTIONS -->
 
         <a
             href="./reflections.html"
@@ -1021,12 +1108,16 @@
         </a>
 
 
+        <!-- TIMELINE -->
+
         <a href="./timeline.html">
 
             Timeline
 
         </a>
 
+
+        <!-- LOGIN -->
 
         <a href="./login.html">
 
@@ -1046,6 +1137,10 @@
 
 <main class="page">
 
+
+    <!-- =========================
+         LEFT SIDE
+    ========================== -->
 
     <section class="left">
 
@@ -1076,6 +1171,10 @@
 
     </section>
 
+
+    <!-- =========================
+         RIGHT CONTENT
+    ========================== -->
 
     <section class="content">
 
