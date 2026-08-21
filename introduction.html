@@ -5,11 +5,145 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- =========================
+         SEO
+    ========================== -->
 
     <title>
         Who is JhoneVic M. Casaña? | JhoneVic's Diary
     </title>
+
+    <meta
+        name="description"
+        content="Learn about JhoneVic M. Casaña, the person behind JhoneVic's personal diaries and digital archive."
+    >
+
+    <meta
+        name="author"
+        content="JhoneVic M. Casaña"
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <link
+        rel="canonical"
+        href="https://jhonevic44.github.io/Journal-Archived-01/introduction.html"
+    >
+
+
+    <!-- =========================
+         OPEN GRAPH
+    ========================== -->
+
+    <meta
+        property="og:type"
+        content="profile"
+    >
+
+    <meta
+        property="og:title"
+        content="Who is JhoneVic M. Casaña? | JhoneVic's Diary"
+    >
+
+    <meta
+        property="og:description"
+        content="Discover JhoneVic M. Casaña, the person behind the diaries."
+    >
+
+    <meta
+        property="og:url"
+        content="https://jhonevic44.github.io/Journal-Archived-01/introduction.html"
+    >
+
+    <meta
+        property="og:site_name"
+        content="JhoneVic's Diary"
+    >
+
+    <meta
+        property="og:image"
+        content="https://raw.githubusercontent.com/JhoneVic44/Journal-Archived-01/main/493435368_3950431161874319_5839165339105535926_n.jpg"
+    >
+
+    <meta
+        property="og:image:alt"
+        content="JhoneVic in 2013"
+    >
+
+
+    <!-- =========================
+         TWITTER / X
+    ========================== -->
+
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    >
+
+    <meta
+        name="twitter:title"
+        content="Who is JhoneVic M. Casaña? | JhoneVic's Diary"
+    >
+
+    <meta
+        name="twitter:description"
+        content="The story behind JhoneVic's personal diary archive."
+    >
+
+    <meta
+        name="twitter:image"
+        content="https://raw.githubusercontent.com/JhoneVic44/Journal-Archived-01/main/493435368_3950431161874319_5839165339105535926_n.jpg"
+    >
+
+
+    <!-- =========================
+         PERSON STRUCTURED DATA
+    ========================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://jhonevic44.github.io/Journal-Archived-01/#jhonevic",
+        "name": "JhoneVic M. Casaña",
+        "alternateName": "JhoneVic",
+        "description": "JhoneVic M. Casaña is a diarist, observer, and chronicler whose personal writings document his life from adolescence into adulthood.",
+        "image": "https://raw.githubusercontent.com/JhoneVic44/Journal-Archived-01/main/493435368_3950431161874319_5839165339105535926_n.jpg",
+        "url": "https://jhonevic44.github.io/Journal-Archived-01/introduction.html",
+        "homeLocation": {
+            "@type": "Country",
+            "name": "Philippines"
+        }
+    }
+    </script>
+
+
+    <!-- =========================
+         WEBSITE STRUCTURED DATA
+    ========================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://jhonevic44.github.io/Journal-Archived-01/#website",
+        "name": "JhoneVic's Diary",
+        "url": "https://jhonevic44.github.io/Journal-Archived-01/"
+    }
+    </script>
+
+
+    <!-- =========================
+         FONTS
+    ========================== -->
 
     <link
         rel="preconnect"
@@ -27,21 +161,32 @@
         rel="stylesheet"
     >
 
+
     <style>
+
+        /* =========================
+           RESET
+        ========================== */
 
         * {
             box-sizing: border-box;
         }
 
+
         html,
         body {
+
             margin: 0;
+
             width: 100%;
             height: 100%;
+
             overflow: hidden;
         }
 
+
         body {
+
             background:
                 linear-gradient(
                     135deg,
@@ -58,14 +203,25 @@
                 sans-serif;
         }
 
+
+        /* =========================
+           BACKGROUND
+        ========================== */
+
         .background {
+
             position: fixed;
+
             inset: 0;
+
             pointer-events: none;
+
             z-index: 0;
         }
 
+
         .background::before {
+
             content: "";
 
             position: absolute;
@@ -87,11 +243,13 @@
                 );
         }
 
+
         /* =========================
            NAVIGATION
         ========================== */
 
         nav {
+
             position: fixed;
 
             top: 0;
@@ -111,7 +269,9 @@
             justify-content: space-between;
         }
 
+
         .logo {
+
             color: #f0ece3;
 
             font-size: 11px;
@@ -121,17 +281,25 @@
             letter-spacing: 0.18em;
 
             text-transform: uppercase;
+
+            white-space: nowrap;
         }
 
+
         .links {
+
             display: flex;
 
             align-items: center;
 
+            justify-content: flex-end;
+
             gap: 32px;
         }
 
+
         .links a {
+
             color: #aaa9a3;
 
             text-decoration: none;
@@ -142,20 +310,26 @@
 
             text-transform: uppercase;
 
+            white-space: nowrap;
+
             transition:
                 color 0.25s ease;
         }
 
+
         .links a:hover,
-        .links a.active {
+        .links .active {
+
             color: #eeeae1;
         }
+
 
         /* =========================
            PAGE
         ========================== */
 
         .page {
+
             position: relative;
 
             z-index: 2;
@@ -172,11 +346,13 @@
                 30% 70%;
         }
 
+
         /* =========================
            LEFT SIDE
         ========================== */
 
         .left {
+
             position: fixed;
 
             top: 85px;
@@ -199,7 +375,9 @@
             z-index: 4;
         }
 
+
         .eyebrow {
+
             margin-bottom: 22px;
 
             color: #777a7d;
@@ -213,7 +391,9 @@
             text-transform: uppercase;
         }
 
+
         .left h1 {
+
             margin: 0;
 
             color: #eeeae1;
@@ -237,7 +417,9 @@
             letter-spacing: -0.05em;
         }
 
+
         .left-note {
+
             max-width: 220px;
 
             margin-top: 25px;
@@ -249,11 +431,13 @@
             line-height: 1.8;
         }
 
+
         /* =========================
            RIGHT CONTENT
         ========================== */
 
         .content {
+
             grid-column: 2;
 
             height:
@@ -262,25 +446,33 @@
             overflow-y: auto;
 
             padding:
-                55px 8% 120px 16%;
+                65px 8% 120px 16%;
         }
 
+
         .content::-webkit-scrollbar {
+
             width: 5px;
         }
 
+
         .content::-webkit-scrollbar-track {
+
             background: transparent;
         }
 
+
         .content::-webkit-scrollbar-thumb {
+
             background:
                 rgba(255,255,255,0.18);
 
             border-radius: 10px;
         }
 
+
         .content {
+
             scrollbar-width: thin;
 
             scrollbar-color:
@@ -288,15 +480,19 @@
                 transparent;
         }
 
+
         /* =========================
            ARTICLE
         ========================== */
 
         article {
+
             max-width: 820px;
         }
 
+
         .article-label {
+
             margin-bottom: 12px;
 
             color: #777a7d;
@@ -308,13 +504,17 @@
             letter-spacing: 0.25em;
 
             text-transform: uppercase;
+
+            text-align: left;
         }
+
 
         /* =========================
            PHOTOGRAPH
         ========================== */
 
         .intro-photo {
+
             display: block;
 
             width: 220px;
@@ -341,7 +541,9 @@
             opacity: 0.96;
         }
 
+
         .photo-caption {
+
             margin:
                 -5px 0 20px;
 
@@ -358,11 +560,13 @@
             text-align: center;
         }
 
+
         /* =========================
            MAIN TITLE
         ========================== */
 
         article h2 {
+
             margin:
                 0 0 14px;
 
@@ -382,7 +586,13 @@
             letter-spacing: -0.04em;
         }
 
+
+        /* =========================
+           SECTION TITLES
+        ========================== */
+
         article h3 {
+
             margin:
                 32px 0 4px;
 
@@ -395,9 +605,13 @@
             letter-spacing: 0.1em;
 
             text-transform: uppercase;
+
+            line-height: 1.35;
         }
 
+
         article h4 {
+
             margin:
                 18px 0 3px;
 
@@ -406,9 +620,17 @@
             font-size: 13px;
 
             font-weight: 600;
+
+            line-height: 1.4;
         }
 
+
+        /* =========================
+           PARAGRAPHS
+        ========================== */
+
         article p {
+
             margin: 0;
 
             color: #aaa9a3;
@@ -418,7 +640,9 @@
             line-height: 2;
         }
 
+
         article h2 + p {
+
             color: #b9b6ae;
 
             font-size: 17px;
@@ -426,11 +650,19 @@
             line-height: 2;
         }
 
+
         .period {
+
             margin-top: 20px;
         }
 
+
+        /* =========================
+           FINAL
+        ========================== */
+
         .final-rule {
+
             width: 100%;
 
             height: 1px;
@@ -442,7 +674,9 @@
                 rgba(255,255,255,0.10);
         }
 
+
         .final-words {
+
             margin: 0;
 
             color: #e0dcd4;
@@ -464,7 +698,9 @@
             line-height: 1.35;
         }
 
+
         .closing {
+
             margin-top: 30px;
 
             padding-bottom: 70px;
@@ -483,11 +719,13 @@
             font-style: italic;
         }
 
+
         /* =========================
            FOOTER
         ========================== */
 
         footer {
+
             position: fixed;
 
             left: 18%;
@@ -505,77 +743,697 @@
             text-transform: uppercase;
         }
 
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 800px) {
+
+            html,
+            body {
+
+                width: 100%;
+
+                min-height: 100%;
+
+                height: auto;
+
+                overflow-x: hidden;
+
+                overflow-y: auto;
+            }
+
+
+            body {
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #0b0c0d,
+                        #181a1c 50%,
+                        #292b2d
+                    );
+            }
+
+
+            /* Hide decorative vertical line */
+
+            .background::after {
+
+                display: none;
+            }
+
+
+            /* =========================
+               MOBILE NAVIGATION
+            ========================== */
+
+            nav {
+
+                position: relative;
+
+                top: auto;
+                left: auto;
+                right: auto;
+
+                width: 100%;
+
+                min-height: auto;
+
+                height: auto;
+
+                padding:
+                    22px 20px 18px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
+
+                justify-content: flex-start;
+
+                gap: 18px;
+
+                background:
+                    rgba(11,12,13,0.97);
+
+                backdrop-filter: blur(10px);
+
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+
+            .logo {
+
+                width: 100%;
+
+                padding: 0;
+
+                text-align: center;
+
+                font-size: 11px;
+
+                line-height: 1.4;
+
+                letter-spacing: 0.18em;
+            }
+
+
+            .links {
+
+                width: 100%;
+
+                display: flex;
+
+                flex-wrap: wrap;
+
+                align-items: center;
+
+                justify-content: center;
+
+                gap:
+                    12px 18px;
+            }
+
+
+            .links a {
+
+                display: inline-block;
+
+                padding:
+                    3px 0;
+
+                font-size: 9px;
+
+                line-height: 1.5;
+
+                letter-spacing: 0.12em;
+
+                white-space: nowrap;
+            }
+
+
+            /* =========================
+               MOBILE PAGE
+            ========================== */
+
+            .page {
+
+                width: 100%;
+
+                height: auto;
+
+                display: block;
+
+                padding-top: 0;
+            }
+
+
+            /* =========================
+               MOBILE LEFT
+            ========================== */
+
+            .left {
+
+                position: relative;
+
+                top: auto;
+                left: auto;
+
+                width: 100%;
+
+                height: auto;
+
+                padding:
+                    45px 25px 35px;
+
+                display: block;
+            }
+
+
+            .eyebrow {
+
+                margin-bottom: 18px;
+
+                font-size: 9px;
+
+                letter-spacing: 0.25em;
+            }
+
+
+            .left h1 {
+
+                max-width: 100%;
+
+                font-size:
+                    clamp(
+                        46px,
+                        13vw,
+                        64px
+                    );
+
+                line-height: 0.98;
+
+                letter-spacing: -0.045em;
+
+                word-break: normal;
+
+                overflow-wrap: normal;
+            }
+
+
+            .left-note {
+
+                max-width: 290px;
+
+                margin-top: 22px;
+
+                font-size: 12px;
+
+                line-height: 1.8;
+            }
+
+
+            /* =========================
+               MOBILE CONTENT
+            ========================== */
+
+            .content {
+
+                width: 100%;
+
+                height: auto;
+
+                overflow: visible;
+
+                padding:
+                    25px 25px 80px;
+            }
+
+
+            article {
+
+                width: 100%;
+
+                max-width: none;
+            }
+
+
+            .article-label {
+
+                margin-bottom: 12px;
+
+                font-size: 8px;
+
+                line-height: 1.6;
+
+                letter-spacing: 0.20em;
+            }
+
+
+            /* =========================
+               MOBILE PHOTO
+            ========================== */
+
+            .intro-photo {
+
+                width: 190px;
+
+                max-width: 100%;
+
+                margin:
+                    0 0 15px 0;
+            }
+
+
+            .photo-caption {
+
+                width: 190px;
+
+                margin:
+                    -3px 0 18px;
+
+                font-size: 8px;
+
+                line-height: 1.5;
+            }
+
+
+            /* =========================
+               MOBILE MAIN TITLE
+            ========================== */
+
+            article h2 {
+
+                margin:
+                    0 0 16px;
+
+                max-width: 100%;
+
+                font-size:
+                    clamp(
+                        34px,
+                        10vw,
+                        46px
+                    );
+
+                line-height: 1.1;
+
+                letter-spacing: -0.035em;
+
+                word-break: normal;
+
+                overflow-wrap: normal;
+            }
+
+
+            /* =========================
+               MOBILE SECTION TITLES
+            ========================== */
+
+            article h3 {
+
+                margin:
+                    30px 0 7px;
+
+                font-size: 13px;
+
+                line-height: 1.45;
+
+                letter-spacing: 0.08em;
+            }
+
+
+            article h4 {
+
+                margin:
+                    18px 0 5px;
+
+                font-size: 12px;
+
+                line-height: 1.5;
+            }
+
+
+            /* =========================
+               MOBILE PARAGRAPHS
+            ========================== */
+
+            article p,
+            article h2 + p {
+
+                width: 100%;
+
+                max-width: 100%;
+
+                font-size: 14px;
+
+                line-height: 1.9;
+
+                overflow-wrap: break-word;
+
+                word-wrap: break-word;
+            }
+
+
+            article h2 + p {
+
+                font-size: 15px;
+
+                line-height: 1.9;
+            }
+
+
+            .period {
+
+                margin-top: 22px;
+            }
+
+
+            /* =========================
+               MOBILE FINAL
+            ========================== */
+
+            .final-rule {
+
+                margin:
+                    50px 0 30px;
+            }
+
+
+            .final-words {
+
+                font-size:
+                    clamp(
+                        25px,
+                        8vw,
+                        34px
+                    );
+
+                line-height: 1.4;
+            }
+
+
+            .closing {
+
+                margin-top: 25px;
+
+                padding-bottom: 40px;
+
+                font-size: 15px;
+
+                line-height: 1.85;
+            }
+
+
+            /* =========================
+               MOBILE FOOTER
+            ========================== */
+
+            footer {
+
+                position: relative;
+
+                left: auto;
+
+                bottom: auto;
+
+                width: 100%;
+
+                padding:
+                    0 25px 30px;
+
+                font-size: 8px;
+
+                line-height: 1.5;
+
+                text-align: center;
+            }
+
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+        ================================================= */
+
+        @media (max-width: 430px) {
+
+            nav {
+
+                padding:
+                    20px 15px 16px;
+
+                gap: 16px;
+            }
+
+
+            .logo {
+
+                font-size: 10px;
+            }
+
+
+            .links {
+
+                gap:
+                    10px 15px;
+            }
+
+
+            .links a {
+
+                font-size: 8px;
+
+                letter-spacing: 0.10em;
+            }
+
+
+            .left {
+
+                padding:
+                    40px 20px 30px;
+            }
+
+
+            .left h1 {
+
+                font-size:
+                    clamp(
+                        42px,
+                        13vw,
+                        58px
+                    );
+            }
+
+
+            .left-note {
+
+                font-size: 11px;
+            }
+
+
+            .content {
+
+                padding:
+                    22px 20px 70px;
+            }
+
+
+            .intro-photo {
+
+                width: 180px;
+            }
+
+
+            .photo-caption {
+
+                width: 180px;
+            }
+
+
+            article h2 {
+
+                font-size:
+                    clamp(
+                        32px,
+                        10vw,
+                        40px
+                    );
+            }
+
+
+            article p,
+            article h2 + p {
+
+                font-size: 13.5px;
+
+                line-height: 1.9;
+            }
+
+
+            article h3 {
+
+                font-size: 12px;
+            }
+
+
+            article h4 {
+
+                font-size: 11.5px;
+            }
+
+
+            .final-words {
+
+                font-size: 25px;
+            }
+
+        }
+
     </style>
 
 </head>
 
+
 <body>
 
+
 <div class="background"></div>
+
+
+<!-- =========================
+     NAVIGATION
+========================== -->
 
 <nav>
 
     <div class="logo">
+
         JhoneVic's Diary
+
     </div>
+
 
     <div class="links">
 
+
+        <!-- HOME -->
+
         <a href="./index.html">
+
             Home
+
         </a>
+
+
+        <!-- INTRODUCTION -->
 
         <a
             href="./introduction.html"
             class="active"
         >
+
             Introduction
+
         </a>
+
+
+        <!-- REFLECTIONS -->
 
         <a href="./reflections.html">
+
             Reflection | Photographs
+
         </a>
+
+
+        <!-- TIMELINE -->
 
         <a href="./timeline.html">
+
             Timeline
+
         </a>
 
+
+        <!-- LOGIN -->
+
         <a href="./login.html">
+
             Login
+
         </a>
+
 
     </div>
 
 </nav>
 
+
+<!-- =========================
+     PAGE
+========================== -->
+
 <main class="page">
+
+
+    <!-- =========================
+         LEFT SIDE
+    ========================== -->
 
     <section class="left">
 
+
         <div class="eyebrow">
+
             The Archive
+
         </div>
 
+
         <h1>
+
             The Unspoken<br>
             Chapters
+
         </h1>
 
+
         <p class="left-note">
+
             A digital home for memories,
             handwritten history, and the
             ordinary moments worth preserving.
+
         </p>
+
 
     </section>
 
+
+    <!-- =========================
+         RIGHT CONTENT
+    ========================== -->
+
     <section class="content">
+
 
         <article>
 
+
             <div class="article-label">
+
                 The Person Behind the Diaries
+
             </div>
+
+
+            <!-- =========================
+                 2013 PHOTOGRAPH
+            ========================== -->
 
             <img
                 class="intro-photo"
@@ -583,15 +1441,27 @@
                 alt="JhoneVic in 2013"
             >
 
+
             <div class="photo-caption">
+
                 JhoneVic · 2013
+
             </div>
 
+
+            <!-- =========================
+                 MAIN TITLE
+            ========================== -->
+
             <h2>
+
                 Who is JhoneVic?
+
             </h2>
 
+
             <p>
+
                 JhoneVic M. Casaña is a diarist,
                 observer, and chronicler of his own
                 life—a quiet witness to the ordinary
@@ -604,13 +1474,23 @@
                 a documented record of nearly a decade
                 and a half of growth, heartbreak,
                 resilience, and self-discovery.
+
             </p>
 
+
+            <!-- =========================
+                 THE DIARIES
+            ========================== -->
+
             <h3>
+
                 The Diaries
+
             </h3>
 
+
             <p>
+
                 JhoneVic's diaries are not polished
                 memoirs or literary exercises. They are
                 raw, unedited, and deeply honest accounts
@@ -620,15 +1500,26 @@
                 with slang, self-deprecating humor, and
                 the unfiltered voice of a young person
                 navigating the chaos of growing up.
+
             </p>
+
+
+            <!-- =========================
+                 2013–2014
+            ========================== -->
 
             <div class="period">
 
+
                 <h4>
+
                     2013–2014 (Ages 14–16):
+
                 </h4>
 
+
                 <p>
+
                     The early years. These diaries capture
                     the intense, world-ending emotions of
                     first love, first heartbreak, and the
@@ -636,127 +1527,268 @@
                     center is his complicated feelings for
                     a classmate—a relationship that would
                     define much of his emotional landscape
-                    during these years.
+                    during these years. He writes about
+                    school, classmates, family, and a local
+                    computer shop where he would often go
+                    to catch glimpses of her. The tone is
+                    dramatic, playful, and deeply earnest—
+                    a young person learning what it means
+                    to love, lose, and hope.
+
                 </p>
+
 
             </div>
 
+
+            <!-- =========================
+                 2026
+            ========================== -->
+
             <div class="period">
 
+
                 <h4>
+
                     2026 (Age 27–28):
+
                 </h4>
 
+
                 <p>
+
                     The adult years. The diary returns
                     after a long silence, and the voice
                     has matured. JhoneVic is now navigating
-                    the complexities of adulthood.
+                    the complexities of adulthood: re-entering
+                    a family-owned business, managing mental
+                    health struggles with medication,
+                    rebuilding strained family relationships,
+                    and discovering new romantic feelings
+                    for a co-worker. The writing is more
+                    contemplative, self-aware, and analytical—
+                    a man using the diary as a tool to process
+                    anxiety, social awkwardness, and the
+                    quiet loneliness of adulthood.
+
                 </p>
 
+
             </div>
+
+
+            <!-- =========================
+                 KEY THEMES
+            ========================== -->
 
             <h3>
+
                 Key Themes
+
             </h3>
 
+
+            <!-- FIRST LOVE -->
+
             <div class="period">
 
+
                 <h4>
+
                     First Love and Heartbreak:
+
                 </h4>
 
+
                 <p>
-                    JhoneVic's early diaries document
-                    the intensity of first love, longing,
-                    jealousy, hope, and rejection.
+
+                    JhoneVic's early diaries are a masterclass
+                    in the intensity of first love. The longing,
+                    the jealousy, the hope, the rejection—all
+                    documented with such vividness that readers
+                    can almost feel the emotional whiplash of
+                    being a teenager in love for the first time.
+                    Even years later, the echoes of that
+                    experience shape how he approaches
+                    relationships.
+
                 </p>
+
 
             </div>
 
+
+            <!-- FAMILY -->
+
             <div class="period">
 
+
                 <h4>
+
                     Family and Belonging:
+
                 </h4>
 
+
                 <p>
-                    Throughout the diaries, family is
+
+                    Throughout all three years, family is
                     both a source of comfort and frustration.
+                    Relationships with cousins evolve from
+                    trusted confidantes to complicated
+                    boss-figures and occasional rivals.
+                    Extended stays with relatives become
+                    formative periods of learning and quiet
+                    reflection. The diary is, in many ways,
+                    a search for belonging—within his family,
+                    his workplace, and his own heart.
+
                 </p>
+
 
             </div>
 
+
+            <!-- MENTAL HEALTH -->
+
             <div class="period">
 
+
                 <h4>
+
                     Mental Health and Self-Awareness:
+
                 </h4>
 
+
                 <p>
-                    The diary also records periods of
-                    anxiety, medication, and self-reflection.
+
+                    The 2026 diary marks a significant shift
+                    as JhoneVic openly discusses his anxiety
+                    and medication. He questions the effects
+                    of his treatment, struggles with lethargy,
+                    and uses the diary to untangle his own
+                    emotions. This is not a story of triumph
+                    over mental illness, but a candid, honest
+                    record of someone learning to live with it—
+                    day by day, entry by entry.
+
                 </p>
 
+
             </div>
+
+
+            <!-- WRITING -->
 
             <div class="period">
 
+
                 <h4>
+
                     The Act of Writing Itself:
+
                 </h4>
 
+
                 <p>
-                    The diary becomes a tool for
-                    self-analysis and reflection.
+
+                    Perhaps the most profound theme is
+                    JhoneVic's relationship with his own diary.
+                    At 14, it was an emotional outlet—a place
+                    to pour out his heart. By 27, it has become
+                    a tool for self-analysis, a mirror to reflect
+                    on his own growth, and a companion in his
+                    solitude. He questions at one point whether
+                    he is writing because he is obligated or
+                    because he still enjoys it—a moment of
+                    meta-awareness that reveals how deeply
+                    the diary is woven into his identity.
+
                 </p>
 
+
             </div>
+
+
+            <!-- =========================
+                 FINAL WORDS
+            ========================== -->
 
             <div class="final-rule"></div>
 
+
             <h3>
+
                 Final Words
+
             </h3>
 
+
             <p class="final-words">
-                JhoneVic is not a famous author,
-                a public figure, or a polished storyteller.
-                He is simply someone who chose to write
-                down his life.
+
+                JhoneVic is not a famous author, a public
+                figure, or a polished storyteller. He is
+                simply someone who chose to write down his
+                life—the good days and the bad, the moments
+                of joy and the nights of loneliness, the
+                crushes that faded and the connections
+                that endured.
+
             </p>
 
-            <p style="margin-top: 35px;">
-                His diaries are a testament to the power
-                of writing—not as a performance, but as
-                a way to understand oneself.
-            </p>
 
             <p style="margin-top: 35px;">
+
+                His diaries are a testament to the power of
+                writing: not as a performance, but as a way
+                to understand oneself. They are proof that
+                the stories of ordinary people, told with
+                honesty and vulnerability, can be just as
+                compelling as any epic. In an age of curated
+                online personas, JhoneVic's diaries are
+                refreshingly, beautifully, unapologetically
+                real.
+
+            </p>
+
+
+            <p style="margin-top: 35px;">
+
                 He is a keeper of fragments—a collector
                 of moments—and through his words, we are
-                invited to witness the quiet, messy,
-                and deeply human process of becoming
-                who we are.
+                invited to witness the quiet, messy, and
+                deeply human process of becoming who we are.
+
             </p>
 
+
             <p class="closing">
+
                 JhoneVic continues to write. His diaries
                 are preserved and transcribed as a personal
                 archive—a legacy of honesty, growth, and
-                the enduring belief that our stories,
-                no matter how small, deserve to be told.
+                the enduring belief that our stories, no
+                matter how small, deserve to be told.
+
             </p>
+
 
         </article>
 
+
     </section>
+
 
 </main>
 
+
 <footer>
+
     Personal Archive · 2013—2026
+
 </footer>
+
 
 </body>
 
