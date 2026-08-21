@@ -330,24 +330,35 @@
         /* =========================
            LEFT SIDE
            
-           EXACTLY THE SAME AS
-           INTRODUCTION.HTML
+           MATCHES THE ACTUAL
+           INTRODUCTION CONTENT START
+           
+           Introduction:
+           top: 85px
+           padding-top: 55px
+           
+           Actual content position:
+           85px + 55px = 140px
+           
+           Reflection uses 140px directly
+           so the content has a fixed,
+           deterministic vertical position.
         ========================== */
 
         .left {
 
             position: fixed;
 
-            top: 85px;
+            top: 140px;
             left: 0;
 
             width: 30%;
 
             height:
-                calc(100vh - 85px);
+                calc(100vh - 140px);
 
             padding:
-                55px 5% 80px 13%;
+                0 5% 80px 13%;
 
             display: flex;
 
@@ -766,7 +777,9 @@
 
             /* =========================
                MOBILE LEFT
-               EXACTLY THE SAME AS
+
+               EXACT SAME CONTENT
+               POSITIONING AS
                INTRODUCTION.HTML
             ========================== */
 
