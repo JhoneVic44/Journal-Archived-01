@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -156,7 +157,20 @@ nav {
 }
 
 
-.back {
+.links {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 32px;
+
+}
+
+
+.links a {
 
     color: #aaa9a3;
 
@@ -168,12 +182,16 @@ nav {
 
     text-transform: uppercase;
 
-    transition: color 0.25s ease;
+    white-space: nowrap;
+
+    transition:
+        color 0.25s ease;
 
 }
 
 
-.back:hover {
+.links a:hover,
+.links a.active {
 
     color: #eeeae1;
 
@@ -413,11 +431,38 @@ footer {
    MOBILE
 ========================= */
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 
     nav {
 
-        padding: 0 25px;
+        height: auto;
+
+        min-height: 85px;
+
+        padding:
+            20px 25px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .links {
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+        justify-content: flex-end;
+
+        max-width: 70%;
+
+    }
+
+
+    .links a {
+
+        font-size: 8px;
 
     }
 
@@ -452,7 +497,7 @@ footer {
 
 <!-- =========================
      NAVIGATION
-========================= -->
+========================== -->
 
 <nav>
 
@@ -463,21 +508,65 @@ footer {
     </div>
 
 
-    <a
-        href="./index.html"
-        class="back"
-    >
+    <div class="links">
 
-        Back
 
-    </a>
+        <!-- HOME -->
+
+        <a href="./index.html">
+
+            Home
+
+        </a>
+
+
+        <!-- INTRODUCTION -->
+
+        <a href="./introduction.html">
+
+            Introduction
+
+        </a>
+
+
+        <!-- REFLECTIONS -->
+
+        <a href="./reflections.html">
+
+            Reflection | Photographs
+
+        </a>
+
+
+        <!-- TIMELINE -->
+
+        <a href="./timeline.html">
+
+            Timeline
+
+        </a>
+
+
+        <!-- LOGIN -->
+
+        <a
+            href="./login.html"
+            class="active"
+        >
+
+            Login
+
+        </a>
+
+
+    </div>
 
 </nav>
 
 
 <!-- =========================
      LOGIN
-========================= -->
+========================== -->
 
 <main>
 
@@ -517,11 +606,15 @@ footer {
         >
 
             <span class="google-icon">
+
                 G
+
             </span>
 
             <span>
+
                 Continue with Google
+
             </span>
 
         </button>
@@ -549,7 +642,7 @@ footer {
 
 <!-- =========================
      SUPABASE GOOGLE LOGIN
-========================= -->
+========================== -->
 
 <script>
 
@@ -558,7 +651,7 @@ const SUPABASE_URL =
 
 
 const SUPABASE_KEY =
-    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljrI1K8N";
+    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
 const supabaseClient =
@@ -610,3 +703,4 @@ document
 </body>
 
 </html>
+```
