@@ -20,6 +20,17 @@
         content="The entrance to The Unspoken Chapters, a personal diary archive."
     >
 
+    <!-- =========================
+         SUPABASE
+    ========================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <!-- =========================
+         FONTS
+    ========================== -->
+
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -139,6 +150,33 @@
                 );
 
             pointer-events: none;
+        }
+
+
+        /* =========================
+           GOOGLE USER NAME
+        ========================== */
+
+        .user-name {
+
+            position: absolute;
+
+            top: 32px;
+            right: 8%;
+
+            z-index: 5;
+
+            color: #aaa9a3;
+
+            font-size: 9px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+            white-space: nowrap;
         }
 
 
@@ -333,6 +371,28 @@
             }
 
 
+            /* =========================
+               MOBILE USER NAME
+            ========================== */
+
+            .user-name {
+
+                top: 22px;
+
+                right: 25px;
+
+                max-width: 65%;
+
+                overflow: hidden;
+
+                text-overflow: ellipsis;
+
+                font-size: 8px;
+
+                letter-spacing: 0.10em;
+            }
+
+
             .entrance-content {
 
                 width: 100%;
@@ -408,6 +468,16 @@
             }
 
 
+            .user-name {
+
+                top: 19px;
+
+                right: 20px;
+
+                font-size: 7px;
+            }
+
+
             .archive-label {
 
                 font-size: 7px;
@@ -458,6 +528,20 @@
 <main class="entrance">
 
 
+    <!-- =========================
+         GOOGLE USER NAME
+    ========================== -->
+
+    <div
+        class="user-name"
+        id="user-name"
+    >
+
+        Loading...
+
+    </div>
+
+
     <div class="entrance-content">
 
 
@@ -497,6 +581,79 @@
 
 
 </main>
+
+
+<!-- =========================
+     SUPABASE AUTHENTICATION
+========================== -->
+
+<script>
+
+const SUPABASE_URL =
+    "https://ktytetimukmaqkxmzkha.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+async function loadUser() {
+
+    const {
+        data: {
+            user
+        },
+        error
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    /*
+     * If there is no authenticated user,
+     * send them back to the login page.
+     */
+
+    if (error || !user) {
+
+        window.location.href =
+            "./login.html";
+
+        return;
+
+    }
+
+
+    /*
+     * Get the Google account's full name.
+     */
+
+    const fullName =
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        "Reader";
+
+
+    /*
+     * Display the Google full name.
+     */
+
+    document
+        .getElementById("user-name")
+        .textContent = fullName;
+
+}
+
+
+loadUser();
+
+</script>
 
 
 </body>
