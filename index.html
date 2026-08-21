@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +33,10 @@
 
     <style>
 
+        /* =========================
+           RESET
+        ========================== */
+
         * {
             box-sizing: border-box;
         }
@@ -39,9 +44,12 @@
 
         html,
         body {
+
             margin: 0;
+
             width: 100%;
             height: 100%;
+
             overflow: hidden;
         }
 
@@ -118,7 +126,6 @@
             top: 0;
 
             left: 0;
-
             right: 0;
 
             z-index: 10;
@@ -148,6 +155,8 @@
             letter-spacing: 0.18em;
 
             text-transform: uppercase;
+
+            white-space: nowrap;
         }
 
 
@@ -156,6 +165,8 @@
             display: flex;
 
             align-items: center;
+
+            justify-content: flex-end;
 
             gap: 32px;
         }
@@ -172,6 +183,8 @@
             letter-spacing: 0.14em;
 
             text-transform: uppercase;
+
+            white-space: nowrap;
 
             transition:
                 color 0.25s ease;
@@ -344,7 +357,7 @@
 
 
         /* =========================
-           INTRODUCTION CONTENT
+           CONTENT
         ========================== */
 
         .content h2 {
@@ -480,51 +493,155 @@
         }
 
 
-        /* =========================
+        /* =================================================
            MOBILE
-        ========================== */
+        ================================================= */
 
         @media (max-width: 800px) {
 
             html,
             body {
 
-                overflow: auto;
+                width: 100%;
+
+                min-height: 100%;
+
+                height: auto;
+
+                overflow-x: hidden;
+
+                overflow-y: auto;
             }
 
 
+            body {
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #0b0c0d,
+                        #181a1c 50%,
+                        #292b2d
+                    );
+            }
+
+
+            /* =========================
+               MOBILE NAVIGATION
+               MATCHES INTRODUCTION
+               AND REFLECTION
+            ========================== */
+
             nav {
 
+                position: fixed;
+
+                top: 0;
+
+                left: 0;
+                right: 0;
+
+                width: 100%;
+
+                height: auto;
+
+                min-height: 0;
+
                 padding:
-                    0 25px;
+                    22px 20px 18px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
+
+                justify-content: flex-start;
+
+                gap: 18px;
+
+                background:
+                    rgba(11,12,13,0.97);
+
+                backdrop-filter:
+                    blur(10px);
+
+                -webkit-backdrop-filter:
+                    blur(10px);
+
+                z-index: 10;
+            }
+
+
+            .logo {
+
+                width: 100%;
+
+                padding: 0;
+
+                text-align: center;
+
+                font-size: 11px;
+
+                line-height: 1.4;
+
+                letter-spacing: 0.18em;
             }
 
 
             .links {
 
-                gap: 13px;
+                width: 100%;
+
+                display: flex;
 
                 flex-wrap: wrap;
 
-                justify-content: flex-end;
+                align-items: center;
+
+                justify-content: center;
+
+                gap:
+                    12px 18px;
             }
 
 
             .links a {
 
-                font-size: 8px;
+                display: inline-block;
+
+                padding:
+                    3px 0;
+
+                font-size: 9px;
+
+                line-height: 1.5;
+
+                letter-spacing: 0.12em;
+
+                white-space: nowrap;
             }
 
 
+            /* =========================
+               MOBILE PAGE
+            ========================== */
+
             .page {
+
+                width: 100%;
 
                 height: auto;
 
                 display: block;
 
-                padding-top: 85px;
+                padding-top: 145px;
             }
 
+
+            /* =========================
+               MOBILE LEFT
+            ========================== */
 
             .left {
 
@@ -539,44 +656,160 @@
                 height: auto;
 
                 padding:
-                    55px 25px 45px;
+                    45px 25px 35px;
+
+                display: block;
+            }
+
+
+            .eyebrow {
+
+                margin-bottom: 18px;
+
+                font-size: 9px;
+
+                letter-spacing: 0.25em;
             }
 
 
             .left h1 {
 
+                max-width: 100%;
+
                 font-size:
                     clamp(
-                        48px,
-                        14vw,
-                        72px
+                        46px,
+                        13vw,
+                        64px
                     );
+
+                line-height: 0.98;
+
+                letter-spacing: -0.045em;
+
+                word-break: normal;
+
+                overflow-wrap: normal;
             }
 
 
+            .left-note {
+
+                max-width: 290px;
+
+                margin-top: 22px;
+
+                font-size: 12px;
+
+                line-height: 1.8;
+            }
+
+
+            /* =========================
+               MOBILE CONTENT
+            ========================== */
+
             .content {
+
+                width: 100%;
 
                 height: auto;
 
                 overflow: visible;
 
                 padding:
-                    50px 25px 90px;
+                    25px 25px 80px;
             }
 
 
             .content h2 {
 
-                font-size: 36px;
+                margin:
+                    0 0 16px;
+
+                max-width: 100%;
+
+                font-size:
+                    clamp(
+                        34px,
+                        10vw,
+                        46px
+                    );
+
+                line-height: 1.1;
+
+                letter-spacing: -0.035em;
+
+                word-break: normal;
+
+                overflow-wrap: normal;
             }
 
 
             .opening,
             .section p {
 
+                width: 100%;
+
+                max-width: 100%;
+
                 font-size: 14px;
+
+                line-height: 1.9;
+
+                overflow-wrap: break-word;
+
+                word-wrap: break-word;
             }
 
+
+            .opening {
+
+                margin:
+                    0 0 50px;
+            }
+
+
+            .section {
+
+                width: 100%;
+
+                max-width: 100%;
+
+                margin-bottom: 45px;
+            }
+
+
+            .section h3 {
+
+                font-size: 13px;
+
+                line-height: 1.45;
+            }
+
+
+            .rule {
+
+                margin:
+                    50px 0 30px;
+            }
+
+
+            .final {
+
+                max-width: 100%;
+
+                padding-bottom: 40px;
+
+                font-size: 16px;
+
+                line-height: 1.85;
+            }
+
+
+            /* =========================
+               MOBILE FOOTER
+            ========================== */
 
             footer {
 
@@ -586,8 +819,125 @@
 
                 bottom: auto;
 
+                width: 100%;
+
                 padding:
-                    0 25px 35px;
+                    0 25px 30px;
+
+                font-size: 8px;
+
+                line-height: 1.5;
+
+                text-align: center;
+            }
+
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+        ================================================= */
+
+        @media (max-width: 430px) {
+
+            nav {
+
+                padding:
+                    20px 15px 16px;
+
+                gap: 16px;
+            }
+
+
+            .logo {
+
+                font-size: 10px;
+            }
+
+
+            .links {
+
+                gap:
+                    10px 15px;
+            }
+
+
+            .links a {
+
+                font-size: 8px;
+
+                letter-spacing: 0.10em;
+            }
+
+
+            .page {
+
+                padding-top: 135px;
+            }
+
+
+            .left {
+
+                padding:
+                    40px 20px 30px;
+            }
+
+
+            .left h1 {
+
+                font-size:
+                    clamp(
+                        42px,
+                        13vw,
+                        58px
+                    );
+            }
+
+
+            .left-note {
+
+                font-size: 11px;
+            }
+
+
+            .content {
+
+                padding:
+                    22px 20px 70px;
+            }
+
+
+            .content h2 {
+
+                font-size:
+                    clamp(
+                        32px,
+                        10vw,
+                        40px
+                    );
+            }
+
+
+            .opening,
+            .section p {
+
+                font-size: 13.5px;
+
+                line-height: 1.9;
+            }
+
+
+            .section h3 {
+
+                font-size: 12px;
+            }
+
+
+            .final {
+
+                font-size: 15px;
+
+                line-height: 1.85;
             }
 
         }
@@ -875,3 +1225,4 @@
 </body>
 
 </html>
+```
