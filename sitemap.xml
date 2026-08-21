@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<urlset
-    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>
-            https://jhonevic44.github.io/Journal-Archived-01/
-        </loc>
+        <loc>https://jhonevic44.github.io/Journal-Archived-01/</loc>
     </url>
 
     <url>
-        <loc>
-            https://jhonevic44.github.io/Journal-Archived-01/introduction.html
-        </loc>
+        <loc>https://jhonevic44.github.io/Journal-Archived-01/introduction.html</loc>
     </url>
 
     <url>
-        <loc>
-            https://jhonevic44.github.io/Journal-Archived-01/about.html
-        </loc>
+        <loc>https://jhonevic44.github.io/Journal-Archived-01/about.html</loc>
     </url>
 
     <url>
-        <loc>
-            https://jhonevic44.github.io/Journal-Archived-01/timeline.html
-        </loc>
+        <loc>https://jhonevic44.github.io/Journal-Archived-01/timeline.html</loc>
     </url>
 
 </urlset>
