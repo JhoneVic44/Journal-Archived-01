@@ -128,6 +128,11 @@
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
         crossorigin
     >
 
@@ -325,19 +330,15 @@
         /* =========================
            LEFT SIDE
            
-           EXACT SAME VISUAL
-           POSITION AS INTRODUCTION
-           
-           NAV = 85px
-           LEFT OFFSET = 55px
-           TOTAL TOP = 140px
+           EXACTLY THE SAME AS
+           INTRODUCTION.HTML
         ========================== */
 
         .left {
 
             position: fixed;
 
-            top: 140px;
+            top: 85px;
             left: 0;
 
             width: 30%;
@@ -346,7 +347,7 @@
                 calc(100vh - 85px);
 
             padding:
-                0 5% 80px 13%;
+                55px 5% 80px 13%;
 
             display: flex;
 
@@ -354,16 +355,13 @@
 
             justify-content: flex-start;
 
-            margin: 0;
-
             z-index: 4;
         }
 
 
         .eyebrow {
 
-            margin:
-                0 0 22px;
+            margin-bottom: 22px;
 
             color: #777a7d;
 
@@ -380,8 +378,6 @@
         .left h1 {
 
             margin: 0;
-
-            padding: 0;
 
             color: #eeeae1;
 
@@ -409,8 +405,7 @@
 
             max-width: 220px;
 
-            margin:
-                25px 0 0;
+            margin-top: 25px;
 
             color: #777a7d;
 
@@ -497,6 +492,10 @@
         }
 
 
+        /* =========================
+           MAIN TITLE
+        ========================== */
+
         article h2 {
 
             margin:
@@ -524,6 +523,10 @@
         }
 
 
+        /* =========================
+           PARAGRAPHS
+        ========================== */
+
         article p {
 
             margin: 0;
@@ -543,7 +546,7 @@
 
 
         /* =========================
-           FUTURE CONTENT
+           FUTURE ARCHIVE
         ========================== */
 
         .reserved {
@@ -763,7 +766,8 @@
 
             /* =========================
                MOBILE LEFT
-               SAME AS INTRODUCTION
+               EXACTLY THE SAME AS
+               INTRODUCTION.HTML
             ========================== */
 
             .left {
@@ -781,15 +785,12 @@
                     45px 25px 35px;
 
                 display: block;
-
-                margin: 0;
             }
 
 
             .eyebrow {
 
-                margin:
-                    0 0 18px;
+                margin-bottom: 18px;
 
                 font-size: 9px;
 
@@ -800,10 +801,6 @@
             .left h1 {
 
                 max-width: 100%;
-
-                margin: 0;
-
-                padding: 0;
 
                 font-size:
                     clamp(
@@ -826,8 +823,7 @@
 
                 max-width: 290px;
 
-                margin:
-                    22px 0 0;
+                margin-top: 22px;
 
                 font-size: 12px;
 
@@ -981,6 +977,14 @@
         @media (max-width: 430px) {
 
             nav {
+
+                position: fixed;
+
+                top: 0;
+                left: 0;
+                right: 0;
+
+                z-index: 1000;
 
                 padding:
                     20px 15px 16px;
