@@ -50,10 +50,6 @@
 
     <style>
 
-        /* =========================
-           RESET
-        ========================== */
-
         * {
             box-sizing: border-box;
         }
@@ -165,19 +161,35 @@
 
             right: 8%;
 
-            z-index: 5;
+            z-index: 10;
 
-            color: #aaa9a3;
+            color: #eeeae1;
 
-            font-size: 9px;
+            font-size: 10px;
 
-            font-weight: 500;
+            font-weight: 600;
 
             letter-spacing: 0.12em;
 
             text-transform: uppercase;
 
             white-space: nowrap;
+
+            padding:
+                8px 12px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            background:
+                rgba(0,0,0,0.25);
+
+            backdrop-filter:
+                blur(8px);
+
+            -webkit-backdrop-filter:
+                blur(8px);
 
             opacity: 0;
 
@@ -383,10 +395,6 @@
             }
 
 
-            /* =========================
-               MOBILE USER NAME
-            ========================== */
-
             .user-name {
 
                 top: 22px;
@@ -487,6 +495,9 @@
                 right: 20px;
 
                 font-size: 7px;
+
+                padding:
+                    6px 9px;
             }
 
 
@@ -547,7 +558,8 @@
     <div
         class="user-name"
         id="user-name"
-    ></div>
+    >
+    </div>
 
 
     <div class="entrance-content">
@@ -613,19 +625,19 @@ const supabaseClient =
 
 
 /* =================================================
-   DISPLAY USER NAME
+   SHOW USER NAME
 ================================================= */
 
-function displayUserName(user) {
+function showUserName(user) {
 
-    const userNameElement =
+    const element =
         document.getElementById("user-name");
 
 
-    if (!user) {
+    if (!element) {
 
-        console.warn(
-            "No authenticated user was supplied."
+        console.error(
+            "User name element was not found."
         );
 
         return;
@@ -633,131 +645,164 @@ function displayUserName(user) {
     }
 
 
-    /*
-     * SHOW THE COMPLETE USER OBJECT
-     * IN THE BROWSER CONSOLE.
-     *
-     * This lets us see exactly what
-     * Google/Supabase returned.
-     */
+    if (!user) {
+
+        console.error(
+            "No user object received."
+        );
+
+        return;
+
+    }
+
 
     console.log(
-        "Authenticated Supabase user:",
+        "Logged-in user:",
         user
     );
 
 
     console.log(
-        "User metadata:",
+        "Google/Supabase metadata:",
         user.user_metadata
     );
 
-
-    /*
-     * Google can provide the user's
-     * name under different fields.
-     */
 
     const metadata =
         user.user_metadata || {};
 
 
-    const fullName =
-        metadata.full_name ||
-        metadata.name ||
-        metadata.given_name ||
-        metadata.preferred_username ||
-        "";
+    /*
+     * Check the common Google
+     * profile-name fields.
+     */
+
+    let name =
+        metadata.full_name;
+
+
+    if (!name) {
+
+        name =
+            metadata.name;
+
+    }
+
+
+    if (!name) {
+
+        name =
+            metadata.given_name;
+
+    }
+
+
+    if (!name) {
+
+        name =
+            metadata.first_name;
+
+    }
+
+
+    if (!name) {
+
+        name =
+            metadata.preferred_username;
+
+    }
 
 
     /*
-     * If Google did not provide a name,
-     * use the email as a fallback.
+     * Last fallback:
+     * use the email address.
      */
 
-    const displayName =
-        fullName ||
-        user.email ||
-        "Authenticated User";
+    if (!name) {
+
+        name =
+            user.email;
+
+    }
+
+
+    if (!name) {
+
+        name =
+            "Google User";
+
+    }
 
 
     /*
      * Put the name into the page.
      */
 
-    userNameElement.textContent =
-        displayName;
+    element.textContent =
+        name;
 
 
     /*
-     * Make it visible.
+     * Make the name visible.
      */
 
-    userNameElement.classList.add(
+    element.classList.add(
         "visible"
+    );
+
+
+    console.log(
+        "Name displayed:",
+        name
     );
 
 }
 
 
 /* =================================================
-   LOAD AUTHENTICATED USER
+   CHECK CURRENT USER
 ================================================= */
 
-async function loadAuthenticatedUser() {
+async function checkUser() {
 
     console.log(
-        "Checking Supabase authentication..."
+        "Checking current Google login..."
     );
 
 
     /*
-     * Ask Supabase for the current
-     * authenticated session.
+     * getUser() asks Supabase's
+     * authentication server for
+     * the authenticated user.
      */
 
     const {
         data,
         error
     } =
-        await supabaseClient.auth.getSession();
+        await supabaseClient.auth.getUser();
 
 
     if (error) {
 
         console.error(
-            "Supabase session error:",
+            "getUser() error:",
             error
         );
 
-        window.location.href =
-            "./login.html";
-
         return;
 
     }
 
 
-    const session =
-        data?.session;
+    const user =
+        data?.user;
 
 
-    /*
-     * If the session already exists,
-     * display the Google account name.
-     */
+    if (user) {
 
-    if (
-        session &&
-        session.user
-    ) {
-
-        console.log(
-            "Existing session found."
-        );
-
-        displayUserName(
-            session.user
+        showUserName(
+            user
         );
 
         return;
@@ -766,47 +811,37 @@ async function loadAuthenticatedUser() {
 
 
     /*
-     * OAuth may still be finishing.
-     *
-     * Listen for the authentication
-     * state change.
+     * If there isn't a user yet,
+     * listen for the OAuth session.
      */
 
     console.log(
-        "No session yet. Waiting for OAuth..."
+        "Waiting for authentication..."
     );
 
 
-    let handled =
-        false;
-
-
     const {
-        data: authListener
+        data: authData
     } =
         supabaseClient.auth.onAuthStateChange(
             function (
                 event,
-                newSession
+                session
             ) {
 
                 console.log(
-                    "Auth event:",
+                    "Authentication event:",
                     event
                 );
 
 
                 if (
-                    newSession &&
-                    newSession.user &&
-                    !handled
+                    session &&
+                    session.user
                 ) {
 
-                    handled = true;
-
-
-                    displayUserName(
-                        newSession.user
+                    showUserName(
+                        session.user
                     );
 
                 }
@@ -816,74 +851,30 @@ async function loadAuthenticatedUser() {
 
 
     /*
-     * Give Supabase time to restore
-     * the OAuth session.
+     * Check again after a short delay.
      */
 
     setTimeout(
         async function () {
 
-            if (handled) {
-
-                authListener
-                    .subscription
-                    .unsubscribe();
-
-                return;
-
-            }
-
-
             const {
                 data: {
-                    session: currentSession
+                    user: currentUser
                 }
             } =
-                await supabaseClient.auth.getSession();
+                await supabaseClient.auth.getUser();
 
 
-            if (
-                currentSession &&
-                currentSession.user
-            ) {
+            if (currentUser) {
 
-                handled = true;
-
-
-                authListener
-                    .subscription
-                    .unsubscribe();
-
-
-                displayUserName(
-                    currentSession.user
+                showUserName(
+                    currentUser
                 );
-
-
-                return;
 
             }
 
-
-            /*
-             * No authenticated user was found.
-             */
-
-            console.warn(
-                "No authenticated session found."
-            );
-
-
-            authListener
-                .subscription
-                .unsubscribe();
-
-
-            window.location.href =
-                "./login.html";
-
         },
-        5000
+        1500
     );
 
 }
@@ -893,7 +884,7 @@ async function loadAuthenticatedUser() {
    START
 ================================================= */
 
-loadAuthenticatedUser();
+checkUser();
 
 </script>
 
