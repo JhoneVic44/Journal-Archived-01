@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,11 +33,6 @@
         href="https://jhonevic44.github.io/Journal-Archived-01/reflections.html"
     >
 
-
-    <!-- =========================
-         OPEN GRAPH
-    ========================== -->
-
     <meta
         property="og:type"
         content="website"
@@ -63,11 +58,6 @@
         content="JhoneVic's Diary"
     >
 
-
-    <!-- =========================
-         TWITTER / X
-    ========================== -->
-
     <meta
         name="twitter:card"
         content="summary"
@@ -82,11 +72,6 @@
         name="twitter:description"
         content="A collection of photographs, memories, and reflections preserved as part of JhoneVic's personal archive."
     >
-
-
-    <!-- =========================
-         STRUCTURED DATA
-    ========================== -->
 
     <script type="application/ld+json">
     {
@@ -109,11 +94,6 @@
     }
     </script>
 
-
-    <!-- =========================
-         FONTS
-    ========================== -->
-
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -130,7 +110,6 @@
         rel="stylesheet"
     >
 
-
     <style>
 
         /* =========================
@@ -140,7 +119,6 @@
         * {
             box-sizing: border-box;
         }
-
 
         html,
         body {
@@ -152,7 +130,6 @@
 
             overflow: hidden;
         }
-
 
         body {
 
@@ -188,7 +165,6 @@
             z-index: 0;
         }
 
-
         .background::before {
 
             content: "";
@@ -215,7 +191,7 @@
 
         /* =========================
            NAVIGATION
-           MATCHES INTRODUCTION
+           SAME AS INTRODUCTION
         ========================== */
 
         nav {
@@ -239,7 +215,6 @@
             justify-content: space-between;
         }
 
-
         .logo {
 
             color: #f0ece3;
@@ -255,7 +230,6 @@
             white-space: nowrap;
         }
 
-
         .links {
 
             display: flex;
@@ -266,7 +240,6 @@
 
             gap: 32px;
         }
-
 
         .links a {
 
@@ -285,7 +258,6 @@
             transition:
                 color 0.25s ease;
         }
-
 
         .links a:hover,
         .links .active {
@@ -345,7 +317,6 @@
             z-index: 4;
         }
 
-
         .eyebrow {
 
             margin-bottom: 22px;
@@ -360,7 +331,6 @@
 
             text-transform: uppercase;
         }
-
 
         .left h1 {
 
@@ -386,7 +356,6 @@
 
             letter-spacing: -0.05em;
         }
-
 
         .left-note {
 
@@ -419,18 +388,15 @@
                 65px 8% 120px 16%;
         }
 
-
         .content::-webkit-scrollbar {
 
             width: 5px;
         }
 
-
         .content::-webkit-scrollbar-track {
 
             background: transparent;
         }
-
 
         .content::-webkit-scrollbar-thumb {
 
@@ -439,7 +405,6 @@
 
             border-radius: 10px;
         }
-
 
         .content {
 
@@ -460,7 +425,6 @@
             max-width: 820px;
         }
 
-
         .article-label {
 
             margin-bottom: 12px;
@@ -477,7 +441,6 @@
 
             text-align: left;
         }
-
 
         article h2 {
 
@@ -505,7 +468,6 @@
             letter-spacing: -0.04em;
         }
 
-
         article p {
 
             margin: 0;
@@ -516,7 +478,6 @@
 
             line-height: 2;
         }
-
 
         .opening {
 
@@ -551,7 +512,6 @@
 
             text-transform: uppercase;
         }
-
 
         .reserved span {
 
@@ -604,7 +564,7 @@
 
         /* =================================================
            MOBILE
-           EXACTLY MATCHES INTRODUCTION
+           LOCKED TO INTRODUCTION BEHAVIOR
         ================================================= */
 
         @media (max-width: 800px) {
@@ -623,7 +583,6 @@
                 overflow-y: auto;
             }
 
-
             body {
 
                 background:
@@ -635,7 +594,6 @@
                     );
             }
 
-
             .background::after {
 
                 display: none;
@@ -643,22 +601,22 @@
 
 
             /* =========================
-               MOBILE NAVIGATION
+               FIXED MOBILE NAVIGATION
             ========================== */
 
             nav {
 
-                position: relative;
+                position: fixed;
 
-                top: auto;
-                left: auto;
-                right: auto;
+                top: 0;
+                left: 0;
+                right: 0;
 
                 width: 100%;
 
-                min-height: auto;
-
                 height: auto;
+
+                min-height: 112px;
 
                 padding:
                     22px 20px 18px;
@@ -676,11 +634,12 @@
                 background:
                     rgba(11,12,13,0.97);
 
-                backdrop-filter: blur(10px);
+                backdrop-filter:
+                    blur(10px);
 
-                -webkit-backdrop-filter: blur(10px);
+                -webkit-backdrop-filter:
+                    blur(10px);
             }
-
 
             .logo {
 
@@ -697,7 +656,6 @@
                 letter-spacing: 0.18em;
             }
 
-
             .links {
 
                 width: 100%;
@@ -713,7 +671,6 @@
                 gap:
                     12px 18px;
             }
-
 
             .links a {
 
@@ -733,7 +690,7 @@
 
 
             /* =========================
-               MOBILE PAGE
+               PAGE
             ========================== */
 
             .page {
@@ -744,12 +701,12 @@
 
                 display: block;
 
-                padding-top: 0;
+                padding-top: 112px;
             }
 
 
             /* =========================
-               MOBILE LEFT
+               LEFT
             ========================== */
 
             .left {
@@ -769,7 +726,6 @@
                 display: block;
             }
 
-
             .eyebrow {
 
                 margin-bottom: 18px;
@@ -778,7 +734,6 @@
 
                 letter-spacing: 0.25em;
             }
-
 
             .left h1 {
 
@@ -800,7 +755,6 @@
                 overflow-wrap: normal;
             }
 
-
             .left-note {
 
                 max-width: 290px;
@@ -814,7 +768,7 @@
 
 
             /* =========================
-               MOBILE CONTENT
+               CONTENT
             ========================== */
 
             .content {
@@ -829,14 +783,12 @@
                     25px 25px 80px;
             }
 
-
             article {
 
                 width: 100%;
 
                 max-width: none;
             }
-
 
             .article-label {
 
@@ -848,7 +800,6 @@
 
                 letter-spacing: 0.20em;
             }
-
 
             article h2 {
 
@@ -873,7 +824,6 @@
                 overflow-wrap: normal;
             }
 
-
             article p {
 
                 width: 100%;
@@ -889,6 +839,10 @@
                 word-wrap: break-word;
             }
 
+            .opening {
+
+                max-width: 100%;
+            }
 
             .reserved {
 
@@ -898,7 +852,6 @@
                     45px 0;
             }
 
-
             .reserved span {
 
                 font-size: 20px;
@@ -906,7 +859,7 @@
 
 
             /* =========================
-               MOBILE FOOTER
+               FOOTER
             ========================== */
 
             footer {
@@ -934,12 +887,13 @@
 
         /* =================================================
            VERY SMALL PHONES
-           EXACTLY MATCHES INTRODUCTION
         ================================================= */
 
         @media (max-width: 430px) {
 
             nav {
+
+                min-height: 108px;
 
                 padding:
                     20px 15px 16px;
@@ -947,19 +901,16 @@
                 gap: 16px;
             }
 
-
             .logo {
 
                 font-size: 10px;
             }
-
 
             .links {
 
                 gap:
                     10px 15px;
             }
-
 
             .links a {
 
@@ -968,13 +919,16 @@
                 letter-spacing: 0.10em;
             }
 
+            .page {
+
+                padding-top: 108px;
+            }
 
             .left {
 
                 padding:
                     40px 20px 30px;
             }
-
 
             .left h1 {
 
@@ -986,19 +940,16 @@
                     );
             }
 
-
             .left-note {
 
                 font-size: 11px;
             }
-
 
             .content {
 
                 padding:
                     22px 20px 70px;
             }
-
 
             article h2 {
 
@@ -1009,7 +960,6 @@
                         40px
                     );
             }
-
 
             article p {
 
@@ -1047,8 +997,6 @@
     <div class="links">
 
 
-        <!-- HOME -->
-
         <a href="./index.html">
 
             Home
@@ -1056,16 +1004,12 @@
         </a>
 
 
-        <!-- INTRODUCTION -->
-
         <a href="./introduction.html">
 
             Introduction
 
         </a>
 
-
-        <!-- REFLECTIONS -->
 
         <a
             href="./reflections.html"
@@ -1077,16 +1021,12 @@
         </a>
 
 
-        <!-- TIMELINE -->
-
         <a href="./timeline.html">
 
             Timeline
 
         </a>
 
-
-        <!-- LOGIN -->
 
         <a href="./login.html">
 
@@ -1101,15 +1041,11 @@
 
 
 <!-- =========================
-     PAGE
+     MAIN PAGE
 ========================== -->
 
 <main class="page">
 
-
-    <!-- =========================
-         LEFT SIDE
-    ========================== -->
 
     <section class="left">
 
@@ -1140,10 +1076,6 @@
 
     </section>
 
-
-    <!-- =========================
-         RIGHT CONTENT
-    ========================== -->
 
     <section class="content">
 
