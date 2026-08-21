@@ -791,11 +791,13 @@
 
             nav {
 
-                position: relative;
+                position: fixed;
 
-                top: auto;
-                left: auto;
-                right: auto;
+                top: 0;
+                left: 0;
+                right: 0;
+
+                z-index: 1000;
 
                 width: 100%;
 
@@ -887,7 +889,7 @@
 
                 display: block;
 
-                padding-top: 0;
+                padding-top: 120px;
             }
 
 
@@ -1183,6 +1185,14 @@
 
             nav {
 
+                position: fixed;
+
+                top: 0;
+                left: 0;
+                right: 0;
+
+                z-index: 1000;
+
                 padding:
                     20px 15px 16px;
 
@@ -1208,6 +1218,12 @@
                 font-size: 8px;
 
                 letter-spacing: 0.10em;
+            }
+
+
+            .page {
+
+                padding-top: 105px;
             }
 
 
