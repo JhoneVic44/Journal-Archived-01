@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +12,7 @@
 
 <title>Login | JhoneVic's Diary</title>
 
-
-<!-- SUPABASE -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-<!-- FONTS -->
 
 <link
     rel="preconnect"
@@ -37,13 +30,11 @@
     rel="stylesheet"
 >
 
-
 <style>
 
 * {
     box-sizing: border-box;
 }
-
 
 html,
 body {
@@ -51,7 +42,6 @@ body {
     width: 100%;
     min-height: 100%;
 }
-
 
 body {
 
@@ -90,7 +80,6 @@ body {
 
     z-index: 0;
 }
-
 
 .background::before {
 
@@ -152,17 +141,17 @@ nav {
 }
 
 
-.nav-links {
+.links {
 
     display: flex;
 
     align-items: center;
 
-    gap: 28px;
+    gap: 32px;
 }
 
 
-.nav-links a {
+.links a {
 
     color: #aaa9a3;
 
@@ -179,7 +168,7 @@ nav {
 }
 
 
-.nav-links a:hover {
+.links a:hover {
 
     color: #eeeae1;
 }
@@ -355,9 +344,7 @@ h1 {
 
     color: #eeeae1;
 
-    font-family:
-        Arial,
-        sans-serif;
+    font-family: Arial, sans-serif;
 
     font-size: 14px;
 
@@ -391,8 +378,7 @@ footer {
 
     z-index: 3;
 
-    padding:
-        0 7% 28px;
+    padding: 0 7% 28px;
 
     color: #5d5f62;
 
@@ -410,48 +396,63 @@ footer {
    MOBILE
 ========================= */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
     nav {
 
-        padding:
-            0 25px;
+        padding: 0 25px;
+
+    }
+
+    .links {
+
+        gap: 13px;
+
+        flex-wrap: wrap;
+
+        justify-content: flex-end;
+
+    }
+
+    .links a {
+
+        font-size: 8px;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    nav {
 
         height: auto;
 
         min-height: 85px;
 
-        gap: 20px;
+        padding: 0 20px;
+
     }
 
+    .links {
 
-    .nav-links {
+        gap: 10px;
 
-        gap: 14px;
-
-        flex-wrap: wrap;
-
-        justify-content: flex-end;
     }
-
-
-    .nav-links a {
-
-        font-size: 8px;
-    }
-
 
     main {
 
         padding:
             30px 25px 80px;
-    }
 
+    }
 
     footer {
 
         padding:
             0 25px 25px;
+
     }
 
 }
@@ -480,8 +481,7 @@ footer {
     </div>
 
 
-    <div class="nav-links">
-
+    <div class="links">
 
         <a href="./index.html">
 
@@ -499,7 +499,7 @@ footer {
 
         <a href="./reflections.html">
 
-            Reflection
+            Reflection | Photographs
 
         </a>
 
@@ -509,7 +509,6 @@ footer {
             Timeline
 
         </a>
-
 
     </div>
 
@@ -651,4 +650,3 @@ document
 </body>
 
 </html>
-```
