@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +38,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.gstatic.com"
+        href="https://fonts.googleapis.com"
         crossorigin
     >
 
@@ -614,149 +613,6 @@ const supabaseClient =
 
 
 /* =========================
-   LOAD AUTHENTICATED USER
-========================== */
-
-async function loadAuthenticatedUser() {
-
-    const userNameElement =
-        document.getElementById("user-name");
-
-
-    /*
-     * First ask Supabase for the
-     * currently restored session.
-     */
-
-    const {
-        data: {
-            session
-        },
-        error
-    } =
-        await supabaseClient.auth.getSession();
-
-
-    /*
-     * If there is a real authentication
-     * error, return to login.
-     */
-
-    if (error) {
-
-        console.error(
-            "Supabase session error:",
-            error
-        );
-
-        window.location.href =
-            "./login.html";
-
-        return;
-
-    }
-
-
-    /*
-     * If the OAuth session has not
-     * finished restoring yet, wait for
-     * the authentication state event.
-     */
-
-    if (!session) {
-
-        const {
-            data: {
-                subscription
-            }
-        } =
-            supabaseClient.auth.onAuthStateChange(
-                async function (
-                    event,
-                    newSession
-                ) {
-
-                    if (
-                        newSession &&
-                        newSession.user
-                    ) {
-
-                        subscription.unsubscribe();
-
-                        displayUserName(
-                            newSession.user
-                        );
-
-                    }
-
-                }
-            );
-
-
-        /*
-         * Give Supabase a short amount
-         * of time to restore the session.
-         */
-
-        setTimeout(
-            async function () {
-
-                const {
-                    data: {
-                        session: currentSession
-                    }
-                } =
-                    await supabaseClient.auth.getSession();
-
-
-                if (
-                    currentSession &&
-                    currentSession.user
-                ) {
-
-                    subscription.unsubscribe();
-
-                    displayUserName(
-                        currentSession.user
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * No authenticated session
-                 * was found.
-                 */
-
-                subscription.unsubscribe();
-
-                window.location.href =
-                    "./login.html";
-
-            },
-            2500
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * Session already exists.
-     */
-
-    displayUserName(
-        session.user
-    );
-
-}
-
-
-/* =========================
    DISPLAY GOOGLE FULL NAME
 ========================== */
 
@@ -778,9 +634,9 @@ function displayUserName(user) {
 
 
     /*
-     * If no name was supplied,
-     * don't display an incorrect
-     * fallback.
+     * If Google did not provide
+     * a name, don't display
+     * an incorrect fallback.
      */
 
     if (!fullName) {
@@ -806,6 +662,115 @@ function displayUserName(user) {
 
 
 /* =========================
+   LOAD AUTHENTICATED USER
+========================== */
+
+async function loadAuthenticatedUser() {
+
+    try {
+
+        /*
+         * Ask Supabase for the
+         * currently authenticated session.
+         */
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        /*
+         * Supabase itself returned
+         * an authentication error.
+         */
+
+        if (error) {
+
+            console.error(
+                "Supabase session error:",
+                error
+            );
+
+
+            window.location.replace(
+                "./login.html"
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * Extract the session.
+         */
+
+        const session =
+            data.session;
+
+
+        /*
+         * No authenticated session
+         * was found.
+         */
+
+        if (
+            !session ||
+            !session.user
+        ) {
+
+            console.warn(
+                "No authenticated session found."
+            );
+
+
+            window.location.replace(
+                "./login.html"
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * Authentication succeeded.
+         *
+         * Stay on entrance.html.
+         */
+
+        displayUserName(
+            session.user
+        );
+
+
+    } catch (error) {
+
+        /*
+         * Unexpected authentication
+         * error.
+         */
+
+        console.error(
+            "Authentication check failed:",
+            error
+        );
+
+
+        window.location.replace(
+            "./login.html"
+        );
+
+    }
+
+}
+
+
+/* =========================
    START
 ========================== */
 
@@ -817,4 +782,3 @@ loadAuthenticatedUser();
 </body>
 
 </html>
-
