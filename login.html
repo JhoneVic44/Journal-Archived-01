@@ -1,517 +1,786 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Login | JhoneVic's Diary</title>
+    <title>Login | JhoneVic's Diary</title>
 
 
-<!-- SUPABASE -->
+    <!-- =========================
+         SUPABASE
+    ========================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-<!-- FONTS -->
+    <!-- =========================
+         FONTS
+    ========================== -->
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
-    rel="stylesheet"
->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
 
 
-<style>
+    <style>
 
-* {
-    box-sizing: border-box;
-}
+        /* =========================
+           RESET
+        ========================== */
 
+        * {
+            box-sizing: border-box;
+        }
 
-html,
-body {
 
-    margin: 0;
+        html,
+        body {
 
-    width: 100%;
-    height: 100%;
+            margin: 0;
 
-    overflow: hidden;
+            width: 100%;
+            height: 100%;
 
-}
+            overflow: hidden;
+        }
 
 
-body {
+        body {
 
-    background:
-        linear-gradient(
-            135deg,
-            #0b0c0d,
-            #181a1c 50%,
-            #292b2d
-        );
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b0c0d,
+                    #181a1c 50%,
+                    #292b2d
+                );
 
-    color: #eeeae1;
+            color: #eeeae1;
 
-    font-family:
-        "Manrope",
-        Arial,
-        sans-serif;
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+        }
 
-}
 
+        /* =========================
+           BACKGROUND
+        ========================== */
 
-/* =========================
-   BACKGROUND
-========================= */
+        .background {
 
-.background {
+            position: fixed;
 
-    position: fixed;
+            inset: 0;
 
-    inset: 0;
+            pointer-events: none;
 
-    pointer-events: none;
+            z-index: 0;
+        }
 
-    z-index: 0;
 
-}
+        .background::before {
 
+            content: "";
 
-.background::before {
+            position: absolute;
 
-    content: "";
+            width: 800px;
+            height: 800px;
 
-    position: absolute;
+            top: -400px;
+            right: -150px;
 
-    width: 800px;
-    height: 800px;
+            border-radius: 50%;
 
-    top: -400px;
-    right: -150px;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.12),
+                    rgba(255,255,255,0.03) 40%,
+                    transparent 70%
+                );
+        }
 
-    border-radius: 50%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,0.12),
-            rgba(255,255,255,0.03) 40%,
-            transparent 70%
-        );
+        /* =========================
+           NAVIGATION
+           EXACT INTRODUCTION LAYOUT
+        ========================== */
 
-}
+        nav {
 
+            position: fixed;
 
-/* =========================
-   NAVIGATION
-========================= */
+            top: 0;
+            left: 0;
+            right: 0;
 
-nav {
+            z-index: 10;
 
-    position: fixed;
+            width: 100%;
 
-    top: 0;
-    left: 0;
-    right: 0;
+            height: 85px;
 
-    z-index: 10;
+            padding: 0 7%;
 
-    width: 100%;
+            display: flex;
 
-    height: 85px;
+            align-items: center;
 
-    padding: 0 7%;
+            justify-content: space-between;
+        }
 
-    display: flex;
 
-    align-items: center;
+        .logo {
 
-    justify-content: space-between;
+            color: #f0ece3;
 
-}
+            font-size: 11px;
 
+            font-weight: 600;
 
-.logo {
+            letter-spacing: 0.18em;
 
-    color: #f0ece3;
+            text-transform: uppercase;
 
-    font-size: 11px;
+            white-space: nowrap;
+        }
 
-    font-weight: 600;
 
-    letter-spacing: 0.18em;
+        .links {
 
-    text-transform: uppercase;
+            display: flex;
 
-}
+            align-items: center;
 
+            justify-content: flex-end;
 
-.links {
+            gap: 32px;
+        }
 
-    display: flex;
 
-    align-items: center;
+        .links a {
 
-    gap: 32px;
+            color: #aaa9a3;
 
-}
+            text-decoration: none;
 
+            font-size: 10px;
 
-.links a {
+            letter-spacing: 0.14em;
 
-    color: #aaa9a3;
+            text-transform: uppercase;
 
-    text-decoration: none;
+            white-space: nowrap;
 
-    font-size: 10px;
+            transition:
+                color 0.25s ease;
+        }
 
-    letter-spacing: 0.14em;
 
-    text-transform: uppercase;
+        .links a:hover,
+        .links .active {
 
-    white-space: nowrap;
+            color: #eeeae1;
+        }
 
-    transition:
-        color 0.25s ease;
 
-}
+        /* =========================
+           LOGIN PAGE
+        ========================== */
 
+        main {
 
-.links a:hover,
-.links a.active {
+            position: relative;
 
-    color: #eeeae1;
+            z-index: 2;
 
-}
+            width: 100%;
 
+            height: 100vh;
 
-/* =========================
-   LOGIN
-========================= */
+            padding-top: 85px;
 
-main {
+            display: flex;
 
-    position: relative;
+            align-items: center;
 
-    z-index: 2;
+            justify-content: center;
+        }
 
-    width: 100%;
 
-    height: 100vh;
+        .login {
 
-    padding-top: 85px;
+            width: 100%;
 
-    display: flex;
+            max-width: 470px;
 
-    align-items: center;
+            padding:
+                40px 25px 100px;
 
-    justify-content: center;
+            text-align: center;
+        }
 
-}
 
+        .eyebrow {
 
-.login {
+            margin-bottom: 24px;
 
-    width: 100%;
+            color: #777a7d;
 
-    max-width: 470px;
+            font-size: 10px;
 
-    padding:
-        40px 25px 100px;
+            font-weight: 600;
 
-    text-align: center;
+            letter-spacing: 0.3em;
 
-}
+            text-transform: uppercase;
+        }
 
 
-.eyebrow {
+        .login h1 {
 
-    margin-bottom: 24px;
+            margin: 0;
 
-    color: #777a7d;
+            color: #eeeae1;
 
-    font-size: 10px;
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
 
-    font-weight: 600;
+            font-size:
+                clamp(
+                    45px,
+                    5.1vw,
+                    68px
+                );
 
-    letter-spacing: 0.3em;
+            font-weight: 400;
 
-    text-transform: uppercase;
+            line-height: .95;
 
-}
+            letter-spacing: -0.05em;
+        }
 
 
-h1 {
+        .rule {
 
-    margin: 0;
+            width: 55px;
 
-    color: #eeeae1;
+            height: 1px;
 
-    font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
+            margin:
+                35px auto 25px;
 
-    font-size:
-        clamp(
-            45px,
-            5.1vw,
-            68px
-        );
+            background:
+                rgba(255,255,255,0.25);
+        }
 
-    font-weight: 400;
 
-    line-height: .95;
+        .description {
 
-    letter-spacing: -0.05em;
+            max-width: 330px;
 
-}
+            margin:
+                0 auto 35px;
 
+            color: #777a7d;
 
-.rule {
+            font-size: 11px;
 
-    width: 55px;
+            line-height: 1.8;
+        }
 
-    height: 1px;
 
-    margin: 35px auto 25px;
+        /* =========================
+           GOOGLE BUTTON
+        ========================== */
 
-    background:
-        rgba(255,255,255,0.25);
+        .google-button {
 
-}
+            display: flex;
 
+            align-items: center;
 
-.description {
+            justify-content: center;
 
-    max-width: 330px;
+            gap: 12px;
 
-    margin: 0 auto 35px;
+            width: 100%;
 
-    color: #777a7d;
+            max-width: 320px;
 
-    font-size: 11px;
+            margin: 0 auto;
 
-    line-height: 1.8;
+            padding:
+                14px 22px;
 
-}
+            border:
+                1px solid
+                rgba(255,255,255,0.20);
 
+            background:
+                rgba(255,255,255,0.03);
 
-/* =========================
-   GOOGLE BUTTON
-========================= */
+            color: #aaa9a3;
 
-.google-button {
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
 
-    display: flex;
+            font-size: 10px;
 
-    align-items: center;
+            font-weight: 500;
 
-    justify-content: center;
+            letter-spacing: 0.12em;
 
-    gap: 12px;
+            text-transform: uppercase;
 
-    width: 100%;
+            cursor: pointer;
 
-    max-width: 320px;
+            transition:
+                background 0.25s ease,
+                border-color 0.25s ease,
+                color 0.25s ease;
+        }
 
-    margin: 0 auto;
 
-    padding: 14px 22px;
+        .google-button:hover {
 
-    border:
-        1px solid
-        rgba(255,255,255,0.20);
+            background:
+                rgba(255,255,255,0.08);
 
-    background:
-        rgba(255,255,255,0.03);
+            border-color:
+                rgba(255,255,255,0.35);
 
-    color: #aaa9a3;
+            color: #eeeae1;
+        }
 
-    font-family:
-        "Manrope",
-        Arial,
-        sans-serif;
 
-    font-size: 10px;
+        .google-icon {
 
-    font-weight: 500;
+            color: #eeeae1;
 
-    letter-spacing: 0.12em;
+            font-family:
+                Arial,
+                sans-serif;
 
-    text-transform: uppercase;
+            font-size: 14px;
 
-    cursor: pointer;
+            font-weight: 500;
+        }
 
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        color 0.25s ease;
 
-}
+        /* =========================
+           NOTICE
+        ========================== */
 
+        .notice {
 
-.google-button:hover {
+            margin-top: 25px;
 
-    background:
-        rgba(255,255,255,0.08);
+            color: #5d5f62;
 
-    border-color:
-        rgba(255,255,255,0.35);
+            font-size: 9px;
 
-    color: #eeeae1;
+            line-height: 1.7;
+        }
 
-}
 
+        /* =========================
+           FOOTER
+        ========================== */
 
-.google-icon {
+        footer {
 
-    color: #eeeae1;
+            position: fixed;
 
-    font-family: Arial, sans-serif;
+            left: 7%;
 
-    font-size: 14px;
+            bottom: 28px;
 
-    font-weight: 500;
+            z-index: 6;
 
-}
+            color: #5d5f62;
 
+            font-size: 9px;
 
-/* =========================
-   NOTICE
-========================= */
+            letter-spacing: 0.2em;
 
-.notice {
+            text-transform: uppercase;
+        }
 
-    margin-top: 25px;
 
-    color: #5d5f62;
+        /* =================================================
+           MOBILE
+           EXACT INTRODUCTION NAVIGATION BEHAVIOR
+        ================================================= */
 
-    font-size: 9px;
+        @media (max-width: 800px) {
 
-    line-height: 1.7;
+            html,
+            body {
 
-}
+                width: 100%;
 
+                min-height: 100%;
 
-/* =========================
-   FOOTER
-========================= */
+                height: auto;
 
-footer {
+                overflow-x: hidden;
 
-    position: fixed;
+                overflow-y: auto;
+            }
 
-    left: 7%;
 
-    bottom: 28px;
+            body {
 
-    z-index: 6;
+                background:
+                    linear-gradient(
+                        135deg,
+                        #0b0c0d,
+                        #181a1c 50%,
+                        #292b2d
+                    );
+            }
 
-    color: #5d5f62;
 
-    font-size: 9px;
+            /* =========================
+               MOBILE NAVIGATION
+               SAME AS INTRODUCTION
+            ========================== */
 
-    letter-spacing: 0.2em;
+            nav {
 
-    text-transform: uppercase;
+                position: relative;
 
-}
+                top: auto;
+                left: auto;
+                right: auto;
 
+                width: 100%;
 
-/* =========================
-   MOBILE
-========================= */
+                min-height: auto;
 
-@media (max-width: 800px) {
+                height: auto;
 
-    html,
-    body {
+                padding:
+                    22px 20px 18px;
 
-        overflow: auto;
+                display: flex;
 
-    }
+                flex-direction: column;
 
+                align-items: center;
 
-    nav {
+                justify-content: flex-start;
 
-        padding:
-            0 25px;
+                gap: 18px;
 
-    }
+                background:
+                    rgba(11,12,13,0.97);
 
+                backdrop-filter:
+                    blur(10px);
 
-    .links {
+                -webkit-backdrop-filter:
+                    blur(10px);
+            }
 
-        gap: 13px;
 
-        flex-wrap: wrap;
+            .logo {
 
-        justify-content: flex-end;
+                width: 100%;
 
-    }
+                padding: 0;
 
+                text-align: center;
 
-    .links a {
+                font-size: 11px;
 
-        font-size: 8px;
+                line-height: 1.4;
 
-    }
+                letter-spacing: 0.18em;
+            }
 
 
-    main {
+            .links {
 
-        height: auto;
+                width: 100%;
 
-        min-height: 100vh;
+                display: flex;
 
-        padding-top: 85px;
+                flex-wrap: wrap;
 
-    }
+                align-items: center;
 
+                justify-content: center;
 
-    .login {
+                gap:
+                    12px 18px;
+            }
 
-        padding:
-            50px 25px 90px;
 
-    }
+            .links a {
 
+                display: inline-block;
 
-    footer {
+                padding:
+                    3px 0;
 
-        position: relative;
+                font-size: 9px;
 
-        left: auto;
+                line-height: 1.5;
 
-        bottom: auto;
+                letter-spacing: 0.12em;
 
-        padding:
-            0 25px 35px;
+                white-space: nowrap;
+            }
 
-    }
 
-}
+            /* =========================
+               MOBILE LOGIN
+            ========================== */
 
-</style>
+            main {
+
+                width: 100%;
+
+                height: auto;
+
+                min-height:
+                    calc(100vh - 110px);
+
+                padding-top: 0;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+            }
+
+
+            .login {
+
+                width: 100%;
+
+                max-width: 470px;
+
+                padding:
+                    55px 25px 90px;
+            }
+
+
+            .login h1 {
+
+                max-width: 100%;
+
+                font-size:
+                    clamp(
+                        46px,
+                        13vw,
+                        64px
+                    );
+
+                line-height: 0.98;
+
+                letter-spacing: -0.045em;
+
+                word-break: normal;
+
+                overflow-wrap: normal;
+            }
+
+
+            .eyebrow {
+
+                margin-bottom: 20px;
+
+                font-size: 9px;
+
+                letter-spacing: 0.25em;
+            }
+
+
+            .description {
+
+                max-width: 290px;
+
+                margin:
+                    0 auto 30px;
+
+                font-size: 12px;
+
+                line-height: 1.8;
+            }
+
+
+            .google-button {
+
+                width: 100%;
+
+                max-width: 320px;
+
+                padding:
+                    14px 20px;
+
+                font-size: 9px;
+
+                line-height: 1.5;
+            }
+
+
+            .notice {
+
+                font-size: 8px;
+
+                line-height: 1.7;
+            }
+
+
+            /* =========================
+               MOBILE FOOTER
+            ========================== */
+
+            footer {
+
+                position: relative;
+
+                left: auto;
+
+                bottom: auto;
+
+                width: 100%;
+
+                padding:
+                    0 25px 30px;
+
+                font-size: 8px;
+
+                line-height: 1.5;
+
+                text-align: center;
+            }
+
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+           SAME INTRODUCTION BREAKPOINT
+        ================================================= */
+
+        @media (max-width: 430px) {
+
+            nav {
+
+                padding:
+                    20px 15px 16px;
+
+                gap: 16px;
+            }
+
+
+            .logo {
+
+                font-size: 10px;
+            }
+
+
+            .links {
+
+                gap:
+                    10px 15px;
+            }
+
+
+            .links a {
+
+                font-size: 8px;
+
+                letter-spacing: 0.10em;
+            }
+
+
+            main {
+
+                min-height:
+                    calc(100vh - 105px);
+            }
+
+
+            .login {
+
+                padding:
+                    45px 20px 70px;
+            }
+
+
+            .login h1 {
+
+                font-size:
+                    clamp(
+                        42px,
+                        13vw,
+                        58px
+                    );
+            }
+
+
+            .eyebrow {
+
+                font-size: 8px;
+            }
+
+
+            .description {
+
+                font-size: 11px;
+            }
+
+
+            .google-button {
+
+                font-size: 8px;
+
+                padding:
+                    13px 18px;
+            }
+
+
+            .notice {
+
+                font-size: 8px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -524,7 +793,7 @@ footer {
 
 <!-- =========================
      NAVIGATION
-========================= -->
+========================== -->
 
 <nav>
 
@@ -538,12 +807,16 @@ footer {
     <div class="links">
 
 
+        <!-- HOME -->
+
         <a href="./index.html">
 
             Home
 
         </a>
 
+
+        <!-- INTRODUCTION -->
 
         <a href="./introduction.html">
 
@@ -552,6 +825,8 @@ footer {
         </a>
 
 
+        <!-- REFLECTIONS -->
+
         <a href="./reflections.html">
 
             Reflection | Photographs
@@ -559,12 +834,16 @@ footer {
         </a>
 
 
+        <!-- TIMELINE -->
+
         <a href="./timeline.html">
 
             Timeline
 
         </a>
 
+
+        <!-- LOGIN -->
 
         <a
             href="./login.html"
@@ -583,7 +862,7 @@ footer {
 
 <!-- =========================
      LOGIN
-========================= -->
+========================== -->
 
 <main>
 
@@ -659,7 +938,7 @@ footer {
 
 <!-- =========================
      SUPABASE GOOGLE LOGIN
-========================= -->
+========================== -->
 
 <script>
 
