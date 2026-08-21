@@ -622,7 +622,10 @@ function displayUserName(user) {
         document.getElementById("user-name");
 
 
-    if (!user || !userNameElement) {
+    if (
+        !user ||
+        !userNameElement
+    ) {
 
         return;
 
@@ -630,27 +633,54 @@ function displayUserName(user) {
 
 
     /*
-     * Google normally supplies
-     * the user's full name through
-     * user_metadata.
+     * Supabase normally stores Google's
+     * profile information in user_metadata.
+     */
+
+    const metadata =
+        user.user_metadata || {};
+
+
+    /*
+     * Google identity information can
+     * also be available here.
+     */
+
+    const identityData =
+        user.identities?.[0]?.identity_data || {};
+
+
+    /*
+     * Try all common name fields.
      */
 
     const fullName =
-        user.user_metadata?.full_name ||
-        user.user_metadata?.name ||
+        metadata.full_name ||
+        metadata.name ||
+        metadata.display_name ||
+        identityData.full_name ||
+        identityData.name ||
+        identityData.display_name ||
         "";
 
 
     /*
-     * If Google did not provide
-     * a name, simply leave the
-     * username area hidden.
+     * If a Google name exists,
+     * display it.
      */
 
-    if (!fullName) {
+    if (fullName) {
 
-        console.warn(
-            "Google full name was not provided."
+        userNameElement.textContent =
+            fullName;
+
+        userNameElement.classList.add(
+            "visible"
+        );
+
+        console.log(
+            "Google user name:",
+            fullName
         );
 
         return;
@@ -658,25 +688,142 @@ function displayUserName(user) {
     }
 
 
-    userNameElement.textContent =
-        fullName;
+    /*
+     * If no name is available,
+     * use the email as a fallback.
+     *
+     * This also confirms that the
+     * authenticated user was detected.
+     */
+
+    if (user.email) {
+
+        userNameElement.textContent =
+            user.email;
+
+        userNameElement.classList.add(
+            "visible"
+        );
+
+        console.log(
+            "Google user email:",
+            user.email
+        );
+
+        return;
+
+    }
 
 
-    userNameElement.classList.add(
-        "visible"
+    console.warn(
+        "Authenticated user found, but no name or email was available."
     );
 
 }
 
 
 /* =================================================
-   CHECK CURRENT AUTHENTICATION
+   PROCESS AUTHENTICATED SESSION
 ================================================= */
 
-async function checkAuthentication() {
+function processSession(session) {
+
+    if (
+        session &&
+        session.user
+    ) {
+
+        console.log(
+            "Authenticated user:",
+            session.user
+        );
+
+
+        displayUserName(
+            session.user
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   LISTEN FOR AUTHENTICATION EVENTS
+================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Supabase auth event:",
+            event
+        );
+
+
+        /*
+         * Google login completed.
+         */
+
+        if (
+            event === "SIGNED_IN" &&
+            session
+        ) {
+
+            processSession(
+                session
+            );
+
+        }
+
+
+        /*
+         * Supabase restored an
+         * existing session.
+         */
+
+        if (
+            event === "INITIAL_SESSION" &&
+            session
+        ) {
+
+            processSession(
+                session
+            );
+
+        }
+
+
+        /*
+         * Token was refreshed.
+         */
+
+        if (
+            event === "TOKEN_REFRESHED" &&
+            session
+        ) {
+
+            processSession(
+                session
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   GET CURRENT SESSION
+================================================= */
+
+async function loadCurrentSession() {
 
     console.log(
-        "Checking Supabase authentication..."
+        "Loading current Supabase session..."
     );
 
 
@@ -690,17 +837,17 @@ async function checkAuthentication() {
     if (error) {
 
         console.error(
-            "Unable to check authentication:",
+            "Supabase session error:",
             error
         );
 
         /*
          * IMPORTANT:
          *
-         * Do NOT immediately redirect to login.
+         * Do not redirect to login here.
          *
-         * The OAuth callback/session restoration
-         * can still be completing.
+         * The authentication listener above
+         * will handle the OAuth session.
          */
 
         return;
@@ -708,123 +855,31 @@ async function checkAuthentication() {
     }
 
 
-    const session =
-        data?.session;
-
-
     if (
-        session &&
-        session.user
+        data &&
+        data.session
     ) {
 
+        processSession(
+            data.session
+        );
+
+    } else {
+
         console.log(
-            "Authenticated user found:",
-            session.user.email
+            "No session returned yet. Waiting for authentication event..."
         );
-
-
-        displayUserName(
-            session.user
-        );
-
-
-        return;
 
     }
-
-
-    /*
-     * No session is currently available.
-     *
-     * We DO NOT redirect here.
-     *
-     * Instead, we wait for Supabase's
-     * authentication event below.
-     */
-
-    console.log(
-        "No session yet. Waiting for Supabase authentication..."
-    );
 
 }
 
 
 /* =================================================
-   LISTEN FOR AUTHENTICATION EVENTS
+   START
 ================================================= */
 
-const {
-    data: {
-        subscription
-    }
-} =
-    supabaseClient.auth.onAuthStateChange(
-        function (
-            event,
-            session
-        ) {
-
-            console.log(
-                "Supabase auth event:",
-                event
-            );
-
-
-            /*
-             * Google login completed.
-             */
-
-            if (
-                event === "SIGNED_IN" &&
-                session &&
-                session.user
-            ) {
-
-                console.log(
-                    "Google login successful."
-                );
-
-
-                displayUserName(
-                    session.user
-                );
-
-            }
-
-
-            /*
-             * Supabase may also restore an
-             * existing session through
-             * INITIAL_SESSION.
-             */
-
-            if (
-                event === "INITIAL_SESSION" &&
-                session &&
-                session.user
-            ) {
-
-                console.log(
-                    "Existing session restored."
-                );
-
-
-                displayUserName(
-                    session.user
-                );
-
-            }
-
-        }
-    );
-
-
-/* =================================================
-   START AUTHENTICATION CHECK
-================================================= */
-
-checkAuthentication();
-
+loadCurrentSession();
 
 </script>
 
