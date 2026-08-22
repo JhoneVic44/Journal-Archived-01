@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -376,6 +375,14 @@
         }
 
 
+        .google-button:disabled {
+
+            opacity: 0.5;
+
+            cursor: wait;
+        }
+
+
         .google-icon {
 
             color: #eeeae1;
@@ -451,18 +458,6 @@
             }
 
 
-            body {
-
-                background:
-                    linear-gradient(
-                        135deg,
-                        #0b0c0d,
-                        #181a1c 50%,
-                        #292b2d
-                    );
-            }
-
-
             nav {
 
                 position: relative;
@@ -472,8 +467,6 @@
                 right: auto;
 
                 width: 100%;
-
-                min-height: auto;
 
                 height: auto;
 
@@ -505,15 +498,11 @@
 
                 width: 100%;
 
-                padding: 0;
-
                 text-align: center;
 
                 font-size: 11px;
 
                 line-height: 1.4;
-
-                letter-spacing: 0.18em;
             }
 
 
@@ -544,10 +533,6 @@
                 font-size: 9px;
 
                 line-height: 1.5;
-
-                letter-spacing: 0.12em;
-
-                white-space: nowrap;
             }
 
 
@@ -562,11 +547,6 @@
 
                 padding-top: 0;
 
-                display: flex;
-
-                align-items: center;
-
-                justify-content: center;
             }
 
 
@@ -593,22 +573,6 @@
                     );
 
                 line-height: 0.98;
-
-                letter-spacing: -0.045em;
-
-                word-break: normal;
-
-                overflow-wrap: normal;
-            }
-
-
-            .eyebrow {
-
-                margin-bottom: 20px;
-
-                font-size: 9px;
-
-                letter-spacing: 0.25em;
             }
 
 
@@ -616,18 +580,11 @@
 
                 max-width: 290px;
 
-                margin:
-                    0 auto 30px;
-
                 font-size: 12px;
-
-                line-height: 1.8;
             }
 
 
             .google-button {
-
-                width: 100%;
 
                 max-width: 320px;
 
@@ -635,16 +592,12 @@
                     14px 20px;
 
                 font-size: 9px;
-
-                line-height: 1.5;
             }
 
 
             .notice {
 
                 font-size: 8px;
-
-                line-height: 1.7;
             }
 
 
@@ -660,10 +613,6 @@
 
                 padding:
                     0 25px 30px;
-
-                font-size: 8px;
-
-                line-height: 1.5;
 
                 text-align: center;
             }
@@ -877,7 +826,7 @@
 
             </span>
 
-            <span>
+            <span id="google-login-text">
 
                 Continue with Google
 
@@ -923,45 +872,278 @@ const SUPABASE_KEY =
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_KEY
+        SUPABASE_KEY,
+        {
+            auth: {
+
+                persistSession: true,
+
+                autoRefreshToken: true,
+
+                detectSessionInUrl: true,
+
+                flowType: "pkce"
+
+            }
+        }
     );
 
 
-document
-    .getElementById("google-login")
-    .addEventListener(
-        "click",
-        async function () {
+const googleButton =
+    document.getElementById(
+        "google-login"
+    );
 
-            const { error } =
-                await supabaseClient.auth.signInWithOAuth({
 
-                    provider: "google",
+const googleButtonText =
+    document.getElementById(
+        "google-login-text"
+    );
 
-                    options: {
 
-                        redirectTo:
-                            window.location.origin +
-                            "/Journal-Archived-01/entrance.html"
+/* =================================================
+   GOOGLE LOGIN
+================================================= */
+
+googleButton.addEventListener(
+    "click",
+    async function () {
+
+        googleButton.disabled = true;
+
+        googleButtonText.textContent =
+            "Connecting...";
+
+
+        console.log(
+            "Starting Google authentication..."
+        );
+
+
+        const redirectTo =
+            window.location.origin +
+            "/Journal-Archived-01/login.html";
+
+
+        console.log(
+            "OAuth callback:",
+            redirectTo
+        );
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signInWithOAuth({
+
+                provider: "google",
+
+                options: {
+
+                    redirectTo:
+                        redirectTo,
+
+                    queryParams: {
+
+                        access_type: "offline",
+
+                        prompt: "select_account"
 
                     }
 
-                });
+                }
+
+            });
 
 
-            if (error) {
+        if (error) {
 
-                console.error(error);
+            console.error(
+                "Google login error:",
+                error
+            );
 
-                alert(
-                    "Login failed: " +
-                    error.message
-                );
 
-            }
+            googleButton.disabled = false;
+
+            googleButtonText.textContent =
+                "Continue with Google";
+
+
+            alert(
+                "Login failed: " +
+                error.message
+            );
+
+            return;
 
         }
+
+
+        console.log(
+            "Google OAuth started:",
+            data
+        );
+
+    }
+);
+
+
+/* =================================================
+   HANDLE RETURN FROM GOOGLE
+================================================= */
+
+async function handleOAuthCallback() {
+
+    console.log(
+        "Checking for OAuth callback..."
     );
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        const session =
+            data?.session;
+
+
+        if (
+            session &&
+            session.user
+        ) {
+
+            console.log(
+                "SUCCESS: Supabase session established."
+            );
+
+
+            console.log(
+                "Authenticated email:",
+                session.user.email
+            );
+
+
+            console.log(
+                "User metadata:",
+                session.user.user_metadata
+            );
+
+
+            /*
+             * The session now exists.
+             *
+             * Send the user to entrance.html.
+             */
+
+            window.location.replace(
+                "./entrance.html"
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "No session found on this page."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "OAuth callback error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   AUTH STATE LISTENER
+================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Supabase authentication event:",
+            event
+        );
+
+
+        if (
+            event === "SIGNED_IN" &&
+            session &&
+            session.user
+        ) {
+
+            console.log(
+                "SIGNED_IN successfully."
+            );
+
+
+            console.log(
+                "User:",
+                session.user
+            );
+
+
+            /*
+             * Give Supabase a moment to
+             * persist the session before
+             * navigating away.
+             */
+
+            setTimeout(
+                function () {
+
+                    window.location.replace(
+                        "./entrance.html"
+                    );
+
+                },
+                300
+            );
+
+        }
+
+    }
+
+);
+
+
+/* =================================================
+   START
+================================================= */
+
+handleOAuthCallback();
 
 </script>
 
@@ -969,4 +1151,3 @@ document
 </body>
 
 </html>
-
