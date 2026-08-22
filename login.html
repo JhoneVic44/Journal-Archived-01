@@ -12,6 +12,10 @@
 
     <title>Login | JhoneVic's Diary</title>
 
+    <meta
+        name="description"
+        content="Login to The Unspoken Chapters, a personal diary archive."
+    >
 
     <!-- =========================
          SUPABASE
@@ -546,15 +550,10 @@
                     calc(100vh - 110px);
 
                 padding-top: 0;
-
             }
 
 
             .login {
-
-                width: 100%;
-
-                max-width: 470px;
 
                 padding:
                     55px 25px 90px;
@@ -563,16 +562,12 @@
 
             .login h1 {
 
-                max-width: 100%;
-
                 font-size:
                     clamp(
                         46px,
                         13vw,
                         64px
                     );
-
-                line-height: 0.98;
             }
 
 
@@ -592,12 +587,6 @@
                     14px 20px;
 
                 font-size: 9px;
-            }
-
-
-            .notice {
-
-                font-size: 8px;
             }
 
 
@@ -735,32 +724,23 @@
 
     <div class="links">
 
-
         <a href="./index.html">
-
             Home
-
         </a>
 
 
         <a href="./introduction.html">
-
             Introduction
-
         </a>
 
 
         <a href="./reflections.html">
-
             Reflection | Photographs
-
         </a>
 
 
         <a href="./timeline.html">
-
             Timeline
-
         </a>
 
 
@@ -768,11 +748,8 @@
             href="./login.html"
             class="active"
         >
-
             Login
-
         </a>
-
 
     </div>
 
@@ -787,19 +764,14 @@
 
     <section class="login">
 
-
         <div class="eyebrow">
-
             The Archive
-
         </div>
 
 
         <h1>
-
             The Unspoken<br>
             Chapters
-
         </h1>
 
 
@@ -807,10 +779,8 @@
 
 
         <p class="description">
-
             Enter the archive with your
             Google account.
-
         </p>
 
 
@@ -821,27 +791,20 @@
         >
 
             <span class="google-icon">
-
                 G
-
             </span>
 
             <span id="google-login-text">
-
                 Continue with Google
-
             </span>
 
         </button>
 
 
         <p class="notice">
-
             Access is restricted to
             authorized readers.
-
         </p>
-
 
     </section>
 
@@ -849,9 +812,7 @@
 
 
 <footer>
-
     Personal Archive · 2013—2026
-
 </footer>
 
 
@@ -875,15 +836,9 @@ const supabaseClient =
         SUPABASE_KEY,
         {
             auth: {
-
                 persistSession: true,
-
                 autoRefreshToken: true,
-
-                detectSessionInUrl: true,
-
-                flowType: "pkce"
-
+                detectSessionInUrl: true
             }
         }
     );
@@ -901,9 +856,61 @@ const googleButtonText =
     );
 
 
-/* =================================================
-   GOOGLE LOGIN
-================================================= */
+/*
+ * If the user is already authenticated,
+ * there is no reason to show the login
+ * button again.
+ */
+
+async function checkExistingSession() {
+
+    console.log(
+        "Checking existing Supabase session..."
+    );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    if (error) {
+
+        console.error(
+            "Session check error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    if (
+        data &&
+        data.session &&
+        data.session.user
+    ) {
+
+        console.log(
+            "Existing session found."
+        );
+
+
+        window.location.replace(
+            "./entrance.html"
+        );
+
+    }
+
+}
+
+
+/*
+ * Google login.
+ */
 
 googleButton.addEventListener(
     "click",
@@ -922,11 +929,11 @@ googleButton.addEventListener(
 
         const redirectTo =
             window.location.origin +
-            "/Journal-Archived-01/login.html";
+            "/Journal-Archived-01/entrance.html";
 
 
         console.log(
-            "OAuth callback:",
+            "OAuth redirect:",
             redirectTo
         );
 
@@ -942,15 +949,7 @@ googleButton.addEventListener(
                 options: {
 
                     redirectTo:
-                        redirectTo,
-
-                    queryParams: {
-
-                        access_type: "offline",
-
-                        prompt: "select_account"
-
-                    }
+                        redirectTo
 
                 }
 
@@ -972,7 +971,7 @@ googleButton.addEventListener(
 
 
             alert(
-                "Login failed: " +
+                "Login failed:\n\n" +
                 error.message
             );
 
@@ -981,8 +980,13 @@ googleButton.addEventListener(
         }
 
 
+        /*
+         * Normally the browser now leaves
+         * this page and goes to Google.
+         */
+
         console.log(
-            "Google OAuth started:",
+            "Google authentication started.",
             data
         );
 
@@ -990,160 +994,48 @@ googleButton.addEventListener(
 );
 
 
-/* =================================================
-   HANDLE RETURN FROM GOOGLE
-================================================= */
-
-async function handleOAuthCallback() {
-
-    console.log(
-        "Checking for OAuth callback..."
-    );
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
-
-
-        if (error) {
-
-            console.error(
-                "Session error:",
-                error
-            );
-
-            return;
-
-        }
-
-
-        const session =
-            data?.session;
-
-
-        if (
-            session &&
-            session.user
-        ) {
-
-            console.log(
-                "SUCCESS: Supabase session established."
-            );
-
-
-            console.log(
-                "Authenticated email:",
-                session.user.email
-            );
-
-
-            console.log(
-                "User metadata:",
-                session.user.user_metadata
-            );
-
-
-            /*
-             * The session now exists.
-             *
-             * Send the user to entrance.html.
-             */
-
-            window.location.replace(
-                "./entrance.html"
-            );
-
-            return;
-
-        }
-
-
-        console.log(
-            "No session found on this page."
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "OAuth callback error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =================================================
-   AUTH STATE LISTENER
-================================================= */
+/*
+ * Listen for authentication events.
+ */
 
 supabaseClient.auth.onAuthStateChange(
-
     function (
         event,
         session
     ) {
 
         console.log(
-            "Supabase authentication event:",
+            "Login page auth event:",
             event
         );
 
 
         if (
-            event === "SIGNED_IN" &&
             session &&
             session.user
         ) {
 
             console.log(
-                "SIGNED_IN successfully."
+                "Authenticated user detected."
             );
 
 
-            console.log(
-                "User:",
-                session.user
-            );
-
-
-            /*
-             * Give Supabase a moment to
-             * persist the session before
-             * navigating away.
-             */
-
-            setTimeout(
-                function () {
-
-                    window.location.replace(
-                        "./entrance.html"
-                    );
-
-                },
-                300
+            window.location.replace(
+                "./entrance.html"
             );
 
         }
 
     }
-
 );
 
 
-/* =================================================
-   START
-================================================= */
+/*
+ * Check whether the visitor is
+ * already logged in.
+ */
 
-handleOAuthCallback();
+checkExistingSession();
 
 </script>
 
