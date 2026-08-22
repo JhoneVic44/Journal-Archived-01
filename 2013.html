@@ -28,6 +28,7 @@ body{
 }
 
 body{
+
   background:
     radial-gradient(
       circle at 78% 8%,
@@ -40,8 +41,6 @@ body{
       #151719 52%,
       #202224
     );
-
-  overflow:hidden;
 }
 
 
@@ -50,19 +49,22 @@ body{
 ========================= */
 
 .page{
-  width:100%;
-  max-width:1400px;
 
-  height:100vh;
+  width:100%;
+
+  max-width:1500px;
+
+  min-height:100vh;
 
   margin:auto;
 
   padding:
-    25px
-    5%
-    20px;
+    clamp(22px,3vw,42px)
+    clamp(25px,5vw,75px)
+    25px;
 
   display:flex;
+
   flex-direction:column;
 }
 
@@ -76,22 +78,21 @@ body{
   display:grid;
 
   grid-template-columns:
-    1fr
-    auto
-    1fr;
+    1fr auto 1fr;
 
   align-items:center;
 
   border-bottom:
     1px solid rgba(255,255,255,.14);
 
-  padding-bottom:16px;
+  padding-bottom:
+    clamp(14px,1.7vh,22px);
 
   color:#888;
 
-  font-size:8px;
+  font-size:clamp(7px,.55vw,9px);
 
-  letter-spacing:.18em;
+  letter-spacing:.2em;
 
   text-transform:uppercase;
 
@@ -121,14 +122,14 @@ body{
 
   justify-content:center;
 
-  min-width:68px;
+  min-width:72px;
 
   padding:
-    8px 15px;
+    8px 16px;
 
   border:
     1px solid
-    rgba(255,255,255,.25);
+    rgba(255,255,255,.27);
 
   background:
     rgba(255,255,255,.035);
@@ -158,13 +159,13 @@ body{
   color:#eeeae1;
 
   border-color:
-    rgba(255,255,255,.55);
+    rgba(255,255,255,.6);
 
   background:
-    rgba(255,255,255,.075);
+    rgba(255,255,255,.08);
 
   box-shadow:
-    0 0 14px
+    0 0 16px
     rgba(255,255,255,.12);
 
   transform:
@@ -189,14 +190,16 @@ body{
   display:grid;
 
   grid-template-columns:
-    minmax(0,.88fr)
-    minmax(520px,1.12fr);
+    minmax(360px,.88fr)
+    minmax(500px,1.12fr);
 
-  gap:60px;
+  gap:
+    clamp(45px,6vw,95px);
 
-  padding-top:32px;
+  padding-top:
+    clamp(30px,5vh,55px);
 
-  min-height:0;
+  align-items:start;
 }
 
 
@@ -205,55 +208,67 @@ body{
 ========================= */
 
 .left{
-  padding-right:10px;
+
+  padding-right:5px;
+
+  min-width:0;
+}
+
+.eyebrow{
+
+  font-size:
+    clamp(7px,.55vw,9px);
+
+  letter-spacing:.27em;
+
+  text-transform:uppercase;
+
+  color:#777a7d;
+
+  margin-bottom:
+    clamp(12px,1.5vh,18px);
 }
 
 .year{
 
   font:
-    400 clamp(70px,8vw,105px)/.78
+    400 clamp(72px,8vw,118px)/.78
     Georgia,serif;
 
   letter-spacing:-.07em;
 
   color:#eeeae1;
 
-  margin:0 0 22px;
-}
-
-.eyebrow{
-
-  font-size:8px;
-
-  letter-spacing:.25em;
-
-  text-transform:uppercase;
-
-  color:#777a7d;
-
-  margin-bottom:12px;
+  margin:
+    0 0
+    clamp(22px,3vh,32px);
 }
 
 h1{
 
   font:
-    400 clamp(38px,4.2vw,58px)/.96
+    400 clamp(38px,4.2vw,64px)/.96
     Georgia,serif;
 
   letter-spacing:-.055em;
 
-  margin:0 0 18px;
+  margin:
+    0 0
+    clamp(18px,2.5vh,26px);
 
   color:#eeeae1;
 }
 
 .meta{
 
-  font-size:9px;
+  font-size:
+    clamp(8px,.62vw,10px);
 
-  line-height:1.7;
+  line-height:1.8;
 
   color:#888;
+
+  max-width:600px;
 }
 
 .rule{
@@ -263,9 +278,12 @@ h1{
   background:
     rgba(255,255,255,.18);
 
-  width:55px;
+  width:58px;
 
-  margin:28px 0 22px;
+  margin:
+    clamp(28px,4vh,42px)
+    0
+    clamp(20px,3vh,30px);
 }
 
 
@@ -276,10 +294,11 @@ h1{
 .intro h2{
 
   font:
-    400 21px
+    400 clamp(20px,1.7vw,25px)
     Georgia,serif;
 
-  margin:0 0 8px;
+  margin:
+    0 0 9px;
 
   color:#e8e4dc;
 }
@@ -288,24 +307,26 @@ h1{
 
   font-size:8px;
 
-  letter-spacing:.15em;
+  letter-spacing:.17em;
 
   text-transform:uppercase;
 
   color:#777;
 
-  margin-bottom:14px;
+  margin-bottom:15px;
 }
 
 .intro p{
 
   font:
-    14px/1.75
+    clamp(13px,1vw,16px)/1.85
     Georgia,serif;
 
   color:#b9b6ae;
 
-  max-width:600px;
+  max-width:620px;
+
+  margin:0;
 }
 
 
@@ -328,14 +349,14 @@ h1{
 
   width:100%;
 
-  max-width:620px;
+  max-width:680px;
 
-  margin-top:0;
+  margin:0 auto;
 }
 
 
 /* =========================
-   MONTHS TITLE
+   MONTH TITLE
 ========================= */
 
 .months-label{
@@ -343,10 +364,11 @@ h1{
   text-align:center;
 
   margin:
-    0 0 22px;
+    0 0
+    clamp(20px,3vh,32px);
 
   font:
-    400 24px
+    400 clamp(23px,2vw,29px)
     Georgia,serif;
 
   color:#ddd9d0;
@@ -362,16 +384,18 @@ h1{
   display:grid;
 
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(3,minmax(0,1fr));
 
-  column-gap:28px;
+  column-gap:
+    clamp(15px,2.5vw,38px);
 
-  row-gap:0;
+  row-gap:
+    clamp(0px,.5vh,6px);
 }
 
 
 /* =========================
-   MONTH BUTTONS
+   MONTH BUTTON
 ========================= */
 
 .month{
@@ -387,16 +411,18 @@ h1{
   color:#aaa8a2;
 
   padding:
-    13px 5px;
+    clamp(13px,1.6vh,18px)
+    5px;
 
   cursor:pointer;
 
   font-family:
     Arial,Helvetica,sans-serif;
 
-  font-size:15px;
+  font-size:
+    clamp(14px,1.1vw,18px);
 
-  letter-spacing:.09em;
+  letter-spacing:.10em;
 
   text-transform:uppercase;
 
@@ -408,7 +434,7 @@ h1{
 }
 
 
-/* Small underline */
+/* underline */
 
 .month::after{
 
@@ -420,7 +446,7 @@ h1{
 
   bottom:3px;
 
-  width:16px;
+  width:18px;
 
   height:1px;
 
@@ -436,7 +462,7 @@ h1{
 }
 
 
-/* Hover */
+/* hover */
 
 .month:hover,
 .month:focus{
@@ -451,12 +477,12 @@ h1{
 }
 
 
-/* Glowing line */
+/* glowing line */
 
 .month:hover::after,
 .month:focus::after{
 
-  width:70%;
+  width:72%;
 
   background:#eeeae1;
 
@@ -472,14 +498,17 @@ h1{
 
 .month-introduction{
 
-  margin-top:28px;
+  margin-top:
+    clamp(27px,4vh,42px);
 
   border-top:
     1px solid rgba(255,255,255,.13);
 
-  padding-top:17px;
+  padding-top:
+    clamp(17px,2.5vh,25px);
 
-  min-height:125px;
+  min-height:
+    clamp(120px,16vh,165px);
 
   animation:
     introFade .3s ease;
@@ -487,40 +516,40 @@ h1{
 
 .month-introduction-meta{
 
-  font-size:7px;
+  font-size:8px;
 
-  letter-spacing:.20em;
+  letter-spacing:.22em;
 
   text-transform:uppercase;
 
   color:#686a6d;
 
-  margin-bottom:7px;
+  margin-bottom:9px;
 }
 
 .month-introduction h2{
 
   font:
-    400 21px
+    400 clamp(21px,1.8vw,26px)
     Georgia,serif;
 
   color:#e8e4dc;
 
   margin:
-    0 0 8px;
+    0 0 10px;
 }
 
 .month-introduction p{
 
   font:
-    11px/1.65
+    clamp(11px,.85vw,14px)/1.75
     Georgia,serif;
 
   color:#aaa8a1;
 
   margin:0;
 
-  max-width:600px;
+  max-width:650px;
 }
 
 
@@ -549,24 +578,26 @@ h1{
 
 .note{
 
-  margin-top:25px;
+  margin-top:
+    clamp(22px,3vh,35px);
 
   border-top:
     1px solid rgba(255,255,255,.13);
 
-  padding-top:17px;
+  padding-top:
+    clamp(17px,2.5vh,23px);
 
-  max-width:620px;
+  max-width:680px;
 }
 
 .note h2{
 
   font:
-    400 20px
+    400 clamp(20px,1.7vw,25px)
     Georgia,serif;
 
   margin:
-    0 0 8px;
+    0 0 10px;
 
   color:#e8e4dc;
 }
@@ -574,7 +605,7 @@ h1{
 .note p{
 
   font:
-    11px/1.6
+    clamp(11px,.82vw,13px)/1.7
     Georgia,serif;
 
   color:#99968f;
@@ -589,10 +620,10 @@ h1{
   color:#888;
 
   font:
-    italic 10px
+    italic 11px
     Georgia,serif;
 
-  margin-top:9px;
+  margin-top:11px;
 }
 
 
@@ -602,12 +633,13 @@ h1{
 
 .footer{
 
-  margin-top:12px;
+  margin-top:
+    clamp(15px,2vh,22px);
 
   border-top:
     1px solid rgba(255,255,255,.12);
 
-  padding-top:11px;
+  padding-top:12px;
 
   display:flex;
 
@@ -617,7 +649,7 @@ h1{
 
   font-size:7px;
 
-  letter-spacing:.16em;
+  letter-spacing:.18em;
 
   text-transform:uppercase;
 
@@ -625,41 +657,65 @@ h1{
 }
 
 
-/* =========================
-   TABLET
-========================= */
+/* =================================================
+   MEDIUM DESKTOP / SMALL LAPTOP
+================================================= */
 
-@media(max-width:1050px){
+@media(max-width:1200px){
 
   .layout{
 
     grid-template-columns:
-      minmax(0,.85fr)
-      minmax(430px,1.15fr);
+      minmax(330px,.85fr)
+      minmax(440px,1.15fr);
 
-    gap:40px;
+    gap:45px;
   }
 
   .month-area{
 
-    max-width:550px;
-  }
-
-  .months{
-
-    column-gap:18px;
+    max-width:600px;
   }
 
 }
 
 
-/* =========================
+/* =================================================
+   TABLET
+================================================= */
+
+@media(max-width:900px){
+
+  .layout{
+
+    grid-template-columns:
+      minmax(290px,.8fr)
+      minmax(390px,1.2fr);
+
+    gap:30px;
+
+    padding-top:32px;
+  }
+
+  .months{
+
+    column-gap:15px;
+  }
+
+  .month{
+
+    font-size:14px;
+  }
+
+}
+
+
+/* =================================================
    MOBILE
-========================= */
+================================================= */
 
-@media(max-width:850px){
+@media(max-width:700px){
 
-  html,
   body{
 
     overflow:auto;
@@ -667,26 +723,27 @@ h1{
 
   .page{
 
-    height:auto;
-
     min-height:100vh;
 
     padding:
       22px
       20px
-      50px;
+      45px;
   }
 
   .topbar{
 
+    grid-template-columns:
+      1fr auto 1fr;
+
     font-size:7px;
 
-    padding-bottom:14px;
+    letter-spacing:.15em;
   }
 
   .home-button{
 
-    min-width:62px;
+    min-width:60px;
 
     padding:
       7px 11px;
@@ -698,7 +755,7 @@ h1{
 
     display:block;
 
-    padding-top:38px;
+    padding-top:40px;
   }
 
   .left{
@@ -708,12 +765,12 @@ h1{
 
   .year{
 
-    font-size:75px;
+    font-size:76px;
   }
 
   h1{
 
-    font-size:42px;
+    font-size:44px;
   }
 
   .intro p{
@@ -724,20 +781,20 @@ h1{
   .right{
 
     display:block;
+
+    margin-top:55px;
   }
 
   .month-area{
 
     max-width:none;
-
-    margin-top:50px;
   }
 
   .months-label{
 
-    font-size:21px;
+    font-size:22px;
 
-    margin-bottom:24px;
+    margin-bottom:25px;
   }
 
   .months{
@@ -745,7 +802,7 @@ h1{
     grid-template-columns:
       repeat(2,1fr);
 
-    column-gap:18px;
+    column-gap:20px;
 
     row-gap:5px;
   }
@@ -760,7 +817,7 @@ h1{
 
   .month-introduction{
 
-    margin-top:32px;
+    margin-top:34px;
 
     min-height:auto;
   }
@@ -768,11 +825,6 @@ h1{
   .note{
 
     margin-top:45px;
-  }
-
-  .note h2{
-
-    font-size:20px;
   }
 
   .footer{
@@ -787,19 +839,11 @@ h1{
 }
 
 
-/* =========================
+/* =================================================
    VERY SMALL PHONES
-========================= */
+================================================= */
 
 @media(max-width:430px){
-
-  .page{
-
-    padding:
-      20px
-      18px
-      45px;
-  }
 
   .topbar{
 
@@ -808,22 +852,22 @@ h1{
 
   .home-button{
 
-    min-width:58px;
+    min-width:55px;
 
     padding:
-      7px 10px;
+      6px 9px;
 
     font-size:6px;
   }
 
   .year{
 
-    font-size:68px;
+    font-size:65px;
   }
 
   h1{
 
-    font-size:38px;
+    font-size:37px;
   }
 
   .months{
@@ -838,7 +882,78 @@ h1{
 
 }
 
+
+/* =================================================
+   SHORT SCREENS
+   Gives desktop users more breathing room
+================================================= */
+
+@media(min-width:701px) and (max-height:800px){
+
+  .page{
+
+    padding-top:20px;
+  }
+
+  .layout{
+
+    padding-top:25px;
+
+    gap:45px;
+  }
+
+  .year{
+
+    font-size:78px;
+
+    margin-bottom:20px;
+  }
+
+  h1{
+
+    font-size:42px;
+
+    margin-bottom:15px;
+  }
+
+  .rule{
+
+    margin:
+      22px 0
+      18px;
+  }
+
+  .month{
+
+    padding:
+      10px 5px;
+  }
+
+  .month-introduction{
+
+    margin-top:22px;
+
+    padding-top:15px;
+
+    min-height:105px;
+  }
+
+  .note{
+
+    margin-top:18px;
+
+    padding-top:15px;
+  }
+
+  .footer{
+
+    margin-top:10px;
+  }
+
+}
+
 </style>
+
 </head>
 
 
@@ -859,7 +974,7 @@ h1{
     </span>
 
 
-    <!-- HOME BUTTON -->
+    <!-- HOME -->
 
     <a
       href="./entrance.html"
@@ -886,7 +1001,7 @@ h1{
 
 
     <!-- =========================
-         LEFT: INTRODUCTION
+         LEFT SIDE
     ========================= -->
 
     <main class="left">
@@ -929,11 +1044,9 @@ h1{
       <div class="rule"></div>
 
 
-
       <!-- INTRODUCTION -->
 
       <section class="intro">
-
 
         <div class="eyebrow">
           Introduction
@@ -960,7 +1073,6 @@ h1{
 
         </p>
 
-
       </section>
 
 
@@ -969,7 +1081,7 @@ h1{
 
 
     <!-- =========================
-         RIGHT: MONTHS + INTRO
+         RIGHT SIDE
     ========================= -->
 
     <aside class="right">
@@ -983,8 +1095,7 @@ h1{
         </div>
 
 
-
-        <!-- MONTH GRID -->
+        <!-- MONTHS -->
 
         <div class="months">
 
@@ -1102,7 +1213,7 @@ h1{
 
 
         <!-- =========================
-             MONTHLY INTRODUCTION
+             MONTH INTRODUCTION
         ========================= -->
 
         <section
@@ -1140,7 +1251,6 @@ h1{
 
         <section class="note">
 
-
           <div class="eyebrow">
             📌 Authenticity Note
           </div>
@@ -1166,12 +1276,10 @@ h1{
             — JhoneVic, July 2025
           </div>
 
-
         </section>
 
 
       </div>
-
 
     </aside>
 
@@ -1182,7 +1290,7 @@ h1{
 
   <!-- =========================
        FOOTER
-  ========================== -->
+  ========================= -->
 
   <div class="footer">
 
@@ -1294,7 +1402,6 @@ const monthlyIntroductions = {
     text:"Welcome to December. Comment ko on this month: I'm so glad that today we need to write the diary in English. If you say or heard that December words were about Christmas, for me that Christmas wasn't happy. But I’ve tried to get better each day. For now on, I have never been absent from this diary, and I’m writing in English for once. This day was on the first of December. A kind of little problem happened on the first day, and I cannot resolve it on my own. But I never gave up. There are some parts that give you an idea. Let’s start. (This is me trying to write English as best as I can, even with my ridiculous grammar. I try.)"
   }
 
-
 };
 
 
@@ -1349,11 +1456,6 @@ function showMonthIntroduction(month){
 
 }
 
-
-
-/* =========================
-   MOUSE HOVER
-========================= */
 
 monthButtons.forEach(button => {
 
