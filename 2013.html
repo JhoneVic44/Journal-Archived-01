@@ -42,6 +42,8 @@ body{
       #151719 52%,
       #202224
     );
+
+  overflow-x:hidden;
 }
 
 
@@ -52,7 +54,8 @@ body{
 .page{
   width:100%;
   max-width:1500px;
-  min-height:100vh;
+  height:100vh;
+  min-height:0;
   margin:auto;
 
   padding:
@@ -62,6 +65,8 @@ body{
 
   display:flex;
   flex-direction:column;
+
+  overflow:hidden;
 }
 
 
@@ -70,12 +75,13 @@ body{
 ========================= */
 
 .topbar{
-  display:grid;
+  position:relative;
 
-  grid-template-columns:
-    1fr auto 1fr;
+  display:flex;
 
   align-items:center;
+
+  min-height:34px;
 
   border-bottom:
     1px solid rgba(255,255,255,.14);
@@ -95,22 +101,40 @@ body{
   flex-shrink:0;
 }
 
+
+/* LEFT LABEL */
+
 .topbar > span:first-child{
-  justify-self:start;
+  margin-right:auto;
+
+  white-space:nowrap;
 }
 
+
+/* RIGHT LABEL */
+
 .topbar > span:last-child{
-  justify-self:end;
+  margin-left:auto;
+
+  white-space:nowrap;
+
+  text-align:right;
 }
 
 
 /* =========================
-   CENTER ACTIONS
+   CENTER BUTTON GROUP
 ========================= */
 
-.topbar-actions{
+.topbar-center{
+  position:absolute;
 
-  justify-self:center;
+  left:50%;
+
+  top:0;
+
+  transform:
+    translateX(-50%);
 
   display:flex;
 
@@ -118,21 +142,22 @@ body{
 
   justify-content:center;
 
-  gap:10px;
+  gap:8px;
+
+  white-space:nowrap;
+
+  z-index:2;
 }
 
 
 /* =========================
-   HOME + LOGOUT BUTTONS
+   HOME BUTTON
 ========================= */
 
-.home-button,
-.logout-button{
-
+.home-button{
   display:inline-flex;
 
   align-items:center;
-
   justify-content:center;
 
   min-width:72px;
@@ -150,6 +175,68 @@ body{
   color:#aaa8a2;
 
   text-decoration:none;
+
+  font-size:8px;
+
+  font-weight:500;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+  transition:
+    color .25s ease,
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+}
+
+.home-button:hover{
+  color:#eeeae1;
+
+  border-color:
+    rgba(255,255,255,.6);
+
+  background:
+    rgba(255,255,255,.08);
+
+  box-shadow:
+    0 0 16px
+    rgba(255,255,255,.12);
+
+  transform:
+    translateY(-1px);
+}
+
+.home-button:active{
+  transform:translateY(0);
+}
+
+
+/* =========================
+   LOGOUT BUTTON
+========================= */
+
+.logout-button{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-width:72px;
+
+  padding:
+    8px 16px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.27);
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:#aaa8a2;
 
   font-family:
     Arial,Helvetica,sans-serif;
@@ -172,9 +259,7 @@ body{
     transform .25s ease;
 }
 
-.home-button:hover,
 .logout-button:hover{
-
   color:#eeeae1;
 
   border-color:
@@ -191,11 +276,8 @@ body{
     translateY(-1px);
 }
 
-.home-button:active,
 .logout-button:active{
-
-  transform:
-    translateY(0);
+  transform:translateY(0);
 }
 
 
@@ -221,6 +303,8 @@ body{
   align-items:start;
 
   min-height:0;
+
+  overflow:hidden;
 }
 
 
@@ -353,6 +437,8 @@ h1{
   justify-content:center;
 
   align-items:flex-start;
+
+  overflow:hidden;
 }
 
 .month-area{
@@ -363,6 +449,8 @@ h1{
   margin:0 auto;
 
   min-width:0;
+
+  overflow:hidden;
 }
 
 
@@ -412,6 +500,15 @@ h1{
 .month-item{
   position:relative;
   min-width:0;
+}
+
+
+/* =========================
+   MONTH ROW
+========================= */
+
+.month-row{
+  display:contents;
 }
 
 
@@ -747,49 +844,98 @@ h1{
   }
 
   .page{
+    height:auto;
     min-height:100vh;
 
     padding:
       22px
       20px
       45px;
+
+    overflow:visible;
   }
+
+
+  /* =========================
+     MOBILE TOP BAR
+  ========================= */
 
   .topbar{
-    grid-template-columns:
-      1fr auto 1fr;
+    position:relative;
 
-    font-size:7px;
+    min-height:32px;
 
-    letter-spacing:.15em;
+    display:flex;
+
+    align-items:center;
   }
 
+  .topbar > span:first-child{
+    font-size:6px;
 
-  /* CENTER HOME + LOGOUT */
+    letter-spacing:.12em;
 
-  .topbar-actions{
+    white-space:nowrap;
 
-    gap:7px;
+    margin-right:auto;
+  }
 
+  .topbar > span:last-child{
+    font-size:5.5px;
+
+    letter-spacing:.10em;
+
+    white-space:nowrap;
+
+    text-align:right;
+
+    margin-left:auto;
+  }
+
+  .topbar-center{
+    position:absolute;
+
+    left:50%;
+
+    top:0;
+
+    transform:
+      translateX(-50%);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    white-space:nowrap;
   }
 
   .home-button,
   .logout-button{
-
-    min-width:60px;
+    min-width:58px;
 
     padding:
-      7px 11px;
+      7px 9px;
 
-    font-size:7px;
+    font-size:6px;
 
+    letter-spacing:.13em;
   }
 
+
+  /* =========================
+     MOBILE CONTENT
+  ========================= */
 
   .layout{
     display:block;
 
     padding-top:40px;
+
+    overflow:visible;
   }
 
   .left{
@@ -812,10 +958,14 @@ h1{
     display:block;
 
     margin-top:55px;
+
+    overflow:visible;
   }
 
   .month-area{
     max-width:none;
+
+    overflow:visible;
   }
 
   .months-label{
@@ -1044,26 +1194,32 @@ h1{
 
 @media(max-width:430px){
 
-  .topbar-actions{
+  .topbar > span:first-child{
+    font-size:5.5px;
 
-    gap:5px;
-
+    letter-spacing:.08em;
   }
 
-  .topbar{
-    font-size:6px;
+  .topbar > span:last-child{
+    font-size:5px;
+
+    letter-spacing:.07em;
+  }
+
+  .topbar-center{
+    gap:4px;
   }
 
   .home-button,
   .logout-button{
-
-    min-width:55px;
+    min-width:54px;
 
     padding:
-      6px 9px;
+      6px 8px;
 
-    font-size:6px;
+    font-size:5.5px;
 
+    letter-spacing:.10em;
   }
 
   .year{
@@ -1109,13 +1265,19 @@ h1{
 @media(min-width:701px) and (max-height:800px){
 
   .page{
+    height:100vh;
+
     padding-top:20px;
+
+    padding-bottom:18px;
   }
 
   .layout{
     padding-top:25px;
 
     gap:45px;
+
+    overflow:hidden;
   }
 
   .year{
@@ -1190,10 +1352,7 @@ h1{
     JhoneVic's Diary
   </span>
 
-
-  <!-- CENTER ACTIONS -->
-
-  <div class="topbar-actions">
+  <div class="topbar-center">
 
     <a
       href="./entrance.html"
@@ -1213,7 +1372,6 @@ h1{
     </button>
 
   </div>
-
 
   <span>
     Personal Archive / 2013
@@ -2095,7 +2253,7 @@ mobileIntroButtons.forEach(button => {
 
 
 /* =================================================
-   SUPABASE LOGOUT
+   LOGOUT
 ================================================= */
 
 const logoutButton =
@@ -2103,65 +2261,57 @@ const logoutButton =
     "logoutButton"
   );
 
-
 if(logoutButton){
 
   logoutButton.addEventListener(
     "click",
     async () => {
 
-      /*
-       * This expects the Supabase client
-       * to already exist as `supabase`
-       * from your existing login setup.
-       */
+      try{
 
-      if(
-        typeof supabase ===
-        "undefined"
-      ){
+        if(
+          typeof supabase !== "undefined" &&
+          supabase.auth
+        ){
+
+          const {
+            error
+          } =
+            await supabase.auth.signOut();
+
+          if(error){
+            console.error(
+              "Logout failed:",
+              error
+            );
+
+            return;
+          }
+
+          window.location.href =
+            "./entrance.html";
+
+        }else{
+
+          console.warn(
+            "Supabase client was not found on this page."
+          );
+
+        }
+
+      }catch(error){
 
         console.error(
-          "Supabase client was not found."
-        );
-
-        alert(
-          "Logout is not connected to Supabase yet."
-        );
-
-        return;
-      }
-
-
-      const {
-        error
-      } =
-        await supabase.auth.signOut();
-
-
-      if(error){
-
-        console.error(
-          "Logout failed:",
+          "Logout error:",
           error
         );
 
-        alert(
-          "Unable to log out. Please try again."
-        );
-
-        return;
       }
-
-
-      window.location.href =
-        "./entrance.html";
 
     }
   );
 
 }
-
 
 </script>
 
