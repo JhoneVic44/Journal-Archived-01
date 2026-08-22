@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Supabase User Test</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        #result {
+            padding: 20px;
+            background: #222;
+            border: 1px solid #444;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Supabase User Test</h1>
+
+    <div id="result">
+        Loading...
+    </div>
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://ktytetimukmaqkxmzkha.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        async function testUser() {
+
+            const result =
+                document.getElementById("result");
+
+            console.log("Testing Supabase session...");
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            console.log("Session:", data);
+            console.log("Error:", error);
+
+
+            if (error) {
+
+                result.textContent =
+                    "ERROR:\n\n" +
+                    error.message;
+
+                return;
+
+            }
+
+
+            const session =
+                data?.session;
+
+
+            if (!session) {
+
+                result.textContent =
+                    "NO SESSION FOUND.\n\n" +
+                    "Supabase does not currently see " +
+                    "this browser as logged in.";
+
+                return;
+
+            }
+
+
+            const user =
+                session.user;
+
+
+            console.log("USER OBJECT:", user);
+
+
+            const displayName =
+                user.user_metadata?.full_name ||
+                user.user_metadata?.name ||
+                user.user_metadata?.display_name ||
+                "NO NAME FOUND";
+
+
+            result.textContent =
+                "LOGIN WORKS!\n\n" +
+
+                "Display Name:\n" +
+                displayName +
+
+                "\n\nEmail:\n" +
+                (user.email || "No email") +
+
+                "\n\nUID:\n" +
+                user.id;
+
+        }
+
+
+        testUser();
+
+    </script>
+
+</body>
+
+</html>
