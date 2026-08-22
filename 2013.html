@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -12,30 +12,49 @@
 
 <title>The 2013 Diaries of JhoneVic</title>
 
+
 <style>
+
+
+/* =================================================
+   GLOBAL
+================================================= */
 
 *{
   box-sizing:border-box;
 }
 
+
 html,
 body{
+
   margin:0;
+
   width:100%;
+
   min-height:100%;
+
   background:#0b0c0d;
+
   color:#eeeae1;
-  font-family:Arial,Helvetica,sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
+
 
 body{
 
   background:
+
     radial-gradient(
       circle at 78% 8%,
       rgba(255,255,255,.075),
       transparent 30%
     ),
+
     linear-gradient(
       135deg,
       #090a0b,
@@ -45,23 +64,16 @@ body{
 }
 
 
-/* =========================
+
+/* =================================================
    PAGE
-========================= */
+================================================= */
 
 .page{
 
   width:100%;
 
-  /*
-   * WIDENED DESKTOP
-   *
-   * The previous 1500px limit made
-   * the website look compressed on
-   * larger desktop screens.
-   */
-
-  max-width:1800px;
+  max-width:1500px;
 
   min-height:100vh;
 
@@ -69,7 +81,7 @@ body{
 
   padding:
     clamp(22px,3vw,42px)
-    clamp(22px,4vw,60px)
+    clamp(25px,5vw,75px)
     25px;
 
   display:flex;
@@ -78,9 +90,10 @@ body{
 }
 
 
-/* =========================
+
+/* =================================================
    TOP BAR
-========================= */
+================================================= */
 
 .topbar{
 
@@ -92,14 +105,16 @@ body{
   align-items:center;
 
   border-bottom:
-    1px solid rgba(255,255,255,.14);
+    1px solid
+    rgba(255,255,255,.14);
 
   padding-bottom:
     clamp(14px,1.7vh,22px);
 
   color:#888;
 
-  font-size:clamp(7px,.55vw,9px);
+  font-size:
+    clamp(7px,.55vw,9px);
 
   letter-spacing:.2em;
 
@@ -108,18 +123,23 @@ body{
   flex-shrink:0;
 }
 
+
 .topbar > span:first-child{
+
   justify-self:start;
 }
 
+
 .topbar > span:last-child{
+
   justify-self:end;
 }
 
 
-/* =========================
+
+/* =================================================
    HOME BUTTON
-========================= */
+================================================= */
 
 .home-button{
 
@@ -163,6 +183,7 @@ body{
     transform .25s ease;
 }
 
+
 .home-button:hover{
 
   color:#eeeae1;
@@ -181,6 +202,7 @@ body{
     translateY(-1px);
 }
 
+
 .home-button:active{
 
   transform:
@@ -188,9 +210,10 @@ body{
 }
 
 
-/* =========================
+
+/* =================================================
    MAIN LAYOUT
-========================= */
+================================================= */
 
 .layout{
 
@@ -198,16 +221,12 @@ body{
 
   display:grid;
 
-  /*
-   * WIDENED DESKTOP COLUMNS
-   */
-
   grid-template-columns:
-    minmax(420px,.9fr)
-    minmax(600px,1.1fr);
+    minmax(360px,.88fr)
+    minmax(500px,1.12fr);
 
   gap:
-    clamp(50px,5vw,90px);
+    clamp(45px,6vw,95px);
 
   padding-top:
     clamp(30px,5vh,55px);
@@ -216,9 +235,10 @@ body{
 }
 
 
-/* =========================
+
+/* =================================================
    LEFT SIDE
-========================= */
+================================================= */
 
 .left{
 
@@ -226,6 +246,7 @@ body{
 
   min-width:0;
 }
+
 
 .eyebrow{
 
@@ -242,6 +263,7 @@ body{
     clamp(12px,1.5vh,18px);
 }
 
+
 .year{
 
   font:
@@ -256,6 +278,7 @@ body{
     0 0
     clamp(22px,3vh,32px);
 }
+
 
 h1{
 
@@ -272,6 +295,7 @@ h1{
   color:#eeeae1;
 }
 
+
 .meta{
 
   font-size:
@@ -283,6 +307,7 @@ h1{
 
   max-width:600px;
 }
+
 
 .rule{
 
@@ -300,9 +325,10 @@ h1{
 }
 
 
-/* =========================
+
+/* =================================================
    INTRODUCTION
-========================= */
+================================================= */
 
 .intro h2{
 
@@ -316,6 +342,7 @@ h1{
   color:#e8e4dc;
 }
 
+
 .original{
 
   font-size:8px;
@@ -328,6 +355,7 @@ h1{
 
   margin-bottom:15px;
 }
+
 
 .intro p{
 
@@ -343,9 +371,10 @@ h1{
 }
 
 
-/* =========================
+
+/* =================================================
    RIGHT SIDE
-========================= */
+================================================= */
 
 .right{
 
@@ -358,19 +387,21 @@ h1{
   align-items:flex-start;
 }
 
+
 .month-area{
 
   width:100%;
 
-  max-width:760px;
+  max-width:680px;
 
   margin:0 auto;
 }
 
 
-/* =========================
+
+/* =================================================
    MONTH TITLE
-========================= */
+================================================= */
 
 .months-label{
 
@@ -388,9 +419,10 @@ h1{
 }
 
 
-/* =========================
+
+/* =================================================
    MONTH GRID
-========================= */
+================================================= */
 
 .months{
 
@@ -407,9 +439,18 @@ h1{
 }
 
 
-/* =========================
-   MONTH BUTTON
-========================= */
+
+/* =================================================
+   DESKTOP MONTH
+================================================= */
+
+.month-item{
+
+  position:relative;
+
+  min-width:0;
+}
+
 
 .month{
 
@@ -430,7 +471,9 @@ h1{
   cursor:pointer;
 
   font-family:
-    Arial,Helvetica,sans-serif;
+    Arial,
+    Helvetica,
+    sans-serif;
 
   font-size:
     clamp(14px,1.1vw,18px);
@@ -444,6 +487,10 @@ h1{
   transition:
     color .35s ease,
     text-shadow .35s ease;
+
+  text-decoration:none;
+
+  display:block;
 }
 
 
@@ -499,9 +546,22 @@ h1{
 }
 
 
-/* =========================
+
+/* =================================================
+   MOBILE INTRO BUTTON
+================================================= */
+
+.mobile-intro-button{
+
+  display:none;
+
+}
+
+
+
+/* =================================================
    MONTHLY INTRODUCTION
-========================= */
+================================================= */
 
 .month-introduction{
 
@@ -509,7 +569,8 @@ h1{
     clamp(27px,4vh,42px);
 
   border-top:
-    1px solid rgba(255,255,255,.13);
+    1px solid
+    rgba(255,255,255,.13);
 
   padding-top:
     clamp(17px,2.5vh,25px);
@@ -520,6 +581,7 @@ h1{
   animation:
     introFade .3s ease;
 }
+
 
 .month-introduction-meta{
 
@@ -534,6 +596,7 @@ h1{
   margin-bottom:9px;
 }
 
+
 .month-introduction h2{
 
   font:
@@ -546,6 +609,7 @@ h1{
     0 0 10px;
 }
 
+
 .month-introduction p{
 
   font:
@@ -556,32 +620,40 @@ h1{
 
   margin:0;
 
-  max-width:700px;
+  max-width:650px;
 }
 
 
-/* =========================
+
+/* =================================================
    INTRO ANIMATION
-========================= */
+================================================= */
 
 @keyframes introFade{
 
   from{
+
     opacity:0;
-    transform:translateY(5px);
+
+    transform:
+      translateY(5px);
   }
 
   to{
+
     opacity:1;
-    transform:translateY(0);
+
+    transform:
+      translateY(0);
   }
 
 }
 
 
-/* =========================
+
+/* =================================================
    AUTHENTICITY NOTE
-========================= */
+================================================= */
 
 .note{
 
@@ -589,13 +661,15 @@ h1{
     clamp(22px,3vh,35px);
 
   border-top:
-    1px solid rgba(255,255,255,.13);
+    1px solid
+    rgba(255,255,255,.13);
 
   padding-top:
     clamp(17px,2.5vh,23px);
 
-  max-width:760px;
+  max-width:680px;
 }
+
 
 .note h2{
 
@@ -609,6 +683,7 @@ h1{
   color:#e8e4dc;
 }
 
+
 .note p{
 
   font:
@@ -619,6 +694,7 @@ h1{
 
   margin:0;
 }
+
 
 .signature{
 
@@ -634,9 +710,10 @@ h1{
 }
 
 
-/* =========================
+
+/* =================================================
    FOOTER
-========================= */
+================================================= */
 
 .footer{
 
@@ -644,7 +721,8 @@ h1{
     clamp(15px,2vh,22px);
 
   border-top:
-    1px solid rgba(255,255,255,.12);
+    1px solid
+    rgba(255,255,255,.12);
 
   padding-top:12px;
 
@@ -664,20 +742,12 @@ h1{
 }
 
 
+
 /* =================================================
-   MEDIUM DESKTOP / SMALL LAPTOP
+   MEDIUM DESKTOP
 ================================================= */
 
 @media(max-width:1200px){
-
-  .page{
-
-    padding-left:
-      clamp(22px,3.5vw,50px);
-
-    padding-right:
-      clamp(22px,3.5vw,50px);
-  }
 
   .layout{
 
@@ -688,12 +758,14 @@ h1{
     gap:45px;
   }
 
+
   .month-area{
 
     max-width:600px;
   }
 
 }
+
 
 
 /* =================================================
@@ -713,10 +785,12 @@ h1{
     padding-top:32px;
   }
 
+
   .months{
 
     column-gap:15px;
   }
+
 
   .month{
 
@@ -726,9 +800,9 @@ h1{
 }
 
 
+
 /* =================================================
    MOBILE
-   PRESERVED
 ================================================= */
 
 @media(max-width:700px){
@@ -737,6 +811,7 @@ h1{
 
     overflow:auto;
   }
+
 
   .page{
 
@@ -748,6 +823,7 @@ h1{
       45px;
   }
 
+
   .topbar{
 
     grid-template-columns:
@@ -757,6 +833,7 @@ h1{
 
     letter-spacing:.15em;
   }
+
 
   .home-button{
 
@@ -768,6 +845,7 @@ h1{
     font-size:7px;
   }
 
+
   .layout{
 
     display:block;
@@ -775,25 +853,30 @@ h1{
     padding-top:40px;
   }
 
+
   .left{
 
     padding:0;
   }
+
 
   .year{
 
     font-size:76px;
   }
 
+
   h1{
 
     font-size:44px;
   }
 
+
   .intro p{
 
     font-size:14px;
   }
+
 
   .right{
 
@@ -802,10 +885,12 @@ h1{
     margin-top:55px;
   }
 
+
   .month-area{
 
     max-width:none;
   }
+
 
   .months-label{
 
@@ -814,35 +899,238 @@ h1{
     margin-bottom:25px;
   }
 
+
+  /* =================================================
+     MOBILE MONTH LIST
+  ================================================= */
+
   .months{
 
-    grid-template-columns:
-      repeat(2,1fr);
+    display:block;
 
-    column-gap:20px;
-
-    row-gap:5px;
+    width:100%;
   }
+
+
+  .month-item{
+
+    width:100%;
+
+    border-bottom:
+      1px solid
+      rgba(255,255,255,.08);
+
+    padding:0;
+  }
+
+
+  .month-row{
+
+    width:100%;
+
+    min-height:58px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+  }
+
+
+  /* Month opens diary */
 
   .month{
 
-    font-size:15px;
+    flex:1;
+
+    width:auto;
 
     padding:
-      15px 5px;
+      17px
+      5px;
+
+    text-align:left;
+
+    font-size:15px;
+
+    letter-spacing:.10em;
   }
 
-  .month-introduction{
 
-    margin-top:34px;
+  .month::after{
 
-    min-height:auto;
+    left:5px;
+
+    bottom:8px;
+
+    width:16px;
+
+    transform:none;
   }
+
+
+  .month:hover::after,
+  .month:focus::after{
+
+    width:55%;
+  }
+
+
+  /* =================================================
+     INTRODUCTION BUTTON
+  ================================================= */
+
+  .mobile-intro-button{
+
+    flex-shrink:0;
+
+    width:38px;
+
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:
+      1px solid
+      rgba(255,255,255,.20);
+
+    border-radius:50%;
+
+    background:
+      rgba(255,255,255,.025);
+
+    color:#aaa8a2;
+
+    cursor:pointer;
+
+    font-family:
+      Georgia,
+      serif;
+
+    font-size:15px;
+
+    line-height:1;
+
+    transition:
+      color .25s ease,
+      border-color .25s ease,
+      background .25s ease,
+      box-shadow .25s ease,
+      transform .25s ease;
+  }
+
+
+  .mobile-intro-button:hover,
+  .mobile-intro-button:focus{
+
+    color:#eeeae1;
+
+    border-color:
+      rgba(255,255,255,.55);
+
+    background:
+      rgba(255,255,255,.08);
+
+    box-shadow:
+      0 0 14px
+      rgba(255,255,255,.10);
+
+    outline:none;
+  }
+
+
+  .mobile-intro-button:active{
+
+    transform:
+      scale(.94);
+  }
+
+
+  /* =================================================
+     MOBILE MONTH INTRO
+  ================================================= */
+
+  .month-mobile-introduction{
+
+    display:none;
+
+    padding:
+      0
+      5px
+      20px;
+
+    animation:
+      introFade .3s ease;
+  }
+
+
+  .month-mobile-introduction.open{
+
+    display:block;
+  }
+
+
+  .month-mobile-meta{
+
+    font-size:7px;
+
+    letter-spacing:.20em;
+
+    text-transform:uppercase;
+
+    color:#686a6d;
+
+    margin-bottom:8px;
+  }
+
+
+  .month-mobile-title{
+
+    font:
+      400 21px
+      Georgia,
+      serif;
+
+    color:#e8e4dc;
+
+    margin:
+      0 0 9px;
+  }
+
+
+  .month-mobile-text{
+
+    font:
+      14px/1.8
+      Georgia,
+      serif;
+
+    color:#aaa8a1;
+
+    margin:0;
+  }
+
+
+  /* Hide desktop month introduction on mobile */
+
+  .right > .month-area > .month-introduction{
+
+    display:none;
+  }
+
 
   .note{
 
     margin-top:45px;
   }
+
 
   .footer{
 
@@ -856,6 +1144,7 @@ h1{
 }
 
 
+
 /* =================================================
    VERY SMALL PHONES
 ================================================= */
@@ -867,6 +1156,7 @@ h1{
     font-size:6px;
   }
 
+
   .home-button{
 
     min-width:55px;
@@ -877,27 +1167,53 @@ h1{
     font-size:6px;
   }
 
+
   .year{
 
     font-size:65px;
   }
+
 
   h1{
 
     font-size:37px;
   }
 
-  .months{
 
-    column-gap:12px;
+  .month-row{
+
+    min-height:55px;
   }
+
 
   .month{
 
     font-size:13px;
+
+    padding:
+      16px 5px;
+  }
+
+
+  .mobile-intro-button{
+
+    width:35px;
+
+    height:35px;
+
+    font-size:14px;
+  }
+
+
+  .month-mobile-text{
+
+    font-size:13px;
+
+    line-height:1.75;
   }
 
 }
+
 
 
 /* =================================================
@@ -911,12 +1227,14 @@ h1{
     padding-top:20px;
   }
 
+
   .layout{
 
     padding-top:25px;
 
     gap:45px;
   }
+
 
   .year{
 
@@ -925,12 +1243,14 @@ h1{
     margin-bottom:20px;
   }
 
+
   h1{
 
     font-size:42px;
 
     margin-bottom:15px;
   }
+
 
   .rule{
 
@@ -939,11 +1259,13 @@ h1{
       18px;
   }
 
+
   .month{
 
     padding:
       10px 5px;
   }
+
 
   .month-introduction{
 
@@ -954,12 +1276,14 @@ h1{
     min-height:105px;
   }
 
+
   .note{
 
     margin-top:18px;
 
     padding-top:15px;
   }
+
 
   .footer{
 
@@ -968,9 +1292,11 @@ h1{
 
 }
 
+
 </style>
 
 </head>
+
 
 
 <body>
@@ -979,328 +1305,671 @@ h1{
 <div class="page">
 
 
-  <!-- =========================
-       TOP BAR
-  ========================= -->
 
-  <div class="topbar">
+<!-- =================================================
+     TOP BAR
+================================================= -->
 
-    <span>
-      JhoneVic's Diary
-    </span>
+<div class="topbar">
 
 
-    <a
-      href="./entrance.html"
-      class="home-button"
-      aria-label="Return to the entrance page"
-    >
-      Home
-    </a>
+  <span>
+    JhoneVic's Diary
+  </span>
 
 
-    <span>
-      Personal Archive / 2013
-    </span>
+  <a
+    href="./entrance.html"
+    class="home-button"
+    aria-label="Return to the entrance page"
+  >
+    Home
+  </a>
+
+
+  <span>
+    Personal Archive / 2013
+  </span>
+
+
+</div>
+
+
+
+<!-- =================================================
+     MAIN CONTENT
+================================================= -->
+
+<div class="layout">
+
+
+
+<!-- =================================================
+     LEFT
+================================================= -->
+
+<main class="left">
+
+
+  <div class="eyebrow">
+    Volume I · The 2013 Archive
+  </div>
+
+
+  <div class="year">
+    2013
+  </div>
+
+
+  <h1>
+    The 2013 Diaries<br>
+    of JhoneVic
+  </h1>
+
+
+  <div class="meta">
+
+    Compiled: 2025<br>
+
+    By: JhoneVic<br>
+
+    © 2025 JhoneVic M. Casaña<br>
+
+    All rights reserved.<br>
+
+    No part of this book may be reproduced in any form
+    without permission from the author.<br>
+
+    Printed in the Philippines.
 
   </div>
 
 
+  <div class="rule"></div>
 
-  <!-- =========================
-       MAIN CONTENT
-  ========================= -->
 
-  <div class="layout">
 
+  <!-- INTRODUCTION -->
 
-    <!-- =========================
-         LEFT SIDE
-    ========================= -->
+  <section class="intro">
 
-    <main class="left">
 
+    <div class="eyebrow">
+      Introduction
+    </div>
 
-      <div class="eyebrow">
-        Volume I · The 2013 Archive
-      </div>
 
+    <h2>
+      Originally Written in 2013
+    </h2>
 
-      <div class="year">
-        2013
-      </div>
 
+    <div class="original">
+      Original manuscript text
+    </div>
 
-      <h1>
-        The 2013 Diaries<br>
-        of JhoneVic
-      </h1>
 
+    <p>
 
-      <div class="meta">
+      Sa taong ito, ako ay nagkaka-edad ng 14 hanggang 15 taon.
+      Bawat mababasa ninyo rito ay may kasamang malungkot at masayang
+      karanasan. Sa talaarawan kong ito, may mga nababanggit na pangalan.
+      Ang talaarawan kong ito ay natatanging alaala ko sa taong ito.
+      Sana ay magustuhan ninyo ang bawat babasahin ninyo rito.
 
-        Compiled: 2025<br>
+    </p>
 
-        By: JhoneVic<br>
 
-        © 2025 JhoneVic M. Casaña<br>
+  </section>
 
-        All rights reserved.<br>
 
-        No part of this book may be reproduced in any form
-        without permission from the author.<br>
+</main>
 
-        Printed in the Philippines.
 
-      </div>
 
+<!-- =================================================
+     RIGHT
+================================================= -->
 
-      <div class="rule"></div>
+<aside class="right">
 
 
-      <section class="intro">
+<div class="month-area">
 
-        <div class="eyebrow">
-          Introduction
-        </div>
 
+  <div class="months-label">
+    Months
+  </div>
 
-        <h2>
-          Originally Written in 2013
-        </h2>
 
 
-        <div class="original">
-          Original manuscript text
-        </div>
+  <!-- =================================================
+       MONTHS
+  ================================================= -->
 
+  <div class="months">
 
-        <p>
 
-          Sa taong ito, ako ay nagkaka-edad ng 14 hanggang 15 taon.
-          Bawat mababasa ninyo rito ay may kasamang malungkot at masayang
-          karanasan. Sa talaarawan kong ito, may mga nababanggit na pangalan.
-          Ang talaarawan kong ito ay natatanging alaala ko sa taong ito.
-          Sana ay magustuhan ninyo ang bawat babasahin ninyo rito.
 
-        </p>
+    <!-- JANUARY -->
 
-      </section>
+    <div class="month-item">
 
+      <div class="month-row">
 
-    </main>
-
-
-
-    <!-- =========================
-         RIGHT SIDE
-    ========================= -->
-
-    <aside class="right">
-
-
-      <div class="month-area">
-
-
-        <div class="months-label">
-          Months
-        </div>
-
-
-        <div class="months">
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="january"
-          >
-            January
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="february"
-          >
-            February
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="march"
-          >
-            March
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="april"
-          >
-            April
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="may"
-          >
-            May
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="june"
-          >
-            June
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="july"
-          >
-            July
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="august"
-          >
-            August
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="september"
-          >
-            September
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="october"
-          >
-            October
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="november"
-          >
-            November
-          </button>
-
-
-          <button
-            class="month"
-            type="button"
-            data-month="december"
-          >
-            December
-          </button>
-
-
-        </div>
-
-
-
-        <section
-          class="month-introduction"
-          id="monthIntroduction"
+        <a
+          class="month"
+          href="./january.html"
         >
+          January
+        </a>
 
-          <div
-            class="month-introduction-meta"
-            id="monthMeta"
-          >
-            Hover over a month
-          </div>
-
-
-          <h2 id="monthTitle">
-            Monthly Introduction
-          </h2>
-
-
-          <p id="monthText">
-
-            Move your mouse over January through December
-            to read each month's introduction.
-
-          </p>
-
-        </section>
-
-
-
-        <section class="note">
-
-          <div class="eyebrow">
-            📌 Authenticity Note
-          </div>
-
-
-          <h2>
-            Regarding the Monthly Introductions
-          </h2>
-
-
-          <p>
-
-            I would like to clarify that every monthly introduction in this diary
-            was originally written in the 2013 manuscript and was not added or
-            altered during the 2025 compilation. These introductions reflect the
-            voice, thoughts, and intentions of my 14-year-old self exactly as they
-            were written at that time.
-
-          </p>
-
-
-          <div class="signature">
-            — JhoneVic, July 2025
-          </div>
-
-        </section>
-
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show January introduction"
+          aria-expanded="false"
+          data-month="january"
+        >
+          ⓘ
+        </button>
 
       </div>
 
-    </aside>
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-january"
+      ></div>
+
+    </div>
+
+
+
+    <!-- FEBRUARY -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./february.html"
+        >
+          February
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show February introduction"
+          aria-expanded="false"
+          data-month="february"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-february"
+      ></div>
+
+    </div>
+
+
+
+    <!-- MARCH -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./march.html"
+        >
+          March
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show March introduction"
+          aria-expanded="false"
+          data-month="march"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-march"
+      ></div>
+
+    </div>
+
+
+
+    <!-- APRIL -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./april.html"
+        >
+          April
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show April introduction"
+          aria-expanded="false"
+          data-month="april"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-april"
+      ></div>
+
+    </div>
+
+
+
+    <!-- MAY -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./may.html"
+        >
+          May
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show May introduction"
+          aria-expanded="false"
+          data-month="may"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-may"
+      ></div>
+
+    </div>
+
+
+
+    <!-- JUNE -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./june.html"
+        >
+          June
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show June introduction"
+          aria-expanded="false"
+          data-month="june"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-june"
+      ></div>
+
+    </div>
+
+
+
+    <!-- JULY -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./july.html"
+        >
+          July
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show July introduction"
+          aria-expanded="false"
+          data-month="july"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-july"
+      ></div>
+
+    </div>
+
+
+
+    <!-- AUGUST -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./august.html"
+        >
+          August
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show August introduction"
+          aria-expanded="false"
+          data-month="august"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-august"
+      ></div>
+
+    </div>
+
+
+
+    <!-- SEPTEMBER -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./september.html"
+        >
+          September
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show September introduction"
+          aria-expanded="false"
+          data-month="september"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-september"
+      ></div>
+
+    </div>
+
+
+
+    <!-- OCTOBER -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./october.html"
+        >
+          October
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show October introduction"
+          aria-expanded="false"
+          data-month="october"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-october"
+      ></div>
+
+    </div>
+
+
+
+    <!-- NOVEMBER -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./november.html"
+        >
+          November
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show November introduction"
+          aria-expanded="false"
+          data-month="november"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-november"
+      ></div>
+
+    </div>
+
+
+
+    <!-- DECEMBER -->
+
+    <div class="month-item">
+
+      <div class="month-row">
+
+        <a
+          class="month"
+          href="./december.html"
+        >
+          December
+        </a>
+
+        <button
+          class="mobile-intro-button"
+          type="button"
+          aria-label="Show December introduction"
+          aria-expanded="false"
+          data-month="december"
+        >
+          ⓘ
+        </button>
+
+      </div>
+
+
+      <div
+        class="month-mobile-introduction"
+        id="mobile-intro-december"
+      ></div>
+
+    </div>
 
 
   </div>
 
 
 
-  <div class="footer">
+  <!-- =================================================
+       DESKTOP MONTH INTRODUCTION
+  ================================================= -->
 
-    <span>
-      Personal Archive
-    </span>
+  <section
+    class="month-introduction"
+    id="monthIntroduction"
+  >
 
-    <span>
-      2013 · Philippines
-    </span>
+    <div
+      class="month-introduction-meta"
+      id="monthMeta"
+    >
+      Hover over a month
+    </div>
 
-  </div>
+
+    <h2 id="monthTitle">
+      Monthly Introduction
+    </h2>
+
+
+    <p id="monthText">
+
+      Move your mouse over January through December
+      to read each month's introduction.
+
+    </p>
+
+  </section>
+
+
+
+  <!-- =================================================
+       AUTHENTICITY NOTE
+  ================================================= -->
+
+  <section class="note">
+
+
+    <div class="eyebrow">
+      📌 Authenticity Note
+    </div>
+
+
+    <h2>
+      Regarding the Monthly Introductions
+    </h2>
+
+
+    <p>
+
+      I would like to clarify that every monthly introduction in this diary
+      was originally written in the 2013 manuscript and was not added or
+      altered during the 2025 compilation. These introductions reflect the
+      voice, thoughts, and intentions of my 14-year-old self exactly as they
+      were written at that time.
+
+    </p>
+
+
+    <div class="signature">
+      — JhoneVic, July 2025
+    </div>
+
+
+  </section>
+
+
+</div>
+
+</aside>
+
+
+</div>
+
+
+
+<!-- =================================================
+     FOOTER
+================================================= -->
+
+<div class="footer">
+
+
+  <span>
+    Personal Archive
+  </span>
+
+
+  <span>
+    2013 · Philippines
+  </span>
+
+
+</div>
 
 
 </div>
@@ -1309,6 +1978,10 @@ h1{
 
 <script>
 
+
+/* =================================================
+   MONTHLY INTRODUCTIONS
+================================================= */
 
 const monthlyIntroductions = {
 
@@ -1399,17 +2072,26 @@ const monthlyIntroductions = {
 };
 
 
-const monthButtons =
+
+/* =================================================
+   DESKTOP MONTH HOVER
+================================================= */
+
+const monthLinks =
   document.querySelectorAll(".month");
+
 
 const monthMeta =
   document.getElementById("monthMeta");
 
+
 const monthTitle =
   document.getElementById("monthTitle");
 
+
 const monthText =
   document.getElementById("monthText");
+
 
 const monthIntroduction =
   document.getElementById("monthIntroduction");
@@ -1428,8 +2110,10 @@ function showMonthIntroduction(month){
   monthMeta.textContent =
     data.meta;
 
+
   monthTitle.textContent =
     data.title;
+
 
   monthText.textContent =
     data.text;
@@ -1438,44 +2122,200 @@ function showMonthIntroduction(month){
   monthIntroduction.style.animation =
     "none";
 
+
   void monthIntroduction.offsetWidth;
+
 
   monthIntroduction.style.animation =
     "introFade .3s ease";
-
 }
 
 
-monthButtons.forEach(button => {
 
-  button.addEventListener(
+/* =================================================
+   DESKTOP HOVER / FOCUS
+================================================= */
+
+monthLinks.forEach(link => {
+
+
+  link.addEventListener(
     "mouseenter",
     () => {
 
       showMonthIntroduction(
-        button.dataset.month
+        link.dataset.month
       );
 
     }
   );
 
 
-  button.addEventListener(
+  link.addEventListener(
     "focus",
     () => {
 
       showMonthIntroduction(
-        button.dataset.month
+        link.dataset.month
       );
 
     }
   );
 
+
 });
+
+
+
+/* =================================================
+   MOBILE INTRODUCTION BUTTONS
+================================================= */
+
+const mobileIntroButtons =
+  document.querySelectorAll(
+    ".mobile-intro-button"
+  );
+
+
+mobileIntroButtons.forEach(button => {
+
+
+  button.addEventListener(
+    "click",
+    function(){
+
+      const month =
+        this.dataset.month;
+
+
+      const data =
+        monthlyIntroductions[month];
+
+
+      if(!data){
+        return;
+      }
+
+
+      const container =
+        document.getElementById(
+          "mobile-intro-" + month
+        );
+
+
+      if(!container){
+        return;
+      }
+
+
+      /*
+       * If already open,
+       * close it.
+       */
+
+      if(
+        container.classList.contains(
+          "open"
+        )
+      ){
+
+        container.classList.remove(
+          "open"
+        );
+
+
+        this.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+
+        return;
+
+      }
+
+
+      /*
+       * Close every other
+       * mobile introduction.
+       */
+
+      document
+        .querySelectorAll(
+          ".month-mobile-introduction.open"
+        )
+        .forEach(
+          openContainer => {
+
+            openContainer.classList.remove(
+              "open"
+            );
+
+          }
+        );
+
+
+      document
+        .querySelectorAll(
+          ".mobile-intro-button"
+        )
+        .forEach(
+          otherButton => {
+
+            otherButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+          }
+        );
+
+
+      /*
+       * Build introduction.
+       */
+
+      container.innerHTML = `
+
+        <div class="month-mobile-meta">
+          ${data.meta}
+        </div>
+
+        <h2 class="month-mobile-title">
+          ${data.title}
+        </h2>
+
+        <p class="month-mobile-text">
+          ${data.text}
+        </p>
+
+      `;
+
+
+      /*
+       * Open it.
+       */
+
+      container.classList.add(
+        "open"
+      );
+
+
+      this.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+    }
+  );
+
+
+});
+
 
 </script>
 
 
 </body>
-</html>
 
+</html>
