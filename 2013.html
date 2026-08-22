@@ -51,20 +51,19 @@ body{
 .page{
 
   width:100%;
-
-  max-width:1500px;
+  max-width:1360px;
 
   min-height:100vh;
+  min-height:100svh;
 
-  margin:auto;
+  margin:0 auto;
 
   padding:
-    clamp(22px,3vw,42px)
-    clamp(25px,5vw,75px)
-    25px;
+    clamp(22px,2.8vw,36px)
+    clamp(22px,4vw,58px)
+    22px;
 
   display:flex;
-
   flex-direction:column;
 }
 
@@ -75,10 +74,14 @@ body{
 
 .topbar{
 
+  width:100%;
+
   display:grid;
 
   grid-template-columns:
-    1fr auto 1fr;
+    minmax(0,1fr)
+    auto
+    minmax(0,1fr);
 
   align-items:center;
 
@@ -86,11 +89,12 @@ body{
     1px solid rgba(255,255,255,.14);
 
   padding-bottom:
-    clamp(14px,1.7vh,22px);
+    clamp(14px,1.6vh,20px);
 
   color:#888;
 
-  font-size:clamp(7px,.55vw,9px);
+  font-size:
+    clamp(7px,.52vw,9px);
 
   letter-spacing:.2em;
 
@@ -105,6 +109,8 @@ body{
 
 .topbar > span:last-child{
   justify-self:end;
+
+  text-align:right;
 }
 
 
@@ -119,7 +125,6 @@ body{
   display:inline-flex;
 
   align-items:center;
-
   justify-content:center;
 
   min-width:72px;
@@ -145,6 +150,8 @@ body{
   letter-spacing:.18em;
 
   text-transform:uppercase;
+
+  white-space:nowrap;
 
   transition:
     color .25s ease,
@@ -187,17 +194,26 @@ body{
 
   flex:1;
 
+  width:100%;
+
   display:grid;
 
+  /*
+   * Flexible columns.
+   * No hard minimum widths.
+   * This prevents the desktop
+   * sections from squeezing together.
+   */
+
   grid-template-columns:
-    minmax(360px,.88fr)
-    minmax(500px,1.12fr);
+    minmax(0,.9fr)
+    minmax(0,1.1fr);
 
   gap:
-    clamp(45px,6vw,95px);
+    clamp(32px,4vw,68px);
 
   padding-top:
-    clamp(30px,5vh,55px);
+    clamp(28px,4vh,48px);
 
   align-items:start;
 }
@@ -209,15 +225,15 @@ body{
 
 .left{
 
-  padding-right:5px;
-
   min-width:0;
+
+  padding-right:0;
 }
 
 .eyebrow{
 
   font-size:
-    clamp(7px,.55vw,9px);
+    clamp(7px,.52vw,9px);
 
   letter-spacing:.27em;
 
@@ -226,13 +242,13 @@ body{
   color:#777a7d;
 
   margin-bottom:
-    clamp(12px,1.5vh,18px);
+    clamp(12px,1.4vh,17px);
 }
 
 .year{
 
   font:
-    400 clamp(72px,8vw,118px)/.78
+    400 clamp(70px,7vw,110px)/.78
     Georgia,serif;
 
   letter-spacing:-.07em;
@@ -241,20 +257,20 @@ body{
 
   margin:
     0 0
-    clamp(22px,3vh,32px);
+    clamp(20px,2.7vh,30px);
 }
 
 h1{
 
   font:
-    400 clamp(38px,4.2vw,64px)/.96
+    400 clamp(36px,3.7vw,58px)/.96
     Georgia,serif;
 
   letter-spacing:-.055em;
 
   margin:
     0 0
-    clamp(18px,2.5vh,26px);
+    clamp(17px,2.2vh,24px);
 
   color:#eeeae1;
 }
@@ -262,13 +278,13 @@ h1{
 .meta{
 
   font-size:
-    clamp(8px,.62vw,10px);
+    clamp(8px,.58vw,10px);
 
   line-height:1.8;
 
   color:#888;
 
-  max-width:600px;
+  max-width:560px;
 }
 
 .rule{
@@ -281,9 +297,9 @@ h1{
   width:58px;
 
   margin:
-    clamp(28px,4vh,42px)
+    clamp(25px,3.5vh,38px)
     0
-    clamp(20px,3vh,30px);
+    clamp(19px,2.7vh,28px);
 }
 
 
@@ -294,7 +310,7 @@ h1{
 .intro h2{
 
   font:
-    400 clamp(20px,1.7vw,25px)
+    400 clamp(20px,1.6vw,24px)
     Georgia,serif;
 
   margin:
@@ -319,12 +335,12 @@ h1{
 .intro p{
 
   font:
-    clamp(13px,1vw,16px)/1.85
+    clamp(13px,.9vw,15px)/1.82
     Georgia,serif;
 
   color:#b9b6ae;
 
-  max-width:620px;
+  max-width:590px;
 
   margin:0;
 }
@@ -338,6 +354,8 @@ h1{
 
   min-width:0;
 
+  width:100%;
+
   display:flex;
 
   justify-content:center;
@@ -349,9 +367,11 @@ h1{
 
   width:100%;
 
-  max-width:680px;
+  max-width:620px;
 
   margin:0 auto;
+
+  min-width:0;
 }
 
 
@@ -365,10 +385,10 @@ h1{
 
   margin:
     0 0
-    clamp(20px,3vh,32px);
+    clamp(18px,2.8vh,30px);
 
   font:
-    400 clamp(23px,2vw,29px)
+    400 clamp(22px,1.9vw,28px)
     Georgia,serif;
 
   color:#ddd9d0;
@@ -381,16 +401,18 @@ h1{
 
 .months{
 
+  width:100%;
+
   display:grid;
 
   grid-template-columns:
     repeat(3,minmax(0,1fr));
 
   column-gap:
-    clamp(15px,2.5vw,38px);
+    clamp(10px,2vw,28px);
 
   row-gap:
-    clamp(0px,.5vh,6px);
+    2px;
 }
 
 
@@ -404,6 +426,8 @@ h1{
 
   width:100%;
 
+  min-width:0;
+
   border:0;
 
   background:none;
@@ -411,8 +435,8 @@ h1{
   color:#aaa8a2;
 
   padding:
-    clamp(13px,1.6vh,18px)
-    5px;
+    clamp(12px,1.4vh,17px)
+    3px;
 
   cursor:pointer;
 
@@ -420,13 +444,15 @@ h1{
     Arial,Helvetica,sans-serif;
 
   font-size:
-    clamp(14px,1.1vw,18px);
+    clamp(13px,1vw,17px);
 
-  letter-spacing:.10em;
+  letter-spacing:.09em;
 
   text-transform:uppercase;
 
   text-align:center;
+
+  white-space:nowrap;
 
   transition:
     color .35s ease,
@@ -498,17 +524,19 @@ h1{
 
 .month-introduction{
 
+  width:100%;
+
   margin-top:
-    clamp(27px,4vh,42px);
+    clamp(25px,3.5vh,38px);
 
   border-top:
     1px solid rgba(255,255,255,.13);
 
   padding-top:
-    clamp(17px,2.5vh,25px);
+    clamp(16px,2.2vh,23px);
 
   min-height:
-    clamp(120px,16vh,165px);
+    clamp(118px,15vh,155px);
 
   animation:
     introFade .3s ease;
@@ -530,7 +558,7 @@ h1{
 .month-introduction h2{
 
   font:
-    400 clamp(21px,1.8vw,26px)
+    400 clamp(20px,1.7vw,25px)
     Georgia,serif;
 
   color:#e8e4dc;
@@ -542,14 +570,14 @@ h1{
 .month-introduction p{
 
   font:
-    clamp(11px,.85vw,14px)/1.75
+    clamp(11px,.8vw,13px)/1.72
     Georgia,serif;
 
   color:#aaa8a1;
 
   margin:0;
 
-  max-width:650px;
+  max-width:620px;
 }
 
 
@@ -578,22 +606,24 @@ h1{
 
 .note{
 
+  width:100%;
+
   margin-top:
-    clamp(22px,3vh,35px);
+    clamp(20px,2.8vh,32px);
 
   border-top:
     1px solid rgba(255,255,255,.13);
 
   padding-top:
-    clamp(17px,2.5vh,23px);
+    clamp(16px,2.2vh,22px);
 
-  max-width:680px;
+  max-width:620px;
 }
 
 .note h2{
 
   font:
-    400 clamp(20px,1.7vw,25px)
+    400 clamp(19px,1.6vw,24px)
     Georgia,serif;
 
   margin:
@@ -605,7 +635,7 @@ h1{
 .note p{
 
   font:
-    clamp(11px,.82vw,13px)/1.7
+    clamp(11px,.78vw,13px)/1.68
     Georgia,serif;
 
   color:#99968f;
@@ -633,13 +663,15 @@ h1{
 
 .footer{
 
+  width:100%;
+
   margin-top:
-    clamp(15px,2vh,22px);
+    clamp(13px,1.8vh,20px);
 
   border-top:
     1px solid rgba(255,255,255,.12);
 
-  padding-top:12px;
+  padding-top:11px;
 
   display:flex;
 
@@ -658,53 +690,116 @@ h1{
 
 
 /* =================================================
-   MEDIUM DESKTOP / SMALL LAPTOP
+   DESKTOP HEIGHT ADJUSTMENT
 ================================================= */
 
-@media(max-width:1200px){
+@media(min-width:701px) and (max-height:850px){
+
+  .page{
+
+    padding-top:20px;
+    padding-bottom:17px;
+  }
 
   .layout{
 
-    grid-template-columns:
-      minmax(330px,.85fr)
-      minmax(440px,1.15fr);
+    padding-top:24px;
 
-    gap:45px;
+    gap:35px;
   }
 
-  .month-area{
+  .year{
 
-    max-width:600px;
+    font-size:76px;
+
+    margin-bottom:18px;
+  }
+
+  h1{
+
+    font-size:42px;
+
+    margin-bottom:14px;
+  }
+
+  .rule{
+
+    margin:
+      20px 0
+      17px;
+  }
+
+  .month{
+
+    padding:
+      9px 3px;
+  }
+
+  .month-introduction{
+
+    margin-top:20px;
+
+    padding-top:14px;
+
+    min-height:100px;
+  }
+
+  .note{
+
+    margin-top:17px;
+
+    padding-top:14px;
+  }
+
+  .footer{
+
+    margin-top:9px;
+
+    padding-top:9px;
   }
 
 }
 
 
 /* =================================================
-   TABLET
+   NARROW DESKTOP / LAPTOP
 ================================================= */
 
-@media(max-width:900px){
+@media(max-width:1050px) and (min-width:701px){
+
+  .page{
+
+    padding-left:26px;
+    padding-right:26px;
+  }
 
   .layout{
 
     grid-template-columns:
-      minmax(290px,.8fr)
-      minmax(390px,1.2fr);
+      minmax(0,.88fr)
+      minmax(0,1.12fr);
 
-    gap:30px;
+    gap:28px;
+  }
 
-    padding-top:32px;
+  .month-area{
+
+    max-width:570px;
   }
 
   .months{
 
-    column-gap:15px;
+    column-gap:12px;
   }
 
   .month{
 
-    font-size:14px;
+    font-size:13px;
+  }
+
+  .intro p{
+
+    font-size:13px;
   }
 
 }
@@ -738,7 +833,12 @@ h1{
 
     font-size:7px;
 
-    letter-spacing:.15em;
+    letter-spacing:.14em;
+  }
+
+  .topbar > span:last-child{
+
+    max-width:130px;
   }
 
   .home-button{
@@ -755,7 +855,7 @@ h1{
 
     display:block;
 
-    padding-top:40px;
+    padding-top:38px;
   }
 
   .left{
@@ -782,7 +882,7 @@ h1{
 
     display:block;
 
-    margin-top:55px;
+    margin-top:52px;
   }
 
   .month-area{
@@ -800,7 +900,7 @@ h1{
   .months{
 
     grid-template-columns:
-      repeat(2,1fr);
+      repeat(2,minmax(0,1fr));
 
     column-gap:20px;
 
@@ -850,6 +950,11 @@ h1{
     font-size:6px;
   }
 
+  .topbar > span:last-child{
+
+    max-width:105px;
+  }
+
   .home-button{
 
     min-width:55px;
@@ -884,72 +989,67 @@ h1{
 
 
 /* =================================================
-   SHORT SCREENS
-   Gives desktop users more breathing room
+   EXTRA SMALL WIDTH
 ================================================= */
 
-@media(min-width:701px) and (max-height:800px){
+@media(max-width:360px){
 
   .page{
 
-    padding-top:20px;
+    padding-left:16px;
+    padding-right:16px;
   }
 
-  .layout{
+  .topbar{
 
-    padding-top:25px;
+    grid-template-columns:
+      minmax(0,1fr)
+      auto
+      minmax(0,1fr);
 
-    gap:45px;
+    letter-spacing:.10em;
+  }
+
+  .home-button{
+
+    min-width:50px;
+
+    padding:
+      6px 7px;
   }
 
   .year{
 
-    font-size:78px;
-
-    margin-bottom:20px;
+    font-size:58px;
   }
 
   h1{
 
-    font-size:42px;
-
-    margin-bottom:15px;
+    font-size:34px;
   }
 
-  .rule{
+}
 
-    margin:
-      22px 0
-      18px;
-  }
 
-  .month{
+/* =================================================
+   ACCESSIBILITY
+================================================= */
 
-    padding:
-      10px 5px;
-  }
+button,
+a{
 
-  .month-introduction{
+  -webkit-tap-highlight-color:
+    transparent;
+}
 
-    margin-top:22px;
+button:focus-visible,
+a:focus-visible{
 
-    padding-top:15px;
+  outline:
+    1px solid
+    rgba(255,255,255,.65);
 
-    min-height:105px;
-  }
-
-  .note{
-
-    margin-top:18px;
-
-    padding-top:15px;
-  }
-
-  .footer{
-
-    margin-top:10px;
-  }
-
+  outline-offset:4px;
 }
 
 </style>
