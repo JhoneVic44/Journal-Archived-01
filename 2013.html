@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>The 2013 Diaries of JhoneVic</title>
 
-
 <style>
-
-/* =========================================================
-   GLOBAL
-========================================================= */
 
 *{
   box-sizing:border-box;
@@ -25,87 +14,72 @@
 
 html,
 body{
-
   margin:0;
-
   width:100%;
-  height:100%;
-
-  overflow:hidden;
-
+  min-height:100%;
   background:#0b0c0d;
-
   color:#eeeae1;
-
   font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-
   background:
-
     radial-gradient(
       circle at 78% 8%,
       rgba(255,255,255,.075),
       transparent 30%
     ),
-
     linear-gradient(
       135deg,
       #090a0b,
       #151719 52%,
       #202224
     );
+
+  overflow:hidden;
 }
 
 
-/* =========================================================
+/* =========================
    PAGE
-========================================================= */
+========================= */
 
 .page{
-
   width:100%;
+  max-width:1400px;
 
   height:100vh;
-
-  max-width:1400px;
 
   margin:auto;
 
   padding:
-    24px
+    30px
     5%
     25px;
 
   display:flex;
-
   flex-direction:column;
 }
 
 
-/* =========================================================
+/* =========================
    TOP BAR
-========================================================= */
+========================= */
 
 .topbar{
-
-  flex-shrink:0;
-
   display:grid;
 
   grid-template-columns:
     1fr
-    1fr
+    auto
     1fr;
 
   align-items:center;
 
   border-bottom:
-    1px solid
-    rgba(255,255,255,.14);
+    1px solid rgba(255,255,255,.14);
 
-  padding-bottom:18px;
+  padding-bottom:22px;
 
   color:#888;
 
@@ -114,22 +88,22 @@ body{
   letter-spacing:.2em;
 
   text-transform:uppercase;
+
+  flex-shrink:0;
 }
 
 .topbar > span:first-child{
-
   justify-self:start;
 }
 
 .topbar > span:last-child{
-
   justify-self:end;
 }
 
 
-/* =========================================================
+/* =========================
    HOME BUTTON
-========================================================= */
+========================= */
 
 .home-button{
 
@@ -158,6 +132,8 @@ body{
   text-decoration:none;
 
   font-size:8px;
+
+  font-weight:500;
 
   letter-spacing:.2em;
 
@@ -189,16 +165,20 @@ body{
     translateY(-1px);
 }
 
+.home-button:active{
 
-/* =========================================================
+  transform:
+    translateY(0);
+}
+
+
+/* =========================
    MAIN LAYOUT
-========================================================= */
+========================= */
 
 .layout{
 
   flex:1;
-
-  min-height:0;
 
   display:grid;
 
@@ -206,21 +186,33 @@ body{
     minmax(0,.88fr)
     minmax(520px,1.12fr);
 
-  gap:60px;
+  gap:70px;
 
-  padding-top:35px;
+  padding-top:45px;
+
+  min-height:0;
 }
 
 
-/* =========================================================
+/* =========================
    LEFT SIDE
-========================================================= */
+========================= */
 
 .left{
-
-  min-height:0;
-
   padding-right:10px;
+}
+
+.year{
+
+  font:
+    400 clamp(82px,10vw,125px)/.78
+    Georgia,serif;
+
+  letter-spacing:-.07em;
+
+  color:#eeeae1;
+
+  margin:0 0 30px;
 }
 
 .eyebrow{
@@ -233,33 +225,18 @@ body{
 
   color:#777a7d;
 
-  margin-bottom:12px;
-}
-
-.year{
-
-  font:
-    400 clamp(82px,9vw,120px)/.78
-    Georgia,serif;
-
-  letter-spacing:-.07em;
-
-  color:#eeeae1;
-
-  margin:
-    0 0 25px;
+  margin-bottom:16px;
 }
 
 h1{
 
   font:
-    400 clamp(42px,4.5vw,64px)/.96
+    400 clamp(42px,5vw,68px)/.96
     Georgia,serif;
 
   letter-spacing:-.055em;
 
-  margin:
-    0 0 20px;
+  margin:0 0 24px;
 
   color:#eeeae1;
 }
@@ -268,7 +245,7 @@ h1{
 
   font-size:10px;
 
-  line-height:1.8;
+  line-height:1.9;
 
   color:#888;
 }
@@ -282,24 +259,21 @@ h1{
 
   width:60px;
 
-  margin:
-    32px 0 25px;
+  margin:40px 0 28px;
 }
 
 
-/* =========================================================
+/* =========================
    INTRODUCTION
-========================================================= */
+========================= */
 
-.intro h2,
-.note h2{
+.intro h2{
 
   font:
-    400 23px
+    400 24px
     Georgia,serif;
 
-  margin:
-    0 0 9px;
+  margin:0 0 10px;
 
   color:#e8e4dc;
 }
@@ -314,78 +288,67 @@ h1{
 
   color:#777;
 
-  margin-bottom:17px;
+  margin-bottom:20px;
 }
 
 .intro p{
 
   font:
-    15px/1.85
+    16px/2
     Georgia,serif;
 
   color:#b9b6ae;
 
   max-width:650px;
-
-  margin:0;
 }
 
 
-/* =========================================================
+/* =========================
    RIGHT SIDE
-========================================================= */
+========================= */
 
 .right{
-
   min-width:0;
-
-  min-height:0;
-}
-
-
-/* =========================================================
-   ARCHIVE PANEL
-========================================================= */
-
-.archive-panel{
-
-  height:100%;
-
-  min-height:0;
-
-  padding:
-    25px 36px;
 
   display:flex;
 
-  flex-direction:column;
+  justify-content:center;
+
+  align-items:flex-start;
+}
+
+.month-area{
+
+  width:100%;
+
+  max-width:650px;
+
+  margin-top:5px;
 }
 
 
-/* =========================================================
+/* =========================
    MONTHS TITLE
-========================================================= */
+========================= */
 
 .months-label{
 
   text-align:center;
 
   margin:
-    0 0 20px;
+    0 0 32px;
 
   font:
     400 28px
     Georgia,serif;
 
-  letter-spacing:-.02em;
-
   color:#ddd9d0;
 }
 
 
-/* =========================================================
+/* =========================
    MONTH GRID
-========================================================= */
+========================= */
 
 .months{
 
@@ -396,19 +359,13 @@ h1{
 
   column-gap:35px;
 
-  row-gap:4px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.13);
-
-  padding-top:5px;
+  row-gap:5px;
 }
 
 
-/* =========================================================
-   MONTH BUTTON
-========================================================= */
+/* =========================
+   MONTH BUTTONS
+========================= */
 
 .month{
 
@@ -416,37 +373,35 @@ h1{
 
   width:100%;
 
-  display:block;
-
-  padding:
-    14px 5px;
-
   border:0;
 
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.09);
-
-  background:transparent;
+  background:none;
 
   color:#aaa8a2;
 
-  text-align:center;
+  padding:
+    18px 5px;
 
   cursor:pointer;
 
   font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+    Arial,Helvetica,sans-serif;
+
+  font-size:18px;
+
+  letter-spacing:.10em;
+
+  text-transform:uppercase;
+
+  text-align:center;
 
   transition:
-    color .3s ease,
-    transform .3s ease;
+    color .35s ease,
+    text-shadow .35s ease;
 }
 
 
-/* GLOWING LINE */
+/* Small underline */
 
 .month::after{
 
@@ -456,98 +411,78 @@ h1{
 
   left:50%;
 
-  bottom:-1px;
+  bottom:4px;
 
-  width:0;
+  width:18px;
 
   height:1px;
 
-  background:#eeeae1;
+  background:#666;
 
   transform:
     translateX(-50%);
 
-  box-shadow:
-    0 0 9px
-    rgba(255,255,255,.55);
-
   transition:
-    width .4s ease;
+    width .4s ease,
+    background .4s ease,
+    box-shadow .4s ease;
 }
 
 
-/* HOVER */
+/* Hover */
 
-.month:hover{
+.month:hover,
+.month:focus{
 
-  color:#eeeae1;
+  color:#fff;
 
-  transform:
-    translateY(-2px);
-}
+  text-shadow:
+    0 0 12px
+    rgba(255,255,255,.35);
 
-.month:hover::after{
-
-  width:70%;
-}
-
-
-/*
-   No month is permanently highlighted.
-*/
-
-.month.active{
-
-  color:#aaa8a2;
-}
-
-.month.active::after{
-
-  width:0;
+  outline:none;
 }
 
 
-/* MONTH NAME */
+/* Glowing line */
 
-.name{
+.month:hover::after,
+.month:focus::after{
 
-  font-size:13px;
+  width:75%;
 
-  letter-spacing:.18em;
+  background:#eeeae1;
 
-  text-transform:uppercase;
+  box-shadow:
+    0 0 10px
+    rgba(255,255,255,.5);
 }
 
 
-/* =========================================================
-   MONTH INTRODUCTION
-========================================================= */
+/* =========================
+   MONTHLY INTRODUCTION
+========================= */
 
 .month-introduction{
 
-  margin-top:25px;
-
-  padding-top:20px;
+  margin-top:38px;
 
   border-top:
-    1px solid
-    rgba(255,255,255,.13);
+    1px solid rgba(255,255,255,.13);
 
-  flex:1;
+  padding-top:22px;
 
-  min-height:0;
-
-  overflow:hidden;
+  min-height:145px;
 
   animation:
-    introductionFade .35s ease;
+    introFade .3s ease;
 }
 
 .month-introduction-meta{
 
   font-size:8px;
 
-  letter-spacing:.2em;
+  letter-spacing:.22em;
 
   text-transform:uppercase;
 
@@ -556,75 +491,88 @@ h1{
   margin-bottom:10px;
 }
 
-.month-introduction-title{
+.month-introduction h2{
 
   font:
-    400 32px
+    400 25px
     Georgia,serif;
 
-  margin:
-    0 0 15px;
+  color:#e8e4dc;
 
-  color:#eeeae1;
+  margin:
+    0 0 12px;
 }
 
-.month-introduction-text{
+.month-introduction p{
 
   font:
-    14px/1.8
+    13px/1.8
     Georgia,serif;
 
   color:#aaa8a1;
 
   margin:0;
 
-  max-width:700px;
+  max-width:620px;
 }
 
 
-/* =========================================================
+/* =========================
+   INTRO ANIMATION
+========================= */
+
+@keyframes introFade{
+
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+
+/* =========================
    AUTHENTICITY NOTE
-========================================================= */
+========================= */
 
 .note{
 
-  flex-shrink:0;
-
-  margin-top:20px;
+  margin-top:35px;
 
   border-top:
-    1px solid
-    rgba(255,255,255,.13);
+    1px solid rgba(255,255,255,.13);
 
-  padding-top:18px;
+  padding-top:22px;
 
-  max-width:100%;
-}
-
-.note .eyebrow{
-
-  margin-bottom:8px;
+  max-width:650px;
 }
 
 .note h2{
 
-  font-size:20px;
+  font:
+    400 24px
+    Georgia,serif;
 
-  margin-bottom:7px;
+  margin:
+    0 0 12px;
+
+  color:#e8e4dc;
 }
 
 .note p{
 
   font:
-    12px/1.6
+    13px/1.75
     Georgia,serif;
 
   color:#99968f;
 
-  max-width:700px;
-
-  margin:
-    0 0 5px;
+  margin:0;
 }
 
 .signature{
@@ -634,51 +582,25 @@ h1{
   color:#888;
 
   font:
-    italic 11px
+    italic 12px
     Georgia,serif;
 
-  margin-top:10px;
+  margin-top:14px;
 }
 
 
-/* =========================================================
-   ANIMATION
-========================================================= */
-
-@keyframes introductionFade{
-
-  from{
-
-    opacity:0;
-
-    transform:
-      translateY(6px);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:none;
-  }
-}
-
-
-/* =========================================================
+/* =========================
    FOOTER
-========================================================= */
+========================= */
 
 .footer{
 
-  flex-shrink:0;
-
-  margin-top:15px;
+  margin-top:20px;
 
   border-top:
-    1px solid
-    rgba(255,255,255,.12);
+    1px solid rgba(255,255,255,.12);
 
-  padding-top:12px;
+  padding-top:15px;
 
   display:flex;
 
@@ -691,12 +613,14 @@ h1{
   letter-spacing:.18em;
 
   text-transform:uppercase;
+
+  flex-shrink:0;
 }
 
 
-/* =========================================================
+/* =========================
    TABLET
-========================================================= */
+========================= */
 
 @media(max-width:1050px){
 
@@ -706,13 +630,12 @@ h1{
       minmax(0,.85fr)
       minmax(430px,1.15fr);
 
-    gap:40px;
+    gap:45px;
   }
 
-  .archive-panel{
+  .month-area{
 
-    padding:
-      24px 25px;
+    max-width:560px;
   }
 
   .months{
@@ -723,25 +646,19 @@ h1{
 }
 
 
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:850px){
 
   html,
   body{
 
-    height:auto;
-
-    min-height:100%;
-
     overflow:auto;
   }
 
   .page{
-
-    width:100%;
 
     height:auto;
 
@@ -750,9 +667,7 @@ h1{
     padding:
       23px
       22px
-      35px;
-
-    display:block;
+      55px;
   }
 
   .topbar{
@@ -761,6 +676,11 @@ h1{
   }
 
   .home-button{
+
+    min-width:64px;
+
+    padding:
+      8px 12px;
 
     font-size:7px;
   }
@@ -792,75 +712,72 @@ h1{
     font-size:15px;
   }
 
-  .archive-panel{
+  .right{
 
-    height:auto;
+    display:block;
+  }
+
+  .month-area{
+
+    max-width:none;
 
     margin-top:60px;
-
-    padding:
-      25px 22px;
   }
 
   .months-label{
 
-    font-size:25px;
+    font-size:22px;
+
+    margin-bottom:30px;
+  }
+
+  .months{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+    column-gap:20px;
+
+    row-gap:8px;
+  }
+
+  .month{
+
+    font-size:16px;
+
+    padding:
+      18px 5px;
   }
 
   .month-introduction{
 
-    overflow:visible;
+    margin-top:40px;
 
-    min-height:200px;
+    min-height:auto;
   }
 
   .note{
 
-    margin-top:30px;
+    margin-top:55px;
+  }
+
+  .note h2{
+
+    font-size:22px;
   }
 
   .footer{
 
-    margin-top:40px;
-
     display:block;
 
     line-height:2;
-  }
 
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media(max-width:480px){
-
-  .months{
-
-    grid-template-columns:1fr;
-  }
-
-  .topbar{
-
-    grid-template-columns:
-      1fr
-      auto
-      1fr;
-
-    letter-spacing:.12em;
-  }
-
-  .topbar > span:last-child{
-
-    text-align:right;
+    margin-top:40px;
   }
 
 }
 
 </style>
-
 </head>
 
 
@@ -870,9 +787,9 @@ h1{
 <div class="page">
 
 
-  <!-- =====================================================
+  <!-- =========================
        TOP BAR
-  ====================================================== -->
+  ========================= -->
 
   <div class="topbar">
 
@@ -881,9 +798,12 @@ h1{
     </span>
 
 
+    <!-- HOME BUTTON -->
+
     <a
       href="./entrance.html"
       class="home-button"
+      aria-label="Return to the entrance page"
     >
       Home
     </a>
@@ -897,16 +817,16 @@ h1{
 
 
 
-  <!-- =====================================================
-       MAIN LAYOUT
-  ====================================================== -->
+  <!-- =========================
+       MAIN CONTENT
+  ========================= -->
 
   <div class="layout">
 
 
-    <!-- =================================================
-         LEFT SIDE
-    ================================================== -->
+    <!-- =========================
+         LEFT: INTRODUCTION
+    ========================= -->
 
     <main class="left">
 
@@ -952,6 +872,7 @@ h1{
 
       <section class="intro">
 
+
         <div class="eyebrow">
           Introduction
         </div>
@@ -977,6 +898,7 @@ h1{
 
         </p>
 
+
       </section>
 
 
@@ -984,17 +906,15 @@ h1{
 
 
 
-    <!-- =================================================
-         RIGHT SIDE
-    ================================================== -->
+    <!-- =========================
+         RIGHT: MONTHS + INTRO
+    ========================= -->
 
     <aside class="right">
 
 
-      <div class="archive-panel">
+      <div class="month-area">
 
-
-        <!-- MONTHS TITLE -->
 
         <div class="months-label">
           Months
@@ -1009,133 +929,109 @@ h1{
 
           <button
             class="month"
-            onmouseenter="showMonth('january')"
-            onclick="showMonth('january')"
+            type="button"
+            data-month="january"
           >
-            <span class="name">
-              January
-            </span>
+            January
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('february')"
-            onclick="showMonth('february')"
+            type="button"
+            data-month="february"
           >
-            <span class="name">
-              February
-            </span>
+            February
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('march')"
-            onclick="showMonth('march')"
+            type="button"
+            data-month="march"
           >
-            <span class="name">
-              March
-            </span>
+            March
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('april')"
-            onclick="showMonth('april')"
+            type="button"
+            data-month="april"
           >
-            <span class="name">
-              April
-            </span>
+            April
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('may')"
-            onclick="showMonth('may')"
+            type="button"
+            data-month="may"
           >
-            <span class="name">
-              May
-            </span>
+            May
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('june')"
-            onclick="showMonth('june')"
+            type="button"
+            data-month="june"
           >
-            <span class="name">
-              June
-            </span>
+            June
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('july')"
-            onclick="showMonth('july')"
+            type="button"
+            data-month="july"
           >
-            <span class="name">
-              July
-            </span>
+            July
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('august')"
-            onclick="showMonth('august')"
+            type="button"
+            data-month="august"
           >
-            <span class="name">
-              August
-            </span>
+            August
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('september')"
-            onclick="showMonth('september')"
+            type="button"
+            data-month="september"
           >
-            <span class="name">
-              September
-            </span>
+            September
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('october')"
-            onclick="showMonth('october')"
+            type="button"
+            data-month="october"
           >
-            <span class="name">
-              October
-            </span>
+            October
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('november')"
-            onclick="showMonth('november')"
+            type="button"
+            data-month="november"
           >
-            <span class="name">
-              November
-            </span>
+            November
           </button>
 
 
           <button
             class="month"
-            onmouseenter="showMonth('december')"
-            onclick="showMonth('december')"
+            type="button"
+            data-month="december"
           >
-            <span class="name">
-              December
-            </span>
+            December
           </button>
 
 
@@ -1143,38 +1039,32 @@ h1{
 
 
 
-        <!-- =================================================
-             MONTH INTRODUCTION
-        ================================================== -->
+        <!-- =========================
+             MONTHLY INTRODUCTION
+        ========================= -->
 
         <section
-          id="month-introduction"
           class="month-introduction"
+          id="monthIntroduction"
         >
 
           <div
-            id="month-introduction-meta"
             class="month-introduction-meta"
+            id="monthMeta"
           >
             Hover over a month
           </div>
 
 
-          <h2
-            id="month-introduction-title"
-            class="month-introduction-title"
-          >
+          <h2 id="monthTitle">
             Monthly Introduction
           </h2>
 
 
-          <p
-            id="month-introduction-text"
-            class="month-introduction-text"
-          >
+          <p id="monthText">
 
-            Move your mouse over a month to read its
-            original monthly introduction.
+            Move your mouse over January through December
+            to read each month's introduction.
 
           </p>
 
@@ -1182,9 +1072,9 @@ h1{
 
 
 
-        <!-- =================================================
+        <!-- =========================
              AUTHENTICITY NOTE
-        ================================================== -->
+        ========================= -->
 
         <section class="note">
 
@@ -1201,12 +1091,11 @@ h1{
 
           <p>
 
-            I would like to clarify that every monthly introduction
-            in this diary was originally written in the 2013 manuscript
-            and was not added or altered during the 2025 compilation.
-            These introductions reflect the voice, thoughts, and
-            intentions of my 14-year-old self exactly as they were
-            written at that time.
+            I would like to clarify that every monthly introduction in this diary
+            was originally written in the 2013 manuscript and was not added or
+            altered during the 2025 compilation. These introductions reflect the
+            voice, thoughts, and intentions of my 14-year-old self exactly as they
+            were written at that time.
 
           </p>
 
@@ -1221,6 +1110,7 @@ h1{
 
       </div>
 
+
     </aside>
 
 
@@ -1228,16 +1118,15 @@ h1{
 
 
 
-  <!-- =====================================================
+  <!-- =========================
        FOOTER
-  ====================================================== -->
+  ========================= -->
 
   <div class="footer">
 
     <span>
       Personal Archive
     </span>
-
 
     <span>
       2013 · Philippines
@@ -1253,209 +1142,192 @@ h1{
 <script>
 
 
-/* =========================================================
+/* =========================
    MONTHLY INTRODUCTIONS
-========================================================= */
+========================= */
 
-const monthIntroductions = {
+const monthlyIntroductions = {
 
 
   january:{
-
     meta:"January · 2013",
-
-    title:"January",
-
-    text:
-      "No particular introduction was written for this month."
+    title:"No Introduction Recorded",
+    text:"No monthly introduction is present in the surviving manuscript."
   },
 
 
   february:{
-
     meta:"February · 2013",
-
     title:"February",
-
-    text:
-      "Ito ang ikalawang buwan ko sa taong ito. Dahil sa panibagong buwan, gagawin ko din kahit kaunting pagbabago para sa aking sarili. Sana naman, lahat ng pangit na araw ay mabago na rin at maging maganda. Iiwan ko na sa January ang malas at malulungkot kong araw. Dito sa February, aayusin ko na ang aking kaugalian. Sa buwan na ito, subaybayan natin."
+    text:"Ito ang ikalawang buwan ko sa taong ito. Dahil sa panibagong buwan, gagawin ko din kahit kaunting pagbabago para sa aking sarili. Sana naman, lahat ng pangit na araw ay mabago na rin at maging maganda. Iiwan ko na sa January ang malas at malulungkot kong araw. Dito sa February, aayusin ko na ang aking kaugalian. Sa buwan na ito, subaybayan natin."
   },
 
 
   march:{
-
     meta:"March · 2013",
-
-    title:"March",
-
-    text:
-      "The original manuscript introduction for this month has been torn due to the paper being too old and worn over the years."
+    title:"No Introduction Recorded",
+    text:"The original manuscript introduction for this month has been torn due to the paper being too old and worn over the years."
   },
 
 
   april:{
-
     meta:"April · 2013",
-
     title:"April",
-
-    text:
-      "Sa buwan ng Abril, ay unang araw ko pa lang ay naging masaya na rin ako. Ngayon ko lang kasi ito isinulat. Ang Marso ay kalungkutan kung saan ako naghirap at umiyak. Ngayong Abril, ay sisiguraduhin kong magkikita na kami ni Kim, basta sa pamamaraan ko iyon. At ang Abril ay araw ng pagkilos, at sisiguraduhin kong kapag nakita niya ako, ay sobrang gwapo, pogi, at makisig ako — at mai-in love siya. Sisimulan ko ang pagkilos sa April 2, 2013 at April 4, 2013. Pabuhay ang April! Mabuhay ang kasiyahan!"
+    text:"Sa buwan ng Abril, ay unang araw ko pa lang ay naging masaya na rin ako. Ngayon ko lang kasi ito isinulat. Ang Marso ay kalungkutan kung saan ako naghirap at umiyak. Ngayong Abril, ay sisiguraduhin kong magkikita na kami ni Kim, basta sa pamamaraan ko iyon. At ang Abril ay araw ng pagkilos, at sisiguraduhin kong kapag nakita niya ako, ay sobrang gwapo, pogi, at makisig ako — at mai-in love siya. Sisimulan ko ang pagkilos sa April 2, 2013 at April 4, 2013. Pabuhay ang April! Mabuhay ang kasiyahan!"
   },
 
 
   may:{
-
     meta:"May · 2013",
-
     title:"May",
-
-    text:
-      "Welcome to may, Sa buwan pa ng Mayo ay dapat maging maayos na ako. Sisimulan ko ito sa May 7, 2013. Malapit na kasi ang pasukan, kaya dapat ko na itong gawin. Ang Mayo ay buwan ng paghahanda."
+    text:"Welcome to may, Sa buwan pa ng Mayo ay dapat maging maayos na ako. Sisimulan ko ito sa May 7, 2013. Malapit na kasi ang pasukan, kaya dapat ko na itong gawin. Ang Mayo ay buwan ng paghahanda."
   },
 
 
   june:{
-
     meta:"June · 2013",
-
     title:"June",
-
-    text:
-      "Welcome to June, Comment of this month: Sa wakas, dumating na rin ang pinakahihintay kong buwan, ang pasukan, pero may halong lungkot pa rin naman dahil baka magkaroon ng boyfriend doon si Kim. At ang handbook ko’y hindi ko pa matagpuan. Bukas na bukas ay pagtatiyagaan kong hanapin ito. Ito lang ang magagawa ko sa lahat ng problema: Una, tulungan ako ni Jewel para maging malapit kami ni Kim sa isa’t isa. Ikalawa, mag-aral ako ng mabuti para maging iskolar ako. katlo, bilang isang binata, ay aayusin ko na ang ugali ko."
+    text:"Welcome to June, Comment of this month: Sa wakas, dumating na rin ang pinakahihintay kong buwan, ang pasukan, pero may halong lungkot pa rin naman dahil baka magkaroon ng boyfriend doon si Kim. At ang handbook ko’y hindi ko pa matagpuan. Bukas na bukas ay pagtatiyagaan kong hanapin ito. Ito lang ang magagawa ko sa lahat ng problema: Una, tulungan ako ni Jewel para maging malapit kami ni Kim sa isa’t isa. Ikalawa, mag-aral ako ng mabuti para maging iskolar ako. katlo, bilang isang binata, ay aayusin ko na ang ugali ko."
   },
 
 
   july:{
-
     meta:"July · 2013",
-
     title:"July",
-
-    text:
-      "Comment ko sa bwan na ito. Ito ang buwan kung saan ako magbi-birthday, pero unang araw pa lang ay naging sobrang lungkot ko na. Pero naniniwala pa rin naman ako na may mga magagandang araw na darating para sa buwan na ito. Sa araw pa lang nito, ginaanahan na akong magsipag sa pag-aaral. Sana ay matupad ang pangarap ko na maging singer, maging matalino, yumaman, pumogi, at marami pang iba. Ito lang ang masasabi ko."
+    text:"Comment ko sa bwan na ito. Ito ang buwan kung saan ako magbi-birthday, pero unang araw pa lang ay naging sobrang lungkot ko na. Pero naniniwala pa rin naman ako na may mga magagandang araw na darating para sa buwan na ito. Sa araw pa lang nito, ginaanahan na akong magsipag sa pag-aaral. Sana ay matupad ang pangarap ko na maging singer, maging matalino, yumaman, pumogi, at marami pang iba. Ito lang ang masasabi ko."
   },
 
 
   august:{
-
     meta:"August · 2013",
-
-    title:"August",
-
-    text:
-      "No particular introduction was written for this month."
+    title:"No Introduction Recorded",
+    text:"No monthly introduction is present in the surviving manuscript."
   },
 
 
   september:{
-
     meta:"September · 2013",
-
     title:"September",
-
-    text:
-      "Comment ko sa araw na ito: Simula sa buwan na ito ay magsisipag na ako sa pag-aaral. Ngunit ramdam ko pa rin na may darating pang mga ligalig sa buwan na ito. Ngunit lalaban ang krito hangga’t sinisipag ako sa buwan na ito. At sa bagong notebook na ito ay masisipagan ako kapag gumawa ng maraming araw. Kaya sana maging masaya at maayos ang buwan ko sa Septyembre."
+    text:"Comment ko sa araw na ito: Simula sa buwan na ito ay magsisipag na ako sa pag-aaral. Ngunit ramdam ko pa rin na may darating pang mga ligalig sa buwan na ito. Ngunit lalaban ang krito hangga’t sinisipag ako sa buwan na ito. At sa bagong notebook na ito ay masisipagan ako kapag gumawa ng maraming araw. Kaya sana maging masaya at maayos ang buwan ko sa Septyembre."
   },
 
 
   october:{
-
     meta:"October · 2013",
-
-    title:"October",
-
-    text:
-      "No particular introduction was written for this month."
+    title:"No Introduction Recorded",
+    text:"No monthly introduction is present in the surviving manuscript."
   },
 
 
   november:{
-
     meta:"November · 2013",
-
     title:"November",
-
-    text:
-      "Comment ko sa bwan na ito: Sa bwan na ito ay may mga ilang mga anibersaryo. At aayusin ko ang mga araw ko dito!!"
+    text:"Comment ko sa bwan na ito: Sa bwan na ito ay may mga ilang mga anibersaryo. At aayusin ko ang mga araw ko dito!!"
   },
 
 
   december:{
-
     meta:"December · 2013",
-
     title:"December",
-
-    text:
-      "Welcome to December. Comment ko on this month: I'm so glad that today we need to write the diary in English. If you say or heard that December words were about Christmas, for me that Christmas wasn't happy. But I’ve tried to get better each day. For now on, I have never been absent from this diary, and I’m writing in English for once. This day was on the first of December. A kind of little problem happened on the first day, and I cannot resolve it on my own. But I never gave up. There are some parts that give you an idea. Let’s start. (This is me trying to write English as best as I can, even with my ridiculous grammar. I try.)"
+    text:"Welcome to December. Comment ko on this month: I'm so glad that today we need to write the diary in English. If you say or heard that December words were about Christmas, for me that Christmas wasn't happy. But I’ve tried to get better each day. For now on, I have never been absent from this diary, and I’m writing in English for once. This day was on the first of December. A kind of little problem happened on the first day, and I cannot resolve it on my own. But I never gave up. There are some parts that give you an idea. Let’s start. (This is me trying to write English as best as I can, even with my ridiculous grammar. I try.)"
   }
+
 
 };
 
 
-/* =========================================================
-   SHOW MONTH INTRODUCTION
-========================================================= */
 
-function showMonth(month){
+/* =========================
+   MONTH HOVER SYSTEM
+========================= */
+
+const monthButtons =
+  document.querySelectorAll(".month");
+
+const monthMeta =
+  document.getElementById("monthMeta");
+
+const monthTitle =
+  document.getElementById("monthTitle");
+
+const monthText =
+  document.getElementById("monthText");
+
+const monthIntroduction =
+  document.getElementById("monthIntroduction");
+
+
+function showMonthIntroduction(month){
 
   const data =
-    monthIntroductions[month];
-
+    monthlyIntroductions[month];
 
   if(!data){
-
     return;
-
   }
 
 
-  document
-    .getElementById(
-      "month-introduction-meta"
-    )
-    .textContent =
-      data.meta;
+  monthMeta.textContent =
+    data.meta;
+
+  monthTitle.textContent =
+    data.title;
+
+  monthText.textContent =
+    data.text;
 
 
-  document
-    .getElementById(
-      "month-introduction-title"
-    )
-    .textContent =
-      data.title;
+  /* Restart animation */
 
-
-  document
-    .getElementById(
-      "month-introduction-text"
-    )
-    .textContent =
-      data.text;
-
-
-  const introduction =
-    document.getElementById(
-      "month-introduction"
-    );
-
-
-  introduction.style.animation =
+  monthIntroduction.style.animation =
     "none";
 
+  void monthIntroduction.offsetWidth;
 
-  void introduction.offsetWidth;
-
-
-  introduction.style.animation =
-    "introductionFade .35s ease";
+  monthIntroduction.style.animation =
+    "introFade .3s ease";
 
 }
+
+
+
+/* =========================
+   MOUSE HOVER
+========================= */
+
+monthButtons.forEach(button => {
+
+
+  button.addEventListener(
+    "mouseenter",
+    () => {
+
+      showMonthIntroduction(
+        button.dataset.month
+      );
+
+    }
+  );
+
+
+  /* Keyboard accessibility */
+
+  button.addEventListener(
+    "focus",
+    () => {
+
+      showMonthIntroduction(
+        button.dataset.month
+      );
+
+    }
+  );
+
+
+});
 
 </script>
 
 
 </body>
-
 </html>
