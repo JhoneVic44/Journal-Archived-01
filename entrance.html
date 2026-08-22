@@ -167,9 +167,9 @@
 
             z-index: 5;
 
-            color: #eeeae1;
+            color: #aaa9a3;
 
-            font-size: 10px;
+            font-size: 9px;
 
             font-weight: 500;
 
@@ -597,6 +597,11 @@
 
 <script>
 
+
+/* =================================================
+   SUPABASE CONFIGURATION
+================================================= */
+
 const SUPABASE_URL =
     "https://ktytetimukmaqkxmzkha.supabase.co";
 
@@ -618,150 +623,169 @@ const supabaseClient =
 
 function displayUserName(user) {
 
-    const element =
+    const userNameElement =
         document.getElementById("user-name");
 
 
     if (
-        !element ||
-        !user
+        !user ||
+        !userNameElement
     ) {
+
+        console.warn(
+            "No Supabase user available."
+        );
 
         return;
 
     }
 
 
-    console.log(
-        "Supabase authenticated user:",
-        user
-    );
-
-
-    console.log(
-        "User metadata:",
-        user.user_metadata
-    );
-
-
-    console.log(
-        "User identities:",
-        user.identities
-    );
-
-
     /*
-     * Supabase user metadata.
+     * ---------------------------------------------
+     * GOOGLE USER INFORMATION
+     * ---------------------------------------------
+     *
+     * Supabase can store Google's information
+     * in several locations depending on the
+     * authentication configuration.
+     *
+     * We check all of the common locations.
      */
+
 
     const metadata =
         user.user_metadata || {};
 
 
-    /*
-     * Google identity information.
-     */
-
-    let identityData = {};
-
-
-    if (
+    const identity =
         user.identities &&
         user.identities.length > 0
-    ) {
+            ? user.identities[0]
+            : null;
 
-        identityData =
-            user.identities[0].identity_data || {};
+
+    const identityData =
+        identity?.identity_data || {};
+
+
+    /*
+     * Try every common Display Name field.
+     */
+
+    const possibleNames = [
+
+        metadata.full_name,
+
+        metadata.name,
+
+        metadata.display_name,
+
+        metadata.displayName,
+
+        identityData.full_name,
+
+        identityData.name,
+
+        identityData.display_name,
+
+        identityData.displayName
+
+    ];
+
+
+    /*
+     * Find the first actual name.
+     */
+
+    const fullName =
+        possibleNames.find(
+            function (name) {
+
+                return (
+                    typeof name === "string" &&
+                    name.trim().length > 0
+                );
+
+            }
+        );
+
+
+    /*
+     * If we found a name,
+     * display it.
+     */
+
+    if (fullName) {
+
+        console.log(
+            "Google Display Name found:",
+            fullName
+        );
+
+
+        userNameElement.textContent =
+            fullName.trim();
+
+
+        userNameElement.classList.add(
+            "visible"
+        );
+
+
+        return;
 
     }
 
 
     /*
-     * Try every common location
-     * where Google/Supabase may
-     * provide the display name.
+     * If no name was found,
+     * show the email address instead.
+     *
+     * This is only a fallback.
      */
 
-    const displayName =
+    if (user.email) {
 
-        metadata.display_name ||
-
-        metadata.displayName ||
-
-        metadata.full_name ||
-
-        metadata.fullName ||
-
-        metadata.name ||
-
-        metadata.preferred_username ||
-
-        identityData.display_name ||
-
-        identityData.displayName ||
-
-        identityData.full_name ||
-
-        identityData.fullName ||
-
-        identityData.name ||
-
-        identityData.preferred_username ||
-
-        "";
+        console.log(
+            "No Google name found. Using email:",
+            user.email
+        );
 
 
-    /*
-     * If there is no name,
-     * use the account email.
-     */
-
-    const finalName =
-        displayName ||
-        user.email ||
-        "Google User";
+        userNameElement.textContent =
+            user.email;
 
 
-    /*
-     * Put the name into the page.
-     */
-
-    element.textContent =
-        finalName;
+        userNameElement.classList.add(
+            "visible"
+        );
 
 
-    /*
-     * Make it visible.
-     */
+        return;
 
-    element.classList.add(
-        "visible"
-    );
+    }
 
 
-    element.style.opacity =
-        "1";
-
-
-    console.log(
-        "Display Name:",
-        finalName
+    console.warn(
+        "No Google Display Name or email found."
     );
 
 }
 
 
 /* =================================================
-   GET CURRENT USER
+   GET CURRENT SESSION
 ================================================= */
 
 async function loadUser() {
 
-    try {
+    console.log(
+        "Loading Supabase session..."
+    );
 
-        /*
-         * First try the current session.
-         */
+
+    try {
 
         const {
             data,
@@ -773,9 +797,17 @@ async function loadUser() {
         if (error) {
 
             console.error(
-                "Session error:",
+                "Supabase getSession error:",
                 error
             );
+
+            /*
+             * IMPORTANT:
+             *
+             * Do NOT redirect to login here.
+             *
+             * The session may still be restoring.
+             */
 
             return;
 
@@ -791,43 +823,58 @@ async function loadUser() {
             session.user
         ) {
 
+            console.log(
+                "Authenticated user found."
+            );
+
+
+            /*
+             * Print the complete user object
+             * in the browser console.
+             *
+             * This will help us identify exactly
+             * where Supabase is storing the
+             * Google Display Name.
+             */
+
+            console.log(
+                "Supabase user:",
+                session.user
+            );
+
+
+            console.log(
+                "User metadata:",
+                session.user.user_metadata
+            );
+
+
+            console.log(
+                "User identities:",
+                session.user.identities
+            );
+
+
             displayUserName(
                 session.user
             );
+
 
             return;
 
         }
 
 
-        /*
-         * If the session wasn't ready,
-         * try getUser().
-         */
+        console.log(
+            "No session yet. Waiting for auth event..."
+        );
 
-        const {
-            data: userData,
-            error: userError
-        } =
-            await supabaseClient.auth.getUser();
+    }
 
-
-        if (
-            !userError &&
-            userData &&
-            userData.user
-        ) {
-
-            displayUserName(
-                userData.user
-            );
-
-        }
-
-    } catch (error) {
+    catch (error) {
 
         console.error(
-            "Unable to load user:",
+            "Unexpected authentication error:",
             error
         );
 
@@ -837,70 +884,105 @@ async function loadUser() {
 
 
 /* =================================================
-   AUTH STATE LISTENER
+   SUPABASE AUTH STATE LISTENER
 ================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-    function (
-        event,
-        session
-    ) {
-
-        console.log(
-            "Supabase auth event:",
-            event
-        );
-
-
-        /*
-         * Whenever Supabase gives us
-         * an authenticated session,
-         * display the user's name.
-         */
-
-        if (
-            session &&
-            session.user
+const {
+    data: {
+        subscription
+    }
+} =
+    supabaseClient.auth.onAuthStateChange(
+        function (
+            event,
+            session
         ) {
 
-            displayUserName(
-                session.user
+            console.log(
+                "Supabase authentication event:",
+                event
             );
 
-        }
 
-    }
-);
+            /*
+             * When Google login succeeds,
+             * Supabase normally fires SIGNED_IN.
+             */
+
+            if (
+                event === "SIGNED_IN" &&
+                session &&
+                session.user
+            ) {
+
+                console.log(
+                    "Google login successful."
+                );
+
+
+                console.log(
+                    "Google user:",
+                    session.user
+                );
+
+
+                console.log(
+                    "Google metadata:",
+                    session.user.user_metadata
+                );
+
+
+                console.log(
+                    "Google identity:",
+                    session.user.identities
+                );
+
+
+                displayUserName(
+                    session.user
+                );
+
+            }
+
+
+            /*
+             * Supabase may restore an existing
+             * session using INITIAL_SESSION.
+             */
+
+            if (
+                event === "INITIAL_SESSION" &&
+                session &&
+                session.user
+            ) {
+
+                console.log(
+                    "Existing Supabase session restored."
+                );
+
+
+                console.log(
+                    "Restored user:",
+                    session.user
+                );
+
+
+                displayUserName(
+                    session.user
+                );
+
+            }
+
+        }
+    );
 
 
 /* =================================================
-   INITIAL LOAD
+   START
 ================================================= */
 
 loadUser();
 
-
-/*
- * Give the OAuth session a little
- * extra time to finish restoring.
- */
-
-setTimeout(
-    loadUser,
-    500
-);
-
-
-setTimeout(
-    loadUser,
-    1500
-);
-
-
-setTimeout(
-    loadUser,
-    3000
-);
 
 </script>
 
