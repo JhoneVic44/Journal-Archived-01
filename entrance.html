@@ -10,12 +10,15 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Login | JhoneVic's Diary</title>
+    <title>
+        The Unspoken Chapters | JhoneVic's Diary
+    </title>
 
     <meta
         name="description"
-        content="Login to The Unspoken Chapters, a personal diary archive."
+        content="The entrance to The Unspoken Chapters, a personal diary archive."
     >
+
 
     <!-- =========================
          SUPABASE
@@ -66,13 +69,7 @@
 
         body {
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #0b0c0d,
-                    #181a1c 50%,
-                    #292b2d
-                );
+            background: #0b0c0d;
 
             color: #eeeae1;
 
@@ -84,173 +81,136 @@
 
 
         /* =========================
-           BACKGROUND
+           ENTRANCE
         ========================== */
 
-        .background {
+        .entrance {
 
-            position: fixed;
+            position: relative;
 
-            inset: 0;
+            width: 100%;
 
-            pointer-events: none;
+            height: 100vh;
 
-            z-index: 0;
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            padding:
+                0 8% 70px;
+
+            background:
+
+                linear-gradient(
+                    to top,
+                    rgba(0,0,0,0.94),
+                    rgba(0,0,0,0.35) 55%,
+                    rgba(0,0,0,0.05)
+                ),
+
+                radial-gradient(
+                    circle at 72% 18%,
+                    #3a3c3e,
+                    #202224 35%,
+                    #0b0c0d 72%
+                );
         }
 
 
-        .background::before {
+        /* =========================
+           SUBTLE LIGHT
+        ========================== */
+
+        .entrance::before {
 
             content: "";
 
             position: absolute;
 
-            width: 800px;
-            height: 800px;
+            width: 700px;
+            height: 700px;
 
-            top: -400px;
-            right: -150px;
+            top: -420px;
+            right: -100px;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(255,255,255,0.12),
-                    rgba(255,255,255,0.03) 40%,
+                    rgba(255,255,255,0.14),
+                    rgba(255,255,255,0.03) 45%,
                     transparent 70%
                 );
+
+            pointer-events: none;
         }
 
 
         /* =========================
-           NAVIGATION
+           GOOGLE USER NAME
         ========================== */
 
-        nav {
+        .user-name {
 
-            position: fixed;
+            position: absolute;
 
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 32px;
 
-            z-index: 10;
+            right: 8%;
 
-            width: 100%;
+            z-index: 5;
 
-            height: 85px;
-
-            padding: 0 7%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-        }
-
-
-        .logo {
-
-            color: #f0ece3;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            letter-spacing: 0.18em;
-
-            text-transform: uppercase;
-
-            white-space: nowrap;
-        }
-
-
-        .links {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: flex-end;
-
-            gap: 32px;
-        }
-
-
-        .links a {
-
-            color: #aaa9a3;
-
-            text-decoration: none;
+            color: #eeeae1;
 
             font-size: 10px;
 
-            letter-spacing: 0.14em;
+            font-weight: 500;
+
+            letter-spacing: 0.12em;
 
             text-transform: uppercase;
 
             white-space: nowrap;
 
+            opacity: 0;
+
             transition:
-                color 0.25s ease;
+                opacity 0.4s ease;
         }
 
 
-        .links a:hover,
-        .links .active {
+        .user-name.visible {
 
-            color: #eeeae1;
+            opacity: 1;
         }
 
 
         /* =========================
-           LOGIN PAGE
+           CONTENT
         ========================== */
 
-        main {
+        .entrance-content {
 
             position: relative;
 
             z-index: 2;
 
-            width: 100%;
-
-            height: 100vh;
-
-            padding-top: 85px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
+            max-width: 700px;
         }
 
 
-        .login {
+        .archive-label {
 
-            width: 100%;
+            margin-bottom: 18px;
 
-            max-width: 470px;
+            color: #aaa9a3;
 
-            padding:
-                40px 25px 100px;
+            font-size: 9px;
 
-            text-align: center;
-        }
-
-
-        .eyebrow {
-
-            margin-bottom: 24px;
-
-            color: #777a7d;
-
-            font-size: 10px;
-
-            font-weight: 600;
+            font-weight: 500;
 
             letter-spacing: 0.3em;
 
@@ -258,9 +218,10 @@
         }
 
 
-        .login h1 {
+        h1 {
 
-            margin: 0;
+            margin:
+                0 0 38px;
 
             color: #eeeae1;
 
@@ -271,373 +232,148 @@
 
             font-size:
                 clamp(
-                    45px,
-                    5.1vw,
-                    68px
+                    52px,
+                    8vw,
+                    90px
                 );
 
             font-weight: 400;
 
-            line-height: .95;
+            line-height: 0.9;
 
-            letter-spacing: -0.05em;
-        }
-
-
-        .rule {
-
-            width: 55px;
-
-            height: 1px;
-
-            margin:
-                35px auto 25px;
-
-            background:
-                rgba(255,255,255,0.25);
-        }
-
-
-        .description {
-
-            max-width: 330px;
-
-            margin:
-                0 auto 35px;
-
-            color: #777a7d;
-
-            font-size: 11px;
-
-            line-height: 1.8;
+            letter-spacing: -0.06em;
         }
 
 
         /* =========================
-           GOOGLE BUTTON
+           2013 BUTTON
         ========================== */
 
-        .google-button {
+        .year-button {
 
-            display: flex;
+            display: inline-flex;
 
             align-items: center;
 
             justify-content: center;
 
-            gap: 12px;
-
-            width: 100%;
-
-            max-width: 320px;
-
-            margin: 0 auto;
+            min-width: 145px;
 
             padding:
-                14px 22px;
+                14px 32px;
 
             border:
                 1px solid
-                rgba(255,255,255,0.20);
-
-            background:
-                rgba(255,255,255,0.03);
-
-            color: #aaa9a3;
-
-            font-family:
-                "Manrope",
-                Arial,
-                sans-serif;
-
-            font-size: 10px;
-
-            font-weight: 500;
-
-            letter-spacing: 0.12em;
-
-            text-transform: uppercase;
-
-            cursor: pointer;
-
-            transition:
-                background 0.25s ease,
-                border-color 0.25s ease,
-                color 0.25s ease;
-        }
-
-
-        .google-button:hover {
-
-            background:
-                rgba(255,255,255,0.08);
-
-            border-color:
                 rgba(255,255,255,0.35);
 
-            color: #eeeae1;
-        }
-
-
-        .google-button:disabled {
-
-            opacity: 0.5;
-
-            cursor: wait;
-        }
-
-
-        .google-icon {
+            background:
+                rgba(255,255,255,0.035);
 
             color: #eeeae1;
 
-            font-family:
-                Arial,
-                sans-serif;
+            text-decoration: none;
 
-            font-size: 14px;
+            font-size: 9px;
 
             font-weight: 500;
-        }
 
-
-        /* =========================
-           NOTICE
-        ========================== */
-
-        .notice {
-
-            margin-top: 25px;
-
-            color: #5d5f62;
-
-            font-size: 9px;
-
-            line-height: 1.7;
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================== */
-
-        footer {
-
-            position: fixed;
-
-            left: 7%;
-
-            bottom: 28px;
-
-            z-index: 6;
-
-            color: #5d5f62;
-
-            font-size: 9px;
-
-            letter-spacing: 0.2em;
+            letter-spacing: 0.28em;
 
             text-transform: uppercase;
+
+            transition:
+                background 0.3s ease,
+                border-color 0.3s ease,
+                transform 0.3s ease;
+        }
+
+
+        .year-button:hover {
+
+            background:
+                rgba(255,255,255,0.11);
+
+            border-color:
+                rgba(255,255,255,0.65);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .year-button:active {
+
+            transform:
+                translateY(0);
         }
 
 
         /* =========================
-           MOBILE
+           SMALL ARCHIVE MARK
         ========================== */
+
+        .archive-mark {
+
+            position: absolute;
+
+            right: 8%;
+
+            bottom: 72px;
+
+            z-index: 2;
+
+            color: #5d5f62;
+
+            font-size: 8px;
+
+            letter-spacing: 0.25em;
+
+            text-transform: uppercase;
+
+            writing-mode:
+                vertical-rl;
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
 
         @media (max-width: 800px) {
 
             html,
             body {
 
-                width: 100%;
+                height: 100%;
 
-                min-height: 100%;
-
-                height: auto;
-
-                overflow-x: hidden;
-
-                overflow-y: auto;
+                overflow: hidden;
             }
 
 
-            nav {
+            .entrance {
 
-                position: relative;
+                height: 100vh;
 
-                top: auto;
-                left: auto;
-                right: auto;
-
-                width: 100%;
-
-                height: auto;
+                min-height: 100vh;
 
                 padding:
-                    22px 20px 18px;
+                    0 25px 70px;
 
-                display: flex;
-
-                flex-direction: column;
-
-                align-items: center;
-
-                justify-content: flex-start;
-
-                gap: 18px;
-
-                background:
-                    rgba(11,12,13,0.97);
-
-                backdrop-filter:
-                    blur(10px);
-
-                -webkit-backdrop-filter:
-                    blur(10px);
+                align-items: flex-end;
             }
 
 
-            .logo {
+            .user-name {
 
-                width: 100%;
+                top: 22px;
 
-                text-align: center;
+                right: 25px;
 
-                font-size: 11px;
+                max-width: 65%;
 
-                line-height: 1.4;
-            }
+                overflow: hidden;
 
-
-            .links {
-
-                width: 100%;
-
-                display: flex;
-
-                flex-wrap: wrap;
-
-                align-items: center;
-
-                justify-content: center;
-
-                gap:
-                    12px 18px;
-            }
-
-
-            .links a {
-
-                display: inline-block;
-
-                padding:
-                    3px 0;
-
-                font-size: 9px;
-
-                line-height: 1.5;
-            }
-
-
-            main {
-
-                width: 100%;
-
-                height: auto;
-
-                min-height:
-                    calc(100vh - 110px);
-
-                padding-top: 0;
-            }
-
-
-            .login {
-
-                padding:
-                    55px 25px 90px;
-            }
-
-
-            .login h1 {
-
-                font-size:
-                    clamp(
-                        46px,
-                        13vw,
-                        64px
-                    );
-            }
-
-
-            .description {
-
-                max-width: 290px;
-
-                font-size: 12px;
-            }
-
-
-            .google-button {
-
-                max-width: 320px;
-
-                padding:
-                    14px 20px;
-
-                font-size: 9px;
-            }
-
-
-            footer {
-
-                position: relative;
-
-                left: auto;
-
-                bottom: auto;
-
-                width: 100%;
-
-                padding:
-                    0 25px 30px;
-
-                text-align: center;
-            }
-
-        }
-
-
-        /* =========================
-           VERY SMALL PHONES
-        ========================== */
-
-        @media (max-width: 430px) {
-
-            nav {
-
-                padding:
-                    20px 15px 16px;
-
-                gap: 16px;
-            }
-
-
-            .logo {
-
-                font-size: 10px;
-            }
-
-
-            .links {
-
-                gap:
-                    10px 15px;
-            }
-
-
-            .links a {
+                text-overflow: ellipsis;
 
                 font-size: 8px;
 
@@ -645,55 +381,126 @@
             }
 
 
-            main {
+            .entrance-content {
 
-                min-height:
-                    calc(100vh - 105px);
+                width: 100%;
+
+                max-width: 100%;
             }
 
 
-            .login {
+            .archive-label {
 
-                padding:
-                    45px 20px 70px;
+                margin-bottom: 16px;
+
+                font-size: 8px;
+
+                letter-spacing: 0.25em;
             }
 
 
-            .login h1 {
+            h1 {
+
+                margin-bottom: 32px;
+
+                max-width: 360px;
 
                 font-size:
                     clamp(
-                        42px,
-                        13vw,
-                        58px
+                        48px,
+                        14vw,
+                        70px
                     );
+
+                line-height: 0.92;
+
+                letter-spacing: -0.055em;
             }
 
 
-            .eyebrow {
+            .year-button {
 
-                font-size: 8px;
-            }
-
-
-            .description {
-
-                font-size: 11px;
-            }
-
-
-            .google-button {
-
-                font-size: 8px;
+                min-width: 130px;
 
                 padding:
-                    13px 18px;
+                    13px 27px;
+
+                font-size: 8px;
+
+                letter-spacing: 0.25em;
             }
 
 
-            .notice {
+            .archive-mark {
+
+                right: 20px;
+
+                bottom: 55px;
+
+                font-size: 7px;
+            }
+
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+        ================================================= */
+
+        @media (max-width: 430px) {
+
+            .entrance {
+
+                padding:
+                    0 20px 70px;
+            }
+
+
+            .user-name {
+
+                top: 19px;
+
+                right: 20px;
+
+                font-size: 7px;
+            }
+
+
+            .archive-label {
+
+                font-size: 7px;
+            }
+
+
+            h1 {
+
+                font-size:
+                    clamp(
+                        44px,
+                        14vw,
+                        60px
+                    );
+
+                margin-bottom: 28px;
+            }
+
+
+            .year-button {
+
+                min-width: 120px;
+
+                padding:
+                    12px 24px;
 
                 font-size: 8px;
+            }
+
+
+            .archive-mark {
+
+                right: 15px;
+
+                bottom: 45px;
             }
 
         }
@@ -706,118 +513,62 @@
 <body>
 
 
-<div class="background"></div>
+<main class="entrance">
 
 
-<!-- =========================
-     NAVIGATION
-========================== -->
+    <!-- =========================
+         GOOGLE USER NAME
+    ========================== -->
 
-<nav>
+    <div
+        class="user-name"
+        id="user-name"
+    ></div>
 
-    <div class="logo">
+
+    <div class="entrance-content">
+
+
+        <div class="archive-label">
+
+            Personal Archive
+
+        </div>
+
+
+        <h1>
+
+            The Unspoken<br>
+            Chapters
+
+        </h1>
+
+
+        <a
+            class="year-button"
+            href="./2013.html"
+        >
+
+            2013
+
+        </a>
+
+
+    </div>
+
+
+    <div class="archive-mark">
 
         JhoneVic's Diary
 
     </div>
 
 
-    <div class="links">
-
-        <a href="./index.html">
-            Home
-        </a>
-
-
-        <a href="./introduction.html">
-            Introduction
-        </a>
-
-
-        <a href="./reflections.html">
-            Reflection | Photographs
-        </a>
-
-
-        <a href="./timeline.html">
-            Timeline
-        </a>
-
-
-        <a
-            href="./login.html"
-            class="active"
-        >
-            Login
-        </a>
-
-    </div>
-
-</nav>
-
-
-<!-- =========================
-     LOGIN
-========================== -->
-
-<main>
-
-    <section class="login">
-
-        <div class="eyebrow">
-            The Archive
-        </div>
-
-
-        <h1>
-            The Unspoken<br>
-            Chapters
-        </h1>
-
-
-        <div class="rule"></div>
-
-
-        <p class="description">
-            Enter the archive with your
-            Google account.
-        </p>
-
-
-        <button
-            type="button"
-            class="google-button"
-            id="google-login"
-        >
-
-            <span class="google-icon">
-                G
-            </span>
-
-            <span id="google-login-text">
-                Continue with Google
-            </span>
-
-        </button>
-
-
-        <p class="notice">
-            Access is restricted to
-            authorized readers.
-        </p>
-
-    </section>
-
 </main>
 
 
-<footer>
-    Personal Archive · 2013—2026
-</footer>
-
-
 <!-- =========================
-     SUPABASE GOOGLE LOGIN
+     SUPABASE AUTHENTICATION
 ========================== -->
 
 <script>
@@ -830,44 +581,326 @@ const SUPABASE_KEY =
     "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
+/*
+ * IMPORTANT:
+ *
+ * This client keeps the session in
+ * browser storage and automatically
+ * detects an OAuth callback.
+ */
+
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY,
         {
             auth: {
+
                 persistSession: true,
+
                 autoRefreshToken: true,
+
                 detectSessionInUrl: true
+
             }
         }
     );
 
 
-const googleButton =
+const userNameElement =
     document.getElementById(
-        "google-login"
+        "user-name"
     );
 
 
-const googleButtonText =
-    document.getElementById(
-        "google-login-text"
-    );
+/* =================================================
+   DISPLAY USER NAME
+================================================= */
 
+function displayUserName(user) {
 
-/*
- * If the user is already authenticated,
- * there is no reason to show the login
- * button again.
- */
+    if (
+        !user ||
+        !userNameElement
+    ) {
 
-async function checkExistingSession() {
+        return;
+
+    }
+
 
     console.log(
-        "Checking existing Supabase session..."
+        "Supabase user:",
+        user
     );
 
+
+    console.log(
+        "User metadata:",
+        user.user_metadata
+    );
+
+
+    /*
+     * Google normally places the
+     * display name in one of these.
+     */
+
+    const metadata =
+        user.user_metadata || {};
+
+
+    const fullName =
+        metadata.full_name ||
+        metadata.name ||
+        metadata.display_name ||
+        metadata.displayName ||
+        "";
+
+
+    /*
+     * If the name is available,
+     * display it.
+     */
+
+    if (fullName) {
+
+        userNameElement.textContent =
+            fullName;
+
+
+        userNameElement.classList.add(
+            "visible"
+        );
+
+
+        console.log(
+            "Displaying Google name:",
+            fullName
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * If no name is available in
+     * user_metadata, try the identity
+     * information returned by Google.
+     */
+
+    const identities =
+        user.identities || [];
+
+
+    for (
+        let i = 0;
+        i < identities.length;
+        i++
+    ) {
+
+        const identity =
+            identities[i];
+
+
+        const identityData =
+            identity.identity_data || {};
+
+
+        const identityName =
+            identityData.full_name ||
+            identityData.name ||
+            identityData.display_name ||
+            identityData.displayName ||
+            "";
+
+
+        if (identityName) {
+
+            userNameElement.textContent =
+                identityName;
+
+
+            userNameElement.classList.add(
+                "visible"
+            );
+
+
+            console.log(
+                "Displaying Google identity name:",
+                identityName
+            );
+
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+     * Do not redirect just because
+     * the name isn't available.
+     */
+
+    console.warn(
+        "Authenticated user found, but no display name was available."
+    );
+
+}
+
+
+/* =================================================
+   HANDLE AUTHENTICATED USER
+================================================= */
+
+function handleAuthenticatedUser(
+    session
+) {
+
+    if (
+        !session ||
+        !session.user
+    ) {
+
+        console.log(
+            "No authenticated session yet."
+        );
+
+        return false;
+
+    }
+
+
+    console.log(
+        "Authenticated session found:",
+        session.user.id
+    );
+
+
+    displayUserName(
+        session.user
+    );
+
+
+    return true;
+
+}
+
+
+/* =================================================
+   AUTH STATE LISTENER
+================================================= */
+
+const {
+    data: {
+        subscription
+    }
+} =
+    supabaseClient.auth.onAuthStateChange(
+        function (
+            event,
+            session
+        ) {
+
+            console.log(
+                "Supabase authentication event:",
+                event
+            );
+
+
+            /*
+             * This is the important event
+             * after Google redirects back.
+             */
+
+            if (
+                event === "SIGNED_IN" &&
+                session
+            ) {
+
+                console.log(
+                    "Google sign-in completed."
+                );
+
+
+                handleAuthenticatedUser(
+                    session
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+             * Supabase also sends the
+             * current session through
+             * INITIAL_SESSION.
+             */
+
+            if (
+                event === "INITIAL_SESSION" &&
+                session
+            ) {
+
+                console.log(
+                    "Existing session restored."
+                );
+
+
+                handleAuthenticatedUser(
+                    session
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+             * Token refresh does not require
+             * a redirect.
+             */
+
+            if (
+                event === "TOKEN_REFRESHED" &&
+                session
+            ) {
+
+                handleAuthenticatedUser(
+                    session
+                );
+
+            }
+
+        }
+    );
+
+
+/* =================================================
+   INITIAL SESSION CHECK
+================================================= */
+
+async function initializeEntrance() {
+
+    console.log(
+        "Loading Supabase session..."
+    );
+
+
+    /*
+     * getSession() reads the persisted
+     * browser session.
+     *
+     * We deliberately do NOT call
+     * getUser() here.
+     */
 
     const {
         data,
@@ -879,9 +912,17 @@ async function checkExistingSession() {
     if (error) {
 
         console.error(
-            "Session check error:",
+            "Session loading error:",
             error
         );
+
+
+        /*
+         * Do not immediately redirect.
+         *
+         * The auth listener may still
+         * receive the OAuth session.
+         */
 
         return;
 
@@ -890,152 +931,43 @@ async function checkExistingSession() {
 
     if (
         data &&
-        data.session &&
-        data.session.user
+        data.session
     ) {
 
         console.log(
-            "Existing session found."
+            "Session already available."
         );
 
 
-        window.location.replace(
-            "./entrance.html"
+        handleAuthenticatedUser(
+            data.session
         );
+
+
+        return;
 
     }
+
+
+    /*
+     * No session at this exact moment.
+     *
+     * This is NOT an instruction to
+     * redirect to login.
+     */
+
+    console.log(
+        "No session available yet. Waiting for Supabase authentication event..."
+    );
 
 }
 
 
-/*
- * Google login.
- */
+/* =================================================
+   START
+================================================= */
 
-googleButton.addEventListener(
-    "click",
-    async function () {
-
-        googleButton.disabled = true;
-
-        googleButtonText.textContent =
-            "Connecting...";
-
-
-        console.log(
-            "Starting Google authentication..."
-        );
-
-
-        const redirectTo =
-            window.location.origin +
-            "/Journal-Archived-01/entrance.html";
-
-
-        console.log(
-            "OAuth redirect:",
-            redirectTo
-        );
-
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.signInWithOAuth({
-
-                provider: "google",
-
-                options: {
-
-                    redirectTo:
-                        redirectTo
-
-                }
-
-            });
-
-
-        if (error) {
-
-            console.error(
-                "Google login error:",
-                error
-            );
-
-
-            googleButton.disabled = false;
-
-            googleButtonText.textContent =
-                "Continue with Google";
-
-
-            alert(
-                "Login failed:\n\n" +
-                error.message
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * Normally the browser now leaves
-         * this page and goes to Google.
-         */
-
-        console.log(
-            "Google authentication started.",
-            data
-        );
-
-    }
-);
-
-
-/*
- * Listen for authentication events.
- */
-
-supabaseClient.auth.onAuthStateChange(
-    function (
-        event,
-        session
-    ) {
-
-        console.log(
-            "Login page auth event:",
-            event
-        );
-
-
-        if (
-            session &&
-            session.user
-        ) {
-
-            console.log(
-                "Authenticated user detected."
-            );
-
-
-            window.location.replace(
-                "./entrance.html"
-            );
-
-        }
-
-    }
-);
-
-
-/*
- * Check whether the visitor is
- * already logged in.
- */
-
-checkExistingSession();
+initializeEntrance();
 
 </script>
 
