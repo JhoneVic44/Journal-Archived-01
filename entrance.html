@@ -167,9 +167,9 @@
 
             z-index: 5;
 
-            color: #aaa9a3;
+            color: #eeeae1;
 
-            font-size: 9px;
+            font-size: 10px;
 
             font-weight: 500;
 
@@ -613,18 +613,18 @@ const supabaseClient =
 
 
 /* =================================================
-   DISPLAY GOOGLE USER NAME
+   DISPLAY USER NAME
 ================================================= */
 
 function displayUserName(user) {
 
-    const userNameElement =
+    const element =
         document.getElementById("user-name");
 
 
     if (
-        !user ||
-        !userNameElement
+        !element ||
+        !user
     ) {
 
         return;
@@ -632,50 +632,120 @@ function displayUserName(user) {
     }
 
 
+    console.log(
+        "Supabase authenticated user:",
+        user
+    );
+
+
+    console.log(
+        "User metadata:",
+        user.user_metadata
+    );
+
+
+    console.log(
+        "User identities:",
+        user.identities
+    );
+
+
     /*
-     * Google/Supabase can store the
-     * person's name under different
-     * metadata fields.
+     * Supabase user metadata.
      */
 
     const metadata =
         user.user_metadata || {};
 
 
-    const fullName =
+    /*
+     * Google identity information.
+     */
+
+    let identityData = {};
+
+
+    if (
+        user.identities &&
+        user.identities.length > 0
+    ) {
+
+        identityData =
+            user.identities[0].identity_data || {};
+
+    }
+
+
+    /*
+     * Try every common location
+     * where Google/Supabase may
+     * provide the display name.
+     */
+
+    const displayName =
+
+        metadata.display_name ||
+
+        metadata.displayName ||
+
         metadata.full_name ||
+
+        metadata.fullName ||
+
         metadata.name ||
+
         metadata.preferred_username ||
+
+        identityData.display_name ||
+
+        identityData.displayName ||
+
+        identityData.full_name ||
+
+        identityData.fullName ||
+
+        identityData.name ||
+
+        identityData.preferred_username ||
+
         "";
 
 
     /*
-     * If Google did not provide a name,
-     * use the email address instead.
-     *
-     * This guarantees that something
-     * identifying the signed-in account
-     * can still appear.
+     * If there is no name,
+     * use the account email.
      */
 
-    const displayName =
-        fullName ||
+    const finalName =
+        displayName ||
         user.email ||
-        "Signed in";
+        "Google User";
 
 
-    userNameElement.textContent =
-        displayName;
+    /*
+     * Put the name into the page.
+     */
+
+    element.textContent =
+        finalName;
 
 
-    userNameElement.classList.add(
+    /*
+     * Make it visible.
+     */
+
+    element.classList.add(
         "visible"
     );
 
 
+    element.style.opacity =
+        "1";
+
+
     console.log(
-        "Displaying user:",
-        displayName
+        "Display Name:",
+        finalName
     );
 
 }
@@ -685,51 +755,35 @@ function displayUserName(user) {
    GET CURRENT USER
 ================================================= */
 
-async function getCurrentUser() {
+async function loadUser() {
 
     try {
 
         /*
-         * getUser() asks Supabase for
-         * the authenticated user.
+         * First try the current session.
          */
 
         const {
             data,
             error
         } =
-            await supabaseClient.auth.getUser();
+            await supabaseClient.auth.getSession();
 
 
-        if (
-            !error &&
-            data &&
-            data.user
-        ) {
+        if (error) {
 
-            displayUserName(
-                data.user
+            console.error(
+                "Session error:",
+                error
             );
 
-            return true;
+            return;
 
         }
 
 
-        /*
-         * If getUser() does not have
-         * the user yet, try the current
-         * session as a fallback.
-         */
-
-        const {
-            data: sessionData
-        } =
-            await supabaseClient.auth.getSession();
-
-
         const session =
-            sessionData?.session;
+            data?.session;
 
 
         if (
@@ -741,22 +795,43 @@ async function getCurrentUser() {
                 session.user
             );
 
-            return true;
+            return;
 
         }
 
 
+        /*
+         * If the session wasn't ready,
+         * try getUser().
+         */
+
+        const {
+            data: userData,
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (
+            !userError &&
+            userData &&
+            userData.user
+        ) {
+
+            displayUserName(
+                userData.user
+            );
+
+        }
+
     } catch (error) {
 
         console.error(
-            "Authentication check failed:",
+            "Unable to load user:",
             error
         );
 
     }
-
-
-    return false;
 
 }
 
@@ -778,8 +853,9 @@ supabaseClient.auth.onAuthStateChange(
 
 
         /*
-         * This is triggered after Google
-         * finishes signing in.
+         * Whenever Supabase gives us
+         * an authenticated session,
+         * display the user's name.
          */
 
         if (
@@ -798,36 +874,32 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* =================================================
-   START
+   INITIAL LOAD
 ================================================= */
 
-getCurrentUser();
+loadUser();
 
 
 /*
- * OAuth can finish restoring the session
- * slightly after the page loads.
- *
- * Check again shortly afterward.
+ * Give the OAuth session a little
+ * extra time to finish restoring.
  */
 
 setTimeout(
-    function () {
-
-        getCurrentUser();
-
-    },
-    1000
+    loadUser,
+    500
 );
 
 
 setTimeout(
-    function () {
+    loadUser,
+    1500
+);
 
-        getCurrentUser();
 
-    },
-    2500
+setTimeout(
+    loadUser,
+    3000
 );
 
 </script>
