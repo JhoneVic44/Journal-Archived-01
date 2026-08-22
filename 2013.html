@@ -105,15 +105,34 @@ body{
 
 
 /* =========================
-   HOME BUTTON
+   CENTER ACTIONS
 ========================= */
 
-.home-button{
+.topbar-actions{
+
   justify-self:center;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:10px;
+}
+
+
+/* =========================
+   HOME + LOGOUT BUTTONS
+========================= */
+
+.home-button,
+.logout-button{
 
   display:inline-flex;
 
   align-items:center;
+
   justify-content:center;
 
   min-width:72px;
@@ -132,12 +151,18 @@ body{
 
   text-decoration:none;
 
+  font-family:
+    Arial,Helvetica,sans-serif;
+
   font-size:8px;
+
   font-weight:500;
 
   letter-spacing:.18em;
 
   text-transform:uppercase;
+
+  cursor:pointer;
 
   transition:
     color .25s ease,
@@ -147,7 +172,9 @@ body{
     transform .25s ease;
 }
 
-.home-button:hover{
+.home-button:hover,
+.logout-button:hover{
+
   color:#eeeae1;
 
   border-color:
@@ -164,8 +191,11 @@ body{
     translateY(-1px);
 }
 
-.home-button:active{
-  transform:translateY(0);
+.home-button:active,
+.logout-button:active{
+
+  transform:
+    translateY(0);
 }
 
 
@@ -485,10 +515,6 @@ h1{
 
 /* =================================================
    DESKTOP MONTHLY INTRODUCTION
-
-   IMPORTANT:
-   Fixed height prevents the desktop page
-   from expanding when a longer month is hovered.
 ================================================= */
 
 .month-introduction{
@@ -502,12 +528,6 @@ h1{
 
   padding-top:
     clamp(17px,2.5vh,25px);
-
-  /*
-   * Fixed desktop height.
-   * The content changes, but the page
-   * itself does not change size.
-   */
 
   height:220px;
 
@@ -555,11 +575,6 @@ h1{
   margin:0;
 
   max-width:650px;
-
-  /*
-   * Prevent long introductions from
-   * expanding the page.
-   */
 
   max-height:145px;
 
@@ -749,14 +764,27 @@ h1{
     letter-spacing:.15em;
   }
 
-  .home-button{
+
+  /* CENTER HOME + LOGOUT */
+
+  .topbar-actions{
+
+    gap:7px;
+
+  }
+
+  .home-button,
+  .logout-button{
+
     min-width:60px;
 
     padding:
       7px 11px;
 
     font-size:7px;
+
   }
+
 
   .layout{
     display:block;
@@ -1016,17 +1044,26 @@ h1{
 
 @media(max-width:430px){
 
+  .topbar-actions{
+
+    gap:5px;
+
+  }
+
   .topbar{
     font-size:6px;
   }
 
-  .home-button{
+  .home-button,
+  .logout-button{
+
     min-width:55px;
 
     padding:
       6px 9px;
 
     font-size:6px;
+
   }
 
   .year{
@@ -1104,12 +1141,6 @@ h1{
       10px 5px;
   }
 
-
-  /*
-   * Still fixed on short screens.
-   * This is smaller, but never expands.
-   */
-
   .month-introduction{
     margin-top:22px;
 
@@ -1159,13 +1190,30 @@ h1{
     JhoneVic's Diary
   </span>
 
-  <a
-    href="./entrance.html"
-    class="home-button"
-    aria-label="Return to the entrance page"
-  >
-    Home
-  </a>
+
+  <!-- CENTER ACTIONS -->
+
+  <div class="topbar-actions">
+
+    <a
+      href="./entrance.html"
+      class="home-button"
+      aria-label="Return to the entrance page"
+    >
+      Home
+    </a>
+
+    <button
+      type="button"
+      class="logout-button"
+      id="logoutButton"
+      aria-label="Log out"
+    >
+      Logout
+    </button>
+
+  </div>
+
 
   <span>
     Personal Archive / 2013
@@ -1855,18 +1903,14 @@ const monthlyIntroductions = {
 const monthLinks =
   document.querySelectorAll(".month");
 
-
 const monthMeta =
   document.getElementById("monthMeta");
-
 
 const monthTitle =
   document.getElementById("monthTitle");
 
-
 const monthText =
   document.getElementById("monthText");
-
 
 const monthIntroduction =
   document.getElementById("monthIntroduction");
@@ -2048,6 +2092,75 @@ mobileIntroButtons.forEach(button => {
   );
 
 });
+
+
+/* =================================================
+   SUPABASE LOGOUT
+================================================= */
+
+const logoutButton =
+  document.getElementById(
+    "logoutButton"
+  );
+
+
+if(logoutButton){
+
+  logoutButton.addEventListener(
+    "click",
+    async () => {
+
+      /*
+       * This expects the Supabase client
+       * to already exist as `supabase`
+       * from your existing login setup.
+       */
+
+      if(
+        typeof supabase ===
+        "undefined"
+      ){
+
+        console.error(
+          "Supabase client was not found."
+        );
+
+        alert(
+          "Logout is not connected to Supabase yet."
+        );
+
+        return;
+      }
+
+
+      const {
+        error
+      } =
+        await supabase.auth.signOut();
+
+
+      if(error){
+
+        console.error(
+          "Logout failed:",
+          error
+        );
+
+        alert(
+          "Unable to log out. Please try again."
+        );
+
+        return;
+      }
+
+
+      window.location.href =
+        "./entrance.html";
+
+    }
+  );
+
+}
 
 
 </script>
