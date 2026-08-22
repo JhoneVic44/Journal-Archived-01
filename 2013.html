@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>The 2013 Diaries of JhoneVic</title>
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+
+  margin:0;
+
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
+  background:#0b0c0d;
+
+  color:#eeeae1;
+
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+  background:
+
+    radial-gradient(
+      circle at 78% 8%,
+      rgba(255,255,255,.075),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      135deg,
+      #090a0b,
+      #151719 52%,
+      #202224
+    );
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page{
+
+  width:100%;
+
+  height:100vh;
+
+  max-width:1400px;
+
+  margin:auto;
+
+  padding:
+    24px
+    5%
+    25px;
+
+  display:flex;
+
+  flex-direction:column;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+
+  flex-shrink:0;
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
+  align-items:center;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.14);
+
+  padding-bottom:18px;
+
+  color:#888;
+
+  font-size:9px;
+
+  letter-spacing:.2em;
+
+  text-transform:uppercase;
+}
+
+.topbar > span:first-child{
+
+  justify-self:start;
+}
+
+.topbar > span:last-child{
+
+  justify-self:end;
+}
+
+
+/* =========================================================
+   HOME BUTTON
+========================================================= */
+
+.home-button{
+
+  justify-self:center;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-width:72px;
+
+  padding:
+    9px 16px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.25);
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:#aaa8a2;
+
+  text-decoration:none;
+
+  font-size:8px;
+
+  letter-spacing:.2em;
+
+  text-transform:uppercase;
+
+  transition:
+    color .25s ease,
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+}
+
+.home-button:hover{
+
+  color:#eeeae1;
+
+  border-color:
+    rgba(255,255,255,.55);
+
+  background:
+    rgba(255,255,255,.075);
+
+  box-shadow:
+    0 0 14px
+    rgba(255,255,255,.12);
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.layout{
+
+  flex:1;
+
+  min-height:0;
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,.88fr)
+    minmax(520px,1.12fr);
+
+  gap:60px;
+
+  padding-top:35px;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.left{
+
+  min-height:0;
+
+  padding-right:10px;
+}
+
+.eyebrow{
+
+  font-size:9px;
+
+  letter-spacing:.27em;
+
+  text-transform:uppercase;
+
+  color:#777a7d;
+
+  margin-bottom:12px;
+}
+
+.year{
+
+  font:
+    400 clamp(82px,9vw,120px)/.78
+    Georgia,serif;
+
+  letter-spacing:-.07em;
+
+  color:#eeeae1;
+
+  margin:
+    0 0 25px;
+}
+
+h1{
+
+  font:
+    400 clamp(42px,4.5vw,64px)/.96
+    Georgia,serif;
+
+  letter-spacing:-.055em;
+
+  margin:
+    0 0 20px;
+
+  color:#eeeae1;
+}
+
+.meta{
+
+  font-size:10px;
+
+  line-height:1.8;
+
+  color:#888;
+}
+
+.rule{
+
+  height:1px;
+
+  background:
+    rgba(255,255,255,.18);
+
+  width:60px;
+
+  margin:
+    32px 0 25px;
+}
+
+
+/* =========================================================
+   INTRODUCTION
+========================================================= */
+
+.intro h2,
+.note h2{
+
+  font:
+    400 23px
+    Georgia,serif;
+
+  margin:
+    0 0 9px;
+
+  color:#e8e4dc;
+}
+
+.original{
+
+  font-size:9px;
+
+  letter-spacing:.17em;
+
+  text-transform:uppercase;
+
+  color:#777;
+
+  margin-bottom:17px;
+}
+
+.intro p{
+
+  font:
+    15px/1.85
+    Georgia,serif;
+
+  color:#b9b6ae;
+
+  max-width:650px;
+
+  margin:0;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.right{
+
+  min-width:0;
+
+  min-height:0;
+}
+
+
+/* =========================================================
+   ARCHIVE PANEL
+========================================================= */
+
+.archive-panel{
+
+  height:100%;
+
+  min-height:0;
+
+  padding:
+    25px 36px;
+
+  display:flex;
+
+  flex-direction:column;
+}
+
+
+/* =========================================================
+   MONTHS TITLE
+========================================================= */
+
+.months-label{
+
+  text-align:center;
+
+  margin:
+    0 0 20px;
+
+  font:
+    400 28px
+    Georgia,serif;
+
+  letter-spacing:-.02em;
+
+  color:#ddd9d0;
+}
+
+
+/* =========================================================
+   MONTH GRID
+========================================================= */
+
+.months{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  column-gap:35px;
+
+  row-gap:4px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.13);
+
+  padding-top:5px;
+}
+
+
+/* =========================================================
+   MONTH BUTTON
+========================================================= */
+
+.month{
+
+  position:relative;
+
+  width:100%;
+
+  display:block;
+
+  padding:
+    14px 5px;
+
+  border:0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.09);
+
+  background:transparent;
+
+  color:#aaa8a2;
+
+  text-align:center;
+
+  cursor:pointer;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  transition:
+    color .3s ease,
+    transform .3s ease;
+}
+
+
+/* GLOWING LINE */
+
+.month::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:50%;
+
+  bottom:-1px;
+
+  width:0;
+
+  height:1px;
+
+  background:#eeeae1;
+
+  transform:
+    translateX(-50%);
+
+  box-shadow:
+    0 0 9px
+    rgba(255,255,255,.55);
+
+  transition:
+    width .4s ease;
+}
+
+
+/* HOVER */
+
+.month:hover{
+
+  color:#eeeae1;
+
+  transform:
+    translateY(-2px);
+}
+
+.month:hover::after{
+
+  width:70%;
+}
+
+
+/*
+   No month is permanently highlighted.
+*/
+
+.month.active{
+
+  color:#aaa8a2;
+}
+
+.month.active::after{
+
+  width:0;
+}
+
+
+/* MONTH NAME */
+
+.name{
+
+  font-size:13px;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   MONTH INTRODUCTION
+========================================================= */
+
+.month-introduction{
+
+  margin-top:25px;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.13);
+
+  flex:1;
+
+  min-height:0;
+
+  overflow:hidden;
+
+  animation:
+    introductionFade .35s ease;
+}
+
+.month-introduction-meta{
+
+  font-size:8px;
+
+  letter-spacing:.2em;
+
+  text-transform:uppercase;
+
+  color:#686a6d;
+
+  margin-bottom:10px;
+}
+
+.month-introduction-title{
+
+  font:
+    400 32px
+    Georgia,serif;
+
+  margin:
+    0 0 15px;
+
+  color:#eeeae1;
+}
+
+.month-introduction-text{
+
+  font:
+    14px/1.8
+    Georgia,serif;
+
+  color:#aaa8a1;
+
+  margin:0;
+
+  max-width:700px;
+}
+
+
+/* =========================================================
+   AUTHENTICITY NOTE
+========================================================= */
+
+.note{
+
+  flex-shrink:0;
+
+  margin-top:20px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.13);
+
+  padding-top:18px;
+
+  max-width:100%;
+}
+
+.note .eyebrow{
+
+  margin-bottom:8px;
+}
+
+.note h2{
+
+  font-size:20px;
+
+  margin-bottom:7px;
+}
+
+.note p{
+
+  font:
+    12px/1.6
+    Georgia,serif;
+
+  color:#99968f;
+
+  max-width:700px;
+
+  margin:
+    0 0 5px;
+}
+
+.signature{
+
+  text-align:right;
+
+  color:#888;
+
+  font:
+    italic 11px
+    Georgia,serif;
+
+  margin-top:10px;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes introductionFade{
+
+  from{
+
+    opacity:0;
+
+    transform:
+      translateY(6px);
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:none;
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+
+  flex-shrink:0;
+
+  margin-top:15px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.12);
+
+  padding-top:12px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  color:#5d5f62;
+
+  font-size:8px;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:1050px){
+
+  .layout{
+
+    grid-template-columns:
+      minmax(0,.85fr)
+      minmax(430px,1.15fr);
+
+    gap:40px;
+  }
+
+  .archive-panel{
+
+    padding:
+      24px 25px;
+  }
+
+  .months{
+
+    column-gap:20px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:850px){
+
+  html,
+  body{
+
+    height:auto;
+
+    min-height:100%;
+
+    overflow:auto;
+  }
+
+  .page{
+
+    width:100%;
+
+    height:auto;
+
+    min-height:100vh;
+
+    padding:
+      23px
+      22px
+      35px;
+
+    display:block;
+  }
+
+  .topbar{
+
+    font-size:7px;
+  }
+
+  .home-button{
+
+    font-size:7px;
+  }
+
+  .layout{
+
+    display:block;
+
+    padding-top:45px;
+  }
+
+  .left{
+
+    padding:0;
+  }
+
+  .year{
+
+    font-size:82px;
+  }
+
+  h1{
+
+    font-size:46px;
+  }
+
+  .intro p{
+
+    font-size:15px;
+  }
+
+  .archive-panel{
+
+    height:auto;
+
+    margin-top:60px;
+
+    padding:
+      25px 22px;
+  }
+
+  .months-label{
+
+    font-size:25px;
+  }
+
+  .month-introduction{
+
+    overflow:visible;
+
+    min-height:200px;
+  }
+
+  .note{
+
+    margin-top:30px;
+  }
+
+  .footer{
+
+    margin-top:40px;
+
+    display:block;
+
+    line-height:2;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:480px){
+
+  .months{
+
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
+
+    grid-template-columns:
+      1fr
+      auto
+      1fr;
+
+    letter-spacing:.12em;
+  }
+
+  .topbar > span:last-child{
+
+    text-align:right;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+  <!-- =====================================================
+       TOP BAR
+  ====================================================== -->
+
+  <div class="topbar">
+
+    <span>
+      JhoneVic's Diary
+    </span>
+
+
+    <a
+      href="./entrance.html"
+      class="home-button"
+    >
+      Home
+    </a>
+
+
+    <span>
+      Personal Archive / 2013
+    </span>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       MAIN LAYOUT
+  ====================================================== -->
+
+  <div class="layout">
+
+
+    <!-- =================================================
+         LEFT SIDE
+    ================================================== -->
+
+    <main class="left">
+
+
+      <div class="eyebrow">
+        Volume I · The 2013 Archive
+      </div>
+
+
+      <div class="year">
+        2013
+      </div>
+
+
+      <h1>
+        The 2013 Diaries<br>
+        of JhoneVic
+      </h1>
+
+
+      <div class="meta">
+
+        Compiled: 2025<br>
+
+        By: JhoneVic<br>
+
+        © 2025 JhoneVic M. Casaña<br>
+
+        All rights reserved.<br>
+
+        No part of this book may be reproduced in any form
+        without permission from the author.<br>
+
+        Printed in the Philippines.
+
+      </div>
+
+
+      <div class="rule"></div>
+
+
+      <!-- INTRODUCTION -->
+
+      <section class="intro">
+
+        <div class="eyebrow">
+          Introduction
+        </div>
+
+
+        <h2>
+          Originally Written in 2013
+        </h2>
+
+
+        <div class="original">
+          Original manuscript text
+        </div>
+
+
+        <p>
+
+          Sa taong ito, ako ay nagkaka-edad ng 14 hanggang 15 taon.
+          Bawat mababasa ninyo rito ay may kasamang malungkot at masayang
+          karanasan. Sa talaarawan kong ito, may mga nababanggit na pangalan.
+          Ang talaarawan kong ito ay natatanging alaala ko sa taong ito.
+          Sana ay magustuhan ninyo ang bawat babasahin ninyo rito.
+
+        </p>
+
+      </section>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         RIGHT SIDE
+    ================================================== -->
+
+    <aside class="right">
+
+
+      <div class="archive-panel">
+
+
+        <!-- MONTHS TITLE -->
+
+        <div class="months-label">
+          Months
+        </div>
+
+
+
+        <!-- MONTH GRID -->
+
+        <div class="months">
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('january')"
+            onclick="showMonth('january')"
+          >
+            <span class="name">
+              January
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('february')"
+            onclick="showMonth('february')"
+          >
+            <span class="name">
+              February
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('march')"
+            onclick="showMonth('march')"
+          >
+            <span class="name">
+              March
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('april')"
+            onclick="showMonth('april')"
+          >
+            <span class="name">
+              April
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('may')"
+            onclick="showMonth('may')"
+          >
+            <span class="name">
+              May
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('june')"
+            onclick="showMonth('june')"
+          >
+            <span class="name">
+              June
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('july')"
+            onclick="showMonth('july')"
+          >
+            <span class="name">
+              July
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('august')"
+            onclick="showMonth('august')"
+          >
+            <span class="name">
+              August
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('september')"
+            onclick="showMonth('september')"
+          >
+            <span class="name">
+              September
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('october')"
+            onclick="showMonth('october')"
+          >
+            <span class="name">
+              October
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('november')"
+            onclick="showMonth('november')"
+          >
+            <span class="name">
+              November
+            </span>
+          </button>
+
+
+          <button
+            class="month"
+            onmouseenter="showMonth('december')"
+            onclick="showMonth('december')"
+          >
+            <span class="name">
+              December
+            </span>
+          </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             MONTH INTRODUCTION
+        ================================================== -->
+
+        <section
+          id="month-introduction"
+          class="month-introduction"
+        >
+
+          <div
+            id="month-introduction-meta"
+            class="month-introduction-meta"
+          >
+            Hover over a month
+          </div>
+
+
+          <h2
+            id="month-introduction-title"
+            class="month-introduction-title"
+          >
+            Monthly Introduction
+          </h2>
+
+
+          <p
+            id="month-introduction-text"
+            class="month-introduction-text"
+          >
+
+            Move your mouse over a month to read its
+            original monthly introduction.
+
+          </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             AUTHENTICITY NOTE
+        ================================================== -->
+
+        <section class="note">
+
+
+          <div class="eyebrow">
+            📌 Authenticity Note
+          </div>
+
+
+          <h2>
+            Regarding the Monthly Introductions
+          </h2>
+
+
+          <p>
+
+            I would like to clarify that every monthly introduction
+            in this diary was originally written in the 2013 manuscript
+            and was not added or altered during the 2025 compilation.
+            These introductions reflect the voice, thoughts, and
+            intentions of my 14-year-old self exactly as they were
+            written at that time.
+
+          </p>
+
+
+          <div class="signature">
+            — JhoneVic, July 2025
+          </div>
+
+
+        </section>
+
+
+      </div>
+
+    </aside>
+
+
+  </div>
+
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <div class="footer">
+
+    <span>
+      Personal Archive
+    </span>
+
+
+    <span>
+      2013 · Philippines
+    </span>
+
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   MONTHLY INTRODUCTIONS
+========================================================= */
+
+const monthIntroductions = {
+
+
+  january:{
+
+    meta:"January · 2013",
+
+    title:"January",
+
+    text:
+      "No particular introduction was written for this month."
+  },
+
+
+  february:{
+
+    meta:"February · 2013",
+
+    title:"February",
+
+    text:
+      "Ito ang ikalawang buwan ko sa taong ito. Dahil sa panibagong buwan, gagawin ko din kahit kaunting pagbabago para sa aking sarili. Sana naman, lahat ng pangit na araw ay mabago na rin at maging maganda. Iiwan ko na sa January ang malas at malulungkot kong araw. Dito sa February, aayusin ko na ang aking kaugalian. Sa buwan na ito, subaybayan natin."
+  },
+
+
+  march:{
+
+    meta:"March · 2013",
+
+    title:"March",
+
+    text:
+      "The original manuscript introduction for this month has been torn due to the paper being too old and worn over the years."
+  },
+
+
+  april:{
+
+    meta:"April · 2013",
+
+    title:"April",
+
+    text:
+      "Sa buwan ng Abril, ay unang araw ko pa lang ay naging masaya na rin ako. Ngayon ko lang kasi ito isinulat. Ang Marso ay kalungkutan kung saan ako naghirap at umiyak. Ngayong Abril, ay sisiguraduhin kong magkikita na kami ni Kim, basta sa pamamaraan ko iyon. At ang Abril ay araw ng pagkilos, at sisiguraduhin kong kapag nakita niya ako, ay sobrang gwapo, pogi, at makisig ako — at mai-in love siya. Sisimulan ko ang pagkilos sa April 2, 2013 at April 4, 2013. Pabuhay ang April! Mabuhay ang kasiyahan!"
+  },
+
+
+  may:{
+
+    meta:"May · 2013",
+
+    title:"May",
+
+    text:
+      "Welcome to may, Sa buwan pa ng Mayo ay dapat maging maayos na ako. Sisimulan ko ito sa May 7, 2013. Malapit na kasi ang pasukan, kaya dapat ko na itong gawin. Ang Mayo ay buwan ng paghahanda."
+  },
+
+
+  june:{
+
+    meta:"June · 2013",
+
+    title:"June",
+
+    text:
+      "Welcome to June, Comment of this month: Sa wakas, dumating na rin ang pinakahihintay kong buwan, ang pasukan, pero may halong lungkot pa rin naman dahil baka magkaroon ng boyfriend doon si Kim. At ang handbook ko’y hindi ko pa matagpuan. Bukas na bukas ay pagtatiyagaan kong hanapin ito. Ito lang ang magagawa ko sa lahat ng problema: Una, tulungan ako ni Jewel para maging malapit kami ni Kim sa isa’t isa. Ikalawa, mag-aral ako ng mabuti para maging iskolar ako. katlo, bilang isang binata, ay aayusin ko na ang ugali ko."
+  },
+
+
+  july:{
+
+    meta:"July · 2013",
+
+    title:"July",
+
+    text:
+      "Comment ko sa bwan na ito. Ito ang buwan kung saan ako magbi-birthday, pero unang araw pa lang ay naging sobrang lungkot ko na. Pero naniniwala pa rin naman ako na may mga magagandang araw na darating para sa buwan na ito. Sa araw pa lang nito, ginaanahan na akong magsipag sa pag-aaral. Sana ay matupad ang pangarap ko na maging singer, maging matalino, yumaman, pumogi, at marami pang iba. Ito lang ang masasabi ko."
+  },
+
+
+  august:{
+
+    meta:"August · 2013",
+
+    title:"August",
+
+    text:
+      "No particular introduction was written for this month."
+  },
+
+
+  september:{
+
+    meta:"September · 2013",
+
+    title:"September",
+
+    text:
+      "Comment ko sa araw na ito: Simula sa buwan na ito ay magsisipag na ako sa pag-aaral. Ngunit ramdam ko pa rin na may darating pang mga ligalig sa buwan na ito. Ngunit lalaban ang krito hangga’t sinisipag ako sa buwan na ito. At sa bagong notebook na ito ay masisipagan ako kapag gumawa ng maraming araw. Kaya sana maging masaya at maayos ang buwan ko sa Septyembre."
+  },
+
+
+  october:{
+
+    meta:"October · 2013",
+
+    title:"October",
+
+    text:
+      "No particular introduction was written for this month."
+  },
+
+
+  november:{
+
+    meta:"November · 2013",
+
+    title:"November",
+
+    text:
+      "Comment ko sa bwan na ito: Sa bwan na ito ay may mga ilang mga anibersaryo. At aayusin ko ang mga araw ko dito!!"
+  },
+
+
+  december:{
+
+    meta:"December · 2013",
+
+    title:"December",
+
+    text:
+      "Welcome to December. Comment ko on this month: I'm so glad that today we need to write the diary in English. If you say or heard that December words were about Christmas, for me that Christmas wasn't happy. But I’ve tried to get better each day. For now on, I have never been absent from this diary, and I’m writing in English for once. This day was on the first of December. A kind of little problem happened on the first day, and I cannot resolve it on my own. But I never gave up. There are some parts that give you an idea. Let’s start. (This is me trying to write English as best as I can, even with my ridiculous grammar. I try.)"
+  }
+
+};
+
+
+/* =========================================================
+   SHOW MONTH INTRODUCTION
+========================================================= */
+
+function showMonth(month){
+
+  const data =
+    monthIntroductions[month];
+
+
+  if(!data){
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "month-introduction-meta"
+    )
+    .textContent =
+      data.meta;
+
+
+  document
+    .getElementById(
+      "month-introduction-title"
+    )
+    .textContent =
+      data.title;
+
+
+  document
+    .getElementById(
+      "month-introduction-text"
+    )
+    .textContent =
+      data.text;
+
+
+  const introduction =
+    document.getElementById(
+      "month-introduction"
+    );
+
+
+  introduction.style.animation =
+    "none";
+
+
+  void introduction.offsetWidth;
+
+
+  introduction.style.animation =
+    "introductionFade .35s ease";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
