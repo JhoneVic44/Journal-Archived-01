@@ -80,35 +80,6 @@
         }
 
 
-        /* =================================================
-           AUTHENTICATION GATE
-        ================================================= */
-
-        /*
-         * The entrance is hidden while Supabase checks
-         * whether the visitor has an active session.
-         *
-         * This prevents the protected page from briefly
-         * appearing before the redirect to login.html.
-         */
-
-        body.auth-checking .entrance {
-
-            visibility: hidden;
-        }
-
-
-        /*
-         * Only show the entrance after authentication
-         * has been successfully confirmed.
-         */
-
-        body.authenticated .entrance {
-
-            visibility: visible;
-        }
-
-
         /* =========================
            ENTRANCE
         ========================== */
@@ -179,6 +150,87 @@
 
 
         /* =========================
+           LOGOUT BUTTON
+        ========================== */
+
+        .logout-button {
+
+            position: absolute;
+
+            top: 30px;
+
+            right: 8%;
+
+            z-index: 10;
+
+            padding:
+                9px 17px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.25);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            color: #aaa9a3;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+
+            font-size: 8px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.18em;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition:
+                color 0.25s ease,
+                background 0.25s ease,
+                border-color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .logout-button:hover {
+
+            color: #eeeae1;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border-color:
+                rgba(255,255,255,0.55);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .logout-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .logout-button:disabled {
+
+            opacity: 0.5;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+
+        /* =========================
            GOOGLE USER NAME
         ========================== */
 
@@ -188,7 +240,7 @@
 
             top: 32px;
 
-            right: 8%;
+            right: calc(8% + 100px);
 
             z-index: 5;
 
@@ -392,13 +444,26 @@
             }
 
 
+            .logout-button {
+
+                top: 20px;
+
+                right: 25px;
+
+                padding:
+                    8px 13px;
+
+                font-size: 7px;
+            }
+
+
             .user-name {
 
                 top: 22px;
 
-                right: 25px;
+                right: 105px;
 
-                max-width: 65%;
+                max-width: 45%;
 
                 overflow: hidden;
 
@@ -485,11 +550,26 @@
             }
 
 
+            .logout-button {
+
+                top: 18px;
+
+                right: 20px;
+
+                padding:
+                    7px 11px;
+
+                font-size: 6px;
+            }
+
+
             .user-name {
 
                 top: 19px;
 
-                right: 20px;
+                right: 85px;
+
+                max-width: 40%;
 
                 font-size: 7px;
             }
@@ -539,19 +619,24 @@
 </head>
 
 
-<!--
-    IMPORTANT:
-
-    The page starts in "auth-checking" mode.
-
-    This keeps the protected archive hidden until
-    Supabase confirms that the user is authenticated.
--->
-
-<body class="auth-checking">
+<body>
 
 
 <main class="entrance">
+
+
+    <!-- =========================
+         LOGOUT
+    ========================== -->
+
+    <button
+        type="button"
+        class="logout-button"
+        id="logoutButton"
+        aria-label="Log out"
+    >
+        Logout
+    </button>
 
 
     <!-- =========================
@@ -605,9 +690,9 @@
 </main>
 
 
-<!-- =================================================
+<!-- =========================
      SUPABASE AUTHENTICATION
-================================================= -->
+========================== -->
 
 <script>
 
@@ -656,12 +741,10 @@ const userNameElement =
     );
 
 
-/* =================================================
-   LOGIN PAGE
-================================================= */
-
-const LOGIN_PAGE =
-    "./login.html";
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
 
 
 /* =================================================
@@ -690,11 +773,6 @@ function displayUserName(user) {
         user.user_metadata || {};
 
 
-    /*
-     * Google normally provides the
-     * user's name through one of these.
-     */
-
     const fullName =
         metadata.full_name ||
         metadata.name ||
@@ -702,6 +780,11 @@ function displayUserName(user) {
         metadata.displayName ||
         "";
 
+
+    /*
+     * Google normally provides the
+     * user's name through metadata.
+     */
 
     if (fullName) {
 
@@ -714,28 +797,28 @@ function displayUserName(user) {
         );
 
 
-        console.log(
-            "Displaying Google name:",
-            fullName
-        );
-
-
         return;
 
     }
 
 
-    /* =================================================
-       GOOGLE IDENTITY FALLBACK
-    ================================================= */
+    /*
+     * Fallback to Google identity data.
+     */
 
     const identities =
         user.identities || [];
 
 
     for (
-        const identity of identities
+        let i = 0;
+        i < identities.length;
+        i++
     ) {
+
+        const identity =
+            identities[i];
+
 
         const identityData =
             identity.identity_data || {};
@@ -760,12 +843,6 @@ function displayUserName(user) {
             );
 
 
-            console.log(
-                "Displaying Google identity name:",
-                identityName
-            );
-
-
             return;
 
         }
@@ -774,73 +851,8 @@ function displayUserName(user) {
 
 
     console.warn(
-        "Authenticated user found, but no Google display name was available."
+        "Authenticated user found, but no display name was available."
     );
-
-}
-
-
-/* =================================================
-   ALLOW ENTRANCE
-================================================= */
-
-function allowEntrance(session) {
-
-    /*
-     * Never reveal the protected page
-     * without a valid session.
-     */
-
-    if (
-        !session ||
-        !session.user
-    ) {
-
-        return false;
-
-    }
-
-
-    console.log(
-        "Authenticated session confirmed."
-    );
-
-
-    console.log(
-        "User ID:",
-        session.user.id
-    );
-
-
-    /*
-     * Display the Google user's name.
-     */
-
-    displayUserName(
-        session.user
-    );
-
-
-    /*
-     * NOW reveal the protected page.
-     */
-
-    document.body.classList.remove(
-        "auth-checking"
-    );
-
-
-    document.body.classList.add(
-        "authenticated"
-    );
-
-
-    console.log(
-        "Protected entrance access granted."
-    );
-
-
-    return true;
 
 }
 
@@ -852,142 +864,128 @@ function allowEntrance(session) {
 function redirectToLogin() {
 
     console.log(
-        "No authenticated session. Redirecting to login."
+        "No authenticated user. Redirecting to login..."
     );
 
-
-    /*
-     * Keep the protected content hidden.
-     */
-
-    document.body.classList.remove(
-        "authenticated"
-    );
-
-
-    document.body.classList.add(
-        "auth-checking"
-    );
-
-
-    /*
-     * Replace instead of normal navigation.
-     *
-     * This prevents the current protected URL
-     * from being added as another history entry.
-     */
 
     window.location.replace(
-        LOGIN_PAGE
+        "./login.html"
     );
 
 }
 
 
 /* =================================================
-   INITIAL AUTHENTICATION CHECK
+   HANDLE AUTHENTICATED USER
 ================================================= */
 
-async function checkAuthentication() {
+function handleAuthenticatedUser(session) {
 
-    console.log(
-        "Checking Supabase authentication..."
-    );
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
-
-
-        /*
-         * Supabase itself returned an error.
-         */
-
-        if (error) {
-
-            console.error(
-                "Supabase session error:",
-                error
-            );
-
-
-            redirectToLogin();
-
-
-            return;
-
-        }
-
-
-        /*
-         * Extract the current session.
-         */
-
-        const session =
-            data
-                ? data.session
-                : null;
-
-
-        /*
-         * There is no session.
-         *
-         * This means the visitor is logged out.
-         */
-
-        if (
-            !session ||
-            !session.user
-        ) {
-
-            console.log(
-                "No active Supabase session."
-            );
-
-
-            redirectToLogin();
-
-
-            return;
-
-        }
-
-
-        /*
-         * Session exists and contains
-         * an authenticated user.
-         */
-
-        allowEntrance(
-            session
-        );
-
-    }
-
-
-    catch (error) {
-
-        console.error(
-            "Authentication check failed:",
-            error
-        );
-
-
-        /*
-         * Fail closed.
-         *
-         * If authentication cannot be verified,
-         * do NOT show the private archive.
-         */
+    if (
+        !session ||
+        !session.user
+    ) {
 
         redirectToLogin();
 
+        return false;
+
     }
+
+
+    console.log(
+        "Authenticated session found:",
+        session.user.id
+    );
+
+
+    displayUserName(
+        session.user
+    );
+
+
+    return true;
+
+}
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            /*
+             * Prevent double-clicks.
+             */
+
+            logoutButton.disabled = true;
+
+            logoutButton.textContent =
+                "Logging out...";
+
+
+            console.log(
+                "Starting Supabase logout..."
+            );
+
+
+            /*
+             * Destroy the Supabase session.
+             */
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Logout failed:",
+                    error
+                );
+
+
+                logoutButton.disabled = false;
+
+                logoutButton.textContent =
+                    "Logout";
+
+
+                alert(
+                    "Unable to log out.\n\n" +
+                    error.message
+                );
+
+
+                return;
+
+            }
+
+
+            console.log(
+                "Supabase logout successful."
+            );
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Go directly to login.
+             */
+
+            window.location.replace(
+                "./login.html"
+            );
+
+        }
+    );
 
 }
 
@@ -1003,131 +1001,40 @@ supabaseClient.auth.onAuthStateChange(
     ) {
 
         console.log(
-            "Supabase auth event:",
+            "Supabase authentication event:",
             event
         );
 
 
-        /* =================================================
-           USER SIGNED OUT
-        ================================================= */
+        /*
+         * If the user signs out from
+         * another tab, this page will
+         * also receive SIGNED_OUT.
+         */
 
         if (
             event === "SIGNED_OUT"
         ) {
 
-            console.log(
-                "Supabase SIGNED_OUT detected."
-            );
-
-
-            /*
-             * Immediately protect the page.
-             */
-
-            document.body.classList.remove(
-                "authenticated"
-            );
-
-
-            document.body.classList.add(
-                "auth-checking"
-            );
-
-
             redirectToLogin();
 
-
             return;
 
         }
 
 
-        /* =================================================
-           USER SIGNED IN
-        ================================================= */
+        /*
+         * Normal authenticated states.
+         */
 
         if (
-            event === "SIGNED_IN" &&
             session &&
             session.user
         ) {
 
-            console.log(
-                "SIGNED_IN detected."
-            );
-
-
-            allowEntrance(
+            handleAuthenticatedUser(
                 session
             );
-
-
-            return;
-
-        }
-
-
-        /* =================================================
-           EXISTING SESSION RESTORED
-        ================================================= */
-
-        if (
-            event === "INITIAL_SESSION" &&
-            session &&
-            session.user
-        ) {
-
-            console.log(
-                "INITIAL_SESSION detected."
-            );
-
-
-            allowEntrance(
-                session
-            );
-
-
-            return;
-
-        }
-
-
-        /* =================================================
-           TOKEN REFRESHED
-        ================================================= */
-
-        if (
-            event === "TOKEN_REFRESHED"
-        ) {
-
-            /*
-             * If the refresh succeeded,
-             * keep the page available.
-             */
-
-            if (
-                session &&
-                session.user
-            ) {
-
-                allowEntrance(
-                    session
-                );
-
-            }
-
-            /*
-             * If token refresh failed and
-             * no session remains, protect
-             * the page.
-             */
-
-            else {
-
-                redirectToLogin();
-
-            }
 
         }
 
@@ -1136,10 +1043,81 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* =================================================
-   START AUTHENTICATION
+   INITIAL SESSION CHECK
 ================================================= */
 
-checkAuthentication();
+async function initializeEntrance() {
+
+    console.log(
+        "Checking Supabase authentication..."
+    );
+
+
+    /*
+     * Read the persisted session.
+     */
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    if (error) {
+
+        console.error(
+            "Session loading error:",
+            error
+        );
+
+
+        redirectToLogin();
+
+        return;
+
+    }
+
+
+    /*
+     * No session means the user
+     * is NOT allowed to see entrance.html.
+     */
+
+    if (
+        !data ||
+        !data.session ||
+        !data.session.user
+    ) {
+
+        redirectToLogin();
+
+        return;
+
+    }
+
+
+    /*
+     * Valid session.
+     */
+
+    console.log(
+        "Valid authenticated session confirmed."
+    );
+
+
+    handleAuthenticatedUser(
+        data.session
+    );
+
+}
+
+
+/* =================================================
+   START AUTHENTICATION CHECK
+================================================= */
+
+initializeEntrance();
 
 
 </script>
