@@ -581,13 +581,9 @@ const SUPABASE_KEY =
     "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
-/*
- * IMPORTANT:
- *
- * This client keeps the session in
- * browser storage and automatically
- * detects an OAuth callback.
- */
+/* =================================================
+   CREATE SUPABASE CLIENT
+================================================= */
 
 const supabaseClient =
     window.supabase.createClient(
@@ -614,7 +610,33 @@ const userNameElement =
 
 
 /* =================================================
-   DISPLAY USER NAME
+   REDIRECT TO LOGIN
+================================================= */
+
+function redirectToLogin() {
+
+    console.log(
+        "User is not authenticated."
+    );
+
+
+    /*
+     * replace() is intentional.
+     *
+     * This prevents the user from
+     * simply pressing Back and returning
+     * to the protected entrance page.
+     */
+
+    window.location.replace(
+        "./login.html"
+    );
+
+}
+
+
+/* =================================================
+   DISPLAY GOOGLE USER NAME
 ================================================= */
 
 function displayUserName(user) {
@@ -635,20 +657,14 @@ function displayUserName(user) {
     );
 
 
-    console.log(
-        "User metadata:",
-        user.user_metadata
-    );
-
-
-    /*
-     * Google normally places the
-     * display name in one of these.
-     */
-
     const metadata =
         user.user_metadata || {};
 
+
+    /*
+     * Google normally provides the
+     * user's name through metadata.
+     */
 
     const fullName =
         metadata.full_name ||
@@ -657,11 +673,6 @@ function displayUserName(user) {
         metadata.displayName ||
         "";
 
-
-    /*
-     * If the name is available,
-     * display it.
-     */
 
     if (fullName) {
 
@@ -674,21 +685,13 @@ function displayUserName(user) {
         );
 
 
-        console.log(
-            "Displaying Google name:",
-            fullName
-        );
-
-
         return;
 
     }
 
 
     /*
-     * If no name is available in
-     * user_metadata, try the identity
-     * information returned by Google.
+     * Fallback to Google identity data.
      */
 
     const identities =
@@ -728,23 +731,12 @@ function displayUserName(user) {
             );
 
 
-            console.log(
-                "Displaying Google identity name:",
-                identityName
-            );
-
-
             return;
 
         }
 
     }
 
-
-    /*
-     * Do not redirect just because
-     * the name isn't available.
-     */
 
     console.warn(
         "Authenticated user found, but no display name was available."
@@ -761,14 +753,17 @@ function handleAuthenticatedUser(
     session
 ) {
 
+    /*
+     * No valid session means
+     * the archive cannot be accessed.
+     */
+
     if (
         !session ||
         !session.user
     ) {
 
-        console.log(
-            "No authenticated session yet."
-        );
+        redirectToLogin();
 
         return false;
 
@@ -776,7 +771,7 @@ function handleAuthenticatedUser(
 
 
     console.log(
-        "Authenticated session found:",
+        "Authenticated user:",
         session.user.id
     );
 
@@ -812,24 +807,57 @@ const {
             );
 
 
-            /*
-             * This is the important event
-             * after Google redirects back.
-             */
+            /* =========================
+               SIGNED IN
+            ========================== */
 
             if (
                 event === "SIGNED_IN" &&
                 session
             ) {
 
-                console.log(
-                    "Google sign-in completed."
-                );
-
-
                 handleAuthenticatedUser(
                     session
                 );
+
+                return;
+
+            }
+
+
+            /* =========================
+               INITIAL SESSION
+            ========================== */
+
+            if (
+                event === "INITIAL_SESSION"
+            ) {
+
+                if (
+                    session &&
+                    session.user
+                ) {
+
+                    console.log(
+                        "Existing authenticated session restored."
+                    );
+
+
+                    handleAuthenticatedUser(
+                        session
+                    );
+
+                }
+                else {
+
+                    console.log(
+                        "No authenticated session."
+                    );
+
+
+                    redirectToLogin();
+
+                }
 
 
                 return;
@@ -837,25 +865,29 @@ const {
             }
 
 
-            /*
-             * Supabase also sends the
-             * current session through
-             * INITIAL_SESSION.
-             */
+            /* =========================
+               TOKEN REFRESH
+            ========================== */
 
             if (
-                event === "INITIAL_SESSION" &&
-                session
+                event === "TOKEN_REFRESHED"
             ) {
 
-                console.log(
-                    "Existing session restored."
-                );
+                if (
+                    session &&
+                    session.user
+                ) {
 
+                    handleAuthenticatedUser(
+                        session
+                    );
 
-                handleAuthenticatedUser(
-                    session
-                );
+                }
+                else {
+
+                    redirectToLogin();
+
+                }
 
 
                 return;
@@ -863,19 +895,22 @@ const {
             }
 
 
-            /*
-             * Token refresh does not require
-             * a redirect.
-             */
+            /* =========================
+               SIGNED OUT
+            ========================== */
 
             if (
-                event === "TOKEN_REFRESHED" &&
-                session
+                event === "SIGNED_OUT"
             ) {
 
-                handleAuthenticatedUser(
-                    session
+                console.log(
+                    "Supabase session ended."
                 );
+
+
+                redirectToLogin();
+
+                return;
 
             }
 
@@ -890,17 +925,9 @@ const {
 async function initializeEntrance() {
 
     console.log(
-        "Loading Supabase session..."
+        "Checking Supabase authentication..."
     );
 
-
-    /*
-     * getSession() reads the persisted
-     * browser session.
-     *
-     * We deliberately do NOT call
-     * getUser() here.
-     */
 
     const {
         data,
@@ -908,6 +935,11 @@ async function initializeEntrance() {
     } =
         await supabaseClient.auth.getSession();
 
+
+    /*
+     * If Supabase cannot verify the
+     * session, deny access.
+     */
 
     if (error) {
 
@@ -917,25 +949,25 @@ async function initializeEntrance() {
         );
 
 
-        /*
-         * Do not immediately redirect.
-         *
-         * The auth listener may still
-         * receive the OAuth session.
-         */
+        redirectToLogin();
 
         return;
 
     }
 
 
+    /*
+     * AUTHENTICATED
+     */
+
     if (
         data &&
-        data.session
+        data.session &&
+        data.session.user
     ) {
 
         console.log(
-            "Session already available."
+            "Authenticated session confirmed."
         );
 
 
@@ -950,15 +982,21 @@ async function initializeEntrance() {
 
 
     /*
-     * No session at this exact moment.
+     * NOT AUTHENTICATED
      *
-     * This is NOT an instruction to
-     * redirect to login.
+     * This is the important part.
+     *
+     * Opening a saved entrance.html
+     * URL while logged out will now
+     * send the visitor to login.html.
      */
 
     console.log(
-        "No session available yet. Waiting for Supabase authentication event..."
+        "No session found. Access denied."
     );
+
+
+    redirectToLogin();
 
 }
 
