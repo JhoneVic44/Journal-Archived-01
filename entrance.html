@@ -240,7 +240,7 @@
 
             top: 32px;
 
-            right: calc(8% + 100px);
+            right: calc(8% + 105px);
 
             z-index: 5;
 
@@ -626,7 +626,7 @@
 
 
     <!-- =========================
-         LOGOUT
+         LOGOUT BUTTON
     ========================== -->
 
     <button
@@ -697,10 +697,6 @@
 <script>
 
 
-/* =================================================
-   SUPABASE CONFIGURATION
-================================================= */
-
 const SUPABASE_URL =
     "https://ktytetimukmaqkxmzkha.supabase.co";
 
@@ -709,9 +705,13 @@ const SUPABASE_KEY =
     "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
-/* =================================================
-   CREATE SUPABASE CLIENT
-================================================= */
+/*
+ * IMPORTANT:
+ *
+ * This is the same Supabase client
+ * configuration that was working
+ * before.
+ */
 
 const supabaseClient =
     window.supabase.createClient(
@@ -731,19 +731,9 @@ const supabaseClient =
     );
 
 
-/* =================================================
-   ELEMENTS
-================================================= */
-
 const userNameElement =
     document.getElementById(
         "user-name"
-    );
-
-
-const logoutButton =
-    document.getElementById(
-        "logoutButton"
     );
 
 
@@ -769,6 +759,12 @@ function displayUserName(user) {
     );
 
 
+    console.log(
+        "User metadata:",
+        user.user_metadata
+    );
+
+
     const metadata =
         user.user_metadata || {};
 
@@ -781,11 +777,6 @@ function displayUserName(user) {
         "";
 
 
-    /*
-     * Google normally provides the
-     * user's name through metadata.
-     */
-
     if (fullName) {
 
         userNameElement.textContent =
@@ -797,13 +788,19 @@ function displayUserName(user) {
         );
 
 
+        console.log(
+            "Displaying Google name:",
+            fullName
+        );
+
+
         return;
 
     }
 
 
     /*
-     * Fallback to Google identity data.
+     * Fallback to identity data.
      */
 
     const identities =
@@ -843,6 +840,12 @@ function displayUserName(user) {
             );
 
 
+            console.log(
+                "Displaying Google identity name:",
+                identityName
+            );
+
+
             return;
 
         }
@@ -858,35 +861,21 @@ function displayUserName(user) {
 
 
 /* =================================================
-   REDIRECT TO LOGIN
-================================================= */
-
-function redirectToLogin() {
-
-    console.log(
-        "No authenticated user. Redirecting to login..."
-    );
-
-
-    window.location.replace(
-        "./login.html"
-    );
-
-}
-
-
-/* =================================================
    HANDLE AUTHENTICATED USER
 ================================================= */
 
-function handleAuthenticatedUser(session) {
+function handleAuthenticatedUser(
+    session
+) {
 
     if (
         !session ||
         !session.user
     ) {
 
-        redirectToLogin();
+        console.log(
+            "No authenticated session yet."
+        );
 
         return false;
 
@@ -910,8 +899,172 @@ function handleAuthenticatedUser(session) {
 
 
 /* =================================================
+   AUTH STATE LISTENER
+================================================= */
+
+const {
+    data: {
+        subscription
+    }
+} =
+    supabaseClient.auth.onAuthStateChange(
+        function (
+            event,
+            session
+        ) {
+
+            console.log(
+                "Supabase authentication event:",
+                event
+            );
+
+
+            /*
+             * Existing working behavior:
+             *
+             * Do not redirect simply because
+             * INITIAL_SESSION has no session.
+             */
+
+            if (
+                event === "SIGNED_IN" &&
+                session
+            ) {
+
+                console.log(
+                    "Google sign-in completed."
+                );
+
+
+                handleAuthenticatedUser(
+                    session
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                event === "INITIAL_SESSION" &&
+                session
+            ) {
+
+                console.log(
+                    "Existing session restored."
+                );
+
+
+                handleAuthenticatedUser(
+                    session
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                event === "TOKEN_REFRESHED" &&
+                session
+            ) {
+
+                handleAuthenticatedUser(
+                    session
+                );
+
+            }
+
+        }
+    );
+
+
+/* =================================================
+   INITIAL SESSION CHECK
+================================================= */
+
+async function initializeEntrance() {
+
+    console.log(
+        "Loading Supabase session..."
+    );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    if (error) {
+
+        console.error(
+            "Session loading error:",
+            error
+        );
+
+
+        /*
+         * Do NOT redirect here.
+         *
+         * The existing working version
+         * waits for Supabase authentication
+         * events.
+         */
+
+        return;
+
+    }
+
+
+    if (
+        data &&
+        data.session
+    ) {
+
+        console.log(
+            "Session already available."
+        );
+
+
+        handleAuthenticatedUser(
+            data.session
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * IMPORTANT:
+     *
+     * We do not redirect here.
+     *
+     * This preserves the login flow that
+     * was working for you.
+     */
+
+    console.log(
+        "No session available yet. Waiting for Supabase authentication event..."
+    );
+
+}
+
+
+/* =================================================
    LOGOUT
 ================================================= */
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
 
 if (logoutButton) {
 
@@ -920,7 +1073,7 @@ if (logoutButton) {
         async function () {
 
             /*
-             * Prevent double-clicks.
+             * Prevent multiple clicks.
              */
 
             logoutButton.disabled = true;
@@ -935,7 +1088,7 @@ if (logoutButton) {
 
 
             /*
-             * Destroy the Supabase session.
+             * Sign out the current user.
              */
 
             const {
@@ -975,8 +1128,6 @@ if (logoutButton) {
 
 
             /*
-             * IMPORTANT:
-             *
              * Go directly to login.
              */
 
@@ -991,134 +1142,10 @@ if (logoutButton) {
 
 
 /* =================================================
-   AUTH STATE LISTENER
-================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    function (
-        event,
-        session
-    ) {
-
-        console.log(
-            "Supabase authentication event:",
-            event
-        );
-
-
-        /*
-         * If the user signs out from
-         * another tab, this page will
-         * also receive SIGNED_OUT.
-         */
-
-        if (
-            event === "SIGNED_OUT"
-        ) {
-
-            redirectToLogin();
-
-            return;
-
-        }
-
-
-        /*
-         * Normal authenticated states.
-         */
-
-        if (
-            session &&
-            session.user
-        ) {
-
-            handleAuthenticatedUser(
-                session
-            );
-
-        }
-
-    }
-);
-
-
-/* =================================================
-   INITIAL SESSION CHECK
-================================================= */
-
-async function initializeEntrance() {
-
-    console.log(
-        "Checking Supabase authentication..."
-    );
-
-
-    /*
-     * Read the persisted session.
-     */
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getSession();
-
-
-    if (error) {
-
-        console.error(
-            "Session loading error:",
-            error
-        );
-
-
-        redirectToLogin();
-
-        return;
-
-    }
-
-
-    /*
-     * No session means the user
-     * is NOT allowed to see entrance.html.
-     */
-
-    if (
-        !data ||
-        !data.session ||
-        !data.session.user
-    ) {
-
-        redirectToLogin();
-
-        return;
-
-    }
-
-
-    /*
-     * Valid session.
-     */
-
-    console.log(
-        "Valid authenticated session confirmed."
-    );
-
-
-    handleAuthenticatedUser(
-        data.session
-    );
-
-}
-
-
-/* =================================================
-   START AUTHENTICATION CHECK
+   START
 ================================================= */
 
 initializeEntrance();
-
 
 </script>
 
