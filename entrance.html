@@ -573,6 +573,10 @@
 
 <script>
 
+/* =================================================
+   SUPABASE CONFIGURATION
+================================================= */
+
 const SUPABASE_URL =
     "https://ktytetimukmaqkxmzkha.supabase.co";
 
@@ -582,7 +586,7 @@ const SUPABASE_KEY =
 
 
 /* =================================================
-   SUPABASE CLIENT
+   CREATE SUPABASE CLIENT
 ================================================= */
 
 const supabaseClient =
@@ -603,10 +607,53 @@ const supabaseClient =
     );
 
 
+/* =================================================
+   ELEMENTS
+================================================= */
+
 const userNameElement =
     document.getElementById(
         "user-name"
     );
+
+
+/* =================================================
+   LOGIN PAGE
+================================================= */
+
+const LOGIN_PAGE =
+    "./login.html";
+
+
+/* =================================================
+   REDIRECT TO LOGIN
+================================================= */
+
+function redirectToLogin() {
+
+    console.log(
+        "No authenticated session."
+    );
+
+
+    console.log(
+        "Redirecting to login..."
+    );
+
+
+    /*
+     * replace() is intentional.
+     *
+     * It prevents the protected
+     * entrance page from remaining
+     * in the browser history.
+     */
+
+    window.location.replace(
+        LOGIN_PAGE
+    );
+
+}
 
 
 /* =================================================
@@ -625,9 +672,20 @@ function displayUserName(user) {
     }
 
 
+    console.log(
+        "Authenticated user:",
+        user
+    );
+
+
     const metadata =
         user.user_metadata || {};
 
+
+    /*
+     * Google normally provides
+     * the user's name here.
+     */
 
     const fullName =
         metadata.full_name ||
@@ -642,14 +700,20 @@ function displayUserName(user) {
         userNameElement.textContent =
             fullName;
 
+
         userNameElement.classList.add(
             "visible"
         );
+
 
         return;
 
     }
 
+
+    /*
+     * Fallback to Google identity data.
+     */
 
     const identities =
         user.identities || [];
@@ -682,9 +746,11 @@ function displayUserName(user) {
             userNameElement.textContent =
                 identityName;
 
+
             userNameElement.classList.add(
                 "visible"
             );
+
 
             return;
 
@@ -696,28 +762,170 @@ function displayUserName(user) {
 
 
 /* =================================================
-   REDIRECT TO LOGIN
+   HANDLE AUTHENTICATED SESSION
 ================================================= */
 
-function redirectToLogin() {
+function handleSession(session) {
+
+    /*
+     * No session means the visitor
+     * is NOT authorized.
+     */
+
+    if (
+        !session ||
+        !session.user
+    ) {
+
+        redirectToLogin();
+
+        return false;
+
+    }
+
+
+    /*
+     * A valid authenticated session
+     * has been found.
+     */
 
     console.log(
-        "No authenticated user. Redirecting to login."
+        "Authenticated session confirmed."
     );
 
 
-    window.location.replace(
-        "./login.html"
+    console.log(
+        "User ID:",
+        session.user.id
     );
+
+
+    displayUserName(
+        session.user
+    );
+
+
+    return true;
 
 }
 
 
 /* =================================================
-   CHECK AUTHENTICATION
+   AUTH STATE LISTENER
 ================================================= */
 
-async function checkAuthentication() {
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Supabase auth event:",
+            event
+        );
+
+
+        /* -----------------------------------------
+           INITIAL SESSION
+        ----------------------------------------- */
+
+        if (
+            event === "INITIAL_SESSION"
+        ) {
+
+            if (session) {
+
+                handleSession(
+                    session
+                );
+
+            } else {
+
+                redirectToLogin();
+
+            }
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           SIGNED IN
+        ----------------------------------------- */
+
+        if (
+            event === "SIGNED_IN"
+        ) {
+
+            if (session) {
+
+                handleSession(
+                    session
+                );
+
+            }
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           SIGNED OUT
+        ----------------------------------------- */
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            console.log(
+                "User signed out."
+            );
+
+
+            redirectToLogin();
+
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           TOKEN REFRESHED
+        ----------------------------------------- */
+
+        if (
+            event === "TOKEN_REFRESHED"
+        ) {
+
+            if (session) {
+
+                handleSession(
+                    session
+                );
+
+            } else {
+
+                redirectToLogin();
+
+            }
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   INITIAL AUTHENTICATION CHECK
+================================================= */
+
+async function initializeEntrance() {
 
     console.log(
         "Checking authentication..."
@@ -731,6 +939,10 @@ async function checkAuthentication() {
         await supabaseClient.auth.getSession();
 
 
+    /* -----------------------------------------
+       SESSION CHECK ERROR
+    ----------------------------------------- */
+
     if (error) {
 
         console.error(
@@ -739,149 +951,63 @@ async function checkAuthentication() {
         );
 
 
+        /*
+         * If the session cannot be verified,
+         * do not allow access.
+         */
+
         redirectToLogin();
+
 
         return;
 
     }
 
 
-    /*
-     * No session = user is logged out.
-     */
+    /* -----------------------------------------
+       VALID SESSION
+    ----------------------------------------- */
 
     if (
-        !data ||
-        !data.session ||
-        !data.session.user
+        data &&
+        data.session &&
+        data.session.user
     ) {
 
-        redirectToLogin();
+        console.log(
+            "Valid session found."
+        );
+
+
+        handleSession(
+            data.session
+        );
+
 
         return;
 
     }
 
 
-    /*
-     * Valid authenticated session.
-     */
+    /* -----------------------------------------
+       NO SESSION
+    ----------------------------------------- */
 
     console.log(
-        "Authenticated user:",
-        data.session.user.id
+        "No authenticated session found."
     );
 
 
-    displayUserName(
-        data.session.user
-    );
+    redirectToLogin();
 
 }
 
 
 /* =================================================
-   AUTH STATE LISTENER
+   START
 ================================================= */
 
-const {
-    data: {
-        subscription
-    }
-} =
-    supabaseClient.auth.onAuthStateChange(
-        function (
-            event,
-            session
-        ) {
-
-            console.log(
-                "Authentication event:",
-                event
-            );
-
-
-            /*
-             * User successfully signed in.
-             */
-
-            if (
-                event === "SIGNED_IN" &&
-                session &&
-                session.user
-            ) {
-
-                displayUserName(
-                    session.user
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * User logged out.
-             *
-             * This is the important part
-             * for saved entrance.html URLs.
-             */
-
-            if (
-                event === "SIGNED_OUT"
-            ) {
-
-                redirectToLogin();
-
-                return;
-
-            }
-
-
-            /*
-             * Session expired or became
-             * unavailable.
-             */
-
-            if (
-                (
-                    event === "TOKEN_REFRESHED" ||
-                    event === "USER_DELETED"
-                ) &&
-                !session
-            ) {
-
-                redirectToLogin();
-
-            }
-
-        }
-    );
-
-
-/* =================================================
-   START AUTHENTICATION CHECK
-================================================= */
-
-checkAuthentication();
-
-
-/* =================================================
-   CLEANUP
-================================================= */
-
-window.addEventListener(
-    "beforeunload",
-    function(){
-
-        if(subscription){
-
-            subscription.unsubscribe();
-
-        }
-
-    }
-);
+initializeEntrance();
 
 </script>
 
