@@ -150,30 +150,85 @@
 
 
         /* =========================
-           LOGOUT BUTTON
+           TOP RIGHT ACTIONS
         ========================== */
 
-        .logout-button {
+        .top-actions {
 
             position: absolute;
 
-            top: 30px;
+            top: 28px;
 
             right: 8%;
 
             z-index: 10;
 
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 12px;
+        }
+
+
+        /* =========================
+           GOOGLE USER NAME
+        ========================== */
+
+        .user-name {
+
+            color: #eeeae1;
+
+            font-size: 9px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+            white-space: nowrap;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.4s ease;
+        }
+
+
+        .user-name.visible {
+
+            opacity: 1;
+        }
+
+
+        /* =========================
+           LOGOUT BUTTON
+        ========================== */
+
+        .logout-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 72px;
+
             padding:
-                9px 17px;
+                8px 15px;
 
             border:
                 1px solid
-                rgba(255,255,255,0.25);
+                rgba(255,255,255,0.27);
 
             background:
                 rgba(255,255,255,0.035);
 
-            color: #aaa9a3;
+            color: #aaa8a2;
 
             font-family:
                 "Manrope",
@@ -192,8 +247,9 @@
 
             transition:
                 color 0.25s ease,
-                background 0.25s ease,
                 border-color 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease,
                 transform 0.25s ease;
         }
 
@@ -202,11 +258,15 @@
 
             color: #eeeae1;
 
+            border-color:
+                rgba(255,255,255,0.6);
+
             background:
                 rgba(255,255,255,0.08);
 
-            border-color:
-                rgba(255,255,255,0.55);
+            box-shadow:
+                0 0 16px
+                rgba(255,255,255,0.12);
 
             transform:
                 translateY(-1px);
@@ -227,45 +287,6 @@
             cursor: wait;
 
             transform: none;
-        }
-
-
-        /* =========================
-           GOOGLE USER NAME
-        ========================== */
-
-        .user-name {
-
-            position: absolute;
-
-            top: 32px;
-
-            right: calc(8% + 105px);
-
-            z-index: 5;
-
-            color: #eeeae1;
-
-            font-size: 10px;
-
-            font-weight: 500;
-
-            letter-spacing: 0.12em;
-
-            text-transform: uppercase;
-
-            white-space: nowrap;
-
-            opacity: 0;
-
-            transition:
-                opacity 0.4s ease;
-        }
-
-
-        .user-name.visible {
-
-            opacity: 1;
         }
 
 
@@ -444,26 +465,21 @@
             }
 
 
-            .logout-button {
+            .top-actions {
 
                 top: 20px;
 
                 right: 25px;
 
-                padding:
-                    8px 13px;
+                gap: 8px;
 
-                font-size: 7px;
+                max-width: 72%;
             }
 
 
             .user-name {
 
-                top: 22px;
-
-                right: 105px;
-
-                max-width: 45%;
+                max-width: 150px;
 
                 overflow: hidden;
 
@@ -472,6 +488,19 @@
                 font-size: 8px;
 
                 letter-spacing: 0.10em;
+            }
+
+
+            .logout-button {
+
+                min-width: 62px;
+
+                padding:
+                    7px 11px;
+
+                font-size: 7px;
+
+                letter-spacing: 0.15em;
             }
 
 
@@ -550,28 +579,32 @@
             }
 
 
-            .logout-button {
+            .top-actions {
 
-                top: 18px;
+                top: 17px;
 
                 right: 20px;
 
-                padding:
-                    7px 11px;
-
-                font-size: 6px;
+                gap: 6px;
             }
 
 
             .user-name {
 
-                top: 19px;
-
-                right: 85px;
-
-                max-width: 40%;
+                max-width: 120px;
 
                 font-size: 7px;
+            }
+
+
+            .logout-button {
+
+                min-width: 57px;
+
+                padding:
+                    6px 9px;
+
+                font-size: 6px;
             }
 
 
@@ -626,28 +659,35 @@
 
 
     <!-- =========================
-         LOGOUT BUTTON
-    ========================== -->
-
-    <button
-        type="button"
-        class="logout-button"
-        id="logoutButton"
-        aria-label="Log out"
-    >
-        Logout
-    </button>
-
-
-    <!-- =========================
-         GOOGLE USER NAME
+         TOP RIGHT ACTIONS
     ========================== -->
 
     <div
-        class="user-name"
-        id="user-name"
-    ></div>
+        class="top-actions"
+        id="topActions"
+    >
 
+        <div
+            class="user-name"
+            id="user-name"
+        ></div>
+
+
+        <button
+            type="button"
+            class="logout-button"
+            id="logoutButton"
+            aria-label="Log out"
+        >
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         CONTENT
+    ========================== -->
 
     <div class="entrance-content">
 
@@ -670,6 +710,7 @@
         <a
             class="year-button"
             href="./2013.html"
+            id="yearButton"
         >
 
             2013
@@ -690,12 +731,17 @@
 </main>
 
 
+
 <!-- =========================
      SUPABASE AUTHENTICATION
 ========================== -->
 
 <script>
 
+
+/* =================================================
+   SUPABASE CONFIGURATION
+================================================= */
 
 const SUPABASE_URL =
     "https://ktytetimukmaqkxmzkha.supabase.co";
@@ -705,13 +751,9 @@ const SUPABASE_KEY =
     "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
-/*
- * IMPORTANT:
- *
- * This is the same Supabase client
- * configuration that was working
- * before.
- */
+/* =================================================
+   CREATE SUPABASE CLIENT
+================================================= */
 
 const supabaseClient =
     window.supabase.createClient(
@@ -724,16 +766,29 @@ const supabaseClient =
 
                 autoRefreshToken: true,
 
-                detectSessionInUrl: true
+                detectSessionInUrl: true,
+
+                storage:
+                    window.localStorage
 
             }
         }
     );
 
 
+/* =================================================
+   ELEMENTS
+================================================= */
+
 const userNameElement =
     document.getElementById(
         "user-name"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
     );
 
 
@@ -753,23 +808,11 @@ function displayUserName(user) {
     }
 
 
-    console.log(
-        "Supabase user:",
-        user
-    );
-
-
-    console.log(
-        "User metadata:",
-        user.user_metadata
-    );
-
-
     const metadata =
         user.user_metadata || {};
 
 
-    const fullName =
+    let fullName =
         metadata.full_name ||
         metadata.name ||
         metadata.display_name ||
@@ -777,94 +820,62 @@ function displayUserName(user) {
         "";
 
 
-    if (fullName) {
-
-        userNameElement.textContent =
-            fullName;
-
-
-        userNameElement.classList.add(
-            "visible"
-        );
-
-
-        console.log(
-            "Displaying Google name:",
-            fullName
-        );
-
-
-        return;
-
-    }
-
-
     /*
-     * Fallback to identity data.
+     * Fallback to Google identity data.
      */
 
-    const identities =
-        user.identities || [];
+    if (!fullName) {
+
+        const identities =
+            user.identities || [];
 
 
-    for (
-        let i = 0;
-        i < identities.length;
-        i++
-    ) {
+        for (
+            const identity of identities
+        ) {
 
-        const identity =
-            identities[i];
+            const identityData =
+                identity.identity_data || {};
 
 
-        const identityData =
-            identity.identity_data || {};
+            fullName =
+                identityData.full_name ||
+                identityData.name ||
+                identityData.display_name ||
+                identityData.displayName ||
+                "";
 
 
-        const identityName =
-            identityData.full_name ||
-            identityData.name ||
-            identityData.display_name ||
-            identityData.displayName ||
-            "";
+            if (fullName) {
 
+                break;
 
-        if (identityName) {
-
-            userNameElement.textContent =
-                identityName;
-
-
-            userNameElement.classList.add(
-                "visible"
-            );
-
-
-            console.log(
-                "Displaying Google identity name:",
-                identityName
-            );
-
-
-            return;
+            }
 
         }
 
     }
 
 
-    console.warn(
-        "Authenticated user found, but no display name was available."
-    );
+    if (fullName) {
+
+        userNameElement.textContent =
+            fullName;
+
+        userNameElement.classList.add(
+            "visible"
+        );
+
+    }
 
 }
 
 
 /* =================================================
-   HANDLE AUTHENTICATED USER
+   AUTHENTICATED PAGE
 ================================================= */
 
-function handleAuthenticatedUser(
+function showAuthenticatedPage(
     session
 ) {
 
@@ -873,19 +884,9 @@ function handleAuthenticatedUser(
         !session.user
     ) {
 
-        console.log(
-            "No authenticated session yet."
-        );
-
-        return false;
+        return;
 
     }
-
-
-    console.log(
-        "Authenticated session found:",
-        session.user.id
-    );
 
 
     displayUserName(
@@ -893,164 +894,27 @@ function handleAuthenticatedUser(
     );
 
 
-    return true;
+    console.log(
+        "Authenticated user:",
+        session.user.id
+    );
 
 }
 
 
 /* =================================================
-   AUTH STATE LISTENER
+   REDIRECT TO LOGIN
 ================================================= */
 
-const {
-    data: {
-        subscription
-    }
-} =
-    supabaseClient.auth.onAuthStateChange(
-        function (
-            event,
-            session
-        ) {
+function redirectToLogin() {
 
-            console.log(
-                "Supabase authentication event:",
-                event
-            );
-
-
-            /*
-             * Existing working behavior:
-             *
-             * Do not redirect simply because
-             * INITIAL_SESSION has no session.
-             */
-
-            if (
-                event === "SIGNED_IN" &&
-                session
-            ) {
-
-                console.log(
-                    "Google sign-in completed."
-                );
-
-
-                handleAuthenticatedUser(
-                    session
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                event === "INITIAL_SESSION" &&
-                session
-            ) {
-
-                console.log(
-                    "Existing session restored."
-                );
-
-
-                handleAuthenticatedUser(
-                    session
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                event === "TOKEN_REFRESHED" &&
-                session
-            ) {
-
-                handleAuthenticatedUser(
-                    session
-                );
-
-            }
-
-        }
+    console.log(
+        "No authenticated session."
     );
 
 
-/* =================================================
-   INITIAL SESSION CHECK
-================================================= */
-
-async function initializeEntrance() {
-
-    console.log(
-        "Loading Supabase session..."
-    );
-
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getSession();
-
-
-    if (error) {
-
-        console.error(
-            "Session loading error:",
-            error
-        );
-
-
-        /*
-         * Do NOT redirect here.
-         *
-         * The existing working version
-         * waits for Supabase authentication
-         * events.
-         */
-
-        return;
-
-    }
-
-
-    if (
-        data &&
-        data.session
-    ) {
-
-        console.log(
-            "Session already available."
-        );
-
-
-        handleAuthenticatedUser(
-            data.session
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * IMPORTANT:
-     *
-     * We do not redirect here.
-     *
-     * This preserves the login flow that
-     * was working for you.
-     */
-
-    console.log(
-        "No session available yet. Waiting for Supabase authentication event..."
+    window.location.replace(
+        "./login.html"
     );
 
 }
@@ -1060,52 +924,114 @@ async function initializeEntrance() {
    LOGOUT
 ================================================= */
 
-const logoutButton =
-    document.getElementById(
-        "logoutButton"
-    );
-
-
 if (logoutButton) {
 
     logoutButton.addEventListener(
         "click",
         async function () {
 
-            /*
-             * Prevent multiple clicks.
-             */
+            if (
+                logoutButton.disabled
+            ) {
 
-            logoutButton.disabled = true;
+                return;
+
+            }
+
+
+            logoutButton.disabled =
+                true;
+
 
             logoutButton.textContent =
                 "Logging out...";
 
 
             console.log(
-                "Starting Supabase logout..."
+                "Starting logout..."
             );
 
 
-            /*
-             * Sign out the current user.
-             */
+            try {
 
-            const {
-                error
-            } =
-                await supabaseClient.auth.signOut();
+                const {
+                    error
+                } =
+                    await supabaseClient.auth.signOut();
 
 
-            if (error) {
+                if (error) {
+
+                    console.error(
+                        "Logout failed:",
+                        error
+                    );
+
+
+                    logoutButton.disabled =
+                        false;
+
+
+                    logoutButton.textContent =
+                        "Logout";
+
+
+                    alert(
+                        "Unable to log out.\n\n" +
+                        error.message
+                    );
+
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "Supabase logout successful."
+                );
+
+
+                /*
+                 * Explicitly clear any local
+                 * Supabase authentication data.
+                 */
+
+                try {
+
+                    localStorage.removeItem(
+                        "sb-ktytetimukmaqkxmzkha-auth-token"
+                    );
+
+                } catch (storageError) {
+
+                    console.warn(
+                        "Could not manually clear auth storage:",
+                        storageError
+                    );
+
+                }
+
+
+                /*
+                 * Go to login.
+                 */
+
+                window.location.replace(
+                    "./login.html"
+                );
+
+            } catch (error) {
 
                 console.error(
-                    "Logout failed:",
+                    "Unexpected logout error:",
                     error
                 );
 
 
-                logoutButton.disabled = false;
+                logoutButton.disabled =
+                    false;
+
 
                 logoutButton.textContent =
                     "Logout";
@@ -1116,27 +1042,187 @@ if (logoutButton) {
                     error.message
                 );
 
-
-                return;
-
             }
-
-
-            console.log(
-                "Supabase logout successful."
-            );
-
-
-            /*
-             * Go directly to login.
-             */
-
-            window.location.replace(
-                "./login.html"
-            );
 
         }
     );
+
+}
+
+
+/* =================================================
+   AUTH STATE LISTENER
+================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Supabase auth event:",
+            event
+        );
+
+
+        /*
+         * Valid authenticated states.
+         */
+
+        if (
+            session &&
+            (
+                event === "SIGNED_IN" ||
+                event === "INITIAL_SESSION" ||
+                event === "TOKEN_REFRESHED"
+            )
+        ) {
+
+            showAuthenticatedPage(
+                session
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * If the user logs out,
+         * immediately return to login.
+         */
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            redirectToLogin();
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   INITIAL SESSION CHECK
+================================================= */
+
+async function initializeEntrance() {
+
+    console.log(
+        "Checking Supabase session..."
+    );
+
+
+    let session = null;
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Initial session error:",
+                error
+            );
+
+        } else {
+
+            session =
+                data?.session || null;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected session error:",
+            error
+        );
+
+    }
+
+
+    /*
+     * Session already restored.
+     */
+
+    if (session) {
+
+        showAuthenticatedPage(
+            session
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Give Supabase time to finish
+     * restoring the session.
+     */
+
+    await new Promise(
+        resolve =>
+            setTimeout(
+                resolve,
+                1500
+            )
+    );
+
+
+    /*
+     * Check one more time.
+     */
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (
+            !error &&
+            data?.session
+        ) {
+
+            showAuthenticatedPage(
+                data.session
+            );
+
+            return;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Second session check error:",
+            error
+        );
+
+    }
+
+
+    /*
+     * No session after the grace period.
+     * The user is genuinely logged out.
+     */
+
+    redirectToLogin();
 
 }
 
