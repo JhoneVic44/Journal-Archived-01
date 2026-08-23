@@ -19,6 +19,26 @@
         content="The entrance to The Unspoken Chapters, a personal diary archive."
     >
 
+    <!-- =================================================
+         IMPORTANT: PREVENT BROWSER CACHING
+    ================================================== -->
+
+    <meta
+        http-equiv="Cache-Control"
+        content="no-store, no-cache, must-revalidate, max-age=0"
+    >
+
+    <meta
+        http-equiv="Pragma"
+        content="no-cache"
+    >
+
+    <meta
+        http-equiv="Expires"
+        content="0"
+    >
+
+
     <!-- =========================
          SUPABASE
     ========================== -->
@@ -566,16 +586,10 @@
 </main>
 
 
-
-<!-- =========================
-     AUTHENTICATION
-========================== -->
-
 <script>
 
-
 /* =================================================
-   SUPABASE CONFIG
+   SUPABASE CONFIGURATION
 ================================================= */
 
 const SUPABASE_URL =
@@ -585,10 +599,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
-
-/* =================================================
-   SUPABASE CLIENT
-================================================= */
 
 const supabaseClient =
     window.supabase.createClient(
@@ -601,23 +611,12 @@ const supabaseClient =
 
                 autoRefreshToken: true,
 
-                /*
-                 * IMPORTANT
-                 *
-                 * Supabase handles the Google
-                 * callback automatically.
-                 */
-
                 detectSessionInUrl: true
 
             }
         }
     );
 
-
-/* =================================================
-   USER NAME
-================================================= */
 
 const userNameElement =
     document.getElementById(
@@ -626,16 +625,7 @@ const userNameElement =
 
 
 /* =================================================
-   AUTH STATE
-================================================= */
-
-let authenticated = false;
-
-let redirectStarted = false;
-
-
-/* =================================================
-   DISPLAY USER
+   DISPLAY USER NAME
 ================================================= */
 
 function displayUserName(user) {
@@ -654,7 +644,7 @@ function displayUserName(user) {
         user.user_metadata || {};
 
 
-    const name =
+    const fullName =
         metadata.full_name ||
         metadata.name ||
         metadata.display_name ||
@@ -662,10 +652,10 @@ function displayUserName(user) {
         "";
 
 
-    if (name) {
+    if (fullName) {
 
         userNameElement.textContent =
-            name;
+            fullName;
 
         userNameElement.classList.add(
             "visible"
@@ -677,7 +667,7 @@ function displayUserName(user) {
 
 
     /*
-     * Google identity fallback.
+     * Fallback to Google identity data.
      */
 
     const identities =
@@ -685,8 +675,14 @@ function displayUserName(user) {
 
 
     for (
-        const identity of identities
+        let i = 0;
+        i < identities.length;
+        i++
     ) {
+
+        const identity =
+            identities[i];
+
 
         const identityData =
             identity.identity_data || {};
@@ -719,10 +715,33 @@ function displayUserName(user) {
 
 
 /* =================================================
-   AUTHENTICATED
+   REDIRECT TO LOGIN
 ================================================= */
 
-function acceptSession(session) {
+function redirectToLogin() {
+
+    console.log(
+        "No authenticated session."
+    );
+
+    /*
+     * replace() prevents the protected
+     * entrance page from remaining in
+     * normal browser history.
+     */
+
+    window.location.replace(
+        "./login.html"
+    );
+
+}
+
+
+/* =================================================
+   SHOW ENTRANCE
+================================================= */
+
+function showEntrance(session) {
 
     if (
         !session ||
@@ -734,17 +753,14 @@ function acceptSession(session) {
     }
 
 
-    authenticated = true;
+    console.log(
+        "Authenticated user:",
+        session.user.id
+    );
 
 
     displayUserName(
         session.user
-    );
-
-
-    console.log(
-        "AUTHENTICATED:",
-        session.user.email
     );
 
 
@@ -754,29 +770,37 @@ function acceptSession(session) {
 
 
 /* =================================================
-   REDIRECT TO LOGIN
+   OAUTH CALLBACK DETECTION
 ================================================= */
 
-function goToLogin() {
-
-    if (redirectStarted) {
-
-        return;
-
-    }
-
-
-    redirectStarted = true;
-
-
-    console.log(
-        "No authenticated session."
+const urlParams =
+    new URLSearchParams(
+        window.location.search
     );
 
 
-    window.location.replace(
-        "./login.html"
+const hasOAuthCode =
+    urlParams.has("code");
+
+
+const hasOAuthError =
+    urlParams.has("error") ||
+    urlParams.has("error_description");
+
+
+/*
+ * If Google returned an OAuth error,
+ * do not keep the user on the protected
+ * entrance page.
+ */
+
+if (hasOAuthError) {
+
+    console.error(
+        "OAuth error detected."
     );
+
+    redirectToLogin();
 
 }
 
@@ -785,286 +809,342 @@ function goToLogin() {
    AUTH STATE LISTENER
 ================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-    function (
-        event,
-        session
-    ) {
+let authenticationFinished = false;
 
-        console.log(
-            "AUTH EVENT:",
+
+const {
+    data: {
+        subscription
+    }
+} =
+    supabaseClient.auth.onAuthStateChange(
+        function (
             event,
             session
-        );
-
-
-        /*
-         * Google login.
-         */
-
-        if (
-            event === "SIGNED_IN" &&
-            session
         ) {
 
-            acceptSession(
-                session
+            console.log(
+                "AUTH EVENT:",
+                event
             );
 
-            return;
+
+            /* -----------------------------------------
+               SUCCESSFUL GOOGLE LOGIN
+            ------------------------------------------ */
+
+            if (
+                event === "SIGNED_IN" &&
+                session &&
+                session.user
+            ) {
+
+                authenticationFinished =
+                    true;
+
+                showEntrance(
+                    session
+                );
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               SESSION RESTORED
+            ------------------------------------------ */
+
+            if (
+                event === "INITIAL_SESSION"
+            ) {
+
+                /*
+                 * If Supabase already has a session,
+                 * display the entrance.
+                 */
+
+                if (
+                    session &&
+                    session.user
+                ) {
+
+                    authenticationFinished =
+                        true;
+
+                    showEntrance(
+                        session
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * IMPORTANT:
+                 *
+                 * If there is an OAuth code,
+                 * do NOT redirect yet.
+                 *
+                 * Supabase may still be
+                 * processing the Google
+                 * callback.
+                 */
+
+                if (hasOAuthCode) {
+
+                    console.log(
+                        "OAuth callback detected. Waiting for Supabase session..."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * No OAuth callback and no
+                 * existing session.
+                 *
+                 * This means the user is
+                 * actually logged out.
+                 */
+
+                authenticationFinished =
+                    true;
+
+                redirectToLogin();
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               SIGNED OUT
+            ------------------------------------------ */
+
+            if (
+                event === "SIGNED_OUT"
+            ) {
+
+                authenticationFinished =
+                    true;
+
+                redirectToLogin();
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               TOKEN REFRESH
+            ------------------------------------------ */
+
+            if (
+                event === "TOKEN_REFRESHED" &&
+                session &&
+                session.user
+            ) {
+
+                showEntrance(
+                    session
+                );
+
+            }
 
         }
-
-
-        /*
-         * Existing session.
-         */
-
-        if (
-            event === "INITIAL_SESSION" &&
-            session
-        ) {
-
-            acceptSession(
-                session
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * Token refresh.
-         */
-
-        if (
-            event === "TOKEN_REFRESHED" &&
-            session
-        ) {
-
-            acceptSession(
-                session
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * User logged out.
-         *
-         * This is important when another
-         * browser tab logs out.
-         */
-
-        if (
-            event === "SIGNED_OUT"
-        ) {
-
-            authenticated = false;
-
-            goToLogin();
-
-        }
-
-    }
-);
+    );
 
 
 /* =================================================
    INITIAL SESSION CHECK
 ================================================= */
 
-async function checkSession() {
+async function initializeEntrance() {
 
     console.log(
         "Checking Supabase session..."
     );
 
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getSession();
+    /*
+     * Give Supabase a moment to process
+     * the OAuth callback if Google has
+     * just redirected us here.
+     */
+
+    if (hasOAuthCode) {
+
+        console.log(
+            "Google OAuth callback detected."
+        );
 
 
-    if (error) {
+        /*
+         * Explicitly allow Supabase to
+         * process the callback.
+         *
+         * detectSessionInUrl is already
+         * enabled, but we wait here for
+         * the resulting session event.
+         */
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (
+                !error &&
+                data &&
+                data.session &&
+                data.session.user
+            ) {
+
+                authenticationFinished =
+                    true;
+
+                showEntrance(
+                    data.session
+                );
+
+
+                /*
+                 * Remove OAuth parameters
+                 * from the address bar.
+                 */
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+
+
+                return;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "OAuth session check failed:",
+                error
+            );
+
+        }
+
+
+        /*
+         * Do NOT redirect immediately.
+         *
+         * The auth listener may still
+         * receive SIGNED_IN.
+         */
+
+        setTimeout(
+            function() {
+
+                if (
+                    !authenticationFinished
+                ) {
+
+                    console.log(
+                        "OAuth session was not established."
+                    );
+
+                    redirectToLogin();
+
+                }
+
+            },
+            8000
+        );
+
+
+        return;
+
+    }
+
+
+    /* =================================================
+       NORMAL PAGE LOAD
+    ================================================= */
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session check error:",
+                error
+            );
+
+            redirectToLogin();
+
+            return;
+
+        }
+
+
+        if (
+            data &&
+            data.session &&
+            data.session.user
+        ) {
+
+            authenticationFinished =
+                true;
+
+            showEntrance(
+                data.session
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * No session.
+         *
+         * This is the important part for
+         * your saved entrance.html URL.
+         *
+         * If the user has logged out and
+         * opens entrance.html directly,
+         * they are sent back to login.
+         */
+
+        authenticationFinished =
+            true;
+
+        redirectToLogin();
+
+    } catch (error) {
 
         console.error(
-            "getSession error:",
+            "Unexpected authentication error:",
             error
         );
 
-        /*
-         * Don't immediately redirect.
-         *
-         * Google may still be completing
-         * the authentication process.
-         */
-
-        return;
+        redirectToLogin();
 
     }
-
-
-    if (
-        data &&
-        data.session &&
-        data.session.user
-    ) {
-
-        console.log(
-            "Existing session found."
-        );
-
-
-        acceptSession(
-            data.session
-        );
-
-
-        return;
-
-    }
-
-
-    console.log(
-        "No session yet."
-    );
-
-}
-
-
-/* =================================================
-   WAIT FOR GOOGLE LOGIN
-================================================= */
-
-/*
- * This is deliberately longer than before.
- *
- * Google/Supabase may need a few seconds
- * to complete the OAuth callback.
- */
-
-async function waitForAuthentication() {
-
-    /*
-     * First check immediately.
-     */
-
-    await checkSession();
-
-
-    if (authenticated) {
-
-        return;
-
-    }
-
-
-    /*
-     * Then keep checking for up to
-     * 10 seconds.
-     *
-     * This prevents the login → entrance →
-     * login loop caused by checking too early.
-     */
-
-    const startTime =
-        Date.now();
-
-
-    const timeout =
-        10000;
-
-
-    const interval =
-        setInterval(
-            async function () {
-
-                /*
-                 * Authentication succeeded.
-                 */
-
-                if (authenticated) {
-
-                    clearInterval(
-                        interval
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * Ten seconds passed.
-                 */
-
-                if (
-                    Date.now() -
-                    startTime >=
-                    timeout
-                ) {
-
-                    clearInterval(
-                        interval
-                    );
-
-
-                    /*
-                     * Final check before
-                     * declaring the visitor
-                     * unauthenticated.
-                     */
-
-                    const {
-                        data,
-                        error
-                    } =
-                        await supabaseClient.auth.getSession();
-
-
-                    if (
-                        !error &&
-                        data &&
-                        data.session &&
-                        data.session.user
-                    ) {
-
-                        acceptSession(
-                            data.session
-                        );
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * Truly no session.
-                     */
-
-                    goToLogin();
-
-
-                    return;
-
-                }
-
-
-                /*
-                 * Try again.
-                 */
-
-                await checkSession();
-
-            },
-            500
-        );
 
 }
 
@@ -1073,8 +1153,7 @@ async function waitForAuthentication() {
    START AUTHENTICATION
 ================================================= */
 
-waitForAuthentication();
-
+initializeEntrance();
 
 </script>
 
