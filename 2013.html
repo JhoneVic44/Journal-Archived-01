@@ -205,6 +205,15 @@ body{
     translateY(0);
 }
 
+.logout-button:disabled{
+
+  opacity:.5;
+
+  cursor:wait;
+
+  transform:none;
+}
+
 
 /* =========================
    MAIN LAYOUT
@@ -1823,32 +1832,6 @@ h1{
 
 
 /* =================================================
-   SUPABASE CLIENT
-================================================= */
-
-const SUPABASE_URL =
-    "https://ktytetimukmaqkxmzkha.supabase.co";
-
-
-const SUPABASE_KEY =
-    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY,
-        {
-            auth: {
-                persistSession: true,
-                autoRefreshToken: true,
-                detectSessionInUrl: true
-            }
-        }
-    );
-
-
-/* =================================================
    MONTHLY INTRODUCTIONS
 ================================================= */
 
@@ -2128,7 +2111,46 @@ mobileIntroButtons.forEach(button => {
 
 
 /* =================================================
-   SUPABASE LOGOUT
+   SUPABASE AUTHENTICATION
+================================================= */
+
+
+/*
+ * These are the SAME Supabase credentials
+ * used by your login.html.
+ */
+
+const SUPABASE_URL =
+  "https://ktytetimukmaqkxmzkha.supabase.co";
+
+
+const SUPABASE_KEY =
+  "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+
+
+/*
+ * Create the Supabase client.
+ *
+ * We call it supabaseClient because that
+ * is the exact name used by login.html.
+ */
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+      }
+    }
+  );
+
+
+/* =================================================
+   LOGOUT
 ================================================= */
 
 const logoutButton =
@@ -2144,32 +2166,35 @@ if(logoutButton){
     async () => {
 
       /*
-       * The Supabase client is initialized
-       * above as `supabaseClient`.
+       * Prevent multiple clicks while
+       * Supabase is signing out.
        */
 
-      if(
-        typeof supabaseClient ===
-        "undefined"
-      ){
+      logoutButton.disabled = true;
 
-        console.error(
-          "Supabase client was not found."
-        );
+      logoutButton.textContent =
+        "Logging out...";
 
-        alert(
-          "Logout is not connected to Supabase yet."
-        );
 
-        return;
-      }
+      console.log(
+        "Starting Supabase logout..."
+      );
 
+
+      /*
+       * Sign out the current user.
+       */
 
       const {
         error
       } =
         await supabaseClient.auth.signOut();
 
+
+      /*
+       * If Supabase reports an error,
+       * keep the user on the diary page.
+       */
 
       if(error){
 
@@ -2178,21 +2203,42 @@ if(logoutButton){
           error
         );
 
+        logoutButton.disabled = false;
+
+        logoutButton.textContent =
+          "Logout";
+
         alert(
-          "Unable to log out. Please try again."
+          "Unable to log out.\n\n" +
+          error.message
         );
 
         return;
       }
 
 
+      console.log(
+        "Supabase logout successful."
+      );
+
+
       /*
-       * Successfully logged out.
-       * Return to the entrance page.
+       * IMPORTANT:
+       *
+       * Send the user to LOGIN, not
+       * entrance.html.
+       *
+       * Your project is located at:
+       *
+       * /Journal-Archived-01/
+       *
+       * Therefore the login page is:
+       *
+       * /Journal-Archived-01/login.html
        */
 
       window.location.replace(
-        "./entrance.html"
+        "/Journal-Archived-01/login.html"
       );
 
     }
