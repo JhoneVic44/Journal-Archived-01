@@ -19,6 +19,7 @@
         content="The entrance to The Unspoken Chapters, a personal diary archive."
     >
 
+
     <!-- =========================
          SUPABASE
     ========================== -->
@@ -76,6 +77,35 @@
                 "Manrope",
                 Arial,
                 sans-serif;
+        }
+
+
+        /* =================================================
+           AUTHENTICATION GATE
+        ================================================= */
+
+        /*
+         * The entrance is hidden while Supabase checks
+         * whether the visitor has an active session.
+         *
+         * This prevents the protected page from briefly
+         * appearing before the redirect to login.html.
+         */
+
+        body.auth-checking .entrance {
+
+            visibility: hidden;
+        }
+
+
+        /*
+         * Only show the entrance after authentication
+         * has been successfully confirmed.
+         */
+
+        body.authenticated .entrance {
+
+            visibility: visible;
         }
 
 
@@ -509,7 +539,16 @@
 </head>
 
 
-<body>
+<!--
+    IMPORTANT:
+
+    The page starts in "auth-checking" mode.
+
+    This keeps the protected archive hidden until
+    Supabase confirms that the user is authenticated.
+-->
+
+<body class="auth-checking">
 
 
 <main class="entrance">
@@ -596,26 +635,9 @@ const supabaseClient =
         {
             auth: {
 
-                /*
-                 * Keep the Google session
-                 * in browser storage.
-                 */
-
                 persistSession: true,
 
-                /*
-                 * Automatically refresh
-                 * expired access tokens.
-                 */
-
                 autoRefreshToken: true,
-
-                /*
-                 * IMPORTANT:
-                 *
-                 * Supabase handles the Google
-                 * OAuth callback automatically.
-                 */
 
                 detectSessionInUrl: true
 
@@ -625,13 +647,21 @@ const supabaseClient =
 
 
 /* =================================================
-   USER NAME ELEMENT
+   ELEMENTS
 ================================================= */
 
 const userNameElement =
     document.getElementById(
         "user-name"
     );
+
+
+/* =================================================
+   LOGIN PAGE
+================================================= */
+
+const LOGIN_PAGE =
+    "./login.html";
 
 
 /* =================================================
@@ -650,13 +680,19 @@ function displayUserName(user) {
     }
 
 
+    console.log(
+        "Supabase user:",
+        user
+    );
+
+
     const metadata =
         user.user_metadata || {};
 
 
     /*
-     * Google usually supplies
-     * one of these fields.
+     * Google normally provides the
+     * user's name through one of these.
      */
 
     const fullName =
@@ -672,18 +708,26 @@ function displayUserName(user) {
         userNameElement.textContent =
             fullName;
 
+
         userNameElement.classList.add(
             "visible"
         );
+
+
+        console.log(
+            "Displaying Google name:",
+            fullName
+        );
+
 
         return;
 
     }
 
 
-    /*
-     * Fallback to identity data.
-     */
+    /* =================================================
+       GOOGLE IDENTITY FALLBACK
+    ================================================= */
 
     const identities =
         user.identities || [];
@@ -710,9 +754,17 @@ function displayUserName(user) {
             userNameElement.textContent =
                 identityName;
 
+
             userNameElement.classList.add(
                 "visible"
             );
+
+
+            console.log(
+                "Displaying Google identity name:",
+                identityName
+            );
+
 
             return;
 
@@ -720,36 +772,75 @@ function displayUserName(user) {
 
     }
 
+
+    console.warn(
+        "Authenticated user found, but no Google display name was available."
+    );
+
 }
 
 
 /* =================================================
-   SHOW AUTHENTICATED USER
+   ALLOW ENTRANCE
 ================================================= */
 
-function showAuthenticatedUser(
-    session
-) {
+function allowEntrance(session) {
+
+    /*
+     * Never reveal the protected page
+     * without a valid session.
+     */
 
     if (
         !session ||
         !session.user
     ) {
 
-        return;
+        return false;
 
     }
 
 
     console.log(
-        "Authenticated user:",
+        "Authenticated session confirmed."
+    );
+
+
+    console.log(
+        "User ID:",
         session.user.id
     );
 
 
+    /*
+     * Display the Google user's name.
+     */
+
     displayUserName(
         session.user
     );
+
+
+    /*
+     * NOW reveal the protected page.
+     */
+
+    document.body.classList.remove(
+        "auth-checking"
+    );
+
+
+    document.body.classList.add(
+        "authenticated"
+    );
+
+
+    console.log(
+        "Protected entrance access granted."
+    );
+
+
+    return true;
 
 }
 
@@ -761,199 +852,46 @@ function showAuthenticatedUser(
 function redirectToLogin() {
 
     console.log(
-        "Redirecting to login..."
+        "No authenticated session. Redirecting to login."
     );
 
 
+    /*
+     * Keep the protected content hidden.
+     */
+
+    document.body.classList.remove(
+        "authenticated"
+    );
+
+
+    document.body.classList.add(
+        "auth-checking"
+    );
+
+
+    /*
+     * Replace instead of normal navigation.
+     *
+     * This prevents the current protected URL
+     * from being added as another history entry.
+     */
+
     window.location.replace(
-        "./login.html"
+        LOGIN_PAGE
     );
 
 }
 
 
 /* =================================================
-   AUTH STATE LISTENER
+   INITIAL AUTHENTICATION CHECK
 ================================================= */
 
-const {
-    data: {
-        subscription
-    }
-} =
-    supabaseClient.auth.onAuthStateChange(
-        function (
-            event,
-            session
-        ) {
-
-            console.log(
-                "Supabase auth event:",
-                event
-            );
-
-
-            /*
-             * =========================================
-             * INITIAL SESSION
-             * =========================================
-             *
-             * This fires when Supabase finishes
-             * loading the stored session.
-             *
-             * We DO NOT redirect when session
-             * is temporarily null here.
-             */
-
-            if (
-                event === "INITIAL_SESSION"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                } else {
-
-                    console.log(
-                        "No initial session. Waiting for auth..."
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /*
-             * =========================================
-             * GOOGLE LOGIN SUCCESS
-             * =========================================
-             */
-
-            if (
-                event === "SIGNED_IN"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    console.log(
-                        "Google login successful."
-                    );
-
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /*
-             * =========================================
-             * TOKEN REFRESH
-             * =========================================
-             */
-
-            if (
-                event === "TOKEN_REFRESHED"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /*
-             * =========================================
-             * USER UPDATED
-             * =========================================
-             */
-
-            if (
-                event === "USER_UPDATED"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /*
-             * =========================================
-             * ACTUAL SIGN OUT
-             * =========================================
-             *
-             * This is the ONLY auth event that
-             * redirects to login.
-             */
-
-            if (
-                event === "SIGNED_OUT"
-            ) {
-
-                console.log(
-                    "User actually signed out."
-                );
-
-
-                redirectToLogin();
-
-                return;
-
-            }
-
-        }
-    );
-
-
-/* =================================================
-   CHECK EXISTING SESSION
-================================================= */
-
-async function checkExistingSession() {
+async function checkAuthentication() {
 
     console.log(
-        "Checking existing Supabase session..."
+        "Checking Supabase authentication..."
     );
 
 
@@ -966,43 +904,19 @@ async function checkExistingSession() {
             await supabaseClient.auth.getSession();
 
 
+        /*
+         * Supabase itself returned an error.
+         */
+
         if (error) {
 
             console.error(
-                "Session check error:",
+                "Supabase session error:",
                 error
             );
 
 
-            /*
-             * IMPORTANT:
-             *
-             * Do not redirect here.
-             *
-             * The authentication listener
-             * is still responsible for deciding
-             * what happens.
-             */
-
-            return;
-
-        }
-
-
-        if (
-            data &&
-            data.session &&
-            data.session.user
-        ) {
-
-            console.log(
-                "Existing session found."
-            );
-
-
-            showAuthenticatedUser(
-                data.session
-            );
+            redirectToLogin();
 
 
             return;
@@ -1011,25 +925,67 @@ async function checkExistingSession() {
 
 
         /*
-         * IMPORTANT:
-         *
-         * Do NOT redirect here.
-         *
-         * Google may still be completing
-         * the OAuth callback.
+         * Extract the current session.
          */
 
-        console.log(
-            "No session available yet."
+        const session =
+            data
+                ? data.session
+                : null;
+
+
+        /*
+         * There is no session.
+         *
+         * This means the visitor is logged out.
+         */
+
+        if (
+            !session ||
+            !session.user
+        ) {
+
+            console.log(
+                "No active Supabase session."
+            );
+
+
+            redirectToLogin();
+
+
+            return;
+
+        }
+
+
+        /*
+         * Session exists and contains
+         * an authenticated user.
+         */
+
+        allowEntrance(
+            session
         );
 
+    }
 
-    } catch (error) {
+
+    catch (error) {
 
         console.error(
-            "Unexpected session error:",
+            "Authentication check failed:",
             error
         );
+
+
+        /*
+         * Fail closed.
+         *
+         * If authentication cannot be verified,
+         * do NOT show the private archive.
+         */
+
+        redirectToLogin();
 
     }
 
@@ -1037,10 +993,153 @@ async function checkExistingSession() {
 
 
 /* =================================================
-   START
+   AUTH STATE LISTENER
 ================================================= */
 
-checkExistingSession();
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Supabase auth event:",
+            event
+        );
+
+
+        /* =================================================
+           USER SIGNED OUT
+        ================================================= */
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            console.log(
+                "Supabase SIGNED_OUT detected."
+            );
+
+
+            /*
+             * Immediately protect the page.
+             */
+
+            document.body.classList.remove(
+                "authenticated"
+            );
+
+
+            document.body.classList.add(
+                "auth-checking"
+            );
+
+
+            redirectToLogin();
+
+
+            return;
+
+        }
+
+
+        /* =================================================
+           USER SIGNED IN
+        ================================================= */
+
+        if (
+            event === "SIGNED_IN" &&
+            session &&
+            session.user
+        ) {
+
+            console.log(
+                "SIGNED_IN detected."
+            );
+
+
+            allowEntrance(
+                session
+            );
+
+
+            return;
+
+        }
+
+
+        /* =================================================
+           EXISTING SESSION RESTORED
+        ================================================= */
+
+        if (
+            event === "INITIAL_SESSION" &&
+            session &&
+            session.user
+        ) {
+
+            console.log(
+                "INITIAL_SESSION detected."
+            );
+
+
+            allowEntrance(
+                session
+            );
+
+
+            return;
+
+        }
+
+
+        /* =================================================
+           TOKEN REFRESHED
+        ================================================= */
+
+        if (
+            event === "TOKEN_REFRESHED"
+        ) {
+
+            /*
+             * If the refresh succeeded,
+             * keep the page available.
+             */
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                allowEntrance(
+                    session
+                );
+
+            }
+
+            /*
+             * If token refresh failed and
+             * no session remains, protect
+             * the page.
+             */
+
+            else {
+
+                redirectToLogin();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   START AUTHENTICATION
+================================================= */
+
+checkAuthentication();
 
 
 </script>
