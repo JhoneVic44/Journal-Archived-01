@@ -751,6 +751,21 @@ const SUPABASE_KEY =
     "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
+/*
+ * This marker is used only to remember
+ * that the user explicitly clicked Logout.
+ *
+ * This lets us distinguish:
+ *
+ * 1. A real logout
+ * 2. A temporary session restoration
+ * 3. A fresh Google login
+ */
+
+const LOGOUT_MARKER =
+    "jhonevic_explicit_logout";
+
+
 /* =================================================
    CREATE SUPABASE CLIENT
 ================================================= */
@@ -872,7 +887,7 @@ function displayUserName(user) {
 
 
 /* =================================================
-   AUTHENTICATED PAGE
+   SHOW AUTHENTICATED PAGE
 ================================================= */
 
 function showAuthenticatedPage(
@@ -885,6 +900,29 @@ function showAuthenticatedPage(
     ) {
 
         return;
+
+    }
+
+
+    /*
+     * A valid session means the user
+     * is currently authenticated.
+     *
+     * Remove the old logout marker.
+     */
+
+    try {
+
+        localStorage.removeItem(
+            LOGOUT_MARKER
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Could not clear logout marker:",
+            error
+        );
 
     }
 
@@ -908,8 +946,25 @@ function showAuthenticatedPage(
 
 function redirectToLogin() {
 
+    /*
+     * Avoid redirecting repeatedly.
+     */
+
+    if (
+        window.location.pathname
+        .toLowerCase()
+        .endsWith(
+            "/login.html"
+        )
+    ) {
+
+        return;
+
+    }
+
+
     console.log(
-        "No authenticated session."
+        "Redirecting to login..."
     );
 
 
@@ -952,6 +1007,30 @@ if (logoutButton) {
             );
 
 
+            /*
+             * Set the marker BEFORE signing out.
+             *
+             * This is important because another
+             * tab may still have entrance.html open.
+             */
+
+            try {
+
+                localStorage.setItem(
+                    LOGOUT_MARKER,
+                    "true"
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "Could not save logout marker:",
+                    error
+                );
+
+            }
+
+
             try {
 
                 const {
@@ -966,6 +1045,26 @@ if (logoutButton) {
                         "Logout failed:",
                         error
                     );
+
+
+                    /*
+                     * Logout did not happen,
+                     * so remove the marker.
+                     */
+
+                    try {
+
+                        localStorage.removeItem(
+                            LOGOUT_MARKER
+                        );
+
+                    } catch (storageError) {
+
+                        console.warn(
+                            storageError
+                        );
+
+                    }
 
 
                     logoutButton.disabled =
@@ -993,29 +1092,15 @@ if (logoutButton) {
 
 
                 /*
-                 * Explicitly clear any local
-                 * Supabase authentication data.
+                 * Supabase normally removes
+                 * its own auth session.
+                 *
+                 * Do NOT manually remove the
+                 * Supabase token here.
+                 *
+                 * Supabase manages that itself.
                  */
 
-                try {
-
-                    localStorage.removeItem(
-                        "sb-ktytetimukmaqkxmzkha-auth-token"
-                    );
-
-                } catch (storageError) {
-
-                    console.warn(
-                        "Could not manually clear auth storage:",
-                        storageError
-                    );
-
-                }
-
-
-                /*
-                 * Go to login.
-                 */
 
                 window.location.replace(
                     "./login.html"
@@ -1027,6 +1112,21 @@ if (logoutButton) {
                     "Unexpected logout error:",
                     error
                 );
+
+
+                try {
+
+                    localStorage.removeItem(
+                        LOGOUT_MARKER
+                    );
+
+                } catch (storageError) {
+
+                    console.warn(
+                        storageError
+                    );
+
+                }
 
 
                 logoutButton.disabled =
@@ -1067,7 +1167,7 @@ supabaseClient.auth.onAuthStateChange(
 
 
         /*
-         * Valid authenticated states.
+         * These are valid authenticated states.
          */
 
         if (
@@ -1075,7 +1175,8 @@ supabaseClient.auth.onAuthStateChange(
             (
                 event === "SIGNED_IN" ||
                 event === "INITIAL_SESSION" ||
-                event === "TOKEN_REFRESHED"
+                event === "TOKEN_REFRESHED" ||
+                event === "USER_UPDATED"
             )
         ) {
 
@@ -1089,8 +1190,11 @@ supabaseClient.auth.onAuthStateChange(
 
 
         /*
-         * If the user logs out,
-         * immediately return to login.
+         * Only a DEFINITE SIGNED_OUT event
+         * should trigger an automatic redirect.
+         *
+         * We intentionally do NOT redirect
+         * when INITIAL_SESSION has no session.
          */
 
         if (
@@ -1112,9 +1216,39 @@ supabaseClient.auth.onAuthStateChange(
 async function initializeEntrance() {
 
     console.log(
-        "Checking Supabase session..."
+        "Initializing entrance page..."
     );
 
+
+    /*
+     * First check whether the user
+     * explicitly logged out previously.
+     */
+
+    let explicitLogout =
+        false;
+
+
+    try {
+
+        explicitLogout =
+            localStorage.getItem(
+                LOGOUT_MARKER
+            ) === "true";
+
+    } catch (error) {
+
+        console.warn(
+            "Could not read logout marker:",
+            error
+        );
+
+    }
+
+
+    /*
+     * Get the current Supabase session.
+     */
 
     let session = null;
 
@@ -1152,77 +1286,103 @@ async function initializeEntrance() {
     }
 
 
-    /*
-     * Session already restored.
-     */
+    /* =================================================
+       CASE 1
+       VALID SESSION EXISTS
+    ================================================= */
 
     if (session) {
+
+        console.log(
+            "Valid session found."
+        );
+
+
+        /*
+         * The user is logged in.
+         *
+         * Clear any old logout marker.
+         */
+
+        try {
+
+            localStorage.removeItem(
+                LOGOUT_MARKER
+            );
+
+        } catch (error) {
+
+            console.warn(
+                error
+            );
+
+        }
+
 
         showAuthenticatedPage(
             session
         );
+
 
         return;
 
     }
 
 
-    /*
-     * Give Supabase time to finish
-     * restoring the session.
-     */
+    /* =================================================
+       CASE 2
+       EXPLICIT LOGOUT EXISTS
+    ================================================= */
 
-    await new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                1500
-            )
-    );
+    if (explicitLogout) {
 
-
-    /*
-     * Check one more time.
-     */
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
-
-
-        if (
-            !error &&
-            data?.session
-        ) {
-
-            showAuthenticatedPage(
-                data.session
-            );
-
-            return;
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Second session check error:",
-            error
+        console.log(
+            "Explicit logout marker found."
         );
+
+
+        /*
+         * The user clicked Logout previously.
+         *
+         * Therefore opening a saved entrance.html
+         * URL must NOT allow access.
+         */
+
+        redirectToLogin();
+
+
+        return;
 
     }
 
 
+    /* =================================================
+       CASE 3
+       NO SESSION YET
+    ================================================= */
+
     /*
-     * No session after the grace period.
-     * The user is genuinely logged out.
+     * IMPORTANT:
+     *
+     * Do NOT redirect here.
+     *
+     * Google/Supabase may still be completing
+     * authentication and restoring the session.
+     *
+     * The AUTH STATE listener above will handle
+     * SIGNED_IN / INITIAL_SESSION when the session
+     * becomes available.
      */
 
-    redirectToLogin();
+
+    console.log(
+        "No session available yet."
+    );
+
+
+    console.log(
+        "Waiting for Supabase authentication state..."
+    );
 
 }
 
