@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +36,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.googleapis.com"
+        href="https://fonts.gstatic.com"
         crossorigin
     >
 
@@ -303,7 +304,7 @@
             max-width: 330px;
 
             margin:
-                0 auto 35px;
+                0 auto 30px;
 
             color: #777a7d;
 
@@ -314,36 +315,120 @@
 
 
         /* =========================
-           GOOGLE BUTTON
+           LOGIN FORM
         ========================== */
 
-        .google-button {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 12px;
+        .login-form {
 
             width: 100%;
 
             max-width: 320px;
 
             margin: 0 auto;
+        }
+
+
+        .field {
+
+            width: 100%;
+
+            margin-bottom: 14px;
+
+            text-align: left;
+        }
+
+
+        .field label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #777a7d;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.16em;
+
+            text-transform: uppercase;
+        }
+
+
+        .field input {
+
+            width: 100%;
+
+            height: 48px;
 
             padding:
-                14px 22px;
+                0 14px;
 
             border:
                 1px solid
-                rgba(255,255,255,0.20);
+                rgba(255,255,255,0.16);
+
+            border-radius: 3px;
+
+            outline: none;
 
             background:
-                rgba(255,255,255,0.03);
+                rgba(255,255,255,0.045);
 
-            color: #aaa9a3;
+            color: #eeeae1;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+
+            font-size: 12px;
+
+            transition:
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .field input::placeholder {
+
+            color: #55585b;
+        }
+
+
+        .field input:focus {
+
+            border-color:
+                rgba(255,255,255,0.38);
+
+            background:
+                rgba(255,255,255,0.07);
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================== */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 48px;
+
+            margin-top: 8px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.28);
+
+            border-radius: 3px;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            color: #eeeae1;
 
             font-family:
                 "Manrope",
@@ -352,9 +437,9 @@
 
             font-size: 10px;
 
-            font-weight: 500;
+            font-weight: 600;
 
-            letter-spacing: 0.12em;
+            letter-spacing: 0.16em;
 
             text-transform: uppercase;
 
@@ -363,41 +448,97 @@
             transition:
                 background 0.25s ease,
                 border-color 0.25s ease,
-                color 0.25s ease;
+                transform 0.2s ease;
         }
 
 
-        .google-button:hover {
+        .login-button:hover {
 
             background:
-                rgba(255,255,255,0.08);
+                rgba(255,255,255,0.17);
 
             border-color:
-                rgba(255,255,255,0.35);
+                rgba(255,255,255,0.42);
 
-            color: #eeeae1;
+            transform:
+                translateY(-1px);
         }
 
 
-        .google-button:disabled {
+        .login-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .login-button:disabled {
 
             opacity: 0.5;
 
             cursor: wait;
+
+            transform: none;
         }
 
 
-        .google-icon {
+        /* =========================
+           FORGOT PASSWORD
+        ========================== */
+
+        .forgot-password {
+
+            display: inline-block;
+
+            margin-top: 16px;
+
+            color: #777a7d;
+
+            text-decoration: none;
+
+            font-size: 9px;
+
+            letter-spacing: 0.08em;
+
+            transition:
+                color 0.25s ease;
+        }
+
+
+        .forgot-password:hover {
 
             color: #eeeae1;
+        }
 
-            font-family:
-                Arial,
-                sans-serif;
 
-            font-size: 14px;
+        /* =========================
+           MESSAGE
+        ========================== */
 
-            font-weight: 500;
+        .message {
+
+            min-height: 18px;
+
+            margin:
+                16px auto 0;
+
+            color: #999b9d;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+
+        .message.error {
+
+            color: #c5a5a5;
+        }
+
+
+        .message.success {
+
+            color: #a9bba9;
         }
 
 
@@ -407,7 +548,10 @@
 
         .notice {
 
-            margin-top: 25px;
+            max-width: 320px;
+
+            margin:
+                25px auto 0;
 
             color: #5d5f62;
 
@@ -579,14 +723,9 @@
             }
 
 
-            .google-button {
+            .login-form {
 
                 max-width: 320px;
-
-                padding:
-                    14px 20px;
-
-                font-size: 9px;
             }
 
 
@@ -682,12 +821,19 @@
             }
 
 
-            .google-button {
+            .field input {
 
-                font-size: 8px;
+                height: 46px;
 
-                padding:
-                    13px 18px;
+                font-size: 11px;
+            }
+
+
+            .login-button {
+
+                height: 46px;
+
+                font-size: 9px;
             }
 
 
@@ -779,31 +925,92 @@
 
 
         <p class="description">
-            Enter the archive with your
-            Google account.
+            Enter your family account
+            to access the private archive.
         </p>
 
 
-        <button
-            type="button"
-            class="google-button"
-            id="google-login"
+        <!-- =========================
+             EMAIL + PASSWORD FORM
+        ========================== -->
+
+        <form
+            class="login-form"
+            id="login-form"
         >
 
-            <span class="google-icon">
-                G
-            </span>
 
-            <span id="google-login-text">
-                Continue with Google
-            </span>
+            <div class="field">
 
-        </button>
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autocomplete="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="current-password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+                id="login-button"
+            >
+
+                <span id="login-button-text">
+                    Sign In
+                </span>
+
+            </button>
+
+
+            <a
+                href="#"
+                class="forgot-password"
+                id="forgot-password"
+            >
+                Forgot password?
+            </a>
+
+
+            <div
+                class="message"
+                id="login-message"
+                aria-live="polite"
+            ></div>
+
+
+        </form>
 
 
         <p class="notice">
             Access is restricted to
-            authorized readers.
+            authorized family members.
         </p>
 
     </section>
@@ -817,7 +1024,7 @@
 
 
 <!-- =========================
-     SUPABASE GOOGLE LOGIN
+     SUPABASE EMAIL LOGIN
 ========================== -->
 
 <script>
@@ -844,22 +1051,69 @@ const supabaseClient =
     );
 
 
-const googleButton =
+const loginForm =
     document.getElementById(
-        "google-login"
+        "login-form"
     );
 
 
-const googleButtonText =
+const emailInput =
     document.getElementById(
-        "google-login-text"
+        "email"
+    );
+
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+
+const loginButton =
+    document.getElementById(
+        "login-button"
+    );
+
+
+const loginButtonText =
+    document.getElementById(
+        "login-button-text"
+    );
+
+
+const loginMessage =
+    document.getElementById(
+        "login-message"
+    );
+
+
+const forgotPassword =
+    document.getElementById(
+        "forgot-password"
     );
 
 
 /*
+ * Display a message to the user.
+ */
+
+function showMessage(
+    message,
+    type = ""
+) {
+
+    loginMessage.textContent =
+        message;
+
+    loginMessage.className =
+        "message " + type;
+
+}
+
+
+/*
  * If the user is already authenticated,
- * there is no reason to show the login
- * button again.
+ * send them directly to the archive.
  */
 
 async function checkExistingSession() {
@@ -909,70 +1163,35 @@ async function checkExistingSession() {
 
 
 /*
- * Google login.
+ * Email + password login.
  */
 
-googleButton.addEventListener(
-    "click",
-    async function () {
+loginForm.addEventListener(
+    "submit",
+    async function (event) {
 
-        googleButton.disabled = true;
-
-        googleButtonText.textContent =
-            "Connecting...";
+        event.preventDefault();
 
 
-        console.log(
-            "Starting Google authentication..."
-        );
+        const email =
+            emailInput.value.trim();
 
 
-        const redirectTo =
-            window.location.origin +
-            "/Journal-Archived-01/entrance.html";
+        const password =
+            passwordInput.value;
 
 
-        console.log(
-            "OAuth redirect:",
-            redirectTo
-        );
+        showMessage("");
 
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.signInWithOAuth({
+        if (
+            !email ||
+            !password
+        ) {
 
-                provider: "google",
-
-                options: {
-
-                    redirectTo:
-                        redirectTo
-
-                }
-
-            });
-
-
-        if (error) {
-
-            console.error(
-                "Google login error:",
-                error
-            );
-
-
-            googleButton.disabled = false;
-
-            googleButtonText.textContent =
-                "Continue with Google";
-
-
-            alert(
-                "Login failed:\n\n" +
-                error.message
+            showMessage(
+                "Please enter your email and password.",
+                "error"
             );
 
             return;
@@ -980,14 +1199,93 @@ googleButton.addEventListener(
         }
 
 
-        /*
-         * Normally the browser now leaves
-         * this page and goes to Google.
-         */
+        loginButton.disabled = true;
+
+        loginButtonText.textContent =
+            "Signing In...";
+
 
         console.log(
-            "Google authentication started.",
+            "Starting email authentication..."
+        );
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email:
+                    email,
+
+                password:
+                    password
+
+            });
+
+
+        if (error) {
+
+            console.error(
+                "Email login error:",
+                error
+            );
+
+
+            loginButton.disabled = false;
+
+            loginButtonText.textContent =
+                "Sign In";
+
+
+            showMessage(
+                "Unable to sign in. Please check your email and password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Email authentication successful.",
             data
+        );
+
+
+        showMessage(
+            "Login successful. Opening the archive...",
+            "success"
+        );
+
+
+        window.location.replace(
+            "./entrance.html"
+        );
+
+    }
+);
+
+
+/*
+ * Forgot password.
+ *
+ * We are not activating password reset yet.
+ * That will be configured separately.
+ */
+
+forgotPassword.addEventListener(
+    "click",
+    function (event) {
+
+        event.preventDefault();
+
+
+        showMessage(
+            "Password recovery will be available soon.",
+            "error"
         );
 
     }
@@ -1043,3 +1341,4 @@ checkExistingSession();
 </body>
 
 </html>
+
