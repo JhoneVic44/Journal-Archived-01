@@ -19,6 +19,7 @@
         content="The entrance to The Unspoken Chapters, a personal diary archive."
     >
 
+
     <!-- =========================
          SUPABASE
     ========================== -->
@@ -37,7 +38,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.googleapis.com"
+        href="https://fonts.gstatic.com"
         crossorigin
     >
 
@@ -737,9 +738,11 @@
 
 <script>
 
-/* =================================================
-   SUPABASE CONFIGURATION
-================================================= */
+/*
+====================================================
+ SUPABASE CONFIGURATION
+====================================================
+*/
 
 const SUPABASE_URL =
     "https://ktytetimukmaqkxmzkha.supabase.co";
@@ -749,15 +752,37 @@ const SUPABASE_KEY =
     "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
-/* =================================================
-   CREATE SUPABASE CLIENT
-================================================= */
+/*
+====================================================
+ SUPABASE STORAGE KEY
+====================================================
+
+ IMPORTANT:
+
+ This is the standard storage key for this
+ Supabase project.
+
+ Keeping it explicitly identical prevents
+ different pages from accidentally using
+ different authentication storage.
+*/
+
+const SUPABASE_STORAGE_KEY =
+    "sb-ktytetimukmaqkxmzkha-auth-token";
+
+
+/*
+====================================================
+ CREATE SUPABASE CLIENT
+====================================================
+*/
 
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY,
         {
+
             auth: {
 
                 persistSession: true,
@@ -767,16 +792,22 @@ const supabaseClient =
                 detectSessionInUrl: true,
 
                 storage:
-                    window.localStorage
+                    window.localStorage,
+
+                storageKey:
+                    SUPABASE_STORAGE_KEY
 
             }
+
         }
     );
 
 
-/* =================================================
-   ELEMENTS
-================================================= */
+/*
+====================================================
+ ELEMENTS
+====================================================
+*/
 
 const userNameElement =
     document.getElementById(
@@ -790,20 +821,42 @@ const logoutButton =
     );
 
 
-/* =================================================
-   STATE
-================================================= */
+/*
+====================================================
+ STATE
+====================================================
+*/
 
-let currentSession = null;
+/*
+ * This is extremely important.
+ *
+ * We do NOT immediately redirect when Supabase
+ * reports an empty session during startup.
+ *
+ * The browser may still be restoring the session.
+ */
 
-let authInitialized = false;
+let authenticationInitialized =
+    false;
 
-let manualLogout = false;
+
+let authenticated =
+    false;
 
 
-/* =================================================
-   DISPLAY USER NAME
-================================================= */
+let loggingOut =
+    false;
+
+
+let redirecting =
+    false;
+
+
+/*
+====================================================
+ DISPLAY USER
+====================================================
+*/
 
 function displayUserName(user) {
 
@@ -830,7 +883,7 @@ function displayUserName(user) {
 
 
     /*
-     * Fallback to Google identity data.
+     * Fallback to identity information.
      */
 
     if (!fullName) {
@@ -866,6 +919,18 @@ function displayUserName(user) {
     }
 
 
+    /*
+     * Final fallback.
+     */
+
+    if (!fullName && user.email) {
+
+        fullName =
+            user.email;
+
+    }
+
+
     if (fullName) {
 
         userNameElement.textContent =
@@ -880,9 +945,11 @@ function displayUserName(user) {
 }
 
 
-/* =================================================
-   SHOW AUTHENTICATED PAGE
-================================================= */
+/*
+====================================================
+ SHOW AUTHENTICATED PAGE
+====================================================
+*/
 
 function showAuthenticatedPage(session) {
 
@@ -891,13 +958,13 @@ function showAuthenticatedPage(session) {
         !session.user
     ) {
 
-        return;
+        return false;
 
     }
 
 
-    currentSession =
-        session;
+    authenticated =
+        true;
 
 
     displayUserName(
@@ -906,49 +973,40 @@ function showAuthenticatedPage(session) {
 
 
     console.log(
-        "AUTHENTICATED USER:",
+        "ENTRANCE: authenticated",
         session.user.id
     );
+
+
+    return true;
 
 }
 
 
-/* =================================================
-   REDIRECT TO LOGIN
-================================================= */
+/*
+====================================================
+ REDIRECT TO LOGIN
+====================================================
+*/
 
 function redirectToLogin() {
 
-    /*
-     * Never redirect while Supabase
-     * is still initializing.
-     */
-
-    if (!authInitialized) {
-
-        console.log(
-            "Redirect prevented: authentication is still initializing."
-        );
+    if (
+        redirecting ||
+        loggingOut
+    ) {
 
         return;
 
     }
 
 
-    /*
-     * If logout was intentionally clicked,
-     * the logout function handles navigation.
-     */
-
-    if (manualLogout) {
-
-        return;
-
-    }
+    redirecting =
+        true;
 
 
     console.log(
-        "No authenticated session. Redirecting to login."
+        "ENTRANCE: redirecting to login"
     );
 
 
@@ -959,9 +1017,11 @@ function redirectToLogin() {
 }
 
 
-/* =================================================
-   LOGOUT
-================================================= */
+/*
+====================================================
+ LOGOUT
+====================================================
+*/
 
 if (logoutButton) {
 
@@ -970,7 +1030,8 @@ if (logoutButton) {
         async function () {
 
             if (
-                logoutButton.disabled
+                logoutButton.disabled ||
+                loggingOut
             ) {
 
                 return;
@@ -978,11 +1039,8 @@ if (logoutButton) {
             }
 
 
-            /*
-             * This SIGNED_OUT event is intentional.
-             */
-
-            manualLogout = true;
+            loggingOut =
+                true;
 
 
             logoutButton.disabled =
@@ -994,7 +1052,7 @@ if (logoutButton) {
 
 
             console.log(
-                "Starting intentional logout..."
+                "ENTRANCE: logout requested"
             );
 
 
@@ -1009,12 +1067,12 @@ if (logoutButton) {
                 if (error) {
 
                     console.error(
-                        "Logout failed:",
+                        "ENTRANCE: logout failed",
                         error
                     );
 
 
-                    manualLogout =
+                    loggingOut =
                         false;
 
 
@@ -1038,18 +1096,15 @@ if (logoutButton) {
 
 
                 console.log(
-                    "Supabase logout successful."
+                    "ENTRANCE: logout successful"
                 );
 
 
                 /*
-                 * IMPORTANT:
+                 * Do NOT manually remove the
+                 * Supabase localStorage key.
                  *
-                 * DO NOT manually delete
-                 * the Supabase localStorage key.
-                 *
-                 * Supabase handles its own
-                 * persisted session.
+                 * Supabase has already handled it.
                  */
 
 
@@ -1060,12 +1115,12 @@ if (logoutButton) {
             } catch (error) {
 
                 console.error(
-                    "Unexpected logout error:",
+                    "ENTRANCE: unexpected logout error",
                     error
                 );
 
 
-                manualLogout =
+                loggingOut =
                     false;
 
 
@@ -1090,9 +1145,20 @@ if (logoutButton) {
 }
 
 
-/* =================================================
-   AUTH STATE LISTENER
-================================================= */
+/*
+====================================================
+ AUTH STATE CHANGE LISTENER
+====================================================
+
+ IMPORTANT:
+
+ We do NOT immediately redirect on SIGNED_OUT.
+
+ During startup, Supabase can still be initializing.
+
+ We only react to SIGNED_OUT after the initial
+ authentication state has been established.
+*/
 
 supabaseClient.auth.onAuthStateChange(
     function (
@@ -1101,133 +1167,63 @@ supabaseClient.auth.onAuthStateChange(
     ) {
 
         console.log(
-            "SUPABASE AUTH EVENT:",
-            event
+            "ENTRANCE AUTH EVENT:",
+            event,
+            session ? "SESSION EXISTS" : "NO SESSION"
         );
 
 
-        console.log(
-            "SUPABASE SESSION:",
-            session
-        );
+        /*
+         * A valid session was received.
+         */
 
-
-        /* -----------------------------------------
-           INITIAL SESSION
-        ----------------------------------------- */
-
-        if (
-            event === "INITIAL_SESSION"
-        ) {
-
-            authInitialized =
-                true;
-
-
-            if (session) {
-
-                showAuthenticatedPage(
-                    session
-                );
-
-            } else {
-
-                redirectToLogin();
-
-            }
-
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------
-           SIGNED IN
-        ----------------------------------------- */
-
-        if (
-            event === "SIGNED_IN"
-        ) {
-
-            manualLogout =
-                false;
-
+        if (session && session.user) {
 
             showAuthenticatedPage(
                 session
             );
 
-
             return;
 
         }
 
 
-        /* -----------------------------------------
-           TOKEN REFRESHED
-        ----------------------------------------- */
+        /*
+         * Ignore empty-session events while
+         * Supabase is still initializing.
+         */
 
         if (
-            event === "TOKEN_REFRESHED"
+            !authenticationInitialized
         ) {
 
-            if (session) {
-
-                showAuthenticatedPage(
-                    session
-                );
-
-            }
-
+            console.log(
+                "ENTRANCE: ignoring empty session during initialization"
+            );
 
             return;
 
         }
 
 
-        /* -----------------------------------------
-           USER UPDATED
-        ----------------------------------------- */
-
-        if (
-            event === "USER_UPDATED"
-        ) {
-
-            if (session) {
-
-                showAuthenticatedPage(
-                    session
-                );
-
-            }
-
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------
-           SIGNED OUT
-        ----------------------------------------- */
+        /*
+         * Only after initialization has completed
+         * should SIGNED_OUT be treated as a real logout.
+         */
 
         if (
             event === "SIGNED_OUT"
         ) {
 
-            currentSession =
-                null;
+            authenticated =
+                false;
 
 
-            if (!manualLogout) {
+            if (!loggingOut) {
 
                 redirectToLogin();
 
             }
-
-
-            return;
 
         }
 
@@ -1235,16 +1231,13 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* =================================================
-   INITIAL SESSION VERIFICATION
-================================================= */
+/*
+====================================================
+ GET CURRENT SESSION
+====================================================
+*/
 
-async function verifyInitialSession() {
-
-    console.log(
-        "Verifying existing Supabase session..."
-    );
-
+async function getCurrentSession() {
 
     try {
 
@@ -1258,55 +1251,237 @@ async function verifyInitialSession() {
         if (error) {
 
             console.error(
-                "Session verification error:",
+                "ENTRANCE: getSession error",
                 error
             );
 
 
-            return;
+            return null;
 
         }
 
 
-        if (
+        return (
             data &&
             data.session
-        ) {
-
-            console.log(
-                "Existing session confirmed."
-            );
-
-
-            showAuthenticatedPage(
-                data.session
-            );
-
-        } else {
-
-            console.log(
-                "No existing session returned by getSession()."
-            );
-
-        }
+        )
+            ? data.session
+            : null;
 
     } catch (error) {
 
         console.error(
-            "Unexpected session verification error:",
+            "ENTRANCE: unexpected getSession error",
             error
         );
+
+
+        return null;
 
     }
 
 }
 
 
-/* =================================================
-   START
-================================================= */
+/*
+====================================================
+ INITIALIZE AUTHENTICATION
+====================================================
+*/
 
-verifyInitialSession();
+async function initializeEntrance() {
+
+    console.log(
+        "ENTRANCE: starting authentication check"
+    );
+
+
+    /*
+     * First check.
+     */
+
+    let session =
+        await getCurrentSession();
+
+
+    /*
+     * If the session is already available,
+     * stay on the page immediately.
+     */
+
+    if (session) {
+
+        showAuthenticatedPage(
+            session
+        );
+
+
+        authenticationInitialized =
+            true;
+
+
+        console.log(
+            "ENTRANCE: session restored immediately"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * Supabase may still be processing the
+     * OAuth/session restoration.
+     *
+     * Wait before deciding that the user is
+     * actually logged out.
+     */
+
+    console.log(
+        "ENTRANCE: no session yet; waiting for Supabase"
+    );
+
+
+    await new Promise(
+        resolve =>
+            setTimeout(
+                resolve,
+                2500
+            )
+    );
+
+
+    /*
+     * Second check.
+     */
+
+    session =
+        await getCurrentSession();
+
+
+    if (session) {
+
+        showAuthenticatedPage(
+            session
+        );
+
+
+        authenticationInitialized =
+            true;
+
+
+        console.log(
+            "ENTRANCE: session restored after first wait"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * Give the browser another opportunity.
+     */
+
+    await new Promise(
+        resolve =>
+            setTimeout(
+                resolve,
+                2500
+            )
+    );
+
+
+    /*
+     * Third check.
+     */
+
+    session =
+        await getCurrentSession();
+
+
+    if (session) {
+
+        showAuthenticatedPage(
+            session
+        );
+
+
+        authenticationInitialized =
+            true;
+
+
+        console.log(
+            "ENTRANCE: session restored after second wait"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * At this point initialization is complete.
+     *
+     * Only NOW do we allow a missing session
+     * to mean that the user is logged out.
+     */
+
+    authenticationInitialized =
+        true;
+
+
+    console.log(
+        "ENTRANCE: authentication initialization complete"
+    );
+
+
+    /*
+     * One final check after initialization.
+     */
+
+    session =
+        await getCurrentSession();
+
+
+    if (session) {
+
+        showAuthenticatedPage(
+            session
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * No session after all checks.
+     *
+     * The user is genuinely unauthenticated.
+     */
+
+    console.log(
+        "ENTRANCE: no authenticated session found"
+    );
+
+
+    redirectToLogin();
+
+}
+
+
+/*
+====================================================
+ START
+====================================================
+*/
+
+initializeEntrance();
 
 </script>
 
