@@ -531,29 +531,32 @@ h1{
 
 /* =================================================
    DESKTOP MONTHLY INTRODUCTION
-
-   UPDATED:
-   The previous fixed 220px height clipped
-   longer introductions such as December.
-
-   The introduction can now expand naturally.
+   FIXED: NATURAL HEIGHT
 ================================================= */
 
 .month-introduction{
 
   margin-top:
-    clamp(35px,4vh,48px);
+    clamp(27px,4vh,42px);
 
   border-top:
     1px solid
     rgba(255,255,255,.13);
 
   padding-top:
-    clamp(20px,2.5vh,28px);
+    clamp(17px,2.5vh,25px);
+
+  /*
+   * The introduction is no longer forced
+   * into a fixed-height box.
+   *
+   * This allows long introductions such
+   * as December to display completely.
+   */
+
+  min-height:220px;
 
   height:auto;
-
-  min-height:260px;
 
   max-height:none;
 
@@ -573,7 +576,7 @@ h1{
 
   color:#686a6d;
 
-  margin-bottom:11px;
+  margin-bottom:9px;
 }
 
 .month-introduction h2{
@@ -584,7 +587,7 @@ h1{
   color:#e8e4dc;
 
   margin:
-    0 0 12px;
+    0 0 10px;
 }
 
 .month-introduction p{
@@ -597,6 +600,10 @@ h1{
   margin:0;
 
   max-width:650px;
+
+  /*
+   * No max-height and no overflow clipping.
+   */
 
   max-height:none;
 
@@ -634,14 +641,14 @@ h1{
 .note{
 
   margin-top:
-    clamp(30px,4vh,45px);
+    clamp(22px,3vh,35px);
 
   border-top:
     1px solid
     rgba(255,255,255,.13);
 
   padding-top:
-    clamp(20px,2.5vh,26px);
+    clamp(17px,2.5vh,23px);
 
   max-width:680px;
 }
@@ -914,7 +921,7 @@ h1{
 
 
   /* =========================
-     MOBILE INTRODUCTION BUTTON
+     MOBILE INTRO BUTTON
   ========================= */
 
   .mobile-intro-button{
@@ -1126,6 +1133,7 @@ h1{
 
 /* =================================================
    SHORT DESKTOP SCREENS
+   FIXED: NO MORE 150PX CLIPPING
 ================================================= */
 
 @media(min-width:701px) and (max-height:800px){
@@ -1163,20 +1171,26 @@ h1{
       10px 5px;
   }
 
+
   /*
-   * UPDATED:
-   * Even on shorter desktop screens,
-   * do not clip long introductions.
+   * IMPORTANT:
+   *
+   * Previously this media query forced the
+   * monthly introduction to 150px and hid
+   * anything beyond that height.
+   *
+   * It is now allowed to grow naturally.
    */
 
   .month-introduction{
-    margin-top:26px;
 
-    padding-top:17px;
+    margin-top:22px;
+
+    padding-top:15px;
+
+    min-height:150px;
 
     height:auto;
-
-    min-height:190px;
 
     max-height:none;
 
@@ -1184,19 +1198,20 @@ h1{
   }
 
   .month-introduction p{
+
     max-height:none;
 
     overflow:visible;
   }
 
   .note{
-    margin-top:25px;
+    margin-top:18px;
 
-    padding-top:17px;
+    padding-top:15px;
   }
 
   .footer{
-    margin-top:15px;
+    margin-top:10px;
   }
 
 }
@@ -2130,6 +2145,12 @@ mobileIntroButtons.forEach(button => {
    SUPABASE AUTHENTICATION
 ================================================= */
 
+
+/*
+ * These are the SAME Supabase credentials
+ * used by your login.html.
+ */
+
 const SUPABASE_URL =
   "https://ktytetimukmaqkxmzkha.supabase.co";
 
@@ -2137,6 +2158,10 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
+
+/*
+ * Create the Supabase client.
+ */
 
 const supabaseClient =
   window.supabase.createClient(
@@ -2168,6 +2193,11 @@ if(logoutButton){
     "click",
     async () => {
 
+      /*
+       * Prevent multiple clicks while
+       * Supabase is signing out.
+       */
+
       logoutButton.disabled = true;
 
       logoutButton.textContent =
@@ -2179,11 +2209,20 @@ if(logoutButton){
       );
 
 
+      /*
+       * Sign out the current user.
+       */
+
       const {
         error
       } =
         await supabaseClient.auth.signOut();
 
+
+      /*
+       * If Supabase reports an error,
+       * keep the user on the diary page.
+       */
 
       if(error){
 
@@ -2210,6 +2249,10 @@ if(logoutButton){
         "Supabase logout successful."
       );
 
+
+      /*
+       * Send the user to LOGIN.
+       */
 
       window.location.replace(
         "/Journal-Archived-01/login.html"
