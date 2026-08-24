@@ -531,27 +531,33 @@ h1{
 
 /* =================================================
    DESKTOP MONTHLY INTRODUCTION
+
+   UPDATED:
+   The previous fixed 220px height clipped
+   longer introductions such as December.
+
+   The introduction can now expand naturally.
 ================================================= */
 
 .month-introduction{
 
   margin-top:
-    clamp(27px,4vh,42px);
+    clamp(35px,4vh,48px);
 
   border-top:
     1px solid
     rgba(255,255,255,.13);
 
   padding-top:
-    clamp(17px,2.5vh,25px);
+    clamp(20px,2.5vh,28px);
 
-  height:220px;
+  height:auto;
 
-  min-height:220px;
+  min-height:260px;
 
-  max-height:220px;
+  max-height:none;
 
-  overflow:hidden;
+  overflow:visible;
 
   animation:
     introFade .3s ease;
@@ -567,7 +573,7 @@ h1{
 
   color:#686a6d;
 
-  margin-bottom:9px;
+  margin-bottom:11px;
 }
 
 .month-introduction h2{
@@ -578,7 +584,7 @@ h1{
   color:#e8e4dc;
 
   margin:
-    0 0 10px;
+    0 0 12px;
 }
 
 .month-introduction p{
@@ -592,9 +598,9 @@ h1{
 
   max-width:650px;
 
-  max-height:145px;
+  max-height:none;
 
-  overflow:hidden;
+  overflow:visible;
 }
 
 
@@ -628,14 +634,14 @@ h1{
 .note{
 
   margin-top:
-    clamp(22px,3vh,35px);
+    clamp(30px,4vh,45px);
 
   border-top:
     1px solid
     rgba(255,255,255,.13);
 
   padding-top:
-    clamp(17px,2.5vh,23px);
+    clamp(20px,2.5vh,26px);
 
   max-width:680px;
 }
@@ -908,7 +914,7 @@ h1{
 
 
   /* =========================
-     MOBILE INTRO BUTTON
+     MOBILE INTRODUCTION BUTTON
   ========================= */
 
   .mobile-intro-button{
@@ -1157,30 +1163,40 @@ h1{
       10px 5px;
   }
 
+  /*
+   * UPDATED:
+   * Even on shorter desktop screens,
+   * do not clip long introductions.
+   */
+
   .month-introduction{
-    margin-top:22px;
+    margin-top:26px;
 
-    padding-top:15px;
+    padding-top:17px;
 
-    height:150px;
+    height:auto;
 
-    min-height:150px;
+    min-height:190px;
 
-    max-height:150px;
+    max-height:none;
+
+    overflow:visible;
   }
 
   .month-introduction p{
-    max-height:95px;
+    max-height:none;
+
+    overflow:visible;
   }
 
   .note{
-    margin-top:18px;
+    margin-top:25px;
 
-    padding-top:15px;
+    padding-top:17px;
   }
 
   .footer{
-    margin-top:10px;
+    margin-top:15px;
   }
 
 }
@@ -2114,12 +2130,6 @@ mobileIntroButtons.forEach(button => {
    SUPABASE AUTHENTICATION
 ================================================= */
 
-
-/*
- * These are the SAME Supabase credentials
- * used by your login.html.
- */
-
 const SUPABASE_URL =
   "https://ktytetimukmaqkxmzkha.supabase.co";
 
@@ -2127,13 +2137,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
-
-/*
- * Create the Supabase client.
- *
- * We call it supabaseClient because that
- * is the exact name used by login.html.
- */
 
 const supabaseClient =
   window.supabase.createClient(
@@ -2165,11 +2168,6 @@ if(logoutButton){
     "click",
     async () => {
 
-      /*
-       * Prevent multiple clicks while
-       * Supabase is signing out.
-       */
-
       logoutButton.disabled = true;
 
       logoutButton.textContent =
@@ -2181,20 +2179,11 @@ if(logoutButton){
       );
 
 
-      /*
-       * Sign out the current user.
-       */
-
       const {
         error
       } =
         await supabaseClient.auth.signOut();
 
-
-      /*
-       * If Supabase reports an error,
-       * keep the user on the diary page.
-       */
 
       if(error){
 
@@ -2221,21 +2210,6 @@ if(logoutButton){
         "Supabase logout successful."
       );
 
-
-      /*
-       * IMPORTANT:
-       *
-       * Send the user to LOGIN, not
-       * entrance.html.
-       *
-       * Your project is located at:
-       *
-       * /Journal-Archived-01/
-       *
-       * Therefore the login page is:
-       *
-       * /Journal-Archived-01/login.html
-       */
 
       window.location.replace(
         "/Journal-Archived-01/login.html"
