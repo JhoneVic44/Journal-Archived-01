@@ -19,7 +19,6 @@
         content="The entrance to The Unspoken Chapters, a personal diary archive."
     >
 
-
     <!-- =========================
          SUPABASE
     ========================== -->
@@ -150,10 +149,10 @@
 
 
         /* =========================
-           ACCOUNT AREA
+           TOP RIGHT USERNAME
         ========================== */
 
-        .account {
+        .top-actions {
 
             position: absolute;
 
@@ -162,35 +161,24 @@
             right: 8%;
 
             z-index: 10;
-        }
-
-
-        /* =========================
-           USERNAME BUTTON
-        ========================== */
-
-        .user-button {
 
             display: flex;
 
             align-items: center;
 
-            gap: 9px;
+            justify-content: flex-end;
+        }
 
-            padding: 0;
 
-            border: none;
+        /* =========================
+           USER NAME
+        ========================== */
 
-            background: transparent;
+        .user-name {
 
             color: #eeeae1;
 
-            font-family:
-                "Manrope",
-                Arial,
-                sans-serif;
-
-            font-size: 10px;
+            font-size: 9px;
 
             font-weight: 500;
 
@@ -200,208 +188,16 @@
 
             white-space: nowrap;
 
-            cursor: pointer;
-
             opacity: 0;
 
             transition:
-                opacity 0.4s ease,
-                color 0.25s ease;
+                opacity 0.4s ease;
         }
 
 
-        .user-button.visible {
+        .user-name.visible {
 
             opacity: 1;
-        }
-
-
-        .user-button:hover {
-
-            color: #ffffff;
-        }
-
-
-        /* =========================
-           DROPDOWN ARROW
-        ========================== */
-
-        .user-arrow {
-
-            display: inline-block;
-
-            width: 5px;
-
-            height: 5px;
-
-            border-right:
-                1px solid
-                currentColor;
-
-            border-bottom:
-                1px solid
-                currentColor;
-
-            transform:
-                rotate(45deg)
-                translateY(-2px);
-
-            transition:
-                transform 0.25s ease;
-        }
-
-
-        .account.open .user-arrow {
-
-            transform:
-                rotate(225deg)
-                translateY(-1px);
-        }
-
-
-        /* =========================
-           ACCOUNT MENU
-        ========================== */
-
-        .account-menu {
-
-            position: absolute;
-
-            top: 32px;
-
-            right: 0;
-
-            min-width: 145px;
-
-            padding: 7px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.14);
-
-            background:
-                rgba(17,18,19,0.96);
-
-            backdrop-filter:
-                blur(14px);
-
-            -webkit-backdrop-filter:
-                blur(14px);
-
-            box-shadow:
-                0 12px 35px
-                rgba(0,0,0,0.35);
-
-            opacity: 0;
-
-            visibility: hidden;
-
-            transform:
-                translateY(-5px);
-
-            transition:
-                opacity 0.2s ease,
-                transform 0.2s ease,
-                visibility 0.2s ease;
-        }
-
-
-        .account.open .account-menu {
-
-            opacity: 1;
-
-            visibility: visible;
-
-            transform:
-                translateY(0);
-        }
-
-
-        /* =========================
-           ACCOUNT MENU USER
-        ========================== */
-
-        .account-info {
-
-            padding:
-                9px 10px 10px;
-
-            color: #5d5f62;
-
-            font-size: 7px;
-
-            line-height: 1.5;
-
-            letter-spacing: 0.12em;
-
-            text-transform: uppercase;
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            white-space: nowrap;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-        }
-
-
-        /* =========================
-           LOGOUT
-        ========================== */
-
-        .logout-button {
-
-            width: 100%;
-
-            padding:
-                10px;
-
-            border: none;
-
-            background: transparent;
-
-            color: #aaa9a3;
-
-            font-family:
-                "Manrope",
-                Arial,
-                sans-serif;
-
-            font-size: 8px;
-
-            font-weight: 600;
-
-            letter-spacing: 0.14em;
-
-            text-align: left;
-
-            text-transform: uppercase;
-
-            cursor: pointer;
-
-            transition:
-                background 0.2s ease,
-                color 0.2s ease;
-        }
-
-
-        .logout-button:hover {
-
-            background:
-                rgba(255,255,255,0.07);
-
-            color: #eeeae1;
-        }
-
-
-        .logout-button:disabled {
-
-            opacity: 0.5;
-
-            cursor: wait;
         }
 
 
@@ -580,40 +376,27 @@
             }
 
 
-            .account {
+            .top-actions {
 
                 top: 20px;
 
                 right: 25px;
 
-                max-width:
-                    calc(100% - 50px);
+                max-width: 72%;
             }
 
 
-            .user-button {
+            .user-name {
 
-                max-width: 100%;
-
-                font-size: 8px;
-
-                letter-spacing: 0.10em;
-            }
-
-
-            .user-button span:first-child {
-
-                max-width: 180px;
+                max-width: 150px;
 
                 overflow: hidden;
 
                 text-overflow: ellipsis;
-            }
 
+                font-size: 8px;
 
-            .account-menu {
-
-                top: 30px;
+                letter-spacing: 0.10em;
             }
 
 
@@ -692,32 +475,19 @@
             }
 
 
-            .account {
+            .top-actions {
 
                 top: 17px;
 
                 right: 20px;
-
-                max-width:
-                    calc(100% - 40px);
             }
 
 
-            .user-button {
+            .user-name {
+
+                max-width: 120px;
 
                 font-size: 7px;
-            }
-
-
-            .user-button span:first-child {
-
-                max-width: 135px;
-            }
-
-
-            .account-menu {
-
-                min-width: 130px;
             }
 
 
@@ -772,59 +542,25 @@
 
 
     <!-- =========================
-         ACCOUNT
+         TOP RIGHT USERNAME
     ========================== -->
 
     <div
-        class="account"
-        id="account"
+        class="top-actions"
+        id="topActions"
     >
 
-        <button
-            type="button"
-            class="user-button"
-            id="user-button"
-            aria-label="Open account menu"
-            aria-expanded="false"
-        >
-
-            <span id="user-name">
-                Account
-            </span>
-
-            <span
-                class="user-arrow"
-                aria-hidden="true"
-            ></span>
-
-        </button>
-
-
         <div
-            class="account-menu"
-            id="account-menu"
-        >
-
-            <div
-                class="account-info"
-                id="account-info"
-            >
-                Signed in
-            </div>
-
-
-            <button
-                type="button"
-                class="logout-button"
-                id="logout-button"
-            >
-                Logout
-            </button>
-
-        </div>
+            class="user-name"
+            id="user-name"
+        ></div>
 
     </div>
 
+
+    <!-- =========================
+         CONTENT
+    ========================== -->
 
     <div class="entrance-content">
 
@@ -847,6 +583,7 @@
         <a
             class="year-button"
             href="./2013.html"
+            id="yearButton"
         >
 
             2013
@@ -867,12 +604,12 @@
 </main>
 
 
-<!-- =================================================
+
+<!-- =========================
      SUPABASE AUTHENTICATION
-================================================= -->
+========================== -->
 
 <script>
-
 
 /* =================================================
    SUPABASE CONFIGURATION
@@ -888,12 +625,6 @@ const SUPABASE_KEY =
 
 /* =================================================
    CREATE SUPABASE CLIENT
-
-   IMPORTANT:
-   OAuth callback is handled manually below.
-
-   This avoids the login page and entrance page
-   competing over the OAuth session.
 ================================================= */
 
 const supabaseClient =
@@ -907,9 +638,10 @@ const supabaseClient =
 
                 autoRefreshToken: true,
 
-                detectSessionInUrl: false,
+                detectSessionInUrl: true,
 
-                flowType: "pkce"
+                storage:
+                    window.localStorage
 
             }
         }
@@ -920,94 +652,23 @@ const supabaseClient =
    ELEMENTS
 ================================================= */
 
-const account =
-    document.getElementById(
-        "account"
-    );
-
-
-const userButton =
-    document.getElementById(
-        "user-button"
-    );
-
-
 const userNameElement =
     document.getElementById(
         "user-name"
     );
 
 
-const accountInfo =
-    document.getElementById(
-        "account-info"
-    );
-
-
-const logoutButton =
-    document.getElementById(
-        "logout-button"
-    );
-
-
 /* =================================================
-   ACCOUNT MENU
+   STATE
 ================================================= */
 
-userButton.addEventListener(
-    "click",
-    function (event) {
+let currentSession = null;
 
-        event.stopPropagation();
-
-
-        const isOpen =
-            account.classList.toggle(
-                "open"
-            );
-
-
-        userButton.setAttribute(
-            "aria-expanded",
-            isOpen
-                ? "true"
-                : "false"
-        );
-
-    }
-);
+let authInitialized = false;
 
 
 /* =================================================
-   CLOSE ACCOUNT MENU
-================================================= */
-
-document.addEventListener(
-    "click",
-    function (event) {
-
-        if (
-            !account.contains(event.target)
-        ) {
-
-            account.classList.remove(
-                "open"
-            );
-
-
-            userButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        }
-
-    }
-);
-
-
-/* =================================================
-   DISPLAY GOOGLE USER NAME
+   DISPLAY USER NAME
 ================================================= */
 
 function displayUserName(user) {
@@ -1026,83 +687,45 @@ function displayUserName(user) {
         user.user_metadata || {};
 
 
-    /*
-     * Google normally provides
-     * full_name or name.
-     */
-
-    const fullName =
+    let fullName =
         metadata.full_name ||
         metadata.name ||
-        metadata.preferred_username ||
-        metadata.user_name ||
+        metadata.display_name ||
+        metadata.displayName ||
         "";
 
 
-    if (fullName) {
-
-        userNameElement.textContent =
-            fullName;
-
-        accountInfo.textContent =
-            fullName;
-
-        userButton.classList.add(
-            "visible"
-        );
-
-        console.log(
-            "Displaying Google name:",
-            fullName
-        );
-
-        return;
-
-    }
-
-
     /*
-     * Check identity data.
+     * Fallback to identity data.
      */
 
-    const identities =
-        user.identities || [];
+    if (!fullName) {
+
+        const identities =
+            user.identities || [];
 
 
-    for (
-        const identity of identities
-    ) {
+        for (
+            const identity of identities
+        ) {
 
-        const identityData =
-            identity.identity_data || {};
-
-
-        const identityName =
-            identityData.full_name ||
-            identityData.name ||
-            identityData.preferred_username ||
-            identityData.user_name ||
-            "";
+            const identityData =
+                identity.identity_data || {};
 
 
-        if (identityName) {
+            fullName =
+                identityData.full_name ||
+                identityData.name ||
+                identityData.display_name ||
+                identityData.displayName ||
+                "";
 
-            userNameElement.textContent =
-                identityName;
 
-            accountInfo.textContent =
-                identityName;
+            if (fullName) {
 
-            userButton.classList.add(
-                "visible"
-            );
+                break;
 
-            console.log(
-                "Displaying identity name:",
-                identityName
-            );
-
-            return;
+            }
 
         }
 
@@ -1110,77 +733,49 @@ function displayUserName(user) {
 
 
     /*
-     * Final fallback:
-     * Google email address.
+     * Final fallback to email.
      */
 
-    if (user.email) {
+    if (!fullName && user.email) {
 
-        userNameElement.textContent =
+        fullName =
             user.email;
-
-        accountInfo.textContent =
-            user.email;
-
-        userButton.classList.add(
-            "visible"
-        );
-
-        console.log(
-            "Displaying email fallback:",
-            user.email
-        );
-
-        return;
 
     }
 
 
-    /*
-     * Last resort.
-     */
+    if (fullName) {
 
-    userNameElement.textContent =
-        "Account";
+        userNameElement.textContent =
+            fullName;
 
-    accountInfo.textContent =
-        "Signed in";
+        userNameElement.classList.add(
+            "visible"
+        );
 
-    userButton.classList.add(
-        "visible"
-    );
+    }
 
 }
 
 
 /* =================================================
-   SHOW AUTHENTICATED USER
+   SHOW AUTHENTICATED PAGE
 ================================================= */
 
-function showAuthenticatedUser(
-    session
-) {
+function showAuthenticatedPage(session) {
 
     if (
         !session ||
         !session.user
     ) {
 
-        return false;
+        return;
 
     }
 
 
-    console.log(
-        "Authenticated user:",
-        session.user.id
-    );
-
-
-    console.log(
-        "User metadata:",
-        session.user.user_metadata
-    );
+    currentSession =
+        session;
 
 
     displayUserName(
@@ -1188,7 +783,10 @@ function showAuthenticatedUser(
     );
 
 
-    return true;
+    console.log(
+        "AUTHENTICATED USER:",
+        session.user.id
+    );
 
 }
 
@@ -1199,8 +797,24 @@ function showAuthenticatedUser(
 
 function redirectToLogin() {
 
+    /*
+     * Never redirect while Supabase
+     * is still initializing.
+     */
+
+    if (!authInitialized) {
+
+        console.log(
+            "Redirect prevented: authentication is still initializing."
+        );
+
+        return;
+
+    }
+
+
     console.log(
-        "No authenticated session."
+        "No authenticated session. Redirecting to login."
     );
 
 
@@ -1212,127 +826,149 @@ function redirectToLogin() {
 
 
 /* =================================================
-   HANDLE OAUTH CALLBACK
+   AUTH STATE LISTENER
 ================================================= */
 
-async function handleOAuthCallback() {
-
-    const url =
-        new URL(
-            window.location.href
-        );
-
-
-    const code =
-        url.searchParams.get(
-            "code"
-        );
-
-
-    /*
-     * If Google returned an OAuth code,
-     * exchange it for a Supabase session.
-     */
-
-    if (code) {
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
 
         console.log(
-            "OAuth authorization code detected."
+            "SUPABASE AUTH EVENT:",
+            event
         );
 
 
-        try {
+        console.log(
+            "SUPABASE SESSION:",
+            session
+        );
 
-            const {
-                data,
-                error
-            } =
-                await supabaseClient.auth.exchangeCodeForSession(
-                    code
+
+        /* -----------------------------------------
+           INITIAL SESSION
+        ----------------------------------------- */
+
+        if (
+            event === "INITIAL_SESSION"
+        ) {
+
+            authInitialized =
+                true;
+
+
+            if (session) {
+
+                showAuthenticatedPage(
+                    session
                 );
 
+            } else {
 
-            if (error) {
-
-                console.error(
-                    "OAuth code exchange failed:",
-                    error
-                );
-
-
-                return false;
+                redirectToLogin();
 
             }
 
 
-            if (
-                data &&
-                data.session &&
-                data.session.user
-            ) {
+            return;
 
-                console.log(
-                    "OAuth session successfully created."
+        }
+
+
+        /* -----------------------------------------
+           SIGNED IN
+        ----------------------------------------- */
+
+        if (
+            event === "SIGNED_IN"
+        ) {
+
+            showAuthenticatedPage(
+                session
+            );
+
+
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           TOKEN REFRESHED
+        ----------------------------------------- */
+
+        if (
+            event === "TOKEN_REFRESHED"
+        ) {
+
+            if (session) {
+
+                showAuthenticatedPage(
+                    session
                 );
-
-
-                /*
-                 * Remove ?code=... from the browser
-                 * without reloading the page.
-                 */
-
-                window.history.replaceState(
-                    {},
-                    document.title,
-                    window.location.pathname
-                );
-
-
-                showAuthenticatedUser(
-                    data.session
-                );
-
-
-                return true;
 
             }
 
 
-            console.error(
-                "OAuth exchange returned no session."
-            );
+            return;
+
+        }
 
 
-            return false;
+        /* -----------------------------------------
+           USER UPDATED
+        ----------------------------------------- */
 
-        } catch (error) {
+        if (
+            event === "USER_UPDATED"
+        ) {
 
-            console.error(
-                "Unexpected OAuth callback error:",
-                error
-            );
+            if (session) {
+
+                showAuthenticatedPage(
+                    session
+                );
+
+            }
 
 
-            return false;
+            return;
+
+        }
+
+
+        /* -----------------------------------------
+           SIGNED OUT
+        ----------------------------------------- */
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            currentSession =
+                null;
+
+
+            redirectToLogin();
+
+            return;
 
         }
 
     }
-
-
-    return null;
-
-}
+);
 
 
 /* =================================================
-   GET EXISTING SESSION
+   INITIAL SESSION VERIFICATION
 ================================================= */
 
-async function getExistingSession() {
+async function verifyInitialSession() {
 
     console.log(
-        "Checking existing Supabase session..."
+        "Verifying existing Supabase session..."
     );
 
 
@@ -1348,284 +984,46 @@ async function getExistingSession() {
         if (error) {
 
             console.error(
-                "Session check error:",
+                "Session verification error:",
                 error
             );
 
 
-            return null;
+            return;
 
         }
 
 
         if (
             data &&
-            data.session &&
-            data.session.user
+            data.session
         ) {
 
             console.log(
-                "Existing session found."
+                "Existing session confirmed."
             );
 
 
-            showAuthenticatedUser(
+            showAuthenticatedPage(
                 data.session
             );
 
+        } else {
 
-            return data.session;
+            console.log(
+                "No existing session returned by getSession()."
+            );
 
         }
-
-
-        console.log(
-            "No existing session."
-        );
-
-
-        return null;
 
     } catch (error) {
 
         console.error(
-            "Unexpected session check error:",
+            "Unexpected session verification error:",
             error
         );
 
-
-        return null;
-
     }
-
-}
-
-
-/* =================================================
-   LOGOUT
-================================================= */
-
-logoutButton.addEventListener(
-    "click",
-    async function () {
-
-        console.log(
-            "Logging out..."
-        );
-
-
-        logoutButton.disabled = true;
-
-        logoutButton.textContent =
-            "Logging Out...";
-
-
-        try {
-
-            const {
-                error
-            } =
-                await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-                console.error(
-                    "Logout error:",
-                    error
-                );
-
-
-                logoutButton.disabled = false;
-
-                logoutButton.textContent =
-                    "Logout";
-
-
-                return;
-
-            }
-
-
-            console.log(
-                "Successfully logged out."
-            );
-
-
-            window.location.replace(
-                "./login.html"
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Unexpected logout error:",
-                error
-            );
-
-
-            logoutButton.disabled = false;
-
-            logoutButton.textContent =
-                "Logout";
-
-        }
-
-    }
-);
-
-
-/* =================================================
-   AUTH STATE LISTENER
-================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    function (
-        event,
-        session
-    ) {
-
-        console.log(
-            "Supabase auth event:",
-            event
-        );
-
-
-        /*
-         * We intentionally do NOT redirect
-         * to login on INITIAL_SESSION.
-         *
-         * The startup process below handles that.
-         */
-
-
-        if (
-            event === "SIGNED_IN" &&
-            session &&
-            session.user
-        ) {
-
-            console.log(
-                "SIGNED_IN received."
-            );
-
-
-            showAuthenticatedUser(
-                session
-            );
-
-        }
-
-
-        if (
-            event === "TOKEN_REFRESHED" &&
-            session &&
-            session.user
-        ) {
-
-            showAuthenticatedUser(
-                session
-            );
-
-        }
-
-
-        if (
-            event === "USER_UPDATED" &&
-            session &&
-            session.user
-        ) {
-
-            showAuthenticatedUser(
-                session
-            );
-
-        }
-
-    }
-);
-
-
-/* =================================================
-   START AUTHENTICATION
-
-   Order is VERY important:
-
-   1. Process OAuth code if present.
-   2. Otherwise check existing session.
-   3. Only then redirect to login.
-================================================= */
-
-async function startAuthentication() {
-
-    console.log(
-        "Loading authenticated user..."
-    );
-
-
-    /*
-     * FIRST:
-     * Handle Google OAuth callback.
-     */
-
-    const callbackResult =
-        await handleOAuthCallback();
-
-
-    /*
-     * If callback succeeded,
-     * authentication is finished.
-     */
-
-    if (
-        callbackResult === true
-    ) {
-
-        console.log(
-            "Authentication completed through OAuth callback."
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * If callback failed,
-     * don't immediately assume the user is
-     * logged out. Check for an existing session.
-     */
-
-    const session =
-        await getExistingSession();
-
-
-    if (
-        session &&
-        session.user
-    ) {
-
-        console.log(
-            "Authentication confirmed."
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * No callback and no session.
-     */
-
-    console.log(
-        "No authenticated session found."
-    );
-
-
-    redirectToLogin();
 
 }
 
@@ -1634,7 +1032,7 @@ async function startAuthentication() {
    START
 ================================================= */
 
-startAuthentication();
+verifyInitialSession();
 
 </script>
 
