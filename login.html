@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,7 @@
 
     <meta
         name="description"
-        content="Login to The Unspoken Chapters, a personal diary archive."
+        content="Sign in to The Unspoken Chapters."
     >
 
     <!-- =========================
@@ -36,12 +37,6 @@
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-        crossorigin
     >
 
     <link
@@ -172,19 +167,7 @@
         }
 
 
-        .links {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: flex-end;
-
-            gap: 32px;
-        }
-
-
-        .links a {
+        .home-link {
 
             color: #aaa9a3;
 
@@ -196,15 +179,12 @@
 
             text-transform: uppercase;
 
-            white-space: nowrap;
-
             transition:
                 color 0.25s ease;
         }
 
 
-        .links a:hover,
-        .links .active {
+        .home-link:hover {
 
             color: #eeeae1;
         }
@@ -224,8 +204,6 @@
 
             height: 100vh;
 
-            padding-top: 85px;
-
             display: flex;
 
             align-items: center;
@@ -238,10 +216,9 @@
 
             width: 100%;
 
-            max-width: 470px;
+            max-width: 520px;
 
-            padding:
-                40px 25px 100px;
+            padding: 40px 25px 100px;
 
             text-align: center;
         }
@@ -308,7 +285,7 @@
             max-width: 330px;
 
             margin:
-                0 auto 30px;
+                0 auto 35px;
 
             color: #777a7d;
 
@@ -319,238 +296,7 @@
 
 
         /* =========================
-           LOGIN FORM
-        ========================== */
-
-        .login-form {
-
-            width: 100%;
-
-            max-width: 320px;
-
-            margin: 0 auto;
-        }
-
-
-        .field {
-
-            width: 100%;
-
-            margin-bottom: 14px;
-
-            text-align: left;
-        }
-
-
-        .field label {
-
-            display: block;
-
-            margin-bottom: 7px;
-
-            color: #777a7d;
-
-            font-size: 9px;
-
-            font-weight: 600;
-
-            letter-spacing: 0.16em;
-
-            text-transform: uppercase;
-        }
-
-
-        .field input {
-
-            width: 100%;
-
-            height: 48px;
-
-            padding:
-                0 14px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.16);
-
-            border-radius: 3px;
-
-            outline: none;
-
-            background:
-                rgba(255,255,255,0.045);
-
-            color: #eeeae1;
-
-            font-family:
-                "Manrope",
-                Arial,
-                sans-serif;
-
-            font-size: 12px;
-
-            transition:
-                border-color 0.25s ease,
-                background 0.25s ease;
-        }
-
-
-        .field input::placeholder {
-
-            color: #55585b;
-        }
-
-
-        .field input:focus {
-
-            border-color:
-                rgba(255,255,255,0.38);
-
-            background:
-                rgba(255,255,255,0.07);
-        }
-
-
-        /* =========================
-           SIGN IN BUTTON
-        ========================== */
-
-        .login-button {
-
-            width: 100%;
-
-            height: 48px;
-
-            margin-top: 8px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.28);
-
-            border-radius: 3px;
-
-            background:
-                rgba(255,255,255,0.10);
-
-            color: #eeeae1;
-
-            font-family:
-                "Manrope",
-                Arial,
-                sans-serif;
-
-            font-size: 10px;
-
-            font-weight: 600;
-
-            letter-spacing: 0.16em;
-
-            text-transform: uppercase;
-
-            cursor: pointer;
-
-            transition:
-                background 0.25s ease,
-                border-color 0.25s ease,
-                transform 0.2s ease;
-        }
-
-
-        .login-button:hover {
-
-            background:
-                rgba(255,255,255,0.17);
-
-            border-color:
-                rgba(255,255,255,0.42);
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        .login-button:disabled {
-
-            opacity: 0.5;
-
-            cursor: wait;
-
-            transform: none;
-        }
-
-
-        /* =========================
-           FORGOT PASSWORD
-        ========================== */
-
-        .forgot-password {
-
-            display: inline-block;
-
-            margin-top: 16px;
-
-            color: #777a7d;
-
-            text-decoration: none;
-
-            font-size: 9px;
-
-            letter-spacing: 0.08em;
-
-            transition:
-                color 0.25s ease;
-        }
-
-
-        .forgot-password:hover {
-
-            color: #eeeae1;
-        }
-
-
-        /* =========================
-           DIVIDER
-        ========================== */
-
-        .divider {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
-            max-width: 320px;
-
-            margin:
-                25px auto 18px;
-
-            color: #5d5f62;
-
-            font-size: 8px;
-
-            letter-spacing: 0.18em;
-
-            text-transform: uppercase;
-        }
-
-
-        .divider::before,
-        .divider::after {
-
-            content: "";
-
-            flex: 1;
-
-            height: 1px;
-
-            background:
-                rgba(255,255,255,0.10);
-        }
-
-
-        /* =========================
-           GOOGLE BUTTON
+           GOOGLE LOGIN BUTTON
         ========================== */
 
         .google-button {
@@ -561,94 +307,103 @@
 
             justify-content: center;
 
-            gap: 12px;
+            gap: 13px;
 
             width: 100%;
 
             max-width: 320px;
 
-            height: 48px;
+            height: 52px;
 
             margin: 0 auto;
+
+            padding: 0 20px;
 
             border:
                 1px solid
                 rgba(255,255,255,0.20);
 
-            border-radius: 3px;
+            border-radius: 4px;
 
-            background:
-                rgba(255,255,255,0.03);
+            background: #ffffff;
 
-            color: #aaa9a3;
+            color: #202124;
 
             font-family:
                 "Manrope",
                 Arial,
                 sans-serif;
 
-            font-size: 9px;
+            font-size: 11px;
 
-            font-weight: 500;
+            font-weight: 600;
 
-            letter-spacing: 0.12em;
-
-            text-transform: uppercase;
+            letter-spacing: 0.02em;
 
             cursor: pointer;
 
             transition:
-                background 0.25s ease,
-                border-color 0.25s ease,
-                color 0.25s ease;
+                transform 0.2s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
         }
 
 
         .google-button:hover {
 
-            background:
-                rgba(255,255,255,0.08);
+            background: #f8f8f8;
 
-            border-color:
-                rgba(255,255,255,0.35);
+            transform:
+                translateY(-1px);
 
-            color: #eeeae1;
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.25);
+        }
+
+
+        .google-button:active {
+
+            transform:
+                translateY(0);
         }
 
 
         .google-button:disabled {
 
-            opacity: 0.5;
+            opacity: 0.6;
 
             cursor: wait;
+
+            transform: none;
+
+            box-shadow: none;
         }
 
 
+        /* =========================
+           GOOGLE ICON
+        ========================== */
+
         .google-icon {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
 
             width: 20px;
 
             height: 20px;
 
-            border-radius: 50%;
+            flex-shrink: 0;
 
-            background: #ffffff;
+            display: block;
+        }
 
-            color: #4285f4;
 
-            font-family:
-                Arial,
-                sans-serif;
+        .google-icon svg {
 
-            font-size: 13px;
+            display: block;
 
-            font-weight: 700;
+            width: 20px;
+
+            height: 20px;
         }
 
 
@@ -661,7 +416,7 @@
             min-height: 18px;
 
             margin:
-                16px auto 0;
+                18px auto 0;
 
             color: #999b9d;
 
@@ -764,64 +519,25 @@
 
                 display: flex;
 
-                flex-direction: column;
-
                 align-items: center;
 
-                justify-content: flex-start;
+                justify-content: space-between;
 
-                gap: 18px;
-
-                background:
-                    rgba(11,12,13,0.97);
-
-                backdrop-filter:
-                    blur(10px);
-
-                -webkit-backdrop-filter:
-                    blur(10px);
+                gap: 20px;
             }
 
 
             .logo {
 
-                width: 100%;
-
-                text-align: center;
-
-                font-size: 11px;
-
-                line-height: 1.4;
+                font-size: 10px;
             }
 
 
-            .links {
-
-                width: 100%;
-
-                display: flex;
-
-                flex-wrap: wrap;
-
-                align-items: center;
-
-                justify-content: center;
-
-                gap:
-                    12px 18px;
-            }
-
-
-            .links a {
-
-                display: inline-block;
-
-                padding:
-                    3px 0;
+            .home-link {
 
                 font-size: 9px;
 
-                line-height: 1.5;
+                white-space: nowrap;
             }
 
 
@@ -832,16 +548,16 @@
                 height: auto;
 
                 min-height:
-                    calc(100vh - 110px);
+                    calc(100vh - 80px);
 
-                padding-top: 0;
+                padding: 0;
             }
 
 
             .login {
 
                 padding:
-                    55px 25px 90px;
+                    45px 25px 90px;
             }
 
 
@@ -893,25 +609,16 @@
 
                 padding:
                     20px 15px 16px;
-
-                gap: 16px;
             }
 
 
             .logo {
 
-                font-size: 10px;
+                font-size: 9px;
             }
 
 
-            .links {
-
-                gap:
-                    10px 15px;
-            }
-
-
-            .links a {
+            .home-link {
 
                 font-size: 8px;
 
@@ -922,14 +629,14 @@
             main {
 
                 min-height:
-                    calc(100vh - 105px);
+                    calc(100vh - 70px);
             }
 
 
             .login {
 
                 padding:
-                    45px 20px 70px;
+                    40px 20px 70px;
             }
 
 
@@ -956,24 +663,15 @@
             }
 
 
-            .field input {
-
-                height: 46px;
-
-                font-size: 11px;
-            }
-
-
-            .login-button,
             .google-button {
 
-                height: 46px;
+                height: 48px;
 
-                font-size: 8px;
+                font-size: 10px;
             }
 
 
-            .notice {
+            footer {
 
                 font-size: 8px;
             }
@@ -998,42 +696,16 @@
 <nav>
 
     <div class="logo">
-
         JhoneVic's Diary
-
     </div>
 
 
-    <div class="links">
-
-        <a href="./index.html">
-            Home
-        </a>
-
-
-        <a href="./introduction.html">
-            Introduction
-        </a>
-
-
-        <a href="./reflections.html">
-            Reflection | Photographs
-        </a>
-
-
-        <a href="./timeline.html">
-            Timeline
-        </a>
-
-
-        <a
-            href="./login.html"
-            class="active"
-        >
-            Login
-        </a>
-
-    </div>
+    <a
+        href="./index.html"
+        class="home-link"
+    >
+        Home
+    </a>
 
 </nav>
 
@@ -1061,95 +733,14 @@
 
 
         <p class="description">
-            Enter your family account
+            Sign in with your Google account
             to access the private archive.
         </p>
 
 
         <!-- =========================
-             EMAIL + PASSWORD
+             GOOGLE LOGIN
         ========================== -->
-
-        <form
-            class="login-form"
-            id="login-form"
-        >
-
-            <div class="field">
-
-                <label for="email">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    autocomplete="email"
-                    placeholder="Enter your email"
-                    required
-                >
-
-            </div>
-
-
-            <div class="field">
-
-                <label for="password">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    autocomplete="current-password"
-                    placeholder="Enter your password"
-                    required
-                >
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="login-button"
-                id="login-button"
-            >
-
-                <span id="login-button-text">
-                    Sign In
-                </span>
-
-            </button>
-
-
-            <a
-                href="#"
-                class="forgot-password"
-                id="forgot-password"
-            >
-                Forgot password?
-            </a>
-
-
-            <div
-                class="message"
-                id="login-message"
-                aria-live="polite"
-            ></div>
-
-        </form>
-
-
-        <!-- =========================
-             GOOGLE BACKUP
-        ========================== -->
-
-        <div class="divider">
-            <span>or</span>
-        </div>
-
 
         <button
             type="button"
@@ -1157,15 +748,53 @@
             id="google-login"
         >
 
-            <span class="google-icon">
-                G
+            <span
+                class="google-icon"
+                aria-hidden="true"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+
+                    <path
+                        fill="#4285F4"
+                        d="M21.35 12.23c0-.71-.06-1.39-.18-2.05H12v3.88h5.23a4.47 4.47 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.92-4.18 2.92-7.22Z"
+                    />
+
+                    <path
+                        fill="#34A853"
+                        d="M12 21.7c2.63 0 4.84-.87 6.45-2.35l-3.14-2.45c-.87.58-1.98.93-3.31.93-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.7Z"
+                    />
+
+                    <path
+                        fill="#FBBC05"
+                        d="M6.54 13.8A5.85 5.85 0 0 1 6.23 12c0-.62.11-1.22.31-1.8V7.67H3.3A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.05 1.05 4.33l3.24-2.53Z"
+                    />
+
+                    <path
+                        fill="#EA4335"
+                        d="M12 6.17c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.27 14.63 2.3 12 2.3a9.74 9.74 0 0 0-8.7 5.37l3.24 2.53c.77-2.31 2.92-4.03 5.46-4.03Z"
+                    />
+
+                </svg>
+
             </span>
+
 
             <span id="google-login-text">
                 Continue with Google
             </span>
 
         </button>
+
+
+        <div
+            class="message"
+            id="login-message"
+            aria-live="polite"
+        ></div>
 
 
         <p class="notice">
@@ -1189,356 +818,96 @@
 
 <script>
 
-const SUPABASE_URL =
-    "https://ktytetimukmaqkxmzkha.supabase.co";
-
-
-const SUPABASE_KEY =
-    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY,
-        {
-            auth: {
-                persistSession: true,
-                autoRefreshToken: true,
-                detectSessionInUrl: true
-            }
-        }
-    );
-
-
-/* =========================
-   ELEMENTS
-========================== */
-
-const loginForm =
-    document.getElementById(
-        "login-form"
-    );
-
-
-const emailInput =
-    document.getElementById(
-        "email"
-    );
-
-
-const passwordInput =
-    document.getElementById(
-        "password"
-    );
-
-
-const loginButton =
-    document.getElementById(
-        "login-button"
-    );
-
-
-const loginButtonText =
-    document.getElementById(
-        "login-button-text"
-    );
-
-
-const googleButton =
-    document.getElementById(
-        "google-login"
-    );
-
-
-const googleButtonText =
-    document.getElementById(
-        "google-login-text"
-    );
-
-
-const loginMessage =
-    document.getElementById(
-        "login-message"
-    );
-
-
-const forgotPassword =
-    document.getElementById(
-        "forgot-password"
-    );
-
-
-/* =========================
-   MESSAGE
-========================== */
-
-function showMessage(
-    message,
-    type = ""
-) {
-
-    loginMessage.textContent =
-        message;
-
-    loginMessage.className =
-        "message " + type;
-
-}
-
-
-/* =========================
-   EXISTING SESSION
-========================== */
-
-async function checkExistingSession() {
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getSession();
-
-
-    if (error) {
-
-        console.error(
-            "Session check error:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    if (
-        data &&
-        data.session &&
-        data.session.user
-    ) {
-
-        window.location.replace(
-            "./entrance.html"
-        );
-
-    }
-
-}
-
-
-/* =========================
-   EMAIL + PASSWORD LOGIN
-========================== */
-
-loginForm.addEventListener(
-    "submit",
-    async function (event) {
-
-        event.preventDefault();
-
-
-        const email =
-            emailInput.value.trim();
-
-
-        const password =
-            passwordInput.value;
-
-
-        showMessage("");
-
-
-        if (
-            !email ||
-            !password
-        ) {
-
-            showMessage(
-                "Please enter your email and password.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        loginButton.disabled = true;
-
-        loginButtonText.textContent =
-            "Signing In...";
-
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.signInWithPassword({
-
-                email:
-                    email,
-
-                password:
-                    password
-
-            });
-
-
-        if (error) {
-
-            console.error(
-                "Email login error:",
-                error
-            );
-
-
-            loginButton.disabled = false;
-
-            loginButtonText.textContent =
-                "Sign In";
-
-
-            showMessage(
-                "Unable to sign in. Please check your email and password.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        console.log(
-            "Email login successful.",
-            data
-        );
-
-
-        window.location.replace(
-            "./entrance.html"
-        );
-
-    }
-);
-
-
-/* =========================
-   GOOGLE LOGIN
-========================== */
-
-googleButton.addEventListener(
-    "click",
-    async function () {
-
-        googleButton.disabled = true;
-
-        googleButtonText.textContent =
-            "Connecting...";
-
-
-        console.log(
-            "Starting Google authentication..."
-        );
-
-
-        const redirectTo =
-            window.location.origin +
-            "/Journal-Archived-01/entrance.html";
-
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.signInWithOAuth({
-
-                provider:
-                    "google",
-
-                options: {
-
-                    redirectTo:
-                        redirectTo
-
+    const SUPABASE_URL =
+        "https://ktytetimukmaqkxmzkha.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY,
+            {
+                auth: {
+                    persistSession: true,
+                    autoRefreshToken: true,
+                    detectSessionInUrl: true
                 }
+            }
+        );
 
-            });
+
+    /* =========================
+       ELEMENTS
+    ========================== */
+
+    const googleButton =
+        document.getElementById(
+            "google-login"
+        );
+
+
+    const googleButtonText =
+        document.getElementById(
+            "google-login-text"
+        );
+
+
+    const loginMessage =
+        document.getElementById(
+            "login-message"
+        );
+
+
+    /* =========================
+       MESSAGE
+    ========================== */
+
+    function showMessage(
+        message,
+        type = ""
+    ) {
+
+        loginMessage.textContent =
+            message;
+
+        loginMessage.className =
+            "message " + type;
+
+    }
+
+
+    /* =========================
+       EXISTING SESSION
+    ========================== */
+
+    async function checkExistingSession() {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
 
 
         if (error) {
 
             console.error(
-                "Google login error:",
+                "Session check error:",
                 error
             );
 
-
-            googleButton.disabled = false;
-
-            googleButtonText.textContent =
-                "Continue with Google";
-
-
-            showMessage(
-                "Google login failed: " +
-                error.message,
-                "error"
-            );
-
             return;
-
         }
 
 
-        console.log(
-            "Google authentication started.",
-            data
-        );
-
-    }
-);
-
-
-/* =========================
-   FORGOT PASSWORD
-========================== */
-
-forgotPassword.addEventListener(
-    "click",
-    function (event) {
-
-        event.preventDefault();
-
-
-        showMessage(
-            "Password recovery will be available soon.",
-            "error"
-        );
-
-    }
-);
-
-
-/* =========================
-   AUTH STATE
-========================== */
-
-supabaseClient.auth.onAuthStateChange(
-    function (
-        event,
-        session
-    ) {
-
-        console.log(
-            "Login page auth event:",
-            event
-        );
-
-
         if (
-            session &&
-            session.user
+            data &&
+            data.session &&
+            data.session.user
         ) {
 
             window.location.replace(
@@ -1548,14 +917,124 @@ supabaseClient.auth.onAuthStateChange(
         }
 
     }
-);
 
 
-/* =========================
-   START
-========================== */
+    /* =========================
+       GOOGLE LOGIN
+    ========================== */
 
-checkExistingSession();
+    googleButton.addEventListener(
+        "click",
+        async function () {
+
+            googleButton.disabled = true;
+
+            googleButtonText.textContent =
+                "Connecting...";
+
+
+            showMessage("");
+
+
+            console.log(
+                "Starting Google authentication..."
+            );
+
+
+            const redirectTo =
+                window.location.origin +
+                "/Journal-Archived-01/entrance.html";
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithOAuth({
+
+                    provider:
+                        "google",
+
+                    options: {
+
+                        redirectTo:
+                            redirectTo
+
+                    }
+
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Google login error:",
+                    error
+                );
+
+
+                googleButton.disabled = false;
+
+                googleButtonText.textContent =
+                    "Continue with Google";
+
+
+                showMessage(
+                    "Google login failed. Please try again.",
+                    "error"
+                );
+
+
+                return;
+
+            }
+
+
+            console.log(
+                "Google authentication started.",
+                data
+            );
+
+        }
+    );
+
+
+    /* =========================
+       AUTH STATE
+    ========================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        function (
+            event,
+            session
+        ) {
+
+            console.log(
+                "Login page auth event:",
+                event
+            );
+
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                window.location.replace(
+                    "./entrance.html"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       START
+    ========================== */
+
+    checkExistingSession();
 
 </script>
 
@@ -1563,3 +1042,4 @@ checkExistingSession();
 </body>
 
 </html>
+
