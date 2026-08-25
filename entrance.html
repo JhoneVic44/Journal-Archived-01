@@ -210,6 +210,11 @@
         }
 
 
+        /*
+         * This class is added only after
+         * Supabase confirms the logged-in user.
+         */
+
         .user-button.visible {
 
             opacity: 1;
@@ -788,6 +793,11 @@
             aria-expanded="false"
         >
 
+            <!--
+                This automatically becomes
+                the logged-in Google user's name.
+            -->
+
             <span id="user-name">
                 Account
             </span>
@@ -999,17 +1009,14 @@ document.addEventListener(
 
 
 /* =================================================
-   DISPLAY USER NAME
+   GET GOOGLE USERNAME
 ================================================= */
 
-function displayUserName(user) {
+function getUserDisplayName(user) {
 
-    if (
-        !user ||
-        !userNameElement
-    ) {
+    if (!user) {
 
-        return;
+        return "";
 
     }
 
@@ -1019,8 +1026,8 @@ function displayUserName(user) {
 
 
     /*
-     * Google usually supplies
-     * one of these fields.
+     * Google/Supabase can store the
+     * user's name under different fields.
      */
 
     const fullName =
@@ -1033,23 +1040,14 @@ function displayUserName(user) {
 
     if (fullName) {
 
-        userNameElement.textContent =
-            fullName;
-
-        accountInfo.textContent =
-            fullName;
-
-        userButton.classList.add(
-            "visible"
-        );
-
-        return;
+        return fullName;
 
     }
 
 
     /*
-     * Fallback to identity data.
+     * Check the Google identity data
+     * as an additional fallback.
      */
 
     const identities =
@@ -1074,17 +1072,7 @@ function displayUserName(user) {
 
         if (identityName) {
 
-            userNameElement.textContent =
-                identityName;
-
-            accountInfo.textContent =
-                identityName;
-
-            userButton.classList.add(
-                "visible"
-            );
-
-            return;
+            return identityName;
 
         }
 
@@ -1097,17 +1085,68 @@ function displayUserName(user) {
 
     if (user.email) {
 
-        userNameElement.textContent =
-            user.email;
-
-        accountInfo.textContent =
-            user.email;
-
-        userButton.classList.add(
-            "visible"
-        );
+        return user.email;
 
     }
+
+
+    return "Account";
+
+}
+
+
+/* =================================================
+   DISPLAY AUTHENTICATED USER
+================================================= */
+
+function displayUserName(user) {
+
+    if (
+        !user ||
+        !userNameElement
+    ) {
+
+        return;
+
+    }
+
+
+    const displayName =
+        getUserDisplayName(user);
+
+
+    /*
+     * Put the authenticated Google
+     * user's name in the top-right corner.
+     */
+
+    userNameElement.textContent =
+        displayName;
+
+
+    /*
+     * Also show the same name inside
+     * the account dropdown.
+     */
+
+    accountInfo.textContent =
+        displayName;
+
+
+    /*
+     * Reveal the username only after
+     * Supabase has confirmed the user.
+     */
+
+    userButton.classList.add(
+        "visible"
+    );
+
+
+    console.log(
+        "Displaying logged-in user:",
+        displayName
+    );
 
 }
 
@@ -1463,4 +1502,3 @@ checkExistingSession();
 </body>
 
 </html>
-
