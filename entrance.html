@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,11 +30,6 @@
     <!-- =========================
          FONTS
     ========================== -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
 
     <link
         rel="preconnect"
@@ -172,7 +166,7 @@
 
 
         /* =========================
-           USER BUTTON
+           USERNAME BUTTON
         ========================== */
 
         .user-button {
@@ -229,24 +223,6 @@
 
 
         /* =========================
-           USER NAME
-        ========================== */
-
-        #user-name {
-
-            display: inline-block;
-
-            max-width: 260px;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
-        }
-
-
-        /* =========================
            DROPDOWN ARROW
         ========================== */
 
@@ -295,7 +271,7 @@
 
             right: 0;
 
-            min-width: 145px;
+            min-width: 175px;
 
             padding: 7px;
 
@@ -350,13 +326,13 @@
             padding:
                 9px 10px 10px;
 
-            color: #5d5f62;
+            color: #777a7d;
 
             font-size: 7px;
 
             line-height: 1.5;
 
-            letter-spacing: 0.12em;
+            letter-spacing: 0.10em;
 
             text-transform: uppercase;
 
@@ -550,7 +526,7 @@
 
 
         /* =========================
-           SMALL ARCHIVE MARK
+           ARCHIVE MARK
         ========================== */
 
         .archive-mark {
@@ -625,9 +601,13 @@
             }
 
 
-            #user-name {
+            .user-button span:first-child {
 
                 max-width: 180px;
+
+                overflow: hidden;
+
+                text-overflow: ellipsis;
             }
 
 
@@ -729,7 +709,7 @@
             }
 
 
-            #user-name {
+            .user-button span:first-child {
 
                 max-width: 135px;
             }
@@ -737,7 +717,7 @@
 
             .account-menu {
 
-                min-width: 130px;
+                min-width: 150px;
             }
 
 
@@ -812,7 +792,6 @@
                 Account
             </span>
 
-
             <span
                 class="user-arrow"
                 aria-hidden="true"
@@ -848,7 +827,7 @@
 
 
     <!-- =========================
-         MAIN CONTENT
+         CONTENT
     ========================== -->
 
     <div class="entrance-content">
@@ -904,6 +883,9 @@
 
     /* =================================================
        CREATE SUPABASE CLIENT
+
+       IMPORTANT:
+       We explicitly handle the OAuth callback below.
     ================================================= */
 
     const supabaseClient =
@@ -917,7 +899,9 @@
 
                     autoRefreshToken: true,
 
-                    detectSessionInUrl: true
+                    detectSessionInUrl: false,
+
+                    flowType: "pkce"
 
                 }
             }
@@ -1015,16 +999,24 @@
 
 
     /* =================================================
-       GET USER DISPLAY NAME
+       DISPLAY GOOGLE USER NAME
     ================================================= */
 
-    function getUserDisplayName(user) {
+    function displayUserName(user) {
 
-        if (!user) {
+        if (
+            !user
+        ) {
 
-            return null;
+            return;
 
         }
+
+
+        console.log(
+            "Displaying user:",
+            user
+        );
 
 
         const metadata =
@@ -1032,51 +1024,51 @@
 
 
         /*
-         * Google normally provides the
-         * display name in one of these fields.
+         * Google normally provides:
+         *
+         * full_name
+         * name
+         *
+         * We try several possibilities so this works
+         * with different Google account metadata.
          */
 
-        const possibleNames = [
-
-            metadata.full_name,
-
-            metadata.name,
-
-            metadata.display_name,
-
-            metadata.displayName,
-
-            metadata.user_name,
-
-            metadata.username
-
-        ];
+        const fullName =
+            metadata.full_name ||
+            metadata.name ||
+            metadata.display_name ||
+            metadata.displayName ||
+            "";
 
 
-        for (
-            const possibleName of possibleNames
-        ) {
+        if (fullName) {
 
-            if (
-                typeof possibleName === "string" &&
-                possibleName.trim() !== ""
-            ) {
+            userNameElement.textContent =
+                fullName;
 
-                return possibleName.trim();
+            accountInfo.textContent =
+                fullName;
 
-            }
+            userButton.classList.add(
+                "visible"
+            );
+
+            console.log(
+                "Google name found:",
+                fullName
+            );
+
+            return;
 
         }
 
 
         /* =========================
-           GOOGLE IDENTITY
+           TRY IDENTITY DATA
         ========================== */
 
         const identities =
-            Array.isArray(user.identities)
-                ? user.identities
-                : [];
+            user.identities || [];
 
 
         for (
@@ -1084,41 +1076,35 @@
         ) {
 
             const identityData =
-                identity &&
-                identity.identity_data
-                    ? identity.identity_data
-                    : {};
+                identity.identity_data || {};
 
 
-            const identityNames = [
-
-                identityData.full_name,
-
-                identityData.name,
-
-                identityData.display_name,
-
-                identityData.displayName,
-
-                identityData.user_name,
-
-                identityData.username
-
-            ];
+            const identityName =
+                identityData.full_name ||
+                identityData.name ||
+                identityData.display_name ||
+                identityData.displayName ||
+                "";
 
 
-            for (
-                const identityName of identityNames
-            ) {
+            if (identityName) {
 
-                if (
-                    typeof identityName === "string" &&
-                    identityName.trim() !== ""
-                ) {
+                userNameElement.textContent =
+                    identityName;
 
-                    return identityName.trim();
+                accountInfo.textContent =
+                    identityName;
 
-                }
+                userButton.classList.add(
+                    "visible"
+                );
+
+                console.log(
+                    "Google identity name found:",
+                    identityName
+                );
+
+                return;
 
             }
 
@@ -1129,48 +1115,21 @@
            EMAIL FALLBACK
         ========================== */
 
-        if (
-            user.email &&
-            typeof user.email === "string"
-        ) {
+        if (user.email) {
 
-            return user.email.trim();
+            userNameElement.textContent =
+                user.email;
 
-        }
+            accountInfo.textContent =
+                user.email;
 
+            userButton.classList.add(
+                "visible"
+            );
 
-        return null;
-
-    }
-
-
-    /* =================================================
-       DISPLAY USER
-    ================================================= */
-
-    function displayUser(user) {
-
-        if (!user) {
-
-            return;
-
-        }
-
-
-        console.log(
-            "Authenticated user:",
-            user
-        );
-
-
-        const displayName =
-            getUserDisplayName(user);
-
-
-        if (!displayName) {
-
-            console.warn(
-                "Authenticated user has no display name."
+            console.log(
+                "Using email fallback:",
+                user.email
             );
 
             return;
@@ -1178,29 +1137,113 @@
         }
 
 
-        userNameElement.textContent =
-            displayName;
+        /* =========================
+           FINAL FALLBACK
+        ========================== */
 
+        userNameElement.textContent =
+            "Account";
 
         accountInfo.textContent =
-            displayName;
-
+            "Signed in";
 
         userButton.classList.add(
             "visible"
-        );
-
-
-        console.log(
-            "Displaying user:",
-            displayName
         );
 
     }
 
 
     /* =================================================
-       EXCHANGE OAUTH CODE
+       SHOW AUTHENTICATED USER
+    ================================================= */
+
+    function showAuthenticatedUser(
+        session
+    ) {
+
+        if (
+            !session ||
+            !session.user
+        ) {
+
+            return false;
+
+        }
+
+
+        console.log(
+            "Authenticated user:",
+            session.user.id
+        );
+
+
+        displayUserName(
+            session.user
+        );
+
+
+        return true;
+
+    }
+
+
+    /* =================================================
+       REDIRECT TO LOGIN
+    ================================================= */
+
+    function redirectToLogin() {
+
+        console.log(
+            "Redirecting to login..."
+        );
+
+
+        window.location.replace(
+            "./login.html"
+        );
+
+    }
+
+
+    /* =================================================
+       CLEAN OAUTH URL
+    ================================================= */
+
+    function cleanOAuthUrl() {
+
+        try {
+
+            const cleanUrl =
+                window.location.origin +
+                window.location.pathname;
+
+
+            window.history.replaceState(
+                {},
+                document.title,
+                cleanUrl
+            );
+
+
+            console.log(
+                "OAuth URL cleaned."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Could not clean OAuth URL:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =================================================
+       HANDLE OAUTH CALLBACK
     ================================================= */
 
     async function handleOAuthCallback() {
@@ -1217,9 +1260,42 @@
             );
 
 
-        if (!code) {
+        const errorDescription =
+            url.searchParams.get(
+                "error_description"
+            );
+
+
+        /* =========================
+           OAUTH ERROR
+        ========================== */
+
+        if (
+            errorDescription
+        ) {
+
+            console.error(
+                "OAuth error:",
+                errorDescription
+            );
+
+
+            redirectToLogin();
 
             return false;
+
+        }
+
+
+        /* =========================
+           NO CODE
+        ========================== */
+
+        if (
+            !code
+        ) {
+
+            return null;
 
         }
 
@@ -1229,24 +1305,108 @@
         );
 
 
+        /*
+         * Exchange Google's callback code
+         * for the Supabase session.
+         */
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.exchangeCodeForSession(
+                code
+            );
+
+
+        if (error) {
+
+            console.error(
+                "OAuth code exchange failed:",
+                error
+            );
+
+
+            /*
+             * Remove the bad callback code before
+             * sending the user back to login.
+             */
+
+            cleanOAuthUrl();
+
+
+            redirectToLogin();
+
+            return false;
+
+        }
+
+
+        console.log(
+            "OAuth code successfully exchanged."
+        );
+
+
+        cleanOAuthUrl();
+
+
+        if (
+            data &&
+            data.session &&
+            data.session.user
+        ) {
+
+            showAuthenticatedUser(
+                data.session
+            );
+
+
+            return true;
+
+        }
+
+
+        console.error(
+            "OAuth exchange completed but no session was returned."
+        );
+
+
+        redirectToLogin();
+
+        return false;
+
+    }
+
+
+    /* =================================================
+       LOAD EXISTING SESSION
+    ================================================= */
+
+    async function loadExistingSession() {
+
+        console.log(
+            "Checking existing Supabase session..."
+        );
+
+
         try {
 
             const {
                 data,
                 error
             } =
-                await supabaseClient.auth.exchangeCodeForSession(
-                    code
-                );
+                await supabaseClient.auth.getSession();
 
 
             if (error) {
 
                 console.error(
-                    "OAuth code exchange failed:",
+                    "Session check error:",
                     error
                 );
 
+
+                redirectToLogin();
 
                 return false;
 
@@ -1260,24 +1420,12 @@
             ) {
 
                 console.log(
-                    "OAuth session successfully created."
+                    "Existing authenticated session found."
                 );
 
 
-                displayUser(
-                    data.session.user
-                );
-
-
-                /*
-                 * Remove the OAuth code from
-                 * the visible URL.
-                 */
-
-                window.history.replaceState(
-                    {},
-                    document.title,
-                    url.pathname
+                showAuthenticatedUser(
+                    data.session
                 );
 
 
@@ -1286,157 +1434,26 @@
             }
 
 
-            console.warn(
-                "OAuth exchange completed but no session was returned."
+            console.log(
+                "No authenticated session found."
             );
 
+
+            redirectToLogin();
 
             return false;
 
         } catch (error) {
 
             console.error(
-                "Unexpected OAuth callback error:",
+                "Unexpected session error:",
                 error
             );
 
+
+            redirectToLogin();
 
             return false;
-
-        }
-
-    }
-
-
-    /* =================================================
-       LOAD USER
-    ================================================= */
-
-    async function loadUser() {
-
-        console.log(
-            "Loading authenticated user..."
-        );
-
-
-        try {
-
-            /*
-             * First check whether this page is
-             * returning from Google OAuth.
-             */
-
-            const callbackHandled =
-                await handleOAuthCallback();
-
-
-            if (callbackHandled) {
-
-                return;
-
-            }
-
-
-            /*
-             * No OAuth code.
-             *
-             * Check the stored session.
-             */
-
-            const {
-                data: sessionData,
-                error: sessionError
-            } =
-                await supabaseClient.auth.getSession();
-
-
-            if (sessionError) {
-
-                console.error(
-                    "Session error:",
-                    sessionError
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                sessionData &&
-                sessionData.session &&
-                sessionData.session.user
-            ) {
-
-                console.log(
-                    "Existing session found."
-                );
-
-
-                /*
-                 * Get the authoritative user
-                 * information from Supabase.
-                 */
-
-                const {
-                    data: userData,
-                    error: userError
-                } =
-                    await supabaseClient.auth.getUser();
-
-
-                if (
-                    !userError &&
-                    userData &&
-                    userData.user
-                ) {
-
-                    displayUser(
-                        userData.user
-                    );
-
-                } else {
-
-                    /*
-                     * Session user fallback.
-                     */
-
-                    displayUser(
-                        sessionData.session.user
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            console.warn(
-                "No active Supabase session."
-            );
-
-
-            /*
-             * There is no authenticated user.
-             * Send them back to login.
-             */
-
-            window.location.replace(
-                new URL(
-                    "./login.html",
-                    window.location.href
-                ).href
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Unexpected authentication error:",
-                error
-            );
 
         }
 
@@ -1451,60 +1468,27 @@
         "click",
         async function () {
 
+            console.log(
+                "Logging out..."
+            );
+
+
             logoutButton.disabled = true;
 
             logoutButton.textContent =
                 "Logging Out...";
 
 
-            console.log(
-                "Logging out..."
-            );
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
 
 
-            try {
-
-                const {
-                    error
-                } =
-                    await supabaseClient.auth.signOut();
-
-
-                if (error) {
-
-                    console.error(
-                        "Logout error:",
-                        error
-                    );
-
-
-                    logoutButton.disabled = false;
-
-                    logoutButton.textContent =
-                        "Logout";
-
-
-                    return;
-
-                }
-
-
-                /*
-                 * Redirect ourselves after
-                 * successful sign-out.
-                 */
-
-                window.location.replace(
-                    new URL(
-                        "./login.html",
-                        window.location.href
-                    ).href
-                );
-
-            } catch (error) {
+            if (error) {
 
                 console.error(
-                    "Unexpected logout error:",
+                    "Logout error:",
                     error
                 );
 
@@ -1514,7 +1498,18 @@
                 logoutButton.textContent =
                     "Logout";
 
+
+                return;
+
             }
+
+
+            console.log(
+                "Logout successful."
+            );
+
+
+            redirectToLogin();
 
         }
     );
@@ -1537,90 +1532,21 @@
 
 
             if (
-                event === "SIGNED_IN" &&
-                session &&
-                session.user
+                event === "SIGNED_IN" ||
+                event === "TOKEN_REFRESHED" ||
+                event === "USER_UPDATED"
             ) {
 
-                displayUser(
+                if (
+                    session &&
                     session.user
-                );
+                ) {
 
+                    showAuthenticatedUser(
+                        session
+                    );
 
-                /*
-                 * Fetch the current user after
-                 * the session has been established.
-                 */
-
-                setTimeout(
-                    async function () {
-
-                        try {
-
-                            const {
-                                data,
-                                error
-                            } =
-                                await supabaseClient.auth.getUser();
-
-
-                            if (
-                                !error &&
-                                data &&
-                                data.user
-                            ) {
-
-                                displayUser(
-                                    data.user
-                                );
-
-                            }
-
-                        } catch (error) {
-
-                            console.error(
-                                "Unable to refresh user information:",
-                                error
-                            );
-
-                        }
-
-                    },
-                    100
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                event === "TOKEN_REFRESHED" &&
-                session &&
-                session.user
-            ) {
-
-                displayUser(
-                    session.user
-                );
-
-
-                return;
-
-            }
-
-
-            if (
-                event === "USER_UPDATED" &&
-                session &&
-                session.user
-            ) {
-
-                displayUser(
-                    session.user
-                );
-
+                }
 
                 return;
 
@@ -1631,12 +1557,7 @@
                 event === "SIGNED_OUT"
             ) {
 
-                window.location.replace(
-                    new URL(
-                        "./login.html",
-                        window.location.href
-                    ).href
-                );
+                redirectToLogin();
 
             }
 
@@ -1648,7 +1569,72 @@
        START AUTHENTICATION
     ================================================= */
 
-    loadUser();
+    async function startAuthentication() {
+
+        console.log(
+            "Loading authenticated user..."
+        );
+
+
+        /*
+         * FIRST:
+         * Check whether Google has just redirected
+         * us back with an OAuth authorization code.
+         */
+
+        const callbackResult =
+            await handleOAuthCallback();
+
+
+        /*
+         * If callbackResult is true,
+         * authentication succeeded.
+         */
+
+        if (
+            callbackResult === true
+        ) {
+
+            console.log(
+                "Authentication completed through OAuth callback."
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * If callbackResult is false,
+         * authentication failed and the user has
+         * already been redirected to login.
+         */
+
+        if (
+            callbackResult === false
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+         * Otherwise there was no OAuth code.
+         * Check for an already existing session.
+         */
+
+        await loadExistingSession();
+
+    }
+
+
+    /* =================================================
+       START
+    ================================================= */
+
+    startAuthentication();
 
 </script>
 
@@ -1656,4 +1642,3 @@
 </body>
 
 </html>
-```
