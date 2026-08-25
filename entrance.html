@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +38,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.googleapis.com"
+        href="https://fonts.gstatic.com"
         crossorigin
     >
 
@@ -149,20 +150,45 @@
 
 
         /* =========================
-           GOOGLE USER NAME
+           ACCOUNT AREA
         ========================== */
 
-        .user-name {
+        .account {
 
             position: absolute;
 
-            top: 32px;
+            top: 28px;
 
             right: 8%;
 
-            z-index: 5;
+            z-index: 10;
+        }
+
+
+        /* =========================
+           USERNAME BUTTON
+        ========================== */
+
+        .user-button {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 0;
+
+            border: none;
+
+            background: transparent;
 
             color: #eeeae1;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
 
             font-size: 10px;
 
@@ -174,16 +200,208 @@
 
             white-space: nowrap;
 
+            cursor: pointer;
+
             opacity: 0;
 
             transition:
-                opacity 0.4s ease;
+                opacity 0.4s ease,
+                color 0.25s ease;
         }
 
 
-        .user-name.visible {
+        .user-button.visible {
 
             opacity: 1;
+        }
+
+
+        .user-button:hover {
+
+            color: #ffffff;
+        }
+
+
+        /* =========================
+           DROPDOWN ARROW
+        ========================== */
+
+        .user-arrow {
+
+            display: inline-block;
+
+            width: 5px;
+
+            height: 5px;
+
+            border-right:
+                1px solid
+                currentColor;
+
+            border-bottom:
+                1px solid
+                currentColor;
+
+            transform:
+                rotate(45deg)
+                translateY(-2px);
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .account.open .user-arrow {
+
+            transform:
+                rotate(225deg)
+                translateY(-1px);
+        }
+
+
+        /* =========================
+           ACCOUNT MENU
+        ========================== */
+
+        .account-menu {
+
+            position: absolute;
+
+            top: 32px;
+
+            right: 0;
+
+            min-width: 145px;
+
+            padding: 7px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.14);
+
+            background:
+                rgba(17,18,19,0.96);
+
+            backdrop-filter:
+                blur(14px);
+
+            -webkit-backdrop-filter:
+                blur(14px);
+
+            box-shadow:
+                0 12px 35px
+                rgba(0,0,0,0.35);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform:
+                translateY(-5px);
+
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease,
+                visibility 0.2s ease;
+        }
+
+
+        .account.open .account-menu {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================
+           ACCOUNT MENU USER
+        ========================== */
+
+        .account-info {
+
+            padding:
+                9px 10px 10px;
+
+            color: #5d5f62;
+
+            font-size: 7px;
+
+            line-height: 1.5;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================
+           LOGOUT
+        ========================== */
+
+        .logout-button {
+
+            width: 100%;
+
+            padding:
+                10px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #aaa9a3;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.14em;
+
+            text-align: left;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+
+        .logout-button:hover {
+
+            background:
+                rgba(255,255,255,0.07);
+
+            color: #eeeae1;
+        }
+
+
+        .logout-button:disabled {
+
+            opacity: 0.5;
+
+            cursor: wait;
         }
 
 
@@ -362,21 +580,40 @@
             }
 
 
-            .user-name {
+            .account {
 
-                top: 22px;
+                top: 20px;
 
                 right: 25px;
 
-                max-width: 65%;
+                max-width:
+                    calc(100% - 50px);
+            }
 
-                overflow: hidden;
 
-                text-overflow: ellipsis;
+            .user-button {
+
+                max-width: 100%;
 
                 font-size: 8px;
 
                 letter-spacing: 0.10em;
+            }
+
+
+            .user-button span:first-child {
+
+                max-width: 180px;
+
+                overflow: hidden;
+
+                text-overflow: ellipsis;
+            }
+
+
+            .account-menu {
+
+                top: 30px;
             }
 
 
@@ -455,13 +692,32 @@
             }
 
 
-            .user-name {
+            .account {
 
-                top: 19px;
+                top: 17px;
 
                 right: 20px;
 
+                max-width:
+                    calc(100% - 40px);
+            }
+
+
+            .user-button {
+
                 font-size: 7px;
+            }
+
+
+            .user-button span:first-child {
+
+                max-width: 135px;
+            }
+
+
+            .account-menu {
+
+                min-width: 130px;
             }
 
 
@@ -516,13 +772,58 @@
 
 
     <!-- =========================
-         GOOGLE USER NAME
+         ACCOUNT
     ========================== -->
 
     <div
-        class="user-name"
-        id="user-name"
-    ></div>
+        class="account"
+        id="account"
+    >
+
+        <button
+            type="button"
+            class="user-button"
+            id="user-button"
+            aria-label="Open account menu"
+            aria-expanded="false"
+        >
+
+            <span id="user-name">
+                Account
+            </span>
+
+            <span
+                class="user-arrow"
+                aria-hidden="true"
+            ></span>
+
+        </button>
+
+
+        <div
+            class="account-menu"
+            id="account-menu"
+        >
+
+            <div
+                class="account-info"
+                id="account-info"
+            >
+                Signed in
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
 
 
     <div class="entrance-content">
@@ -596,26 +897,9 @@ const supabaseClient =
         {
             auth: {
 
-                /*
-                 * Keep the Google session
-                 * in browser storage.
-                 */
-
                 persistSession: true,
 
-                /*
-                 * Automatically refresh
-                 * expired access tokens.
-                 */
-
                 autoRefreshToken: true,
-
-                /*
-                 * IMPORTANT:
-                 *
-                 * Supabase handles the Google
-                 * OAuth callback automatically.
-                 */
 
                 detectSessionInUrl: true
 
@@ -625,13 +909,93 @@ const supabaseClient =
 
 
 /* =================================================
-   USER NAME ELEMENT
+   ELEMENTS
 ================================================= */
+
+const account =
+    document.getElementById(
+        "account"
+    );
+
+
+const userButton =
+    document.getElementById(
+        "user-button"
+    );
+
 
 const userNameElement =
     document.getElementById(
         "user-name"
     );
+
+
+const accountInfo =
+    document.getElementById(
+        "account-info"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logout-button"
+    );
+
+
+/* =================================================
+   ACCOUNT MENU
+================================================= */
+
+userButton.addEventListener(
+    "click",
+    function (event) {
+
+        event.stopPropagation();
+
+
+        const isOpen =
+            account.classList.toggle(
+                "open"
+            );
+
+
+        userButton.setAttribute(
+            "aria-expanded",
+            isOpen
+                ? "true"
+                : "false"
+        );
+
+    }
+);
+
+
+/* =================================================
+   CLOSE ACCOUNT MENU
+================================================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            !account.contains(event.target)
+        ) {
+
+            account.classList.remove(
+                "open"
+            );
+
+
+            userButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    }
+);
 
 
 /* =================================================
@@ -672,7 +1036,10 @@ function displayUserName(user) {
         userNameElement.textContent =
             fullName;
 
-        userNameElement.classList.add(
+        accountInfo.textContent =
+            fullName;
+
+        userButton.classList.add(
             "visible"
         );
 
@@ -710,13 +1077,35 @@ function displayUserName(user) {
             userNameElement.textContent =
                 identityName;
 
-            userNameElement.classList.add(
+            accountInfo.textContent =
+                identityName;
+
+            userButton.classList.add(
                 "visible"
             );
 
             return;
 
         }
+
+    }
+
+
+    /*
+     * Final fallback.
+     */
+
+    if (user.email) {
+
+        userNameElement.textContent =
+            user.email;
+
+        accountInfo.textContent =
+            user.email;
+
+        userButton.classList.add(
+            "visible"
+        );
 
     }
 
@@ -773,6 +1162,62 @@ function redirectToLogin() {
 
 
 /* =================================================
+   LOGOUT
+================================================= */
+
+logoutButton.addEventListener(
+    "click",
+    async function () {
+
+        console.log(
+            "Logging out..."
+        );
+
+
+        logoutButton.disabled = true;
+
+        logoutButton.textContent =
+            "Logging Out...";
+
+
+        const {
+            error
+        } =
+            await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            logoutButton.disabled = false;
+
+            logoutButton.textContent =
+                "Logout";
+
+
+            return;
+
+        }
+
+
+        /*
+         * Supabase will fire
+         * the SIGNED_OUT event.
+         *
+         * That event handles
+         * the redirect.
+         */
+
+    }
+);
+
+
+/* =================================================
    AUTH STATE LISTENER
 ================================================= */
 
@@ -793,17 +1238,9 @@ const {
             );
 
 
-            /*
-             * =========================================
-             * INITIAL SESSION
-             * =========================================
-             *
-             * This fires when Supabase finishes
-             * loading the stored session.
-             *
-             * We DO NOT redirect when session
-             * is temporarily null here.
-             */
+            /* =========================
+               INITIAL SESSION
+            ========================== */
 
             if (
                 event === "INITIAL_SESSION"
@@ -821,7 +1258,7 @@ const {
                 } else {
 
                     console.log(
-                        "No initial session. Waiting for auth..."
+                        "No initial session."
                     );
 
                 }
@@ -832,11 +1269,9 @@ const {
             }
 
 
-            /*
-             * =========================================
-             * GOOGLE LOGIN SUCCESS
-             * =========================================
-             */
+            /* =========================
+               SIGNED IN
+            ========================== */
 
             if (
                 event === "SIGNED_IN"
@@ -864,11 +1299,9 @@ const {
             }
 
 
-            /*
-             * =========================================
-             * TOKEN REFRESH
-             * =========================================
-             */
+            /* =========================
+               TOKEN REFRESHED
+            ========================== */
 
             if (
                 event === "TOKEN_REFRESHED"
@@ -891,11 +1324,9 @@ const {
             }
 
 
-            /*
-             * =========================================
-             * USER UPDATED
-             * =========================================
-             */
+            /* =========================
+               USER UPDATED
+            ========================== */
 
             if (
                 event === "USER_UPDATED"
@@ -918,14 +1349,9 @@ const {
             }
 
 
-            /*
-             * =========================================
-             * ACTUAL SIGN OUT
-             * =========================================
-             *
-             * This is the ONLY auth event that
-             * redirects to login.
-             */
+            /* =========================
+               SIGNED OUT
+            ========================== */
 
             if (
                 event === "SIGNED_OUT"
@@ -974,16 +1400,6 @@ async function checkExistingSession() {
             );
 
 
-            /*
-             * IMPORTANT:
-             *
-             * Do not redirect here.
-             *
-             * The authentication listener
-             * is still responsible for deciding
-             * what happens.
-             */
-
             return;
 
         }
@@ -1011,12 +1427,10 @@ async function checkExistingSession() {
 
 
         /*
-         * IMPORTANT:
+         * Do not immediately redirect here.
          *
-         * Do NOT redirect here.
-         *
-         * Google may still be completing
-         * the OAuth callback.
+         * Supabase may still be completing
+         * the Google OAuth callback.
          */
 
         console.log(
@@ -1049,3 +1463,4 @@ checkExistingSession();
 </body>
 
 </html>
+```
