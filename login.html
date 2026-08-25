@@ -738,10 +738,6 @@
         </p>
 
 
-        <!-- =========================
-             GOOGLE LOGIN BUTTON
-        ========================== -->
-
         <button
             type="button"
             class="google-button"
@@ -812,9 +808,9 @@
 </footer>
 
 
-<!-- =================================================
-     SUPABASE AUTHENTICATION
-================================================= -->
+<!-- =========================
+     SUPABASE AUTH
+========================== -->
 
 <script>
 
@@ -831,14 +827,14 @@
 
 
     /* =================================================
-       CREATE SUPABASE CLIENT
+       CREATE CLIENT
 
        IMPORTANT:
-       We deliberately set detectSessionInUrl to false.
+       We handle the OAuth callback ourselves on
+       entrance.html.
 
-       entrance.html will explicitly process the
-       OAuth callback. This prevents both pages from
-       trying to process the same callback.
+       This prevents login.html and entrance.html
+       from racing each other during the redirect.
     ================================================= */
 
     const supabaseClient =
@@ -902,15 +898,38 @@
 
 
     /* =================================================
+       GET ENTRANCE URL
+
+       Using a relative URL means this works whether
+       your GitHub Pages address has /Journal-Archived-01/
+       or another base path.
+    ================================================= */
+
+    const entranceURL =
+        new URL(
+            "./entrance.html",
+            window.location.href
+        ).href;
+
+
+    console.log(
+        "OAuth redirect URL:",
+        entranceURL
+    );
+
+
+    /* =================================================
        CHECK EXISTING SESSION
 
-       This is intentionally simple.
-
-       If someone is already logged in and manually
-       opens login.html, send them to entrance.html.
+       We do this once when the login page opens.
     ================================================= */
 
     async function checkExistingSession() {
+
+        console.log(
+            "Checking for existing session..."
+        );
+
 
         try {
 
@@ -945,7 +964,13 @@
 
 
                 window.location.replace(
-                    "./entrance.html"
+                    entranceURL
+                );
+
+            } else {
+
+                console.log(
+                    "No existing session."
                 );
 
             }
@@ -984,50 +1009,64 @@
             );
 
 
-            /*
-             * Build the callback URL dynamically.
-             *
-             * This makes the site work even though the
-             * repository is hosted under:
-             *
-             * /Journal-Archived-01/
-             */
+            try {
 
-            const redirectTo =
-                new URL(
-                    "./entrance.html",
-                    window.location.href
-                ).href;
+                const {
+                    error
+                } =
+                    await supabaseClient.auth.signInWithOAuth({
 
+                        provider:
+                            "google",
 
-            console.log(
-                "OAuth redirect URL:",
-                redirectTo
-            );
+                        options: {
+
+                            redirectTo:
+                                entranceURL
+
+                        }
+
+                    });
 
 
-            const {
-                error
-            } =
-                await supabaseClient.auth.signInWithOAuth({
+                if (error) {
 
-                    provider:
-                        "google",
-
-                    options: {
-
-                        redirectTo:
-                            redirectTo
-
-                    }
-
-                });
+                    console.error(
+                        "Google login error:",
+                        error
+                    );
 
 
-            if (error) {
+                    googleButton.disabled = false;
+
+                    googleButtonText.textContent =
+                        "Continue with Google";
+
+
+                    showMessage(
+                        "Google login failed. Please try again.",
+                        "error"
+                    );
+
+
+                    return;
+
+                }
+
+
+                /*
+                 * signInWithOAuth normally redirects
+                 * the browser to Google.
+                 */
+
+                console.log(
+                    "Google authentication started."
+                );
+
+            } catch (error) {
 
                 console.error(
-                    "Google login error:",
+                    "Unexpected Google login error:",
                     error
                 );
 
@@ -1039,19 +1078,11 @@
 
 
                 showMessage(
-                    "Google login failed. Please try again.",
+                    "Something went wrong. Please try again.",
                     "error"
                 );
 
-
-                return;
-
             }
-
-
-            /*
-             * The browser is redirected to Google here.
-             */
 
         }
     );
