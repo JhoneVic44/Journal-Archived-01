@@ -18,6 +18,7 @@
         content="Sign in to The Unspoken Chapters."
     >
 
+
     <!-- =========================
          SUPABASE
     ========================== -->
@@ -37,6 +38,7 @@
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
+        crossorigin
     >
 
     <link
@@ -812,11 +814,15 @@
 </footer>
 
 
-<!-- =========================
+<!-- =================================================
      SUPABASE AUTHENTICATION
-========================== -->
+================================================= -->
 
 <script>
+
+    /* =================================================
+       SUPABASE CONFIGURATION
+    ================================================= */
 
     const SUPABASE_URL =
         "https://ktytetimukmaqkxmzkha.supabase.co";
@@ -826,23 +832,31 @@
         "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
+    /* =================================================
+       CREATE SUPABASE CLIENT
+    ================================================= */
+
     const supabaseClient =
         window.supabase.createClient(
             SUPABASE_URL,
             SUPABASE_KEY,
             {
                 auth: {
+
                     persistSession: true,
+
                     autoRefreshToken: true,
+
                     detectSessionInUrl: true
+
                 }
             }
         );
 
 
-    /* =========================
+    /* =================================================
        ELEMENTS
-    ========================== */
+    ================================================= */
 
     const googleButton =
         document.getElementById(
@@ -862,9 +876,23 @@
         );
 
 
-    /* =========================
+    /* =================================================
+       GET ENTRANCE URL
+    ================================================= */
+
+    function getEntranceURL() {
+
+        return new URL(
+            "./entrance.html",
+            window.location.href
+        ).href;
+
+    }
+
+
+    /* =================================================
        MESSAGE
-    ========================== */
+    ================================================= */
 
     function showMessage(
         message,
@@ -880,38 +908,66 @@
     }
 
 
-    /* =========================
-       EXISTING SESSION
-    ========================== */
+    /* =================================================
+       CHECK EXISTING SESSION
+    ================================================= */
 
     async function checkExistingSession() {
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
+        console.log(
+            "Checking for existing session..."
+        );
 
 
-        if (error) {
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (error) {
+
+                console.error(
+                    "Session check error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            if (
+                data &&
+                data.session &&
+                data.session.user
+            ) {
+
+                console.log(
+                    "Existing session found."
+                );
+
+
+                window.location.replace(
+                    getEntranceURL()
+                );
+
+            } else {
+
+                console.log(
+                    "No existing session."
+                );
+
+            }
+
+        } catch (error) {
 
             console.error(
-                "Session check error:",
+                "Unexpected session error:",
                 error
-            );
-
-            return;
-        }
-
-
-        if (
-            data &&
-            data.session &&
-            data.session.user
-        ) {
-
-            window.location.replace(
-                "./entrance.html"
             );
 
         }
@@ -919,9 +975,9 @@
     }
 
 
-    /* =========================
+    /* =================================================
        GOOGLE LOGIN
-    ========================== */
+    ================================================= */
 
     googleButton.addEventListener(
         "click",
@@ -936,39 +992,77 @@
             showMessage("");
 
 
+            const redirectTo =
+                getEntranceURL();
+
+
             console.log(
                 "Starting Google authentication..."
             );
 
 
-            const redirectTo =
-                window.location.origin +
-                "/Journal-Archived-01/entrance.html";
+            console.log(
+                "OAuth redirect:",
+                redirectTo
+            );
 
 
-            const {
-                data,
-                error
-            } =
-                await supabaseClient.auth.signInWithOAuth({
+            try {
 
-                    provider:
-                        "google",
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth.signInWithOAuth({
 
-                    options: {
+                        provider:
+                            "google",
 
-                        redirectTo:
-                            redirectTo
+                        options: {
 
-                    }
+                            redirectTo:
+                                redirectTo
 
-                });
+                        }
+
+                    });
 
 
-            if (error) {
+                if (error) {
+
+                    console.error(
+                        "Google login error:",
+                        error
+                    );
+
+
+                    googleButton.disabled = false;
+
+                    googleButtonText.textContent =
+                        "Continue with Google";
+
+
+                    showMessage(
+                        "Google login failed. Please try again.",
+                        "error"
+                    );
+
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "Google OAuth started.",
+                    data
+                );
+
+
+            } catch (error) {
 
                 console.error(
-                    "Google login error:",
+                    "Unexpected Google login error:",
                     error
                 );
 
@@ -980,28 +1074,19 @@
 
 
                 showMessage(
-                    "Google login failed. Please try again.",
+                    "Something went wrong. Please try again.",
                     "error"
                 );
 
-
-                return;
-
             }
-
-
-            console.log(
-                "Google authentication started.",
-                data
-            );
 
         }
     );
 
 
-    /* =========================
-       AUTH STATE
-    ========================== */
+    /* =================================================
+       AUTH STATE LISTENER
+    ================================================= */
 
     supabaseClient.auth.onAuthStateChange(
         function (
@@ -1010,18 +1095,31 @@
         ) {
 
             console.log(
-                "Login page auth event:",
+                "Login auth event:",
                 event
             );
 
 
+            /*
+             * Do not manually construct a session.
+             *
+             * Supabase handles the OAuth callback
+             * because detectSessionInUrl is enabled.
+             */
+
             if (
+                event === "SIGNED_IN" &&
                 session &&
                 session.user
             ) {
 
+                console.log(
+                    "User authenticated."
+                );
+
+
                 window.location.replace(
-                    "./entrance.html"
+                    getEntranceURL()
                 );
 
             }
@@ -1030,9 +1128,9 @@
     );
 
 
-    /* =========================
+    /* =================================================
        START
-    ========================== */
+    ================================================= */
 
     checkExistingSession();
 
