@@ -271,7 +271,7 @@
 
             right: 0;
 
-            min-width: 175px;
+            min-width: 145px;
 
             padding: 7px;
 
@@ -318,7 +318,7 @@
 
 
         /* =========================
-           ACCOUNT INFO
+           ACCOUNT MENU USER
         ========================== */
 
         .account-info {
@@ -326,13 +326,13 @@
             padding:
                 9px 10px 10px;
 
-            color: #777a7d;
+            color: #5d5f62;
 
             font-size: 7px;
 
             line-height: 1.5;
 
-            letter-spacing: 0.10em;
+            letter-spacing: 0.12em;
 
             text-transform: uppercase;
 
@@ -526,7 +526,7 @@
 
 
         /* =========================
-           ARCHIVE MARK
+           SMALL ARCHIVE MARK
         ========================== */
 
         .archive-mark {
@@ -717,7 +717,7 @@
 
             .account-menu {
 
-                min-width: 150px;
+                min-width: 130px;
             }
 
 
@@ -826,21 +826,21 @@
     </div>
 
 
-    <!-- =========================
-         CONTENT
-    ========================== -->
-
     <div class="entrance-content">
 
 
         <div class="archive-label">
+
             Personal Archive
+
         </div>
 
 
         <h1>
+
             The Unspoken<br>
             Chapters
+
         </h1>
 
 
@@ -848,7 +848,9 @@
             class="year-button"
             href="./2013.html"
         >
+
             2013
+
         </a>
 
 
@@ -856,7 +858,9 @@
 
 
     <div class="archive-mark">
+
         JhoneVic's Diary
+
     </div>
 
 
@@ -869,523 +873,371 @@
 
 <script>
 
-    /* =================================================
-       SUPABASE CONFIGURATION
-    ================================================= */
 
-    const SUPABASE_URL =
-        "https://ktytetimukmaqkxmzkha.supabase.co";
+/* =================================================
+   SUPABASE CONFIGURATION
+================================================= */
 
-
-    const SUPABASE_KEY =
-        "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+const SUPABASE_URL =
+    "https://ktytetimukmaqkxmzkha.supabase.co";
 
 
-    /* =================================================
-       CREATE SUPABASE CLIENT
+const SUPABASE_KEY =
+    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
-       IMPORTANT:
-       We explicitly handle the OAuth callback below.
-    ================================================= */
 
-    const supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY,
-            {
-                auth: {
+/* =================================================
+   CREATE SUPABASE CLIENT
 
-                    persistSession: true,
+   IMPORTANT:
+   OAuth callback is handled manually below.
 
-                    autoRefreshToken: true,
+   This avoids the login page and entrance page
+   competing over the OAuth session.
+================================================= */
 
-                    detectSessionInUrl: false,
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth: {
 
-                    flowType: "pkce"
+                persistSession: true,
 
-                }
+                autoRefreshToken: true,
+
+                detectSessionInUrl: false,
+
+                flowType: "pkce"
+
             }
+        }
+    );
+
+
+/* =================================================
+   ELEMENTS
+================================================= */
+
+const account =
+    document.getElementById(
+        "account"
+    );
+
+
+const userButton =
+    document.getElementById(
+        "user-button"
+    );
+
+
+const userNameElement =
+    document.getElementById(
+        "user-name"
+    );
+
+
+const accountInfo =
+    document.getElementById(
+        "account-info"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logout-button"
+    );
+
+
+/* =================================================
+   ACCOUNT MENU
+================================================= */
+
+userButton.addEventListener(
+    "click",
+    function (event) {
+
+        event.stopPropagation();
+
+
+        const isOpen =
+            account.classList.toggle(
+                "open"
+            );
+
+
+        userButton.setAttribute(
+            "aria-expanded",
+            isOpen
+                ? "true"
+                : "false"
         );
 
-
-    /* =================================================
-       ELEMENTS
-    ================================================= */
-
-    const account =
-        document.getElementById(
-            "account"
-        );
+    }
+);
 
 
-    const userButton =
-        document.getElementById(
-            "user-button"
-        );
+/* =================================================
+   CLOSE ACCOUNT MENU
+================================================= */
 
+document.addEventListener(
+    "click",
+    function (event) {
 
-    const userNameElement =
-        document.getElementById(
-            "user-name"
-        );
+        if (
+            !account.contains(event.target)
+        ) {
 
-
-    const accountInfo =
-        document.getElementById(
-            "account-info"
-        );
-
-
-    const logoutButton =
-        document.getElementById(
-            "logout-button"
-        );
-
-
-    /* =================================================
-       ACCOUNT MENU
-    ================================================= */
-
-    userButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.stopPropagation();
-
-
-            const isOpen =
-                account.classList.toggle(
-                    "open"
-                );
+            account.classList.remove(
+                "open"
+            );
 
 
             userButton.setAttribute(
                 "aria-expanded",
-                isOpen
-                    ? "true"
-                    : "false"
+                "false"
             );
 
         }
-    );
+
+    }
+);
 
 
-    /* =================================================
-       CLOSE ACCOUNT MENU
-    ================================================= */
+/* =================================================
+   DISPLAY GOOGLE USER NAME
+================================================= */
 
-    document.addEventListener(
-        "click",
-        function (event) {
+function displayUserName(user) {
 
-            if (
-                !account.contains(event.target)
-            ) {
+    if (
+        !user ||
+        !userNameElement
+    ) {
 
-                account.classList.remove(
-                    "open"
-                );
+        return;
 
-
-                userButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            }
-
-        }
-    );
+    }
 
 
-    /* =================================================
-       DISPLAY GOOGLE USER NAME
-    ================================================= */
-
-    function displayUserName(user) {
-
-        if (
-            !user
-        ) {
-
-            return;
-
-        }
+    const metadata =
+        user.user_metadata || {};
 
 
-        console.log(
-            "Displaying user:",
-            user
-        );
+    /*
+     * Google normally provides
+     * full_name or name.
+     */
+
+    const fullName =
+        metadata.full_name ||
+        metadata.name ||
+        metadata.preferred_username ||
+        metadata.user_name ||
+        "";
 
 
-        const metadata =
-            user.user_metadata || {};
-
-
-        /*
-         * Google normally provides:
-         *
-         * full_name
-         * name
-         *
-         * We try several possibilities so this works
-         * with different Google account metadata.
-         */
-
-        const fullName =
-            metadata.full_name ||
-            metadata.name ||
-            metadata.display_name ||
-            metadata.displayName ||
-            "";
-
-
-        if (fullName) {
-
-            userNameElement.textContent =
-                fullName;
-
-            accountInfo.textContent =
-                fullName;
-
-            userButton.classList.add(
-                "visible"
-            );
-
-            console.log(
-                "Google name found:",
-                fullName
-            );
-
-            return;
-
-        }
-
-
-        /* =========================
-           TRY IDENTITY DATA
-        ========================== */
-
-        const identities =
-            user.identities || [];
-
-
-        for (
-            const identity of identities
-        ) {
-
-            const identityData =
-                identity.identity_data || {};
-
-
-            const identityName =
-                identityData.full_name ||
-                identityData.name ||
-                identityData.display_name ||
-                identityData.displayName ||
-                "";
-
-
-            if (identityName) {
-
-                userNameElement.textContent =
-                    identityName;
-
-                accountInfo.textContent =
-                    identityName;
-
-                userButton.classList.add(
-                    "visible"
-                );
-
-                console.log(
-                    "Google identity name found:",
-                    identityName
-                );
-
-                return;
-
-            }
-
-        }
-
-
-        /* =========================
-           EMAIL FALLBACK
-        ========================== */
-
-        if (user.email) {
-
-            userNameElement.textContent =
-                user.email;
-
-            accountInfo.textContent =
-                user.email;
-
-            userButton.classList.add(
-                "visible"
-            );
-
-            console.log(
-                "Using email fallback:",
-                user.email
-            );
-
-            return;
-
-        }
-
-
-        /* =========================
-           FINAL FALLBACK
-        ========================== */
+    if (fullName) {
 
         userNameElement.textContent =
-            "Account";
+            fullName;
 
         accountInfo.textContent =
-            "Signed in";
+            fullName;
 
         userButton.classList.add(
             "visible"
         );
 
+        console.log(
+            "Displaying Google name:",
+            fullName
+        );
+
+        return;
+
     }
 
 
-    /* =================================================
-       SHOW AUTHENTICATED USER
-    ================================================= */
+    /*
+     * Check identity data.
+     */
 
-    function showAuthenticatedUser(
-        session
+    const identities =
+        user.identities || [];
+
+
+    for (
+        const identity of identities
     ) {
 
-        if (
-            !session ||
-            !session.user
-        ) {
-
-            return false;
-
-        }
+        const identityData =
+            identity.identity_data || {};
 
 
-        console.log(
-            "Authenticated user:",
-            session.user.id
-        );
+        const identityName =
+            identityData.full_name ||
+            identityData.name ||
+            identityData.preferred_username ||
+            identityData.user_name ||
+            "";
 
 
-        displayUserName(
-            session.user
-        );
+        if (identityName) {
 
+            userNameElement.textContent =
+                identityName;
 
-        return true;
+            accountInfo.textContent =
+                identityName;
 
-    }
-
-
-    /* =================================================
-       REDIRECT TO LOGIN
-    ================================================= */
-
-    function redirectToLogin() {
-
-        console.log(
-            "Redirecting to login..."
-        );
-
-
-        window.location.replace(
-            "./login.html"
-        );
-
-    }
-
-
-    /* =================================================
-       CLEAN OAUTH URL
-    ================================================= */
-
-    function cleanOAuthUrl() {
-
-        try {
-
-            const cleanUrl =
-                window.location.origin +
-                window.location.pathname;
-
-
-            window.history.replaceState(
-                {},
-                document.title,
-                cleanUrl
+            userButton.classList.add(
+                "visible"
             );
-
 
             console.log(
-                "OAuth URL cleaned."
+                "Displaying identity name:",
+                identityName
             );
 
-        } catch (error) {
-
-            console.error(
-                "Could not clean OAuth URL:",
-                error
-            );
+            return;
 
         }
 
     }
 
 
-    /* =================================================
-       HANDLE OAUTH CALLBACK
-    ================================================= */
+    /*
+     * Final fallback:
+     * Google email address.
+     */
 
-    async function handleOAuthCallback() {
+    if (user.email) {
 
-        const url =
-            new URL(
-                window.location.href
-            );
+        userNameElement.textContent =
+            user.email;
 
+        accountInfo.textContent =
+            user.email;
 
-        const code =
-            url.searchParams.get(
-                "code"
-            );
-
-
-        const errorDescription =
-            url.searchParams.get(
-                "error_description"
-            );
-
-
-        /* =========================
-           OAUTH ERROR
-        ========================== */
-
-        if (
-            errorDescription
-        ) {
-
-            console.error(
-                "OAuth error:",
-                errorDescription
-            );
-
-
-            redirectToLogin();
-
-            return false;
-
-        }
-
-
-        /* =========================
-           NO CODE
-        ========================== */
-
-        if (
-            !code
-        ) {
-
-            return null;
-
-        }
-
+        userButton.classList.add(
+            "visible"
+        );
 
         console.log(
-            "OAuth callback code detected."
+            "Displaying email fallback:",
+            user.email
         );
 
+        return;
 
-        /*
-         * Exchange Google's callback code
-         * for the Supabase session.
-         */
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.exchangeCodeForSession(
-                code
-            );
+    }
 
 
-        if (error) {
+    /*
+     * Last resort.
+     */
 
-            console.error(
-                "OAuth code exchange failed:",
-                error
-            );
+    userNameElement.textContent =
+        "Account";
 
+    accountInfo.textContent =
+        "Signed in";
 
-            /*
-             * Remove the bad callback code before
-             * sending the user back to login.
-             */
+    userButton.classList.add(
+        "visible"
+    );
 
-            cleanOAuthUrl();
-
-
-            redirectToLogin();
-
-            return false;
-
-        }
+}
 
 
-        console.log(
-            "OAuth code successfully exchanged."
-        );
+/* =================================================
+   SHOW AUTHENTICATED USER
+================================================= */
 
+function showAuthenticatedUser(
+    session
+) {
 
-        cleanOAuthUrl();
-
-
-        if (
-            data &&
-            data.session &&
-            data.session.user
-        ) {
-
-            showAuthenticatedUser(
-                data.session
-            );
-
-
-            return true;
-
-        }
-
-
-        console.error(
-            "OAuth exchange completed but no session was returned."
-        );
-
-
-        redirectToLogin();
+    if (
+        !session ||
+        !session.user
+    ) {
 
         return false;
 
     }
 
 
-    /* =================================================
-       LOAD EXISTING SESSION
-    ================================================= */
+    console.log(
+        "Authenticated user:",
+        session.user.id
+    );
 
-    async function loadExistingSession() {
+
+    console.log(
+        "User metadata:",
+        session.user.user_metadata
+    );
+
+
+    displayUserName(
+        session.user
+    );
+
+
+    return true;
+
+}
+
+
+/* =================================================
+   REDIRECT TO LOGIN
+================================================= */
+
+function redirectToLogin() {
+
+    console.log(
+        "No authenticated session."
+    );
+
+
+    window.location.replace(
+        "./login.html"
+    );
+
+}
+
+
+/* =================================================
+   HANDLE OAUTH CALLBACK
+================================================= */
+
+async function handleOAuthCallback() {
+
+    const url =
+        new URL(
+            window.location.href
+        );
+
+
+    const code =
+        url.searchParams.get(
+            "code"
+        );
+
+
+    /*
+     * If Google returned an OAuth code,
+     * exchange it for a Supabase session.
+     */
+
+    if (code) {
 
         console.log(
-            "Checking existing Supabase session..."
+            "OAuth authorization code detected."
         );
 
 
@@ -1395,18 +1247,18 @@
                 data,
                 error
             } =
-                await supabaseClient.auth.getSession();
+                await supabaseClient.auth.exchangeCodeForSession(
+                    code
+                );
 
 
             if (error) {
 
                 console.error(
-                    "Session check error:",
+                    "OAuth code exchange failed:",
                     error
                 );
 
-
-                redirectToLogin();
 
                 return false;
 
@@ -1420,7 +1272,19 @@
             ) {
 
                 console.log(
-                    "Existing authenticated session found."
+                    "OAuth session successfully created."
+                );
+
+
+                /*
+                 * Remove ?code=... from the browser
+                 * without reloading the page.
+                 */
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
                 );
 
 
@@ -1434,24 +1298,20 @@
             }
 
 
-            console.log(
-                "No authenticated session found."
+            console.error(
+                "OAuth exchange returned no session."
             );
 
-
-            redirectToLogin();
 
             return false;
 
         } catch (error) {
 
             console.error(
-                "Unexpected session error:",
+                "Unexpected OAuth callback error:",
                 error
             );
 
-
-            redirectToLogin();
 
             return false;
 
@@ -1460,24 +1320,107 @@
     }
 
 
-    /* =================================================
-       LOGOUT
-    ================================================= */
+    return null;
 
-    logoutButton.addEventListener(
-        "click",
-        async function () {
+}
 
-            console.log(
-                "Logging out..."
+
+/* =================================================
+   GET EXISTING SESSION
+================================================= */
+
+async function getExistingSession() {
+
+    console.log(
+        "Checking existing Supabase session..."
+    );
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session check error:",
+                error
             );
 
 
-            logoutButton.disabled = true;
+            return null;
 
-            logoutButton.textContent =
-                "Logging Out...";
+        }
 
+
+        if (
+            data &&
+            data.session &&
+            data.session.user
+        ) {
+
+            console.log(
+                "Existing session found."
+            );
+
+
+            showAuthenticatedUser(
+                data.session
+            );
+
+
+            return data.session;
+
+        }
+
+
+        console.log(
+            "No existing session."
+        );
+
+
+        return null;
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected session check error:",
+            error
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+logoutButton.addEventListener(
+    "click",
+    async function () {
+
+        console.log(
+            "Logging out..."
+        );
+
+
+        logoutButton.disabled = true;
+
+        logoutButton.textContent =
+            "Logging Out...";
+
+
+        try {
 
             const {
                 error
@@ -1505,136 +1448,193 @@
 
 
             console.log(
-                "Logout successful."
+                "Successfully logged out."
             );
 
 
-            redirectToLogin();
+            window.location.replace(
+                "./login.html"
+            );
 
-        }
-    );
+        } catch (error) {
 
-
-    /* =================================================
-       AUTH STATE LISTENER
-    ================================================= */
-
-    supabaseClient.auth.onAuthStateChange(
-        function (
-            event,
-            session
-        ) {
-
-            console.log(
-                "Supabase auth event:",
-                event
+            console.error(
+                "Unexpected logout error:",
+                error
             );
 
 
-            if (
-                event === "SIGNED_IN" ||
-                event === "TOKEN_REFRESHED" ||
-                event === "USER_UPDATED"
-            ) {
+            logoutButton.disabled = false;
 
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                }
-
-                return;
-
-            }
-
-
-            if (
-                event === "SIGNED_OUT"
-            ) {
-
-                redirectToLogin();
-
-            }
+            logoutButton.textContent =
+                "Logout";
 
         }
-    );
+
+    }
+);
 
 
-    /* =================================================
-       START AUTHENTICATION
-    ================================================= */
+/* =================================================
+   AUTH STATE LISTENER
+================================================= */
 
-    async function startAuthentication() {
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
 
         console.log(
-            "Loading authenticated user..."
+            "Supabase auth event:",
+            event
         );
 
 
         /*
-         * FIRST:
-         * Check whether Google has just redirected
-         * us back with an OAuth authorization code.
+         * We intentionally do NOT redirect
+         * to login on INITIAL_SESSION.
+         *
+         * The startup process below handles that.
          */
 
-        const callbackResult =
-            await handleOAuthCallback();
-
-
-        /*
-         * If callbackResult is true,
-         * authentication succeeded.
-         */
 
         if (
-            callbackResult === true
+            event === "SIGNED_IN" &&
+            session &&
+            session.user
         ) {
 
             console.log(
-                "Authentication completed through OAuth callback."
+                "SIGNED_IN received."
             );
 
 
-            return;
+            showAuthenticatedUser(
+                session
+            );
 
         }
 
-
-        /*
-         * If callbackResult is false,
-         * authentication failed and the user has
-         * already been redirected to login.
-         */
 
         if (
-            callbackResult === false
+            event === "TOKEN_REFRESHED" &&
+            session &&
+            session.user
         ) {
 
-            return;
+            showAuthenticatedUser(
+                session
+            );
 
         }
 
 
-        /*
-         * Otherwise there was no OAuth code.
-         * Check for an already existing session.
-         */
+        if (
+            event === "USER_UPDATED" &&
+            session &&
+            session.user
+        ) {
 
-        await loadExistingSession();
+            showAuthenticatedUser(
+                session
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   START AUTHENTICATION
+
+   Order is VERY important:
+
+   1. Process OAuth code if present.
+   2. Otherwise check existing session.
+   3. Only then redirect to login.
+================================================= */
+
+async function startAuthentication() {
+
+    console.log(
+        "Loading authenticated user..."
+    );
+
+
+    /*
+     * FIRST:
+     * Handle Google OAuth callback.
+     */
+
+    const callbackResult =
+        await handleOAuthCallback();
+
+
+    /*
+     * If callback succeeded,
+     * authentication is finished.
+     */
+
+    if (
+        callbackResult === true
+    ) {
+
+        console.log(
+            "Authentication completed through OAuth callback."
+        );
+
+
+        return;
 
     }
 
 
-    /* =================================================
-       START
-    ================================================= */
+    /*
+     * If callback failed,
+     * don't immediately assume the user is
+     * logged out. Check for an existing session.
+     */
 
-    startAuthentication();
+    const session =
+        await getExistingSession();
+
+
+    if (
+        session &&
+        session.user
+    ) {
+
+        console.log(
+            "Authentication confirmed."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * No callback and no session.
+     */
+
+    console.log(
+        "No authenticated session found."
+    );
+
+
+    redirectToLogin();
+
+}
+
+
+/* =================================================
+   START
+================================================= */
+
+startAuthentication();
 
 </script>
 
