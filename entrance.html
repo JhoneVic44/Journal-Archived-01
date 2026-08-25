@@ -88,8 +88,8 @@
             position: relative;
 
             width: 100%;
-
             height: 100vh;
+            height: 100dvh;
 
             overflow: hidden;
 
@@ -98,7 +98,7 @@
             align-items: flex-end;
 
             padding:
-                0 8% 200px;
+                0 8% clamp(80px, 14vh, 200px);
 
             background:
 
@@ -149,7 +149,7 @@
 
 
         /* =========================
-           TOP RIGHT USERNAME
+           TOP RIGHT USER
         ========================== */
 
         .top-actions {
@@ -157,7 +157,6 @@
             position: absolute;
 
             top: 28px;
-
             right: 8%;
 
             z-index: 10;
@@ -169,10 +168,6 @@
             justify-content: flex-end;
         }
 
-
-        /* =========================
-           USER NAME
-        ========================== */
 
         .user-name {
 
@@ -210,6 +205,8 @@
             position: relative;
 
             z-index: 2;
+
+            width: 100%;
 
             max-width: 700px;
         }
@@ -357,6 +354,7 @@
             html,
             body {
 
+                width: 100%;
                 height: 100%;
 
                 overflow: hidden;
@@ -365,9 +363,12 @@
 
             .entrance {
 
-                height: 100vh;
+                width: 100%;
 
-                min-height: 100vh;
+                height: 100vh;
+                height: 100dvh;
+
+                min-height: 0;
 
                 padding:
                     0 25px 70px;
@@ -471,7 +472,7 @@
             .entrance {
 
                 padding:
-                    0 20px 70px;
+                    0 20px 65px;
             }
 
 
@@ -530,6 +531,39 @@
 
         }
 
+
+        /* =================================================
+           SHORT DESKTOP SCREENS
+        ================================================= */
+
+        @media (min-width: 801px) and (max-height: 700px) {
+
+            .entrance {
+
+                padding-bottom: 80px;
+            }
+
+
+            h1 {
+
+                margin-bottom: 28px;
+
+                font-size:
+                    clamp(
+                        48px,
+                        7vw,
+                        72px
+                    );
+            }
+
+
+            .archive-mark {
+
+                bottom: 40px;
+            }
+
+        }
+
     </style>
 
 </head>
@@ -542,7 +576,7 @@
 
 
     <!-- =========================
-         TOP RIGHT USERNAME
+         TOP RIGHT USER
     ========================== -->
 
     <div
@@ -604,7 +638,6 @@
 </main>
 
 
-
 <!-- =========================
      SUPABASE AUTHENTICATION
 ========================== -->
@@ -649,22 +682,13 @@ const supabaseClient =
 
 
 /* =================================================
-   ELEMENTS
+   ELEMENT
 ================================================= */
 
 const userNameElement =
     document.getElementById(
         "user-name"
     );
-
-
-/* =================================================
-   STATE
-================================================= */
-
-let currentSession = null;
-
-let authInitialized = false;
 
 
 /* =================================================
@@ -696,7 +720,7 @@ function displayUserName(user) {
 
 
     /*
-     * Fallback to identity data.
+     * Fallback to identity information.
      */
 
     if (!fullName) {
@@ -733,13 +757,13 @@ function displayUserName(user) {
 
 
     /*
-     * Final fallback to email.
+     * Final fallback.
      */
 
     if (!fullName && user.email) {
 
         fullName =
-            user.email;
+            user.email.split("@")[0];
 
     }
 
@@ -774,10 +798,6 @@ function showAuthenticatedPage(session) {
     }
 
 
-    currentSession =
-        session;
-
-
     displayUserName(
         session.user
     );
@@ -792,41 +812,7 @@ function showAuthenticatedPage(session) {
 
 
 /* =================================================
-   REDIRECT TO LOGIN
-================================================= */
-
-function redirectToLogin() {
-
-    /*
-     * Never redirect while Supabase
-     * is still initializing.
-     */
-
-    if (!authInitialized) {
-
-        console.log(
-            "Redirect prevented: authentication is still initializing."
-        );
-
-        return;
-
-    }
-
-
-    console.log(
-        "No authenticated session. Redirecting to login."
-    );
-
-
-    window.location.replace(
-        "./login.html"
-    );
-
-}
-
-
-/* =================================================
-   AUTH STATE LISTENER
+   AUTH STATE
 ================================================= */
 
 supabaseClient.auth.onAuthStateChange(
@@ -847,113 +833,14 @@ supabaseClient.auth.onAuthStateChange(
         );
 
 
-        /* -----------------------------------------
-           INITIAL SESSION
-        ----------------------------------------- */
-
         if (
-            event === "INITIAL_SESSION"
-        ) {
-
-            authInitialized =
-                true;
-
-
-            if (session) {
-
-                showAuthenticatedPage(
-                    session
-                );
-
-            } else {
-
-                redirectToLogin();
-
-            }
-
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------
-           SIGNED IN
-        ----------------------------------------- */
-
-        if (
-            event === "SIGNED_IN"
+            session &&
+            session.user
         ) {
 
             showAuthenticatedPage(
                 session
             );
-
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------
-           TOKEN REFRESHED
-        ----------------------------------------- */
-
-        if (
-            event === "TOKEN_REFRESHED"
-        ) {
-
-            if (session) {
-
-                showAuthenticatedPage(
-                    session
-                );
-
-            }
-
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------
-           USER UPDATED
-        ----------------------------------------- */
-
-        if (
-            event === "USER_UPDATED"
-        ) {
-
-            if (session) {
-
-                showAuthenticatedPage(
-                    session
-                );
-
-            }
-
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------
-           SIGNED OUT
-        ----------------------------------------- */
-
-        if (
-            event === "SIGNED_OUT"
-        ) {
-
-            currentSession =
-                null;
-
-
-            redirectToLogin();
-
-            return;
 
         }
 
@@ -962,13 +849,13 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* =================================================
-   INITIAL SESSION VERIFICATION
+   VERIFY SESSION
 ================================================= */
 
-async function verifyInitialSession() {
+async function verifySession() {
 
     console.log(
-        "Verifying existing Supabase session..."
+        "Checking authenticated session..."
     );
 
 
@@ -988,7 +875,6 @@ async function verifyInitialSession() {
                 error
             );
 
-
             return;
 
         }
@@ -996,11 +882,12 @@ async function verifyInitialSession() {
 
         if (
             data &&
-            data.session
+            data.session &&
+            data.session.user
         ) {
 
             console.log(
-                "Existing session confirmed."
+                "Authenticated session confirmed."
             );
 
 
@@ -1008,10 +895,11 @@ async function verifyInitialSession() {
                 data.session
             );
 
+
         } else {
 
-            console.log(
-                "No existing session returned by getSession()."
+            console.warn(
+                "No authenticated session found."
             );
 
         }
@@ -1019,7 +907,7 @@ async function verifyInitialSession() {
     } catch (error) {
 
         console.error(
-            "Unexpected session verification error:",
+            "Unexpected authentication error:",
             error
         );
 
@@ -1032,7 +920,7 @@ async function verifyInitialSession() {
    START
 ================================================= */
 
-verifyInitialSession();
+verifySession();
 
 </script>
 
