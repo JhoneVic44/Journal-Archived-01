@@ -14,7 +14,7 @@
 
     <meta
         name="description"
-        content="Sign in to The Unspoken Chapters."
+        content="Login to The Unspoken Chapters, a personal diary archive."
     >
 
     <!-- =========================
@@ -35,7 +35,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.gstatic.com"
+        href="https://fonts.googleapis.com"
         crossorigin
     >
 
@@ -167,7 +167,19 @@
         }
 
 
-        .home-link {
+        .links {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 32px;
+        }
+
+
+        .links a {
 
             color: #aaa9a3;
 
@@ -179,12 +191,15 @@
 
             text-transform: uppercase;
 
+            white-space: nowrap;
+
             transition:
                 color 0.25s ease;
         }
 
 
-        .home-link:hover {
+        .links a:hover,
+        .links .active {
 
             color: #eeeae1;
         }
@@ -204,6 +219,8 @@
 
             height: 100vh;
 
+            padding-top: 85px;
+
             display: flex;
 
             align-items: center;
@@ -216,9 +233,10 @@
 
             width: 100%;
 
-            max-width: 520px;
+            max-width: 470px;
 
-            padding: 40px 25px 100px;
+            padding:
+                40px 25px 100px;
 
             text-align: center;
         }
@@ -296,7 +314,7 @@
 
 
         /* =========================
-           GOOGLE LOGIN BUTTON
+           GOOGLE BUTTON
         ========================== */
 
         .google-button {
@@ -307,134 +325,79 @@
 
             justify-content: center;
 
-            gap: 13px;
+            gap: 12px;
 
             width: 100%;
 
             max-width: 320px;
 
-            height: 52px;
-
             margin: 0 auto;
 
-            padding: 0 20px;
+            padding:
+                14px 22px;
 
             border:
                 1px solid
                 rgba(255,255,255,0.20);
 
-            border-radius: 4px;
+            background:
+                rgba(255,255,255,0.03);
 
-            background: #ffffff;
-
-            color: #202124;
+            color: #aaa9a3;
 
             font-family:
                 "Manrope",
                 Arial,
                 sans-serif;
 
-            font-size: 11px;
+            font-size: 10px;
 
-            font-weight: 600;
+            font-weight: 500;
 
-            letter-spacing: 0.02em;
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
 
             cursor: pointer;
 
             transition:
-                transform 0.2s ease,
-                box-shadow 0.25s ease,
-                background 0.25s ease;
+                background 0.25s ease,
+                border-color 0.25s ease,
+                color 0.25s ease;
         }
 
 
         .google-button:hover {
 
-            background: #f8f8f8;
+            background:
+                rgba(255,255,255,0.08);
 
-            transform:
-                translateY(-1px);
+            border-color:
+                rgba(255,255,255,0.35);
 
-            box-shadow:
-                0 8px 25px
-                rgba(0,0,0,0.25);
-        }
-
-
-        .google-button:active {
-
-            transform:
-                translateY(0);
+            color: #eeeae1;
         }
 
 
         .google-button:disabled {
 
-            opacity: 0.6;
+            opacity: 0.5;
 
             cursor: wait;
-
-            transform: none;
-
-            box-shadow: none;
         }
 
-
-        /* =========================
-           GOOGLE ICON
-        ========================== */
 
         .google-icon {
 
-            width: 20px;
+            color: #eeeae1;
 
-            height: 20px;
+            font-family:
+                Arial,
+                sans-serif;
 
-            flex-shrink: 0;
+            font-size: 14px;
 
-            display: block;
-        }
-
-
-        .google-icon svg {
-
-            display: block;
-
-            width: 20px;
-
-            height: 20px;
-        }
-
-
-        /* =========================
-           MESSAGE
-        ========================== */
-
-        .message {
-
-            min-height: 18px;
-
-            margin:
-                18px auto 0;
-
-            color: #999b9d;
-
-            font-size: 10px;
-
-            line-height: 1.6;
-        }
-
-
-        .message.error {
-
-            color: #c5a5a5;
-        }
-
-
-        .message.success {
-
-            color: #a9bba9;
+            font-weight: 500;
         }
 
 
@@ -444,10 +407,7 @@
 
         .notice {
 
-            max-width: 320px;
-
-            margin:
-                25px auto 0;
+            margin-top: 25px;
 
             color: #5d5f62;
 
@@ -519,25 +479,64 @@
 
                 display: flex;
 
+                flex-direction: column;
+
                 align-items: center;
 
-                justify-content: space-between;
+                justify-content: flex-start;
 
-                gap: 20px;
+                gap: 18px;
+
+                background:
+                    rgba(11,12,13,0.97);
+
+                backdrop-filter:
+                    blur(10px);
+
+                -webkit-backdrop-filter:
+                    blur(10px);
             }
 
 
             .logo {
 
-                font-size: 10px;
+                width: 100%;
+
+                text-align: center;
+
+                font-size: 11px;
+
+                line-height: 1.4;
             }
 
 
-            .home-link {
+            .links {
+
+                width: 100%;
+
+                display: flex;
+
+                flex-wrap: wrap;
+
+                align-items: center;
+
+                justify-content: center;
+
+                gap:
+                    12px 18px;
+            }
+
+
+            .links a {
+
+                display: inline-block;
+
+                padding:
+                    3px 0;
 
                 font-size: 9px;
 
-                white-space: nowrap;
+                line-height: 1.5;
             }
 
 
@@ -548,16 +547,16 @@
                 height: auto;
 
                 min-height:
-                    calc(100vh - 80px);
+                    calc(100vh - 110px);
 
-                padding: 0;
+                padding-top: 0;
             }
 
 
             .login {
 
                 padding:
-                    45px 25px 90px;
+                    55px 25px 90px;
             }
 
 
@@ -577,6 +576,17 @@
                 max-width: 290px;
 
                 font-size: 12px;
+            }
+
+
+            .google-button {
+
+                max-width: 320px;
+
+                padding:
+                    14px 20px;
+
+                font-size: 9px;
             }
 
 
@@ -609,16 +619,25 @@
 
                 padding:
                     20px 15px 16px;
+
+                gap: 16px;
             }
 
 
             .logo {
 
-                font-size: 9px;
+                font-size: 10px;
             }
 
 
-            .home-link {
+            .links {
+
+                gap:
+                    10px 15px;
+            }
+
+
+            .links a {
 
                 font-size: 8px;
 
@@ -629,14 +648,14 @@
             main {
 
                 min-height:
-                    calc(100vh - 70px);
+                    calc(100vh - 105px);
             }
 
 
             .login {
 
                 padding:
-                    40px 20px 70px;
+                    45px 20px 70px;
             }
 
 
@@ -665,13 +684,14 @@
 
             .google-button {
 
-                height: 48px;
+                font-size: 8px;
 
-                font-size: 10px;
+                padding:
+                    13px 18px;
             }
 
 
-            footer {
+            .notice {
 
                 font-size: 8px;
             }
@@ -696,16 +716,42 @@
 <nav>
 
     <div class="logo">
+
         JhoneVic's Diary
+
     </div>
 
 
-    <a
-        href="./index.html"
-        class="home-link"
-    >
-        Home
-    </a>
+    <div class="links">
+
+        <a href="./index.html">
+            Home
+        </a>
+
+
+        <a href="./introduction.html">
+            Introduction
+        </a>
+
+
+        <a href="./reflections.html">
+            Reflection | Photographs
+        </a>
+
+
+        <a href="./timeline.html">
+            Timeline
+        </a>
+
+
+        <a
+            href="./login.html"
+            class="active"
+        >
+            Login
+        </a>
+
+    </div>
 
 </nav>
 
@@ -733,8 +779,8 @@
 
 
         <p class="description">
-            Sign in with your Google account
-            to access the private archive.
+            Enter the archive with your
+            Google account.
         </p>
 
 
@@ -744,40 +790,9 @@
             id="google-login"
         >
 
-            <span
-                class="google-icon"
-                aria-hidden="true"
-            >
-
-                <svg
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-
-                    <path
-                        fill="#4285F4"
-                        d="M21.35 12.23c0-.71-.06-1.39-.18-2.05H12v3.88h5.23a4.47 4.47 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.92-4.18 2.92-7.22Z"
-                    />
-
-                    <path
-                        fill="#34A853"
-                        d="M12 21.7c2.63 0 4.84-.87 6.45-2.35l-3.14-2.45c-.87.58-1.98.93-3.31.93-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.7Z"
-                    />
-
-                    <path
-                        fill="#FBBC05"
-                        d="M6.54 13.8A5.85 5.85 0 0 1 6.23 12c0-.62.11-1.22.31-1.8V7.67H3.3A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.05 1.05 4.33l3.24-2.53Z"
-                    />
-
-                    <path
-                        fill="#EA4335"
-                        d="M12 6.17c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.27 14.63 2.3 12 2.3a9.74 9.74 0 0 0-8.7 5.37l3.24 2.53c.77-2.31 2.92-4.03 5.46-4.03Z"
-                    />
-
-                </svg>
-
+            <span class="google-icon">
+                G
             </span>
-
 
             <span id="google-login-text">
                 Continue with Google
@@ -786,16 +801,9 @@
         </button>
 
 
-        <div
-            class="message"
-            id="login-message"
-            aria-live="polite"
-        ></div>
-
-
         <p class="notice">
             Access is restricted to
-            authorized family members.
+            authorized readers.
         </p>
 
     </section>
@@ -809,290 +817,225 @@
 
 
 <!-- =========================
-     SUPABASE AUTH
+     SUPABASE GOOGLE LOGIN
 ========================== -->
 
 <script>
 
-    /* =================================================
-       SUPABASE CONFIGURATION
-    ================================================= */
-
-    const SUPABASE_URL =
-        "https://ktytetimukmaqkxmzkha.supabase.co";
+const SUPABASE_URL =
+    "https://ktytetimukmaqkxmzkha.supabase.co";
 
 
-    const SUPABASE_KEY =
-        "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+const SUPABASE_KEY =
+    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
 
-    /* =================================================
-       CREATE CLIENT
-
-       IMPORTANT:
-       We handle the OAuth callback ourselves on
-       entrance.html.
-
-       This prevents login.html and entrance.html
-       from racing each other during the redirect.
-    ================================================= */
-
-    const supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY,
-            {
-                auth: {
-
-                    persistSession: true,
-
-                    autoRefreshToken: true,
-
-                    detectSessionInUrl: false,
-
-                    flowType: "pkce"
-
-                }
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true
             }
-        );
+        }
+    );
 
 
-    /* =================================================
-       ELEMENTS
-    ================================================= */
-
-    const googleButton =
-        document.getElementById(
-            "google-login"
-        );
+const googleButton =
+    document.getElementById(
+        "google-login"
+    );
 
 
-    const googleButtonText =
-        document.getElementById(
-            "google-login-text"
-        );
+const googleButtonText =
+    document.getElementById(
+        "google-login-text"
+    );
 
 
-    const loginMessage =
-        document.getElementById(
-            "login-message"
-        );
+/*
+ * If the user is already authenticated,
+ * there is no reason to show the login
+ * button again.
+ */
 
-
-    /* =================================================
-       MESSAGE
-    ================================================= */
-
-    function showMessage(
-        message,
-        type = ""
-    ) {
-
-        loginMessage.textContent =
-            message;
-
-        loginMessage.className =
-            "message " + type;
-
-    }
-
-
-    /* =================================================
-       GET ENTRANCE URL
-
-       Using a relative URL means this works whether
-       your GitHub Pages address has /Journal-Archived-01/
-       or another base path.
-    ================================================= */
-
-    const entranceURL =
-        new URL(
-            "./entrance.html",
-            window.location.href
-        ).href;
-
+async function checkExistingSession() {
 
     console.log(
-        "OAuth redirect URL:",
-        entranceURL
+        "Checking existing Supabase session..."
     );
 
 
-    /* =================================================
-       CHECK EXISTING SESSION
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.getSession();
 
-       We do this once when the login page opens.
-    ================================================= */
 
-    async function checkExistingSession() {
+    if (error) {
+
+        console.error(
+            "Session check error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    if (
+        data &&
+        data.session &&
+        data.session.user
+    ) {
 
         console.log(
-            "Checking for existing session..."
+            "Existing session found."
         );
 
 
-        try {
+        window.location.replace(
+            "./entrance.html"
+        );
 
-            const {
-                data,
-                error
-            } =
-                await supabaseClient.auth.getSession();
+    }
 
-
-            if (error) {
-
-                console.error(
-                    "Session check error:",
-                    error
-                );
-
-                return;
-
-            }
+}
 
 
-            if (
-                data &&
-                data.session &&
-                data.session.user
-            ) {
+/*
+ * Google login.
+ */
 
-                console.log(
-                    "Existing authenticated session found."
-                );
+googleButton.addEventListener(
+    "click",
+    async function () {
+
+        googleButton.disabled = true;
+
+        googleButtonText.textContent =
+            "Connecting...";
 
 
-                window.location.replace(
-                    entranceURL
-                );
+        console.log(
+            "Starting Google authentication..."
+        );
 
-            } else {
 
-                console.log(
-                    "No existing session."
-                );
+        const redirectTo =
+            window.location.origin +
+            "/Journal-Archived-01/entrance.html";
 
-            }
 
-        } catch (error) {
+        console.log(
+            "OAuth redirect:",
+            redirectTo
+        );
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signInWithOAuth({
+
+                provider: "google",
+
+                options: {
+
+                    redirectTo:
+                        redirectTo
+
+                }
+
+            });
+
+
+        if (error) {
 
             console.error(
-                "Unexpected session error:",
+                "Google login error:",
                 error
+            );
+
+
+            googleButton.disabled = false;
+
+            googleButtonText.textContent =
+                "Continue with Google";
+
+
+            alert(
+                "Login failed:\n\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Normally the browser now leaves
+         * this page and goes to Google.
+         */
+
+        console.log(
+            "Google authentication started.",
+            data
+        );
+
+    }
+);
+
+
+/*
+ * Listen for authentication events.
+ */
+
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Login page auth event:",
+            event
+        );
+
+
+        if (
+            session &&
+            session.user
+        ) {
+
+            console.log(
+                "Authenticated user detected."
+            );
+
+
+            window.location.replace(
+                "./entrance.html"
             );
 
         }
 
     }
+);
 
 
-    /* =================================================
-       GOOGLE LOGIN
-    ================================================= */
+/*
+ * Check whether the visitor is
+ * already logged in.
+ */
 
-    googleButton.addEventListener(
-        "click",
-        async function () {
-
-            googleButton.disabled = true;
-
-            googleButtonText.textContent =
-                "Connecting...";
-
-
-            showMessage("");
-
-
-            console.log(
-                "Starting Google authentication..."
-            );
-
-
-            try {
-
-                const {
-                    error
-                } =
-                    await supabaseClient.auth.signInWithOAuth({
-
-                        provider:
-                            "google",
-
-                        options: {
-
-                            redirectTo:
-                                entranceURL
-
-                        }
-
-                    });
-
-
-                if (error) {
-
-                    console.error(
-                        "Google login error:",
-                        error
-                    );
-
-
-                    googleButton.disabled = false;
-
-                    googleButtonText.textContent =
-                        "Continue with Google";
-
-
-                    showMessage(
-                        "Google login failed. Please try again.",
-                        "error"
-                    );
-
-
-                    return;
-
-                }
-
-
-                /*
-                 * signInWithOAuth normally redirects
-                 * the browser to Google.
-                 */
-
-                console.log(
-                    "Google authentication started."
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "Unexpected Google login error:",
-                    error
-                );
-
-
-                googleButton.disabled = false;
-
-                googleButtonText.textContent =
-                    "Continue with Google";
-
-
-                showMessage(
-                    "Something went wrong. Please try again.",
-                    "error"
-                );
-
-            }
-
-        }
-    );
-
-
-    /* =================================================
-       START
-    ================================================= */
-
-    checkExistingSession();
+checkExistingSession();
 
 </script>
 
