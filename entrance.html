@@ -166,7 +166,7 @@
 
 
         /* =========================
-           USERNAME BUTTON
+           GOOGLE USER NAME
         ========================== */
 
         .user-button {
@@ -211,8 +211,9 @@
 
 
         /*
-         * This class is added only after
-         * Supabase confirms the logged-in user.
+         * The username becomes visible
+         * only after Supabase confirms
+         * the authenticated user.
          */
 
         .user-button.visible {
@@ -224,6 +225,24 @@
         .user-button:hover {
 
             color: #ffffff;
+        }
+
+
+        /* =========================
+           USERNAME TEXT
+        ========================== */
+
+        #user-name {
+
+            display: inline-block;
+
+            max-width: 260px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
         }
 
 
@@ -323,7 +342,7 @@
 
 
         /* =========================
-           ACCOUNT MENU USER
+           ACCOUNT INFO
         ========================== */
 
         .account-info {
@@ -606,13 +625,9 @@
             }
 
 
-            .user-button span:first-child {
+            #user-name {
 
                 max-width: 180px;
-
-                overflow: hidden;
-
-                text-overflow: ellipsis;
             }
 
 
@@ -714,7 +729,7 @@
             }
 
 
-            .user-button span:first-child {
+            #user-name {
 
                 max-width: 135px;
             }
@@ -794,13 +809,15 @@
         >
 
             <!--
-                This automatically becomes
-                the logged-in Google user's name.
+                This is automatically replaced
+                with the logged-in Google user's
+                name after authentication.
             -->
 
             <span id="user-name">
                 Account
             </span>
+
 
             <span
                 class="user-arrow"
@@ -835,6 +852,10 @@
 
     </div>
 
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
 
     <div class="entrance-content">
 
@@ -1009,49 +1030,62 @@ document.addEventListener(
 
 
 /* =================================================
-   GET GOOGLE USERNAME
+   FIND GOOGLE USER NAME
 ================================================= */
 
-function getUserDisplayName(user) {
+function getGoogleUserName(user) {
 
     if (!user) {
 
-        return "";
+        return null;
 
     }
 
+
+    /*
+     * First check Supabase user metadata.
+     *
+     * Google commonly supplies:
+     *
+     * full_name
+     * name
+     * display_name
+     * displayName
+     */
 
     const metadata =
         user.user_metadata || {};
 
 
-    /*
-     * Google/Supabase can store the
-     * user's name under different fields.
-     */
-
-    const fullName =
+    const metadataName =
         metadata.full_name ||
         metadata.name ||
         metadata.display_name ||
         metadata.displayName ||
+        metadata.user_name ||
+        metadata.username ||
         "";
 
 
-    if (fullName) {
+    if (
+        typeof metadataName === "string" &&
+        metadataName.trim() !== ""
+    ) {
 
-        return fullName;
+        return metadataName.trim();
 
     }
 
 
     /*
-     * Check the Google identity data
-     * as an additional fallback.
+     * Next check the identity that
+     * Supabase received from Google.
      */
 
     const identities =
-        user.identities || [];
+        Array.isArray(user.identities)
+            ? user.identities
+            : [];
 
 
     for (
@@ -1059,7 +1093,10 @@ function getUserDisplayName(user) {
     ) {
 
         const identityData =
-            identity.identity_data || {};
+            identity &&
+            identity.identity_data
+                ? identity.identity_data
+                : {};
 
 
         const identityName =
@@ -1067,12 +1104,17 @@ function getUserDisplayName(user) {
             identityData.name ||
             identityData.display_name ||
             identityData.displayName ||
+            identityData.user_name ||
+            identityData.username ||
             "";
 
 
-        if (identityName) {
+        if (
+            typeof identityName === "string" &&
+            identityName.trim() !== ""
+        ) {
 
-            return identityName;
+            return identityName.trim();
 
         }
 
@@ -1080,89 +1122,39 @@ function getUserDisplayName(user) {
 
 
     /*
-     * Final fallback.
+     * Some Google accounts may not provide
+     * a display name.
+     *
+     * In that case, use the email address
+     * so the account area never appears empty.
      */
 
-    if (user.email) {
+    if (
+        user.email &&
+        typeof user.email === "string"
+    ) {
 
-        return user.email;
+        return user.email.trim();
 
     }
 
 
-    return "Account";
+    return null;
 
 }
 
 
 /* =================================================
-   DISPLAY AUTHENTICATED USER
+   DISPLAY USER
 ================================================= */
 
-function displayUserName(user) {
+function displayAuthenticatedUser(user) {
 
-    if (
-        !user ||
-        !userNameElement
-    ) {
+    if (!user) {
 
-        return;
-
-    }
-
-
-    const displayName =
-        getUserDisplayName(user);
-
-
-    /*
-     * Put the authenticated Google
-     * user's name in the top-right corner.
-     */
-
-    userNameElement.textContent =
-        displayName;
-
-
-    /*
-     * Also show the same name inside
-     * the account dropdown.
-     */
-
-    accountInfo.textContent =
-        displayName;
-
-
-    /*
-     * Reveal the username only after
-     * Supabase has confirmed the user.
-     */
-
-    userButton.classList.add(
-        "visible"
-    );
-
-
-    console.log(
-        "Displaying logged-in user:",
-        displayName
-    );
-
-}
-
-
-/* =================================================
-   SHOW AUTHENTICATED USER
-================================================= */
-
-function showAuthenticatedUser(
-    session
-) {
-
-    if (
-        !session ||
-        !session.user
-    ) {
+        console.log(
+            "No authenticated user available."
+        );
 
         return;
 
@@ -1171,13 +1163,193 @@ function showAuthenticatedUser(
 
     console.log(
         "Authenticated user:",
-        session.user.id
+        user
     );
 
 
-    displayUserName(
-        session.user
+    const displayName =
+        getGoogleUserName(user);
+
+
+    if (!displayName) {
+
+        console.log(
+            "Could not find a display name."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * DISPLAY NAME IN TOP-RIGHT CORNER
+     */
+
+    userNameElement.textContent =
+        displayName;
+
+
+    /*
+     * DISPLAY NAME INSIDE ACCOUNT MENU
+     */
+
+    accountInfo.textContent =
+        displayName;
+
+
+    /*
+     * SHOW THE ACCOUNT BUTTON
+     */
+
+    userButton.classList.add(
+        "visible"
     );
+
+
+    console.log(
+        "User name displayed:",
+        displayName
+    );
+
+}
+
+
+/* =================================================
+   LOAD AUTHENTICATED USER
+================================================= */
+
+async function loadAuthenticatedUser() {
+
+    console.log(
+        "Loading authenticated user..."
+    );
+
+
+    try {
+
+        /*
+         * First get the current session.
+         */
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (sessionError) {
+
+            console.error(
+                "Session error:",
+                sessionError
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !sessionData ||
+            !sessionData.session
+        ) {
+
+            console.log(
+                "No active session."
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Active Supabase session found."
+        );
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Get the authenticated user directly.
+         *
+         * This makes sure we are reading the
+         * actual user information from Supabase.
+         */
+
+        const {
+            data: userData,
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError) {
+
+            console.error(
+                "User information error:",
+                userError
+            );
+
+            /*
+             * If getUser fails but the session
+             * contains a user, use that as a
+             * fallback.
+             */
+
+            if (
+                sessionData.session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    sessionData.session.user
+                );
+
+            }
+
+            return;
+
+        }
+
+
+        if (
+            userData &&
+            userData.user
+        ) {
+
+            displayAuthenticatedUser(
+                userData.user
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Final fallback to the session user.
+         */
+
+        if (
+            sessionData.session.user
+        ) {
+
+            displayAuthenticatedUser(
+                sessionData.session.user
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected authentication error:",
+            error
+        );
+
+    }
 
 }
 
@@ -1219,16 +1391,42 @@ logoutButton.addEventListener(
             "Logging Out...";
 
 
-        const {
-            error
-        } =
-            await supabaseClient.auth.signOut();
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
 
 
-        if (error) {
+            if (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+
+                logoutButton.disabled = false;
+
+                logoutButton.textContent =
+                    "Logout";
+
+
+                return;
+
+            }
+
+
+            /*
+             * The SIGNED_OUT event below
+             * will redirect the user.
+             */
+
+        } catch (error) {
 
             console.error(
-                "Logout error:",
+                "Unexpected logout error:",
                 error
             );
 
@@ -1238,19 +1436,7 @@ logoutButton.addEventListener(
             logoutButton.textContent =
                 "Logout";
 
-
-            return;
-
         }
-
-
-        /*
-         * Supabase will fire
-         * the SIGNED_OUT event.
-         *
-         * That event handles
-         * the redirect.
-         */
 
     }
 );
@@ -1260,240 +1446,183 @@ logoutButton.addEventListener(
    AUTH STATE LISTENER
 ================================================= */
 
-const {
-    data: {
-        subscription
-    }
-} =
-    supabaseClient.auth.onAuthStateChange(
-        function (
-            event,
-            session
-        ) {
-
-            console.log(
-                "Supabase auth event:",
-                event
-            );
-
-
-            /* =========================
-               INITIAL SESSION
-            ========================== */
-
-            if (
-                event === "INITIAL_SESSION"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                } else {
-
-                    console.log(
-                        "No initial session."
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /* =========================
-               SIGNED IN
-            ========================== */
-
-            if (
-                event === "SIGNED_IN"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    console.log(
-                        "Google login successful."
-                    );
-
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /* =========================
-               TOKEN REFRESHED
-            ========================== */
-
-            if (
-                event === "TOKEN_REFRESHED"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /* =========================
-               USER UPDATED
-            ========================== */
-
-            if (
-                event === "USER_UPDATED"
-            ) {
-
-                if (
-                    session &&
-                    session.user
-                ) {
-
-                    showAuthenticatedUser(
-                        session
-                    );
-
-                }
-
-
-                return;
-
-            }
-
-
-            /* =========================
-               SIGNED OUT
-            ========================== */
-
-            if (
-                event === "SIGNED_OUT"
-            ) {
-
-                console.log(
-                    "User actually signed out."
-                );
-
-
-                redirectToLogin();
-
-                return;
-
-            }
-
-        }
-    );
-
-
-/* =================================================
-   CHECK EXISTING SESSION
-================================================= */
-
-async function checkExistingSession() {
-
-    console.log(
-        "Checking existing Supabase session..."
-    );
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
-
-
-        if (error) {
-
-            console.error(
-                "Session check error:",
-                error
-            );
-
-
-            return;
-
-        }
-
-
-        if (
-            data &&
-            data.session &&
-            data.session.user
-        ) {
-
-            console.log(
-                "Existing session found."
-            );
-
-
-            showAuthenticatedUser(
-                data.session
-            );
-
-
-            return;
-
-        }
-
-
-        /*
-         * Do not immediately redirect here.
-         *
-         * Supabase may still be completing
-         * the Google OAuth callback.
-         */
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
 
         console.log(
-            "No session available yet."
+            "Supabase auth event:",
+            event
         );
 
 
-    } catch (error) {
+        /* =========================
+           SIGNED IN
+        ========================== */
 
-        console.error(
-            "Unexpected session error:",
-            error
-        );
+        if (
+            event === "SIGNED_IN"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+            }
+
+
+            /*
+             * Also call getUser shortly after
+             * authentication so we get the
+             * complete Google profile data.
+             */
+
+            setTimeout(
+                function () {
+
+                    loadAuthenticatedUser();
+
+                },
+                100
+            );
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           INITIAL SESSION
+        ========================== */
+
+        if (
+            event === "INITIAL_SESSION"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+                /*
+                 * Get the authoritative
+                 * user information too.
+                 */
+
+                loadAuthenticatedUser();
+
+            } else {
+
+                console.log(
+                    "No initial session."
+                );
+
+            }
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           TOKEN REFRESHED
+        ========================== */
+
+        if (
+            event === "TOKEN_REFRESHED"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+            }
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           USER UPDATED
+        ========================== */
+
+        if (
+            event === "USER_UPDATED"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+            }
+
+
+            /*
+             * Reload the authoritative
+             * user information.
+             */
+
+            loadAuthenticatedUser();
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           SIGNED OUT
+        ========================== */
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            console.log(
+                "User signed out."
+            );
+
+
+            redirectToLogin();
+
+            return;
+
+        }
 
     }
-
-}
+);
 
 
 /* =================================================
    START
 ================================================= */
 
-checkExistingSession();
+loadAuthenticatedUser();
 
 
 </script>
