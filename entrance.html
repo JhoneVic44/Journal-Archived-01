@@ -7,7 +7,1641 @@
     <meta charset="UTF-8">
 
     <meta
+        name="viewport"a
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
         name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        The Unspoken Chapters | JhoneVic's Diary
+    </title>
+
+    <meta
+        name="description"
+        content="The entrance to The Unspoken Chapters, a personal diary archive."
+    >
+
+    <!-- =========================
+         SUPABASE
+    ========================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <!-- =========================
+         FONTS
+    ========================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+
+            margin: 0;
+
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+        }
+
+
+        body {
+
+            background: #0b0c0d;
+
+            color: #eeeae1;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+        }
+
+
+        /* =========================
+           ENTRANCE
+        ========================== */
+
+        .entrance {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100vh;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            padding:
+                0 8% 200px;
+
+            background:
+
+                linear-gradient(
+                    to top,
+                    rgba(0,0,0,0.94),
+                    rgba(0,0,0,0.35) 55%,
+                    rgba(0,0,0,0.05)
+                ),
+
+                radial-gradient(
+                    circle at 72% 18%,
+                    #3a3c3e,
+                    #202224 35%,
+                    #0b0c0d 72%
+                );
+        }
+
+
+        /* =========================
+           SUBTLE LIGHT
+        ========================== */
+
+        .entrance::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 700px;
+            height: 700px;
+
+            top: -420px;
+            right: -100px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.14),
+                    rgba(255,255,255,0.03) 45%,
+                    transparent 70%
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* =========================
+           ACCOUNT AREA
+        ========================== */
+
+        .account {
+
+            position: absolute;
+
+            top: 28px;
+
+            right: 8%;
+
+            z-index: 10;
+        }
+
+
+        /* =========================
+           GOOGLE USER NAME
+        ========================== */
+
+        .user-button {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 0;
+
+            border: none;
+
+            background: transparent;
+
+            color: #eeeae1;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+            white-space: nowrap;
+
+            cursor: pointer;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.4s ease,
+                color 0.25s ease;
+        }
+
+
+        /*
+         * The username becomes visible
+         * only after Supabase confirms
+         * the authenticated user.
+         */
+
+        .user-button.visible {
+
+            opacity: 1;
+        }
+
+
+        .user-button:hover {
+
+            color: #ffffff;
+        }
+
+
+        /* =========================
+           USERNAME TEXT
+        ========================== */
+
+        #user-name {
+
+            display: inline-block;
+
+            max-width: 260px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           DROPDOWN ARROW
+        ========================== */
+
+        .user-arrow {
+
+            display: inline-block;
+
+            width: 5px;
+
+            height: 5px;
+
+            border-right:
+                1px solid
+                currentColor;
+
+            border-bottom:
+                1px solid
+                currentColor;
+
+            transform:
+                rotate(45deg)
+                translateY(-2px);
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .account.open .user-arrow {
+
+            transform:
+                rotate(225deg)
+                translateY(-1px);
+        }
+
+
+        /* =========================
+           ACCOUNT MENU
+        ========================== */
+
+        .account-menu {
+
+            position: absolute;
+
+            top: 32px;
+
+            right: 0;
+
+            min-width: 145px;
+
+            padding: 7px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.14);
+
+            background:
+                rgba(17,18,19,0.96);
+
+            backdrop-filter:
+                blur(14px);
+
+            -webkit-backdrop-filter:
+                blur(14px);
+
+            box-shadow:
+                0 12px 35px
+                rgba(0,0,0,0.35);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform:
+                translateY(-5px);
+
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease,
+                visibility 0.2s ease;
+        }
+
+
+        .account.open .account-menu {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================
+           ACCOUNT INFO
+        ========================== */
+
+        .account-info {
+
+            padding:
+                9px 10px 10px;
+
+            color: #5d5f62;
+
+            font-size: 7px;
+
+            line-height: 1.5;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================
+           LOGOUT
+        ========================== */
+
+        .logout-button {
+
+            width: 100%;
+
+            padding:
+                10px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #aaa9a3;
+
+            font-family:
+                "Manrope",
+                Arial,
+                sans-serif;
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.14em;
+
+            text-align: left;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+
+        .logout-button:hover {
+
+            background:
+                rgba(255,255,255,0.07);
+
+            color: #eeeae1;
+        }
+
+
+        .logout-button:disabled {
+
+            opacity: 0.5;
+
+            cursor: wait;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================== */
+
+        .entrance-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 700px;
+        }
+
+
+        .archive-label {
+
+            margin-bottom: 18px;
+
+            color: #aaa9a3;
+
+            font-size: 9px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.3em;
+
+            text-transform: uppercase;
+        }
+
+
+        h1 {
+
+            margin:
+                0 0 38px;
+
+            color: #eeeae1;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size:
+                clamp(
+                    52px,
+                    8vw,
+                    90px
+                );
+
+            font-weight: 400;
+
+            line-height: 0.9;
+
+            letter-spacing: -0.06em;
+        }
+
+
+        /* =========================
+           2013 BUTTON
+        ========================== */
+
+        .year-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 145px;
+
+            padding:
+                14px 32px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.35);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            color: #eeeae1;
+
+            text-decoration: none;
+
+            font-size: 9px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.28em;
+
+            text-transform: uppercase;
+
+            transition:
+                background 0.3s ease,
+                border-color 0.3s ease,
+                transform 0.3s ease;
+        }
+
+
+        .year-button:hover {
+
+            background:
+                rgba(255,255,255,0.11);
+
+            border-color:
+                rgba(255,255,255,0.65);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .year-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================
+           SMALL ARCHIVE MARK
+        ========================== */
+
+        .archive-mark {
+
+            position: absolute;
+
+            right: 8%;
+
+            bottom: 72px;
+
+            z-index: 2;
+
+            color: #5d5f62;
+
+            font-size: 8px;
+
+            letter-spacing: 0.25em;
+
+            text-transform: uppercase;
+
+            writing-mode:
+                vertical-rl;
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 800px) {
+
+            html,
+            body {
+
+                height: 100%;
+
+                overflow: hidden;
+            }
+
+
+            .entrance {
+
+                height: 100vh;
+
+                min-height: 100vh;
+
+                padding:
+                    0 25px 70px;
+
+                align-items: flex-end;
+            }
+
+
+            .account {
+
+                top: 20px;
+
+                right: 25px;
+
+                max-width:
+                    calc(100% - 50px);
+            }
+
+
+            .user-button {
+
+                max-width: 100%;
+
+                font-size: 8px;
+
+                letter-spacing: 0.10em;
+            }
+
+
+            #user-name {
+
+                max-width: 180px;
+            }
+
+
+            .account-menu {
+
+                top: 30px;
+            }
+
+
+            .entrance-content {
+
+                width: 100%;
+
+                max-width: 100%;
+            }
+
+
+            .archive-label {
+
+                margin-bottom: 16px;
+
+                font-size: 8px;
+
+                letter-spacing: 0.25em;
+            }
+
+
+            h1 {
+
+                margin-bottom: 32px;
+
+                max-width: 360px;
+
+                font-size:
+                    clamp(
+                        48px,
+                        14vw,
+                        70px
+                    );
+
+                line-height: 0.92;
+
+                letter-spacing: -0.055em;
+            }
+
+
+            .year-button {
+
+                min-width: 130px;
+
+                padding:
+                    13px 27px;
+
+                font-size: 8px;
+
+                letter-spacing: 0.25em;
+            }
+
+
+            .archive-mark {
+
+                right: 20px;
+
+                bottom: 55px;
+
+                font-size: 7px;
+            }
+
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+        ================================================= */
+
+        @media (max-width: 430px) {
+
+            .entrance {
+
+                padding:
+                    0 20px 70px;
+            }
+
+
+            .account {
+
+                top: 17px;
+
+                right: 20px;
+
+                max-width:
+                    calc(100% - 40px);
+            }
+
+
+            .user-button {
+
+                font-size: 7px;
+            }
+
+
+            #user-name {
+
+                max-width: 135px;
+            }
+
+
+            .account-menu {
+
+                min-width: 130px;
+            }
+
+
+            .archive-label {
+
+                font-size: 7px;
+            }
+
+
+            h1 {
+
+                font-size:
+                    clamp(
+                        44px,
+                        14vw,
+                        60px
+                    );
+
+                margin-bottom: 28px;
+            }
+
+
+            .year-button {
+
+                min-width: 120px;
+
+                padding:
+                    12px 24px;
+
+                font-size: 8px;
+            }
+
+
+            .archive-mark {
+
+                right: 15px;
+
+                bottom: 45px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<main class="entrance">
+
+
+    <!-- =========================
+         ACCOUNT
+    ========================== -->
+
+    <div
+        class="account"
+        id="account"
+    >
+
+        <button
+            type="button"
+            class="user-button"
+            id="user-button"
+            aria-label="Open account menu"
+            aria-expanded="false"
+        >
+
+            <!--
+                This is automatically replaced
+                with the logged-in Google user's
+                name after authentication.
+            -->
+
+            <span id="user-name">
+                Account
+            </span>
+
+
+            <span
+                class="user-arrow"
+                aria-hidden="true"
+            ></span>
+
+        </button>
+
+
+        <div
+            class="account-menu"
+            id="account-menu"
+        >
+
+            <div
+                class="account-info"
+                id="account-info"
+            >
+                Signed in
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <div class="entrance-content">
+
+
+        <div class="archive-label">
+
+            Personal Archive
+
+        </div>
+
+
+        <h1>
+
+            The Unspoken<br>
+            Chapters
+
+        </h1>
+
+
+        <a
+            class="year-button"
+            href="./2013.html"
+        >
+
+            2013
+
+        </a>
+
+
+    </div>
+
+
+    <div class="archive-mark">
+
+        JhoneVic's Diary
+
+    </div>
+
+
+</main>
+
+
+<!-- =================================================
+     SUPABASE AUTHENTICATION
+================================================= -->
+
+<script>
+
+
+/* =================================================
+   SUPABASE CONFIGURATION
+================================================= */
+
+const SUPABASE_URL =
+    "https://ktytetimukmaqkxmzkha.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+
+
+/* =================================================
+   CREATE SUPABASE CLIENT
+================================================= */
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth: {
+
+                persistSession: true,
+
+                autoRefreshToken: true,
+
+                detectSessionInUrl: true
+
+            }
+        }
+    );
+
+
+/* =================================================
+   ELEMENTS
+================================================= */
+
+const account =
+    document.getElementById(
+        "account"
+    );
+
+
+const userButton =
+    document.getElementById(
+        "user-button"
+    );
+
+
+const userNameElement =
+    document.getElementById(
+        "user-name"
+    );
+
+
+const accountInfo =
+    document.getElementById(
+        "account-info"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logout-button"
+    );
+
+
+/* =================================================
+   ACCOUNT MENU
+================================================= */
+
+userButton.addEventListener(
+    "click",
+    function (event) {
+
+        event.stopPropagation();
+
+
+        const isOpen =
+            account.classList.toggle(
+                "open"
+            );
+
+
+        userButton.setAttribute(
+            "aria-expanded",
+            isOpen
+                ? "true"
+                : "false"
+        );
+
+    }
+);
+
+
+/* =================================================
+   CLOSE ACCOUNT MENU
+================================================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            !account.contains(event.target)
+        ) {
+
+            account.classList.remove(
+                "open"
+            );
+
+
+            userButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   FIND GOOGLE USER NAME
+================================================= */
+
+function getGoogleUserName(user) {
+
+    if (!user) {
+
+        return null;
+
+    }
+
+
+    /*
+     * First check Supabase user metadata.
+     *
+     * Google commonly supplies:
+     *
+     * full_name
+     * name
+     * display_name
+     * displayName
+     */
+
+    const metadata =
+        user.user_metadata || {};
+
+
+    const metadataName =
+        metadata.full_name ||
+        metadata.name ||
+        metadata.display_name ||
+        metadata.displayName ||
+        metadata.user_name ||
+        metadata.username ||
+        "";
+
+
+    if (
+        typeof metadataName === "string" &&
+        metadataName.trim() !== ""
+    ) {
+
+        return metadataName.trim();
+
+    }
+
+
+    /*
+     * Next check the identity that
+     * Supabase received from Google.
+     */
+
+    const identities =
+        Array.isArray(user.identities)
+            ? user.identities
+            : [];
+
+
+    for (
+        const identity of identities
+    ) {
+
+        const identityData =
+            identity &&
+            identity.identity_data
+                ? identity.identity_data
+                : {};
+
+
+        const identityName =
+            identityData.full_name ||
+            identityData.name ||
+            identityData.display_name ||
+            identityData.displayName ||
+            identityData.user_name ||
+            identityData.username ||
+            "";
+
+
+        if (
+            typeof identityName === "string" &&
+            identityName.trim() !== ""
+        ) {
+
+            return identityName.trim();
+
+        }
+
+    }
+
+
+    /*
+     * Some Google accounts may not provide
+     * a display name.
+     *
+     * In that case, use the email address
+     * so the account area never appears empty.
+     */
+
+    if (
+        user.email &&
+        typeof user.email === "string"
+    ) {
+
+        return user.email.trim();
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =================================================
+   DISPLAY USER
+================================================= */
+
+function displayAuthenticatedUser(user) {
+
+    if (!user) {
+
+        console.log(
+            "No authenticated user available."
+        );
+
+        return;
+
+    }
+
+
+    console.log(
+        "Authenticated user:",
+        user
+    );
+
+
+    const displayName =
+        getGoogleUserName(user);
+
+
+    if (!displayName) {
+
+        console.log(
+            "Could not find a display name."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * DISPLAY NAME IN TOP-RIGHT CORNER
+     */
+
+    userNameElement.textContent =
+        displayName;
+
+
+    /*
+     * DISPLAY NAME INSIDE ACCOUNT MENU
+     */
+
+    accountInfo.textContent =
+        displayName;
+
+
+    /*
+     * SHOW THE ACCOUNT BUTTON
+     */
+
+    userButton.classList.add(
+        "visible"
+    );
+
+
+    console.log(
+        "User name displayed:",
+        displayName
+    );
+
+}
+
+
+/* =================================================
+   LOAD AUTHENTICATED USER
+================================================= */
+
+async function loadAuthenticatedUser() {
+
+    console.log(
+        "Loading authenticated user..."
+    );
+
+
+    try {
+
+        /*
+         * First get the current session.
+         */
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (sessionError) {
+
+            console.error(
+                "Session error:",
+                sessionError
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !sessionData ||
+            !sessionData.session
+        ) {
+
+            console.log(
+                "No active session."
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Active Supabase session found."
+        );
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Get the authenticated user directly.
+         *
+         * This makes sure we are reading the
+         * actual user information from Supabase.
+         */
+
+        const {
+            data: userData,
+            error: userError
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (userError) {
+
+            console.error(
+                "User information error:",
+                userError
+            );
+
+            /*
+             * If getUser fails but the session
+             * contains a user, use that as a
+             * fallback.
+             */
+
+            if (
+                sessionData.session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    sessionData.session.user
+                );
+
+            }
+
+            return;
+
+        }
+
+
+        if (
+            userData &&
+            userData.user
+        ) {
+
+            displayAuthenticatedUser(
+                userData.user
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Final fallback to the session user.
+         */
+
+        if (
+            sessionData.session.user
+        ) {
+
+            displayAuthenticatedUser(
+                sessionData.session.user
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected authentication error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   REDIRECT TO LOGIN
+================================================= */
+
+function redirectToLogin() {
+
+    console.log(
+        "Redirecting to login..."
+    );
+
+
+    window.location.replace(
+        "./login.html"
+    );
+
+}
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+logoutButton.addEventListener(
+    "click",
+    async function () {
+
+        console.log(
+            "Logging out..."
+        );
+
+
+        logoutButton.disabled = true;
+
+        logoutButton.textContent =
+            "Logging Out...";
+
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+
+                logoutButton.disabled = false;
+
+                logoutButton.textContent =
+                    "Logout";
+
+
+                return;
+
+            }
+
+
+            /*
+             * The SIGNED_OUT event below
+             * will redirect the user.
+             */
+
+        } catch (error) {
+
+            console.error(
+                "Unexpected logout error:",
+                error
+            );
+
+
+            logoutButton.disabled = false;
+
+            logoutButton.textContent =
+                "Logout";
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   AUTH STATE LISTENER
+================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function (
+        event,
+        session
+    ) {
+
+        console.log(
+            "Supabase auth event:",
+            event
+        );
+
+
+        /* =========================
+           SIGNED IN
+        ========================== */
+
+        if (
+            event === "SIGNED_IN"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+            }
+
+
+            /*
+             * Also call getUser shortly after
+             * authentication so we get the
+             * complete Google profile data.
+             */
+
+            setTimeout(
+                function () {
+
+                    loadAuthenticatedUser();
+
+                },
+                100
+            );
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           INITIAL SESSION
+        ========================== */
+
+        if (
+            event === "INITIAL_SESSION"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+                /*
+                 * Get the authoritative
+                 * user information too.
+                 */
+
+                loadAuthenticatedUser();
+
+            } else {
+
+                console.log(
+                    "No initial session."
+                );
+
+            }
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           TOKEN REFRESHED
+        ========================== */
+
+        if (
+            event === "TOKEN_REFRESHED"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+            }
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           USER UPDATED
+        ========================== */
+
+        if (
+            event === "USER_UPDATED"
+        ) {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                displayAuthenticatedUser(
+                    session.user
+                );
+
+            }
+
+
+            /*
+             * Reload the authoritative
+             * user information.
+             */
+
+            loadAuthenticatedUser();
+
+
+            return;
+
+        }
+
+
+        /* =========================
+           SIGNED OUT
+        ========================== */
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            console.log(
+                "User signed out."
+            );
+
+
+            redirectToLogin();
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   START
+================================================= */
+
+loadAuthenticatedUser();
+
+
+</script>
+
+
+</body>
+
+</html>
+
+
         content="width=device-width, initial-scale=1.0"
     >
 
