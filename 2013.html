@@ -1,26 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The 2013 Diaries of JhoneVic</title>
 
 <style>
+*{box-sizing:border-box}
 
-*{
-  box-sizing:border-box;
-}
-
-html,
-body{
+html,body{
   margin:0;
   width:100%;
   min-height:100%;
@@ -32,981 +20,503 @@ body{
 body{
   overflow-y:auto;
   overflow-x:hidden;
-
   background:
-    radial-gradient(
-      circle at 78% 8%,
-      rgba(255,255,255,.075),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #090a0b,
-      #151719 52%,
-      #202224
-    );
+    radial-gradient(circle at 78% 8%,rgba(255,255,255,.075),transparent 30%),
+    linear-gradient(135deg,#090a0b,#151719 52%,#202224);
 }
 
-html{
-  scrollbar-width:none;
-}
-
-html::-webkit-scrollbar{
-  width:0;
-  height:0;
-}
-
-
-/* =========================
-   PAGE
-========================= */
+html{scrollbar-width:none}
+html::-webkit-scrollbar{width:0;height:0}
 
 .page{
   width:100%;
   max-width:1500px;
-  height:100vh;
-  min-height:0;
+  min-height:100vh;
   margin:auto;
-
-  padding:
-    clamp(22px,3vw,42px)
-    clamp(25px,5vw,75px)
-    25px;
-
+  padding:clamp(22px,3vw,42px) clamp(25px,5vw,75px) 25px;
   display:flex;
   flex-direction:column;
 }
 
-
-/* =========================
-   TOP BAR
-========================= */
-
 .topbar{
   display:grid;
-
-  grid-template-columns:
-    1fr auto;
-
+  grid-template-columns:1fr auto;
   align-items:center;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.14);
-
-  padding-bottom:
-    clamp(14px,1.7vh,22px);
-
+  border-bottom:1px solid rgba(255,255,255,.14);
+  padding-bottom:clamp(14px,1.7vh,22px);
   color:#888;
-
-  font-size:
-    clamp(7px,.55vw,9px);
-
+  font-size:clamp(7px,.55vw,9px);
   letter-spacing:.2em;
-
   text-transform:uppercase;
-
   flex-shrink:0;
 }
 
-.topbar > span:first-child{
-  justify-self:start;
-}
-
-.topbar > span:last-child{
-  justify-self:end;
-}
-
-
-/* =========================
-   HOME BUTTON
-========================= */
-
 .home-button{
-
   justify-self:end;
-
   display:inline-flex;
-
   align-items:center;
-
   justify-content:center;
-
   min-width:72px;
-
-  padding:
-    8px 16px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.27);
-
-  background:
-    rgba(255,255,255,.035);
-
+  padding:8px 16px;
+  border:1px solid rgba(255,255,255,.27);
+  background:rgba(255,255,255,.035);
   color:#aaa8a2;
-
   text-decoration:none;
-
-  font-family:
-    Arial,Helvetica,sans-serif;
-
   font-size:8px;
-
   font-weight:500;
-
   letter-spacing:.18em;
-
   text-transform:uppercase;
-
   cursor:pointer;
-
-  transition:
-    color .25s ease,
-    border-color .25s ease,
-    background .25s ease,
-    box-shadow .25s ease,
-    transform .25s ease;
+  transition:color .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease,transform .25s ease;
 }
 
 .home-button:hover{
-
   color:#eeeae1;
-
-  border-color:
-    rgba(255,255,255,.6);
-
-  background:
-    rgba(255,255,255,.08);
-
-  box-shadow:
-    0 0 16px
-    rgba(255,255,255,.12);
-
-  transform:
-    translateY(-1px);
+  border-color:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.08);
+  box-shadow:0 0 16px rgba(255,255,255,.12);
+  transform:translateY(-1px);
 }
 
-.home-button:active{
-
-  transform:
-    translateY(0);
-}
-
-
-/* =========================
-   MAIN LAYOUT
-========================= */
+.home-button:active{transform:translateY(0)}
 
 .layout{
   flex:1;
   min-height:0;
-  overflow:visible;
-
   display:grid;
-
-  grid-template-columns:
-    minmax(360px,.88fr)
-    minmax(500px,1.12fr);
-
-  gap:
-    clamp(45px,6vw,95px);
-
-  padding-top:
-    clamp(30px,5vh,55px);
-
+  grid-template-columns:minmax(360px,.88fr) minmax(500px,1.12fr);
+  gap:clamp(45px,6vw,95px);
+  padding-top:clamp(30px,5vh,55px);
   align-items:start;
-
-  min-height:0;
 }
 
-
-/* =========================
-   LEFT SIDE
-========================= */
-
-.left{
-  padding-right:5px;
-  min-width:0;
-}
+.left{padding-right:5px;min-width:0}
 
 .eyebrow{
-  font-size:
-    clamp(7px,.55vw,9px);
-
+  font-size:clamp(7px,.55vw,9px);
   letter-spacing:.27em;
-
   text-transform:uppercase;
-
   color:#777a7d;
-
-  margin-bottom:
-    clamp(12px,1.5vh,18px);
+  margin-bottom:clamp(12px,1.5vh,18px);
 }
 
 .year{
-  font:
-    400 clamp(72px,8vw,118px)/.78
-    Georgia,serif;
-
+  font:400 clamp(72px,8vw,118px)/.78 Georgia,serif;
   letter-spacing:-.07em;
-
   color:#eeeae1;
-
-  margin:
-    0 0
-    clamp(22px,3vh,32px);
+  margin:0 0 clamp(22px,3vh,32px);
 }
 
 h1{
-  font:
-    400 clamp(38px,4.2vw,64px)/.96
-    Georgia,serif;
-
+  font:400 clamp(38px,4.2vw,64px)/.96 Georgia,serif;
   letter-spacing:-.055em;
-
-  margin:
-    0 0
-    clamp(18px,2.5vh,26px);
-
+  margin:0 0 clamp(18px,2.5vh,26px);
   color:#eeeae1;
 }
 
 .meta{
-  font-size:
-    clamp(8px,.62vw,10px);
-
+  font-size:clamp(8px,.62vw,10px);
   line-height:1.8;
-
   color:#888;
-
   max-width:600px;
 }
 
 .rule{
   height:1px;
-
-  background:
-    rgba(255,255,255,.18);
-
+  background:rgba(255,255,255,.18);
   width:58px;
-
-  margin:
-    clamp(28px,4vh,42px)
-    0
-    clamp(20px,3vh,30px);
+  margin:clamp(28px,4vh,42px) 0 clamp(20px,3vh,30px);
 }
 
-
-/* =========================
-   INTRODUCTION
-========================= */
-
 .intro h2{
-  font:
-    400 clamp(20px,1.7vw,25px)
-    Georgia,serif;
-
-  margin:
-    0 0 9px;
-
+  font:400 clamp(20px,1.7vw,25px) Georgia,serif;
+  margin:0 0 9px;
   color:#e8e4dc;
 }
 
 .original{
   font-size:8px;
-
   letter-spacing:.17em;
-
   text-transform:uppercase;
-
   color:#777;
-
   margin-bottom:15px;
 }
 
 .intro p{
-  font:
-    clamp(13px,1vw,16px)/1.85
-    Georgia,serif;
-
+  font:clamp(13px,1vw,16px)/1.85 Georgia,serif;
   color:#b9b6ae;
-
   max-width:620px;
-
   margin:0;
 }
 
-
-/* =========================
-   RIGHT SIDE
-========================= */
-
 .right{
   min-width:0;
-
   display:flex;
-
   justify-content:center;
-
   align-items:flex-start;
 }
 
 .month-area{
   width:100%;
-
   max-width:680px;
-
   margin:0 auto;
-
   min-width:0;
 }
-
-
-/* =========================
-   MONTH TITLE
-========================= */
 
 .months-label{
   text-align:center;
-
-  margin:
-    0 0
-    clamp(20px,3vh,32px);
-
-  font:
-    400 clamp(23px,2vw,29px)
-    Georgia,serif;
-
+  margin:0 0 clamp(20px,3vh,32px);
+  font:400 clamp(23px,2vw,29px) Georgia,serif;
   color:#ddd9d0;
 }
 
-
-/* =========================
-   MONTH GRID
-========================= */
-
 .months{
   display:grid;
-
-  grid-template-columns:
-    repeat(3,minmax(0,1fr));
-
-  column-gap:
-    clamp(15px,2.5vw,38px);
-
-  row-gap:
-    clamp(0px,.5vh,6px);
-
-  min-width:0;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  column-gap:clamp(15px,2.5vw,38px);
+  row-gap:clamp(0px,.5vh,6px);
 }
 
-
-/* =========================
-   MONTH ITEM
-========================= */
-
-.month-item{
-  position:relative;
-  min-width:0;
-}
-
-
-/* =========================
-   MONTH BUTTON / LINK
-========================= */
+.month-item{position:relative;min-width:0}
 
 .month{
   position:relative;
-
   width:100%;
-
-  border:0;
-
-  background:none;
-
   color:#aaa8a2;
-
-  padding:
-    clamp(13px,1.6vh,18px)
-    5px;
-
+  padding:clamp(13px,1.6vh,18px) 5px;
   cursor:pointer;
-
-  font-family:
-    Arial,Helvetica,sans-serif;
-
-  font-size:
-    clamp(14px,1.1vw,18px);
-
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:clamp(14px,1.1vw,18px);
   letter-spacing:.10em;
-
   text-transform:uppercase;
-
   text-align:center;
-
-  transition:
-    color .35s ease,
-    text-shadow .35s ease;
-
+  transition:color .35s ease,text-shadow .35s ease;
   text-decoration:none;
-
   display:block;
+  border:0;
+  background:none;
 }
 
 .month::after{
   content:"";
-
   position:absolute;
-
   left:50%;
-
   bottom:3px;
-
   width:18px;
-
   height:1px;
-
   background:#666;
-
-  transform:
-    translateX(-50%);
-
-  transition:
-    width .4s ease,
-    background .4s ease,
-    box-shadow .4s ease;
+  transform:translateX(-50%);
+  transition:width .4s ease,background .4s ease,box-shadow .4s ease;
 }
 
-.month:hover,
-.month:focus{
+.month:hover,.month:focus{
   color:#fff;
-
-  text-shadow:
-    0 0 12px
-    rgba(255,255,255,.35);
-
+  text-shadow:0 0 12px rgba(255,255,255,.35);
   outline:none;
 }
 
-.month:hover::after,
-.month:focus::after{
+.month:hover::after,.month:focus::after{
   width:72%;
-
   background:#eeeae1;
-
-  box-shadow:
-    0 0 10px
-    rgba(255,255,255,.5);
+  box-shadow:0 0 10px rgba(255,255,255,.5);
 }
 
 
 /* =========================
-   MOBILE INTRO BUTTON
+   MONTHLY INTRODUCTION
 ========================= */
 
-.mobile-intro-button{
-  display:none;
-}
-
-
-/* =================================================
-   DESKTOP MONTHLY INTRODUCTION
-================================================= */
-
 .month-introduction{
-
-  margin-top:
-    clamp(27px,4vh,42px);
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.13);
-
-  padding-top:
-    clamp(17px,2.5vh,25px);
-
+  margin-top:clamp(27px,4vh,42px);
+  border-top:1px solid rgba(255,255,255,.13);
+  padding-top:clamp(17px,2.5vh,25px);
   height:280px;
   min-height:280px;
   max-height:280px;
-
   overflow:hidden;
-
-  animation:
-    introFade .3s ease;
+  animation:introFade .3s ease;
 }
 
 .month-introduction-meta{
   font-size:8px;
-
   letter-spacing:.22em;
-
   text-transform:uppercase;
-
   color:#686a6d;
-
   margin-bottom:9px;
 }
 
 .month-introduction h2{
-  font:
-    400 clamp(21px,1.8vw,26px)
-    Georgia,serif;
-
+  font:400 clamp(21px,1.8vw,26px) Georgia,serif;
   color:#e8e4dc;
-
-  margin:
-    0 0 10px;
+  margin:0 0 10px;
 }
 
 .month-introduction p{
-  font:
-    clamp(11px,.85vw,14px)/1.75
-    Georgia,serif;
-
+  font:clamp(11px,.85vw,14px)/1.75 Georgia,serif;
   color:#aaa8a1;
-
   margin:0;
-
   max-width:650px;
-
   max-height:195px;
-
   overflow:hidden;
 }
 
-
 /* =========================
-   INTRO ANIMATION
+   MONTH VIEW
 ========================= */
 
-@keyframes introFade{
-
-  from{
-    opacity:0;
-
-    transform:
-      translateY(5px);
-  }
-
-  to{
-    opacity:1;
-
-    transform:
-      translateY(0);
-  }
-
+.month-view{
+  display:none;
+  animation:introFade .3s ease;
 }
 
+.month-view.open{display:block}
 
-/* =========================
-   AUTHENTICITY NOTE
-========================= */
+.month-view-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin:0 0 25px;
+}
+
+.month-view-title{
+  margin:0;
+  font:400 clamp(28px,2.5vw,38px) Georgia,serif;
+  color:#e8e4dc;
+}
+
+.back-months{
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.025);
+  color:#aaa8a2;
+  padding:8px 12px;
+  font-size:8px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.back-months:hover{
+  color:#eeeae1;
+  border-color:rgba(255,255,255,.55);
+  background:rgba(255,255,255,.07);
+}
+
+.month-view-subtitle{
+  color:#686a6d;
+  font-size:8px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  margin-bottom:22px;
+}
+
+.diary-list{
+  border-top:1px solid rgba(255,255,255,.13);
+}
+
+.diary-entry{
+  display:grid;
+  grid-template-columns:105px 1fr;
+  gap:22px;
+  padding:18px 5px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  text-decoration:none;
+  color:inherit;
+  transition:background .25s ease,padding-left .25s ease;
+}
+
+.diary-entry:hover{
+  background:rgba(255,255,255,.025);
+  padding-left:10px;
+}
+
+.diary-date{
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#777a7d;
+  padding-top:3px;
+}
+
+.diary-title{
+  font:400 clamp(17px,1.35vw,21px) Georgia,serif;
+  color:#ddd9d0;
+  margin:0;
+}
+
+.diary-description{
+  margin:6px 0 0;
+  font:12px/1.65 Georgia,serif;
+  color:#888;
+}
+
+.no-entries{
+  padding:25px 5px;
+  color:#888;
+  font:14px/1.7 Georgia,serif;
+}
 
 .note{
-
-  margin-top:
-    clamp(22px,3vh,35px);
-
-  /* REMOVED THE HORIZONTAL LINE */
+  margin-top:clamp(22px,3vh,35px);
   border-top:none;
-
-  padding-top:
-    clamp(17px,2.5vh,23px);
-
+  padding-top:clamp(17px,2.5vh,23px);
   max-width:680px;
 }
 
 .note h2{
-  font:
-    400 clamp(20px,1.7vw,25px)
-    Georgia,serif;
-
-  margin:
-    0 0 10px;
-
+  font:400 clamp(20px,1.7vw,25px) Georgia,serif;
+  margin:0 0 10px;
   color:#e8e4dc;
 }
 
 .note p{
-  font:
-    clamp(11px,.82vw,13px)/1.7
-    Georgia,serif;
-
+  font:clamp(11px,.82vw,13px)/1.7 Georgia,serif;
   color:#99968f;
-
   margin:0;
 }
 
 .signature{
   text-align:right;
-
   color:#888;
-
-  font:
-    italic 11px
-    Georgia,serif;
-
+  font:italic 11px Georgia,serif;
   margin-top:11px;
 }
 
-
-/* =========================
-   FOOTER
-========================= */
-
 .footer{
-
-  margin-top:
-    clamp(15px,2vh,22px);
-
-  /* REMOVED THE HORIZONTAL LINE */
+  margin-top:clamp(15px,2vh,22px);
   border-top:none;
-
   padding-top:12px;
-
   display:flex;
-
   justify-content:flex-start;
-
   color:#5d5f62;
-
   font-size:7px;
-
   letter-spacing:.18em;
-
   text-transform:uppercase;
-
   flex-shrink:0;
 }
 
-
-/* =================================================
-   MEDIUM DESKTOP
-================================================= */
+@keyframes introFade{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
 @media(max-width:1200px){
-
   .layout{
-    grid-template-columns:
-      minmax(330px,.85fr)
-      minmax(440px,1.15fr);
-
+    grid-template-columns:minmax(330px,.85fr) minmax(440px,1.15fr);
     gap:45px;
   }
-
-  .month-area{
-    max-width:600px;
-  }
-
+  .month-area{max-width:600px}
 }
-
-
-/* =================================================
-   TABLET
-================================================= */
 
 @media(max-width:900px){
-
   .layout{
-    grid-template-columns:
-      minmax(290px,.8fr)
-      minmax(390px,1.2fr);
-
+    grid-template-columns:minmax(290px,.8fr) minmax(390px,1.2fr);
     gap:30px;
-
     padding-top:32px;
   }
-
-  .months{
-    column-gap:15px;
-  }
-
-  .month{
-    font-size:14px;
-  }
-
+  .months{column-gap:15px}
+  .month{font-size:14px}
 }
 
-
-/* =================================================
-   MOBILE
-================================================= */
-
 @media(max-width:700px){
-
-  body{
-    overflow:auto;
-  }
+  body{overflow:auto}
 
   .page{
-    height:auto;
     min-height:100vh;
-
-    padding:
-      22px
-      20px
-      45px;
+    padding:22px 20px 45px;
   }
 
   .topbar{
-    grid-template-columns:
-      1fr auto;
-
+    grid-template-columns:1fr auto;
     font-size:7px;
-
     letter-spacing:.15em;
   }
 
-
   .home-button{
-
     min-width:60px;
-
-    padding:
-      7px 11px;
-
+    padding:7px 11px;
     font-size:7px;
-
   }
-
 
   .layout{
     display:block;
-    overflow:visible;
-
     padding-top:40px;
   }
 
-  .left{
-    padding:0;
-  }
+  .left{padding:0}
 
-  .year{
-    font-size:76px;
-  }
-
-  h1{
-    font-size:44px;
-  }
-
-  .intro p{
-    font-size:14px;
-  }
+  .year{font-size:76px}
+  h1{font-size:44px}
+  .intro p{font-size:14px}
 
   .right{
     display:block;
-
     margin-top:55px;
   }
 
-  .month-area{
-    max-width:none;
-  }
+  .month-area{max-width:none}
 
   .months-label{
     font-size:22px;
-
     margin-bottom:25px;
   }
 
-
-  /* =========================
-     MOBILE MONTH LIST
-  ========================= */
-
   .months{
     display:block;
-
     width:100%;
   }
 
   .month-item{
     width:100%;
-
-    border-bottom:
-      1px solid
-      rgba(255,255,255,.08);
-
-    padding:0;
+    border-bottom:1px solid rgba(255,255,255,.08);
   }
 
   .month-row{
     width:100%;
-
     min-height:58px;
-
     display:flex;
-
     align-items:center;
-
-    justify-content:space-between;
-
-    gap:12px;
   }
 
   .month{
-    flex:1;
-
-    width:auto;
-
-    padding:
-      17px
-      5px;
-
+    width:100%;
+    padding:17px 5px;
     text-align:left;
-
     font-size:15px;
-
-    letter-spacing:.10em;
   }
 
   .month::after{
     left:5px;
-
     bottom:8px;
-
     width:16px;
-
     transform:none;
   }
 
-  .month:hover::after,
-  .month:focus::after{
-    width:55%;
+  .month:hover::after,.month:focus::after{width:55%}
+
+  .month-view-header{
+    align-items:flex-start;
+    margin-bottom:20px;
   }
 
+  .month-view-title{font-size:27px}
 
-  /* =========================
-     MOBILE INTRO BUTTON
-  ========================= */
-
-  .mobile-intro-button{
-
-    flex-shrink:0;
-
-    width:38px;
-
-    height:38px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border:
-      1px solid
-      rgba(255,255,255,.20);
-
-    border-radius:50%;
-
-    background:
-      rgba(255,255,255,.025);
-
-    color:#aaa8a2;
-
-    cursor:pointer;
-
-    font-family:
-      Georgia,serif;
-
-    font-size:15px;
-
-    line-height:1;
-
-    transition:
-      color .25s ease,
-      border-color .25s ease,
-      background .25s ease,
-      box-shadow .25s ease,
-      transform .25s ease;
-  }
-
-  .mobile-intro-button:hover,
-  .mobile-intro-button:focus{
-
-    color:#eeeae1;
-
-    border-color:
-      rgba(255,255,255,.55);
-
-    background:
-      rgba(255,255,255,.08);
-
-    box-shadow:
-      0 0 14px
-      rgba(255,255,255,.10);
-
-    outline:none;
-  }
-
-  .mobile-intro-button:active{
-    transform:
-      scale(.94);
-  }
-
-
-  /* =========================
-     MOBILE INTRODUCTION
-  ========================= */
-
-  .month-mobile-introduction{
-
-    display:none;
-
-    padding:
-      0
-      5px
-      20px;
-
-    animation:
-      introFade .3s ease;
-  }
-
-  .month-mobile-introduction.open{
-    display:block;
-  }
-
-  .month-mobile-meta{
+  .back-months{
     font-size:7px;
-
-    letter-spacing:.20em;
-
-    text-transform:uppercase;
-
-    color:#686a6d;
-
-    margin-bottom:8px;
+    padding:7px 9px;
+    white-space:nowrap;
   }
 
-  .month-mobile-title{
-    font:
-      400 21px
-      Georgia,serif;
-
-    color:#e8e4dc;
-
-    margin:
-      0 0 9px;
+  .diary-entry{
+    grid-template-columns:76px 1fr;
+    gap:12px;
+    padding:16px 3px;
   }
 
-  .month-mobile-text{
-    font:
-      14px/1.8
-      Georgia,serif;
-
-    color:#aaa8a1;
-
-    margin:0;
-  }
-
-
-  /* Hide desktop introduction on mobile */
-
-  .right > .month-area > .month-introduction{
-    display:none;
-  }
-
+  .diary-date{font-size:7px}
+  .diary-title{font-size:17px}
+  .diary-description{font-size:12px}
 
   .note{
     margin-top:45px;
@@ -1014,202 +524,105 @@ h1{
 
   .footer{
     display:block;
-
     line-height:2;
-
     margin-top:35px;
   }
-
 }
 
-
-/* =================================================
-   VERY SMALL PHONES
-================================================= */
-
 @media(max-width:430px){
-
-  .topbar{
-    font-size:6px;
-  }
+  .topbar{font-size:6px}
 
   .home-button{
-
     min-width:55px;
-
-    padding:
-      6px 9px;
-
+    padding:6px 9px;
     font-size:6px;
-
   }
 
-  .year{
-    font-size:65px;
-  }
+  .year{font-size:65px}
+  h1{font-size:37px}
 
-  h1{
-    font-size:37px;
-  }
-
-  .month-row{
-    min-height:55px;
-  }
+  .month-row{min-height:55px}
 
   .month{
     font-size:13px;
-
-    padding:
-      16px 5px;
+    padding:16px 5px;
   }
 
-  .mobile-intro-button{
-    width:35px;
-
-    height:35px;
-
-    font-size:14px;
+  .diary-entry{
+    grid-template-columns:68px 1fr;
+    gap:10px;
   }
 
-  .month-mobile-text{
-    font-size:13px;
-
-    line-height:1.75;
-  }
-
+  .diary-title{font-size:16px}
+  .diary-description{font-size:11px}
 }
 
-
-/* =================================================
-   SHORT DESKTOP SCREENS
-================================================= */
-
 @media(min-width:701px) and (max-height:800px){
-
-  .page{
-    padding-top:20px;
-  }
+  .page{padding-top:20px}
 
   .layout{
     padding-top:25px;
-
     gap:45px;
   }
 
   .year{
     font-size:78px;
-
     margin-bottom:20px;
   }
 
   h1{
     font-size:42px;
-
     margin-bottom:15px;
   }
 
-  .rule{
-    margin:
-      22px 0
-      18px;
-  }
+  .rule{margin:22px 0 18px}
 
-  .month{
-    padding:
-      10px 5px;
-  }
+  .month{padding:10px 5px}
 
   .month-introduction{
-
     margin-top:22px;
-
     padding-top:15px;
-
     height:190px;
-
     min-height:190px;
-
     max-height:190px;
-
-    overflow:hidden;
   }
 
   .month-introduction p{
-
     max-height:125px;
-
-    overflow:hidden;
   }
+
+  .month-view-header{margin-bottom:18px}
+
+  .diary-entry{padding:13px 5px}
 
   .note{
     margin-top:18px;
-
     padding-top:15px;
-
     border-top:none;
   }
 
   .footer{
     margin-top:10px;
-
     border-top:none;
   }
-
 }
-
 </style>
-
 </head>
 
-
 <body>
-
-
 <div class="page">
 
-
-<!-- =========================
-     TOP BAR
-========================= -->
-
 <div class="topbar">
-
-  <span>
-    JhoneVic's Diary
-  </span>
-
-  <a
-    href="./entrance.html"
-    class="home-button"
-    aria-label="Return to the entrance page"
-  >
-    Home
-  </a>
-
+  <span>JhoneVic's Diary</span>
+  <a href="./entrance.html" class="home-button" aria-label="Return to the entrance page">Home</a>
 </div>
-
-
-
-<!-- =========================
-     MAIN CONTENT
-========================= -->
 
 <div class="layout">
 
-
-<!-- =========================
-     LEFT
-========================= -->
-
 <main class="left">
+  <div class="eyebrow">Volume I · The 2013 Archive</div>
 
-  <div class="eyebrow">
-    Volume I · The 2013 Archive
-  </div>
-
-  <div class="year">
-    2013
-  </div>
+  <div class="year">2013</div>
 
   <h1>
     The 2013 Diaries<br>
@@ -1217,38 +630,23 @@ h1{
   </h1>
 
   <div class="meta">
-
     Compiled: 2025<br>
-
     By: JhoneVic<br>
-
     © 2025 JhoneVic M. Casaña<br>
-
     All rights reserved.<br>
-
     No part of this book may be reproduced in any form
     without permission from the author.<br>
-
     Printed in the Philippines.
-
   </div>
 
   <div class="rule"></div>
 
-
   <section class="intro">
+    <div class="eyebrow">Introduction</div>
 
-    <div class="eyebrow">
-      Introduction
-    </div>
+    <h2>Originally Written in 2013</h2>
 
-    <h2>
-      Originally Written in 2013
-    </h2>
-
-    <div class="original">
-      Original manuscript text
-    </div>
+    <div class="original">Original manuscript text</div>
 
     <p>
       Sa taong ito, ako ay nagkaka-edad ng 14 hanggang 15 taon.
@@ -1257,450 +655,74 @@ h1{
       Ang talaarawan kong ito ay natatanging alaala ko sa taong ito.
       Sana ay magustuhan ninyo ang bawat babasahin ninyo rito.
     </p>
-
   </section>
-
 </main>
-
-
-
-<!-- =========================
-     RIGHT
-========================= -->
 
 <aside class="right">
 
 <div class="month-area">
 
-  <div class="months-label">
-    Months
-  </div>
+<!-- MONTH SELECTOR -->
+<div id="monthSelector">
 
+  <div class="months-label">Months</div>
 
   <div class="months">
 
-
-    <!-- JANUARY -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./january.html"
-          data-month="january"
-        >
-          January
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show January introduction"
-          aria-expanded="false"
-          data-month="january"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-january"
-      ></div>
-
+      <a class="month" href="#" data-month="january">January</a>
     </div>
 
-
-    <!-- FEBRUARY -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./february.html"
-          data-month="february"
-        >
-          February
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show February introduction"
-          aria-expanded="false"
-          data-month="february"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-february"
-      ></div>
-
+      <a class="month" href="#" data-month="february">February</a>
     </div>
 
-
-    <!-- MARCH -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./march.html"
-          data-month="march"
-        >
-          March
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show March introduction"
-          aria-expanded="false"
-          data-month="march"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-march"
-      ></div>
-
+      <a class="month" href="#" data-month="march">March</a>
     </div>
 
-
-    <!-- APRIL -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./april.html"
-          data-month="april"
-        >
-          April
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show April introduction"
-          aria-expanded="false"
-          data-month="april"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-april"
-      ></div>
-
+      <a class="month" href="#" data-month="april">April</a>
     </div>
 
-
-    <!-- MAY -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./may.html"
-          data-month="may"
-        >
-          May
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show May introduction"
-          aria-expanded="false"
-          data-month="may"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-may"
-      ></div>
-
+      <a class="month" href="#" data-month="may">May</a>
     </div>
 
-
-    <!-- JUNE -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./june.html"
-          data-month="june"
-        >
-          June
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show June introduction"
-          aria-expanded="false"
-          data-month="june"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-june"
-      ></div>
-
+      <a class="month" href="#" data-month="june">June</a>
     </div>
 
-
-    <!-- JULY -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./july.html"
-          data-month="july"
-        >
-          July
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show July introduction"
-          aria-expanded="false"
-          data-month="july"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-july"
-      ></div>
-
+      <a class="month" href="#" data-month="july">July</a>
     </div>
 
-
-    <!-- AUGUST -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./august.html"
-          data-month="august"
-        >
-          August
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show August introduction"
-          aria-expanded="false"
-          data-month="august"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-august"
-      ></div>
-
+      <a class="month" href="#" data-month="august">August</a>
     </div>
 
-
-    <!-- SEPTEMBER -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./september.html"
-          data-month="september"
-        >
-          September
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show September introduction"
-          aria-expanded="false"
-          data-month="september"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-september"
-      ></div>
-
+      <a class="month" href="#" data-month="september">September</a>
     </div>
 
-
-    <!-- OCTOBER -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./october.html"
-          data-month="october"
-        >
-          October
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show October introduction"
-          aria-expanded="false"
-          data-month="october"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-october"
-      ></div>
-
+      <a class="month" href="#" data-month="october">October</a>
     </div>
 
-
-    <!-- NOVEMBER -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./november.html"
-          data-month="november"
-        >
-          November
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show November introduction"
-          aria-expanded="false"
-          data-month="november"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-november"
-      ></div>
-
+      <a class="month" href="#" data-month="november">November</a>
     </div>
 
-
-    <!-- DECEMBER -->
-
     <div class="month-item">
-
-      <div class="month-row">
-
-        <a
-          class="month"
-          href="./december.html"
-          data-month="december"
-        >
-          December
-        </a>
-
-        <button
-          class="mobile-intro-button"
-          type="button"
-          aria-label="Show December introduction"
-          aria-expanded="false"
-          data-month="december"
-        >
-          ⓘ
-        </button>
-
-      </div>
-
-      <div
-        class="month-mobile-introduction"
-        id="mobile-intro-december"
-      ></div>
-
+      <a class="month" href="#" data-month="december">December</a>
     </div>
-
 
   </div>
-
-
-
-  <!-- =========================
-       DESKTOP INTRODUCTION
-  ========================= -->
 
   <section
     class="month-introduction"
     id="monthIntroduction"
   >
-
     <div
       class="month-introduction-meta"
       id="monthMeta"
@@ -1716,24 +738,12 @@ h1{
       Move your mouse over January through December
       to read each month's introduction.
     </p>
-
   </section>
 
-
-
-  <!-- =========================
-       AUTHENTICITY NOTE
-  ========================= -->
-
   <section class="note">
+    <div class="eyebrow">📌 Authenticity Note</div>
 
-    <div class="eyebrow">
-      📌 Authenticity Note
-    </div>
-
-    <h2>
-      Regarding the Monthly Introductions
-    </h2>
+    <h2>Regarding the Monthly Introductions</h2>
 
     <p>
       I would like to clarify that every monthly introduction in this diary
@@ -1743,43 +753,51 @@ h1{
       were written at that time.
     </p>
 
-    <div class="signature">
-      — JhoneVic, July 2025
-    </div>
-
+    <div class="signature">— JhoneVic, July 2025</div>
   </section>
-
 
 </div>
 
+<!-- MONTH DIARY VIEW -->
+<section class="month-view" id="monthView">
+
+  <div class="month-view-header">
+    <h2 class="month-view-title" id="selectedMonthTitle">January</h2>
+
+    <button
+      type="button"
+      class="back-months"
+      id="backMonths"
+    >
+      ← Months
+    </button>
+  </div>
+
+  <div class="month-view-subtitle" id="selectedMonthSubtitle">
+    January · 2013
+  </div>
+
+  <div class="diary-list" id="diaryList"></div>
+
+</section>
+
+</div>
 </aside>
 
 </div>
 
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
 <div class="footer">
-
-  <span>
-    Personal Archive
-  </span>
-
+  <span>Personal Archive</span>
 </div>
 
-
 </div>
-
-
 
 <script>
-
-
 /* =================================================
-   MONTHLY INTRODUCTIONS
+   MONTHLY DIARY DATES
+
+   These are example January entries for now.
+   Replace/add the real dates and titles here.
 ================================================= */
 
 const monthlyIntroductions = {
@@ -1805,7 +823,7 @@ const monthlyIntroductions = {
   april:{
     meta:"April · 2013",
     title:"April",
-    text:"Sa buwan ng Abril, ay unang araw ko pa lang ay naging masaya na rin ako. Ngayon ko lang kasi ito isinulat. Ang Marso ay kalungkutan kung saan ako naghirap at umiyak. Ngayong Abril, ay sisiguraduhin kong magkikita na kami ni Kim, basta sa pamamaraan ko iyon. At ang Abril ay araw ng pagkilos, at sisiguraduhin kong kapag nakita niya ako, ay sobrang gwapo, pogi, at makisig ako — at mai-in love siya. Sisimulan ko ang pagkilos sa April 2, 2013 at April 4, 2013. Pabuhay ang April! Mabuhay ang kasiyahan! Mabuhay ang kasiyahan!"
+    text:"Sa buwan ng Abril, ay unang araw ko pa lang ay naging masaya na rin ako. Ngayon ko lang kasi ito isinulat. Ang Marso ay kalungkutan kung saan ako naghirap at umiyak. Ngayong Abril, ay sisiguraduhin kong magkikita na kami ni Kim, basta sa pamamaraan ko iyon. At ang Abril ay araw ng pagkilos, at sisiguraduhin kong kapag nakita niya ako, ay sobrang gwapo, pogi, at makisig ako — at mai-in love siya. Sisimulan ko ang pagkilos sa April 2, 2013 at April 4, 2013. Pabuhay ang April! Mabuhay ang kasiyahan!"
   },
 
   may:{
@@ -1855,16 +873,90 @@ const monthlyIntroductions = {
     title:"December",
     text:"Welcome to December. Comment ko on this month: I'm so glad that today we need to write the diary in English. If you say or heard that December words were about Christmas, for me that Christmas wasn't happy. But I’ve tried to get better each day. For now on, I have never been absent from this diary, and I’m writing in English for once. This day was on the first of December. A kind of little problem happened on the first day, and I cannot resolve it on my own. But I never gave up. There are some parts that give you an idea. Let’s start. (This is me trying to write English as best as I can, even with my ridiculous grammar. I try.)"
   }
-
 };
 
 
-/* =================================================
-   DESKTOP MONTH HOVER
-================================================= */
+const monthlyDiaryEntries = {
 
-const monthLinks =
-  document.querySelectorAll(".month");
+  january: [
+    {
+      date:"January 1, 2013",
+      title:"New Year's Day",
+      description:"Example diary entry. Replace this with the actual January 1 title or entry from the manuscript.",
+      href:"./january.html"
+    },
+    {
+      date:"January 2, 2013",
+      title:"A New Beginning",
+      description:"Example diary entry. Replace this with the actual January 2 title or entry from the manuscript.",
+      href:"./january.html"
+    },
+    {
+      date:"January 3, 2013",
+      title:"The Third Day",
+      description:"Example diary entry. Replace this with the actual January 3 title or entry from the manuscript.",
+      href:"./january.html"
+    },
+    {
+      date:"January 5, 2013",
+      title:"Another Day",
+      description:"Example diary entry. Replace this with the actual January 5 title or entry from the manuscript.",
+      href:"./january.html"
+    },
+    {
+      date:"January 8, 2013",
+      title:"A Day to Remember",
+      description:"Example diary entry. Replace this with the actual January 8 title or entry from the manuscript.",
+      href:"./january.html"
+    }
+  ],
+
+  february:[],
+  march:[],
+  april:[],
+  may:[],
+  june:[],
+  july:[],
+  august:[],
+  september:[],
+  october:[],
+  november:[],
+  december:[]
+};
+
+const monthNames = {
+  january:"January",
+  february:"February",
+  march:"March",
+  april:"April",
+  may:"May",
+  june:"June",
+  july:"July",
+  august:"August",
+  september:"September",
+  october:"October",
+  november:"November",
+  december:"December"
+};
+
+const monthSelector =
+  document.getElementById("monthSelector");
+
+const monthView =
+  document.getElementById("monthView");
+
+const selectedMonthTitle =
+  document.getElementById("selectedMonthTitle");
+
+const selectedMonthSubtitle =
+  document.getElementById("selectedMonthSubtitle");
+
+const diaryList =
+  document.getElementById("diaryList");
+
+const backMonths =
+  document.getElementById("backMonths");
+
 
 const monthMeta =
   document.getElementById("monthMeta");
@@ -1907,148 +999,138 @@ function showMonthIntroduction(month){
 }
 
 
-/* =================================================
-   DESKTOP HOVER
-================================================= */
+const monthLinks =
+  document.querySelectorAll(".month");
+
+
+function openMonth(month){
+
+  const name = monthNames[month];
+
+  if(!name){
+    return;
+  }
+
+  const entries =
+    monthlyDiaryEntries[month] || [];
+
+  selectedMonthTitle.textContent =
+    name;
+
+  selectedMonthSubtitle.textContent =
+    name + " · 2013";
+
+  diaryList.innerHTML = "";
+
+  if(entries.length === 0){
+
+    diaryList.innerHTML = `
+      <div class="no-entries">
+        No diary dates have been added for ${name} yet.
+      </div>
+    `;
+
+  }else{
+
+    entries.forEach(entry => {
+
+      const item =
+        document.createElement("a");
+
+      item.className =
+        "diary-entry";
+
+      item.href =
+        entry.href || "#";
+
+      item.innerHTML = `
+
+        <div class="diary-date">
+          ${entry.date}
+        </div>
+
+        <div>
+          <h3 class="diary-title">
+            ${entry.title}
+          </h3>
+
+          ${
+            entry.description
+            ? `<p class="diary-description">${entry.description}</p>`
+            : ""
+          }
+
+        </div>
+      `;
+
+      diaryList.appendChild(item);
+
+    });
+
+  }
+
+  monthSelector.style.display =
+    "none";
+
+  monthView.classList.remove("open");
+
+  void monthView.offsetWidth;
+
+  monthView.classList.add("open");
+
+  window.history.replaceState(
+    null,
+    "",
+    "#" + month
+  );
+
+}
+
+
+function showMonths(){
+
+  monthView.classList.remove("open");
+
+  monthSelector.style.display =
+    "block";
+
+  window.history.replaceState(
+    null,
+    "",
+    window.location.pathname
+  );
+
+}
+
 
 monthLinks.forEach(link => {
 
   link.addEventListener(
     "mouseenter",
     () => {
-
       showMonthIntroduction(
         link.dataset.month
       );
-
     }
   );
 
   link.addEventListener(
     "focus",
     () => {
-
       showMonthIntroduction(
         link.dataset.month
       );
-
     }
   );
 
-});
-
-
-/* =================================================
-   MOBILE INTRODUCTION BUTTONS
-================================================= */
-
-const mobileIntroButtons =
-  document.querySelectorAll(
-    ".mobile-intro-button"
-  );
-
-
-mobileIntroButtons.forEach(button => {
-
-  button.addEventListener(
+  link.addEventListener(
     "click",
-    function(){
+    function(event){
 
-      const month =
-        this.dataset.month;
+      event.preventDefault();
 
-      const data =
-        monthlyIntroductions[month];
-
-      if(!data){
-        return;
-      }
-
-      const container =
-        document.getElementById(
-          "mobile-intro-" + month
-        );
-
-      if(!container){
-        return;
-      }
-
-
-      if(
-        container.classList.contains(
-          "open"
-        )
-      ){
-
-        container.classList.remove(
-          "open"
-        );
-
-        this.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-        return;
-      }
-
-
-      document
-        .querySelectorAll(
-          ".month-mobile-introduction.open"
-        )
-        .forEach(
-          openContainer => {
-
-            openContainer.classList.remove(
-              "open"
-            );
-
-          }
-        );
-
-
-      document
-        .querySelectorAll(
-          ".mobile-intro-button"
-        )
-        .forEach(
-          otherButton => {
-
-            otherButton.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          }
-        );
-
-
-      container.innerHTML = `
-
-        <div class="month-mobile-meta">
-          ${data.meta}
-        </div>
-
-        <h2 class="month-mobile-title">
-          ${data.title}
-        </h2>
-
-        <p class="month-mobile-text">
-          ${data.text}
-        </p>
-
-      `;
-
-
-      container.classList.add(
-        "open"
-      );
-
-
-      this.setAttribute(
-        "aria-expanded",
-        "true"
+      openMonth(
+        this.dataset.month
       );
 
     }
@@ -2057,10 +1139,30 @@ mobileIntroButtons.forEach(button => {
 });
 
 
+backMonths.addEventListener(
+  "click",
+  showMonths
+);
+
+
+/* Open a month automatically if its
+   hash is present in the URL. */
+
+const initialMonth =
+  window.location.hash
+    .replace("#","")
+    .toLowerCase();
+
+if(
+  monthlyDiaryEntries[
+    initialMonth
+  ]
+){
+
+  openMonth(initialMonth);
+
+}
 </script>
 
-
 </body>
-
 </html>
-
