@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -27,7 +28,34 @@ h1{font:400 clamp(38px,4.2vw,64px)/.96 Georgia,serif;letter-spacing:-.055em;marg
 .pagination{height:34px;display:flex;align-items:flex-end;justify-content:space-between;flex-shrink:0}.pagination-center{font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:#5d5f62}.pagination button:disabled{visibility:hidden}.note{margin-top:clamp(18px,2.5vh,30px);padding-top:clamp(15px,2vh,20px);max-width:680px}.note h2{font:400 clamp(20px,1.7vw,25px) Georgia,serif;margin:0 0 10px;color:#e8e4dc}.note p{font:clamp(11px,.82vw,13px)/1.7 Georgia,serif;color:#99968f;margin:0}.signature{text-align:right;color:#888;font:italic 11px Georgia,serif;margin-top:11px}.footer{margin-top:10px;padding-top:8px;display:flex;justify-content:flex-start;color:#5d5f62;font-size:7px;letter-spacing:.18em;text-transform:uppercase;flex-shrink:0}
 @keyframes introFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){.layout{grid-template-columns:minmax(290px,.8fr) minmax(390px,1.2fr);gap:30px}.months{column-gap:15px}.month{font-size:14px}}
-@media(max-width:700px){body{overflow:hidden}.page{padding:20px 20px 18px}.layout{display:block;padding-top:30px;overflow:hidden}.left{height:auto;max-height:44vh;overflow:hidden}.year{font-size:65px}h1{font-size:37px}.intro p{font-size:13px}.right{display:block;height:54vh;margin-top:25px;overflow:hidden}.month-area{max-width:none}.months-label{font-size:22px;margin-bottom:20px}.months{display:block;width:100%}.month-item{border-bottom:1px solid rgba(255,255,255,.08)}.month{padding:12px 5px;text-align:left;font-size:14px}.month::after{left:5px;bottom:6px;transform:none}.month-introduction{height:190px;min-height:190px;max-height:190px;margin-top:22px;padding-top:15px}.month-introduction p{max-height:125px}.month-view-header{margin-bottom:8px}.month-view-title{font-size:27px}.diary-entry{grid-template-columns:105px 1fr;gap:10px;height:calc(100% / 10);min-height:34px;padding:5px 3px}.diary-date{font-size:9px}.diary-title{font-size:15px}.pagination{height:30px}.note,.footer{display:none}}
+@media(max-width:700px){
+html,body{width:100%;min-height:100%;height:auto;overflow-x:hidden;overflow-y:auto}
+.page{min-height:100vh;height:auto;padding:20px 18px 24px}
+.layout{display:block;padding-top:30px;overflow:visible}
+.left{height:auto;max-height:none;overflow:visible}
+.year{font-size:65px}h1{font-size:37px}.intro p{font-size:13px}
+.right{display:block;height:auto;margin-top:25px;overflow:visible}
+.month-area{max-width:none;height:auto;overflow:visible}
+.months-label{font-size:22px;margin-bottom:20px}
+.months{display:flex;flex-direction:column;width:100%;gap:0}
+.month{padding:14px 5px;text-align:left;font-size:14px;width:100%;display:block;box-sizing:border-box}
+.month::after{left:5px;bottom:6px;transform:none}
+.month.mobile-preview-active{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.35)}
+.month.mobile-preview-active::after{width:72%;background:#eeeae1;box-shadow:0 0 10px rgba(255,255,255,.5)}
+#monthIntroduction{display:none}
+.mobile-month-introduction{display:block;width:100%;box-sizing:border-box;margin:0;padding:16px 5px 22px;border-top:1px solid rgba(255,255,255,.13);overflow:visible;animation:introFade .3s ease}
+.mobile-month-introduction .month-introduction-meta{font-size:7px;margin-bottom:8px}
+.mobile-month-introduction h2{font-size:22px;line-height:1.15;margin:0 0 10px}
+.mobile-month-introduction p{font-size:12px;line-height:1.75;margin:0;max-width:none}
+.mobile-month-introduction .mobile-enter-month{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:9px 0;border:0;border-bottom:1px solid rgba(255,255,255,.35);background:none;color:#eeeae1;font-family:inherit;font-size:9px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.mobile-month-introduction .mobile-enter-month::after{content:"→";transition:transform .2s ease}
+.mobile-month-introduction .mobile-enter-month:active::after{transform:translateX(4px)}
+.note{display:block;margin:20px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.09);max-width:none}
+.note .eyebrow{font-size:7px;margin-bottom:8px}.note h2{font-size:18px;line-height:1.2;margin-bottom:9px}.note p{font-size:10px;line-height:1.7;color:#8f8c86}.note .signature{font-size:10px;margin-top:10px}
+.footer{display:none}
+.month-view{display:none;width:100%;height:auto;min-height:0;overflow:visible}.month-view.open{display:flex;flex-direction:column;width:100%;height:auto;min-height:0}
+.month-view-header{width:100%;margin-bottom:8px}.month-view-title{font-size:27px}.diary-list{width:100%;height:auto;flex:none;overflow:visible}.diary-entry{grid-template-columns:90px minmax(0,1fr);gap:10px;height:auto;min-height:0;padding:12px 3px}.diary-date{font-size:9px}.diary-title{font-size:15px;line-height:1.35}.pagination{height:auto;min-height:44px;padding-top:12px}
+}
 </style>
 </head>
 <body>
@@ -1846,7 +1874,37 @@ function showMonthIntroduction(month){const data=monthlyIntroductions[month];if(
 function renderPage(){const entries=monthlyDiaryEntries[currentMonth]||[];const totalPages=Math.max(1,Math.ceil(entries.length/ENTRIES_PER_PAGE));currentPage=Math.max(0,Math.min(currentPage,totalPages-1));diaryList.innerHTML="";const start=currentPage*ENTRIES_PER_PAGE;entries.slice(start,start+ENTRIES_PER_PAGE).forEach(entry=>{const item=document.createElement("a");item.className="diary-entry";item.href=entry.href||"#";item.innerHTML=`<div class="diary-date">${entry.date}</div><h3 class="diary-title" title="${entry.title.replace(/"/g,'&quot;')}">${entry.title}</h3>`;diaryList.appendChild(item);});pageIndicator.textContent=`Page ${currentPage+1} of ${totalPages}`;prevPage.disabled=currentPage===0;nextPage.disabled=currentPage>=totalPages-1;}
 function openMonth(month){if(!monthNames[month])return;currentMonth=month;currentPage=0;selectedMonthTitle.textContent=monthNames[month];selectedMonthSubtitle.textContent=monthNames[month]+" · 2013";monthSelector.style.display="none";monthView.classList.add("open");renderPage();window.history.replaceState(null,"","#"+month);}
 function showMonths(){monthView.classList.remove("open");monthSelector.style.display="block";window.history.replaceState(null,"",window.location.pathname);}
-document.querySelectorAll(".month").forEach(link=>{link.addEventListener("mouseenter",()=>showMonthIntroduction(link.dataset.month));link.addEventListener("focus",()=>showMonthIntroduction(link.dataset.month));link.addEventListener("click",e=>{e.preventDefault();openMonth(link.dataset.month);});});
+let mobilePreviewMonth="";
+function clearMobilePreview(){document.querySelectorAll(".mobile-month-introduction").forEach(el=>el.remove());document.querySelectorAll(".month.mobile-preview-active").forEach(el=>el.classList.remove("mobile-preview-active"));}
+function showMobilePreview(month,link){
+  clearMobilePreview();
+  const data=monthlyIntroductions[month];
+  if(!data)return;
+  mobilePreviewMonth=month;
+  const preview=document.createElement("section");
+  preview.className="mobile-month-introduction";
+  preview.innerHTML='<div class="month-introduction-meta"></div><h2></h2><p></p><button type="button" class="mobile-enter-month">Enter the month →</button>';
+  preview.querySelector(".month-introduction-meta").textContent=data.meta;
+  preview.querySelector("h2").textContent=data.title;
+  preview.querySelector("p").textContent=data.text;
+  preview.querySelector(".mobile-enter-month").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();openMonth(month);});
+  link.insertAdjacentElement("afterend",preview);
+  link.classList.add("mobile-preview-active");
+}
+document.querySelectorAll(".month").forEach(link=>{
+  link.addEventListener("mouseenter",()=>{if(window.innerWidth>700)showMonthIntroduction(link.dataset.month);});
+  link.addEventListener("focus",()=>{if(window.innerWidth>700)showMonthIntroduction(link.dataset.month);});
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    const month=link.dataset.month;
+    if(window.innerWidth<=700){
+      showMobilePreview(month,link);
+      return;
+    }
+    openMonth(month);
+  });
+});
+window.addEventListener("resize",()=>{if(window.innerWidth>700){clearMobilePreview();mobilePreviewMonth="";}});
 backMonths.addEventListener("click",showMonths);prevPage.addEventListener("click",()=>{if(currentPage>0){currentPage--;renderPage();}});nextPage.addEventListener("click",()=>{const total=Math.ceil((monthlyDiaryEntries[currentMonth]||[]).length/ENTRIES_PER_PAGE);if(currentPage<total-1){currentPage++;renderPage();}});
 const initialMonth=window.location.hash.replace("#","").toLowerCase();if(monthlyDiaryEntries[initialMonth])openMonth(initialMonth);
 </script>
