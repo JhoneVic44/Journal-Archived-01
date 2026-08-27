@@ -1,930 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        The Unspoken Chapters | JhoneVic's Diary
-    </title>
-
-    <meta
-        name="description"
-        content="The entrance to The Unspoken Chapters, a personal diary archive."
-    >
-
-    <!-- =========================
-         SUPABASE
-    ========================== -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-    <!-- =========================
-         FONTS
-    ========================== -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
-        rel="stylesheet"
-    >
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 6: Overlapping Glow (Mobile Full Screen)</title>
     <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        html,
-        body {
-
-            margin: 0;
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
             width: 100%;
             height: 100%;
-
             overflow: hidden;
         }
-
-
         body {
-
             background: #0b0c0d;
-
             color: #eeeae1;
-
-            font-family:
-                "Manrope",
-                Arial,
-                sans-serif;
+            font-family: "Manrope", Arial, sans-serif;
         }
-
-
-        /* =========================
-           ENTRANCE
-        ========================== */
 
         .entrance {
-
-            position: relative;
-
-            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             height: 100vh;
-            height: 100dvh;
-
-            overflow: hidden;
-
-            display: flex;
-
-            align-items: flex-end;
-
-            padding:
-                0 8% clamp(80px, 14vh, 200px);
-
-            background:
-
-                linear-gradient(
-                    to top,
-                    rgba(0,0,0,0.94),
-                    rgba(0,0,0,0.35) 55%,
-                    rgba(0,0,0,0.05)
-                ),
-
-                radial-gradient(
-                    circle at 72% 18%,
-                    #3a3c3e,
-                    #202224 35%,
-                    #0b0c0d 72%
-                );
+            position: relative;
+            background: linear-gradient(to top, rgba(0,0,0,0.94), rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05)),
+                        radial-gradient(circle at 72% 18%, #3a3c3e, #202224 35%, #0b0c0d 72%);
         }
 
-
-        /* =========================
-           SUBTLE LIGHT
-        ========================== */
-
-        .entrance::before {
-
+        .entrance::after {
             content: "";
-
             position: absolute;
-
-            width: 700px;
-            height: 700px;
-
-            top: -420px;
-            right: -100px;
-
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,215,0,.04), transparent 70%);
             border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.14),
-                    rgba(255,255,255,0.03) 45%,
-                    transparent 70%
-                );
-
             pointer-events: none;
         }
 
-
-        /* =========================
-           TOP RIGHT USER
-        ========================== */
-
-        .top-actions {
-
-            position: absolute;
-
-            top: 28px;
-            right: 8%;
-
-            z-index: 10;
-
+        .left-column, .right-column {
             display: flex;
-
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-
-            justify-content: flex-end;
+            text-align: center;
+            padding: 40px 8%;
+            overflow-y: auto;
         }
 
+        .left-column .content,
+        .right-column .content {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .user-name {
-
             color: #eeeae1;
-
             font-size: 9px;
-
             font-weight: 500;
-
             letter-spacing: 0.12em;
-
             text-transform: uppercase;
-
-            white-space: nowrap;
-
-            opacity: 0;
-
-            transition:
-                opacity 0.4s ease;
+            position: absolute;
+            top: 28px;
+            right: 8%;
         }
-
-
-        .user-name.visible {
-
-            opacity: 1;
-        }
-
-
-        /* =========================
-           CONTENT
-        ========================== */
-
-        .entrance-content {
-
-            position: relative;
-
-            z-index: 2;
-
-            width: 100%;
-
-            max-width: 700px;
-        }
-
 
         .archive-label {
-
-            margin-bottom: 18px;
-
             color: #aaa9a3;
-
             font-size: 9px;
-
             font-weight: 500;
-
             letter-spacing: 0.3em;
-
             text-transform: uppercase;
+            margin-bottom: 18px;
         }
 
-
-        h1 {
-
-            margin:
-                0 0 38px;
-
+        h1, .right-title {
+            margin: 0 0 12px 0;
             color: #eeeae1;
-
-            font-family:
-                "Playfair Display",
-                Georgia,
-                serif;
-
-            font-size:
-                clamp(
-                    52px,
-                    8vw,
-                    90px
-                );
-
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(44px, 6vw, 72px);
             font-weight: 400;
-
             line-height: 0.9;
-
             letter-spacing: -0.06em;
         }
 
+        .right-title { text-align: center; }
 
-        /* =========================
-           2013 BUTTON
-        ========================== */
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: rgba(255,215,0,.15);
+            margin: 10px auto 20px auto;
+        }
 
-        .year-button {
+        .subtitle {
+            color: #888;
+            font-size: clamp(13px, 1vw, 16px);
+            line-height: 1.6;
+            margin: 0 auto 25px auto;
+        }
 
+        .ai-intro {
+            color: #888;
+            font-size: clamp(13px, 1vw, 16px);
+            line-height: 1.6;
+            margin: 0 auto 30px auto;
+        }
+
+        .year-button,
+        .enter-ai-btn {
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
-
+            gap: 8px;
             min-width: 145px;
-
-            padding:
-                14px 32px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.35);
-
-            background:
-                rgba(255,255,255,0.035);
-
+            height: 46px;
+            padding: 0 20px;
+            border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.035);
             color: #eeeae1;
-
             text-decoration: none;
-
             font-size: 9px;
-
             font-weight: 500;
-
             letter-spacing: 0.28em;
-
             text-transform: uppercase;
-
-            transition:
-                background 0.3s ease,
-                border-color 0.3s ease,
-                transform 0.3s ease;
+            transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+            border-radius: 4px;
+            margin: 0 auto;
+            white-space: nowrap;
         }
 
-
-        .year-button:hover {
-
-            background:
-                rgba(255,255,255,0.11);
-
-            border-color:
-                rgba(255,255,255,0.65);
-
-            transform:
-                translateY(-2px);
+        .year-button:hover,
+        .enter-ai-btn:hover {
+            background: rgba(255,255,255,0.11);
+            border-color: rgba(255,255,255,0.65);
+            transform: translateY(-2px);
         }
 
-
-        .year-button:active {
-
-            transform:
-                translateY(0);
+        .enter-ai-btn .icon {
+            font-size: 14px;
+            line-height: 1;
+            flex-shrink: 0;
         }
 
-
-        /* =========================
-           SMALL ARCHIVE MARK
-        ========================== */
-
-        .archive-mark {
-
-            position: absolute;
-
-            right: 8%;
-
-            bottom: 72px;
-
-            z-index: 2;
-
-            color: #5d5f62;
-
-            font-size: 8px;
-
-            letter-spacing: 0.25em;
-
-            text-transform: uppercase;
-
-            writing-mode:
-                vertical-rl;
+        .enter-ai-btn .arrow {
+            font-size: 11px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
 
+        .enter-ai-btn:hover .arrow {
+            transform: translateX(4px);
+        }
 
         /* =================================================
-           MOBILE
-        ================================================= */
+                   MOBILE VERSION - FULL SCREEN
+                ================================================= */
 
-        @media (max-width: 800px) {
-
-            html,
-            body {
-
-                width: 100%;
-                height: 100%;
-
+        @media (max-width: 900px) {
+            html, body {
                 overflow: hidden;
+                height: 100%;
             }
 
-
             .entrance {
-
-                width: 100%;
-
+                display: flex;
+                flex-direction: column;
                 height: 100vh;
                 height: 100dvh;
-
-                min-height: 0;
-
-                padding:
-                    0 25px 70px;
-
-                align-items: flex-end;
-            }
-
-
-            .top-actions {
-
-                top: 20px;
-
-                right: 25px;
-
-                max-width: 72%;
-            }
-
-
-            .user-name {
-
-                max-width: 150px;
-
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding: 20px 20px 20px 20px;
+                gap: 0;
                 overflow: hidden;
-
-                text-overflow: ellipsis;
-
-                font-size: 8px;
-
-                letter-spacing: 0.10em;
             }
 
+            .entrance::after {
+                display: none;
+            }
 
-            .entrance-content {
+            .left-column,
+            .right-column {
+                flex: 1;
+                padding: 0;
+                justify-content: center;
+                overflow-y: auto;
+                min-height: 0;
+            }
 
-                width: 100%;
+            .left-column {
+                border-bottom: 1px solid rgba(255,255,255,.06);
+                padding-bottom: 15px;
+                margin-bottom: 0;
+                flex: 1;
+            }
 
+            .right-column {
+                padding-top: 15px;
+                flex: 1;
+            }
+
+            .left-column .content,
+            .right-column .content {
                 max-width: 100%;
+                padding: 0 5px;
+                justify-content: center;
+                height: 100%;
             }
-
-
-            .archive-label {
-
-                margin-bottom: 16px;
-
-                font-size: 8px;
-
-                letter-spacing: 0.25em;
-            }
-
-
-            h1 {
-
-                margin-bottom: 32px;
-
-                max-width: 360px;
-
-                font-size:
-                    clamp(
-                        48px,
-                        14vw,
-                        70px
-                    );
-
-                line-height: 0.92;
-
-                letter-spacing: -0.055em;
-            }
-
-
-            .year-button {
-
-                min-width: 130px;
-
-                padding:
-                    13px 27px;
-
-                font-size: 8px;
-
-                letter-spacing: 0.25em;
-            }
-
-
-            .archive-mark {
-
-                right: 20px;
-
-                bottom: 55px;
-
-                font-size: 7px;
-            }
-
-        }
-
-
-        /* =================================================
-           VERY SMALL PHONES
-        ================================================= */
-
-        @media (max-width: 430px) {
-
-            .entrance {
-
-                padding:
-                    0 20px 65px;
-            }
-
-
-            .top-actions {
-
-                top: 17px;
-
-                right: 20px;
-            }
-
 
             .user-name {
-
-                max-width: 120px;
-
-                font-size: 7px;
+                position: absolute;
+                top: 16px;
+                right: 20px;
+                font-size: 8px;
+                margin-bottom: 0;
             }
 
+            h1, .right-title {
+                font-size: clamp(28px, 8vw, 38px);
+                line-height: 0.95;
+                margin-bottom: 8px;
+            }
 
             .archive-label {
-
-                font-size: 7px;
+                font-size: 8px;
+                margin-bottom: 12px;
+                letter-spacing: 0.25em;
             }
 
-
-            h1 {
-
-                font-size:
-                    clamp(
-                        44px,
-                        14vw,
-                        60px
-                    );
-
-                margin-bottom: 28px;
+            .subtitle,
+            .ai-intro {
+                font-size: 13px;
+                line-height: 1.5;
+                margin-bottom: 18px;
+                max-width: 100%;
+                padding: 0 5px;
             }
 
+            .divider {
+                width: 30px;
+                margin: 6px auto 14px auto;
+            }
 
-            .year-button {
-
+            .year-button,
+            .enter-ai-btn {
                 min-width: 120px;
+                height: 40px;
+                padding: 0 16px;
+                font-size: 8px;
+                gap: 6px;
+                letter-spacing: 0.2em;
+            }
 
-                padding:
-                    12px 24px;
+            .enter-ai-btn .icon {
+                font-size: 12px;
+            }
+            .enter-ai-btn .arrow {
+                font-size: 10px;
+            }
+        }
 
+        @media (max-width: 480px) {
+            .entrance {
+                padding: 15px 15px 15px 15px;
+            }
+
+            .left-column {
+                padding-bottom: 12px;
+                flex: 1;
+            }
+
+            .right-column {
+                padding-top: 12px;
+                flex: 1;
+            }
+
+            h1, .right-title {
+                font-size: clamp(24px, 8vw, 32px);
+                margin-bottom: 6px;
+            }
+
+            .subtitle,
+            .ai-intro {
+                font-size: 12px;
+                margin-bottom: 14px;
+                line-height: 1.4;
+            }
+
+            .year-button,
+            .enter-ai-btn {
+                min-width: 110px;
+                height: 36px;
+                padding: 0 12px;
+                font-size: 7px;
+                gap: 5px;
+                letter-spacing: 0.18em;
+            }
+
+            .enter-ai-btn .icon {
+                font-size: 11px;
+            }
+            .enter-ai-btn .arrow {
+                font-size: 9px;
+            }
+
+            .archive-label {
+                font-size: 7px;
+                margin-bottom: 8px;
+                letter-spacing: 0.2em;
+            }
+
+            .divider {
+                width: 25px;
+                margin: 4px auto 10px auto;
+            }
+
+            .user-name {
+                font-size: 7px;
+                top: 12px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .entrance {
+                padding: 12px 12px 12px 12px;
+            }
+
+            .left-column {
+                padding-bottom: 10px;
+                flex: 1;
+            }
+
+            .right-column {
+                padding-top: 10px;
+                flex: 1;
+            }
+
+            h1, .right-title {
+                font-size: clamp(20px, 7vw, 26px);
+                margin-bottom: 4px;
+            }
+
+            .subtitle,
+            .ai-intro {
+                font-size: 11px;
+                margin-bottom: 12px;
+            }
+
+            .year-button,
+            .enter-ai-btn {
+                min-width: 100px;
+                height: 32px;
+                padding: 0 10px;
+                font-size: 7px;
+                gap: 4px;
+                letter-spacing: 0.15em;
+            }
+
+            .enter-ai-btn .icon {
+                font-size: 10px;
+            }
+            .enter-ai-btn .arrow {
                 font-size: 8px;
             }
 
-
-            .archive-mark {
-
-                right: 15px;
-
-                bottom: 45px;
+            .archive-label {
+                font-size: 6px;
+                margin-bottom: 6px;
             }
 
+            .divider {
+                width: 20px;
+                margin: 3px auto 8px auto;
+            }
         }
 
-
-        /* =================================================
-           SHORT DESKTOP SCREENS
-        ================================================= */
-
-        @media (min-width: 801px) and (max-height: 700px) {
-
-            .entrance {
-
-                padding-bottom: 80px;
-            }
-
-
-            h1 {
-
-                margin-bottom: 28px;
-
-                font-size:
-                    clamp(
-                        48px,
-                        7vw,
-                        72px
-                    );
-            }
-
-
-            .archive-mark {
-
-                bottom: 40px;
-            }
-
+        /* scrollbar */
+        .left-column::-webkit-scrollbar,
+        .right-column::-webkit-scrollbar {
+            width: 3px;
         }
-
+        .left-column::-webkit-scrollbar-track,
+        .right-column::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .left-column::-webkit-scrollbar-thumb,
+        .right-column::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,.15);
+            border-radius: 2px;
+        }
     </style>
-
 </head>
-
-
 <body>
-
-
-<main class="entrance">
-
-
-    <!-- =========================
-         TOP RIGHT USER
-    ========================== -->
-
-    <div
-        class="top-actions"
-        id="topActions"
-    >
-
-        <div
-            class="user-name"
-            id="user-name"
-        ></div>
-
-    </div>
-
-
-    <!-- =========================
-         CONTENT
-    ========================== -->
-
-    <div class="entrance-content">
-
-
-        <div class="archive-label">
-
-            Personal Archive
-
+    <div class="entrance">
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+            <div class="content">
+                <div class="user-name">👤 Welcome, User</div>
+                <div class="archive-label">Personal Archive</div>
+                <h1>The Unspoken<br>Chapters</h1>
+                <div class="divider"></div>
+                <p class="subtitle">A collection of personal diary entries from 2013. Explore the past, one entry at a time.</p>
+                <a class="year-button" href="./2013.html">2013</a>
+            </div>
         </div>
 
-
-        <h1>
-
-            The Unspoken<br>
-            Chapters
-
-        </h1>
-
-
-        <a
-            class="year-button"
-            href="./2013.html"
-            id="yearButton"
-        >
-
-            2013
-
-        </a>
-
-
+        <!-- RIGHT COLUMN -->
+        <div class="right-column">
+            <div class="content">
+                <div class="archive-label">AI Archive</div>
+                <div class="right-title">The Unspoken<br>Chapters</div>
+                <div class="divider"></div>
+                <p class="ai-intro">Ask the archive anything about your diary entries — people, places, feelings, or specific moments.</p>
+                <a class="enter-ai-btn" href="./ai-chat.html">
+                    <span class="icon">✦</span> Enter AI <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
     </div>
-
-
-    <div class="archive-mark">
-
-        JhoneVic's Diary
-
-    </div>
-
-
-</main>
-
-
-<!-- =========================
-     SUPABASE AUTHENTICATION
-========================== -->
-
-<script>
-
-/* =================================================
-   SUPABASE CONFIGURATION
-================================================= */
-
-const SUPABASE_URL =
-    "https://ktytetimukmaqkxmzkha.supabase.co";
-
-
-const SUPABASE_KEY =
-    "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
-
-
-/* =================================================
-   CREATE SUPABASE CLIENT
-================================================= */
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY,
-        {
-            auth: {
-
-                persistSession: true,
-
-                autoRefreshToken: true,
-
-                detectSessionInUrl: true,
-
-                storage:
-                    window.localStorage
-
-            }
-        }
-    );
-
-
-/* =================================================
-   ELEMENT
-================================================= */
-
-const userNameElement =
-    document.getElementById(
-        "user-name"
-    );
-
-
-/* =================================================
-   DISPLAY USER NAME
-================================================= */
-
-function displayUserName(user) {
-
-    if (
-        !user ||
-        !userNameElement
-    ) {
-
-        return;
-
-    }
-
-
-    const metadata =
-        user.user_metadata || {};
-
-
-    let fullName =
-        metadata.full_name ||
-        metadata.name ||
-        metadata.display_name ||
-        metadata.displayName ||
-        "";
-
-
-    /*
-     * Fallback to identity information.
-     */
-
-    if (!fullName) {
-
-        const identities =
-            user.identities || [];
-
-
-        for (
-            const identity of identities
-        ) {
-
-            const identityData =
-                identity.identity_data || {};
-
-
-            fullName =
-                identityData.full_name ||
-                identityData.name ||
-                identityData.display_name ||
-                identityData.displayName ||
-                "";
-
-
-            if (fullName) {
-
-                break;
-
-            }
-
-        }
-
-    }
-
-
-    /*
-     * Final fallback.
-     */
-
-    if (!fullName && user.email) {
-
-        fullName =
-            user.email.split("@")[0];
-
-    }
-
-
-    if (fullName) {
-
-        userNameElement.textContent =
-            fullName;
-
-        userNameElement.classList.add(
-            "visible"
-        );
-
-    }
-
-}
-
-
-/* =================================================
-   SHOW AUTHENTICATED PAGE
-================================================= */
-
-function showAuthenticatedPage(session) {
-
-    if (
-        !session ||
-        !session.user
-    ) {
-
-        return;
-
-    }
-
-
-    displayUserName(
-        session.user
-    );
-
-
-    console.log(
-        "AUTHENTICATED USER:",
-        session.user.id
-    );
-
-}
-
-
-/* =================================================
-   AUTH STATE
-================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    function (
-        event,
-        session
-    ) {
-
-        console.log(
-            "SUPABASE AUTH EVENT:",
-            event
-        );
-
-
-        console.log(
-            "SUPABASE SESSION:",
-            session
-        );
-
-
-        if (
-            session &&
-            session.user
-        ) {
-
-            showAuthenticatedPage(
-                session
-            );
-
-        }
-
-    }
-);
-
-
-/* =================================================
-   VERIFY SESSION
-================================================= */
-
-async function verifySession() {
-
-    console.log(
-        "Checking authenticated session..."
-    );
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.getSession();
-
-
-        if (error) {
-
-            console.error(
-                "Session verification error:",
-                error
-            );
-
-            return;
-
-        }
-
-
-        if (
-            data &&
-            data.session &&
-            data.session.user
-        ) {
-
-            console.log(
-                "Authenticated session confirmed."
-            );
-
-
-            showAuthenticatedPage(
-                data.session
-            );
-
-
-        } else {
-
-            console.warn(
-                "No authenticated session found."
-            );
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Unexpected authentication error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =================================================
-   START
-================================================= */
-
-verifySession();
-
-</script>
-
-
 </body>
-
 </html>
