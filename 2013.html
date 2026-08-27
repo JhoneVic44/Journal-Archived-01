@@ -291,18 +291,18 @@
     .diary-list::-webkit-scrollbar-track { background: transparent; }
     .diary-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
     .diary-entry {
-      display: grid;
-      grid-template-columns: minmax(135px, 30%) minmax(0, 1fr);
-      align-items: center;
-      gap: 18px;
-      padding: 7px 5px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      text-decoration: none;
-      color: inherit;
-      transition: background .25s ease;
-      cursor: pointer;
-      min-height: 38px;
-    }
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 7px 5px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  text-decoration: none;
+  color: inherit;
+  transition: background .25s ease;
+  cursor: pointer;
+  min-height: 38px;
+}
     .diary-entry:hover { background: rgba(255,255,255,.025); }
     .diary-date {
       font-size: 13px;
@@ -601,12 +601,12 @@
       .month-view-title { font-size: 24px; }
       .diary-list { height: auto; max-height: none; overflow: visible; }
       .diary-entry {
-        grid-template-columns: 100px 1fr;
-        gap: 10px;
-        height: auto;
-        min-height: 44px;
-        padding: 8px 3px;
-      }
+  grid-template-columns: 100px 1fr;
+  gap: 10px;
+  height: auto;
+  min-height: 44px;
+  padding: 8px 3px;
+}
       .diary-date { font-size: 10px; }
       .diary-title { font-size: 15px; }
       .pagination { height: auto; padding: 10px 0; }
