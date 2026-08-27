@@ -419,11 +419,9 @@
     </div>
 
     <!-- =========================
-         SUPABASE SCRIPT - FIXED
+         SUPABASE SCRIPT - FINAL
     ========================== -->
     <script>
-        console.log('🔍 === PAGE LOADED ===');
-
         // =================================================
         // SUPABASE CONFIGURATION
         // =================================================
@@ -431,42 +429,43 @@
         const SUPABASE_URL = "https://ktytetimukmaqkxmzkha.supabase.co";
         const SUPABASE_KEY = "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
 
-        console.log('🔑 Creating Supabase client...');
-
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
             auth: {
                 persistSession: true,
                 autoRefreshToken: true,
                 detectSessionInUrl: true,
-                storage: window.localStorage,
-                flowType: 'pkce'
+                storage: window.localStorage
             }
         });
-
-        console.log('✅ Supabase client created');
 
         // =================================================
         // DISPLAY USER NAME
         // =================================================
 
-        async function displayUserName() {
+        function setUserName(name) {
             const userNameText = document.getElementById('userNameText');
             const userNameContainer = document.getElementById('userName');
 
-            if (!userNameText || !userNameContainer) {
-                console.error('❌ User name elements not found!');
-                return;
-            }
+            if (!userNameText || !userNameContainer) return;
+
+            userNameText.textContent = name || 'Guest';
+            userNameContainer.classList.add('visible');
+            console.log('✅ User name set to:', name || 'Guest');
+        }
+
+        async function displayUserName() {
+            const userNameText = document.getElementById('userNameText');
+
+            if (!userNameText) return;
 
             try {
-                console.log('🔄 Getting session from Supabase...');
+                console.log('🔄 Getting session...');
 
                 const { data, error } = await supabaseClient.auth.getSession();
 
                 if (error) {
                     console.error('❌ Session error:', error);
-                    userNameText.textContent = 'User';
-                    userNameContainer.classList.add('visible');
+                    setUserName('User');
                     return;
                 }
 
@@ -474,7 +473,6 @@
                     const user = data.session.user;
                     console.log('✅ User found:', user.email);
 
-                    // Try ALL possible locations for the name
                     let fullName =
                         user.user_metadata?.full_name ||
                         user.user_metadata?.name ||
@@ -483,23 +481,62 @@
                         user.user_metadata?.username ||
                         (user.identities && user.identities[0]?.identity_data?.full_name) ||
                         (user.identities && user.identities[0]?.identity_data?.name) ||
-                        (user.identities && user.identities[0]?.identity_data?.display_name) ||
                         user.email?.split('@')[0] ||
                         'User';
 
-                    console.log('✅ Displaying name:', fullName);
-
-                    userNameText.textContent = fullName;
-                    userNameContainer.classList.add('visible');
+                    setUserName(fullName);
                 } else {
-                    console.log('ℹ️ No session found - user not logged in');
-                    userNameText.textContent = 'Guest';
-                    userNameContainer.classList.add('visible');
+                    console.log('ℹ️ No session found');
+                    setUserName('Guest');
                 }
             } catch (error) {
-                console.error('❌ Unexpected error:', error);
-                userNameText.textContent = 'User';
-                userNameContainer.classList.add('visible');
+                console.error('❌ Error:', error);
+                setUserName('User');
+            }
+        }
+
+        // =================================================
+        // MANUAL SESSION CHECK - FROM LOCALSTORAGE
+        // =================================================
+
+        function checkLocalStorageForSession() {
+            try {
+                console.log('🔍 Checking localStorage for Supabase session...');
+
+                // Supabase stores session in localStorage under this key
+                const storageKey = 'sb-ktytetimukmaqkxmzkha-auth-token';
+                const storedData = localStorage.getItem(storageKey);
+
+                console.log('📦 localStorage key:', storageKey);
+                console.log('📦 localStorage data:', storedData ? 'Found ✅' : 'Not found ❌');
+
+                if (storedData) {
+                    try {
+                        const parsed = JSON.parse(storedData);
+                        console.log('📦 Parsed session data:', parsed);
+
+                        if (parsed && parsed.user) {
+                            const user = parsed.user;
+                            console.log('✅ User from localStorage:', user.email);
+
+                            let fullName =
+                                user.user_metadata?.full_name ||
+                                user.user_metadata?.name ||
+                                user.user_metadata?.display_name ||
+                                user.email?.split('@')[0] ||
+                                'User';
+
+                            setUserName(fullName);
+                            return true;
+                        }
+                    } catch (e) {
+                        console.error('❌ Error parsing stored data:', e);
+                    }
+                }
+                return false;
+            } catch (e) {
+                console.error('❌ Error checking localStorage:', e);
+                return false;
             }
         }
 
@@ -509,67 +546,56 @@
 
         supabaseClient.auth.onAuthStateChange((event, session) => {
             console.log('🔄 Auth event:', event);
-            
+
             if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
                 if (session && session.user) {
-                    console.log('✅ User logged in:', session.user.email);
+                    console.log('✅ User logged in via event:', session.user.email);
                     displayUserName();
+                } else {
+                    // Try localStorage directly
+                    checkLocalStorageForSession();
                 }
             } else if (event === 'SIGNED_OUT') {
-                const userNameText = document.getElementById('userNameText');
-                const userNameContainer = document.getElementById('userName');
-                if (userNameText && userNameContainer) {
-                    userNameText.textContent = 'Guest';
-                    userNameContainer.classList.add('visible');
-                }
+                setUserName('Guest');
             }
         });
 
         // =================================================
-        // CHECK FOR OAUTH CALLBACK AND HANDLE IT
-        // =================================================
-
-        async function handleOAuthCallback() {
-            console.log('🔍 Checking for OAuth callback...');
-            
-            // Check if we have a hash in the URL
-            if (window.location.hash && window.location.hash.includes('access_token')) {
-                console.log('🔄 OAuth callback detected!');
-                
-                // Let Supabase handle the exchange
-                try {
-                    const { data, error } = await supabaseClient.auth.getSession();
-                    if (error) {
-                        console.error('❌ Error getting session after OAuth:', error);
-                        return;
-                    }
-                    if (data && data.session) {
-                        console.log('✅ Session established after OAuth');
-                        displayUserName();
-                    }
-                } catch (err) {
-                    console.error('❌ OAuth handling error:', err);
-                }
-            }
-        }
-
-        // =================================================
-        // CALL ON PAGE LOAD
+        // MAIN - TRY MULTIPLE APPROACHES
         // =================================================
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📄 DOM loaded');
-            
-            // Check if we're coming from OAuth
-            handleOAuthCallback();
-            
-            // Then display the user name
-            setTimeout(displayUserName, 200);
+
+            // First, try localStorage directly (fastest)
+            const found = checkLocalStorageForSession();
+
+            // If not found in localStorage, try Supabase session
+            if (!found) {
+                console.log('🔄 No localStorage session, trying Supabase...');
+                setTimeout(displayUserName, 200);
+            }
+
+            // Also listen for any changes
+            setTimeout(displayUserName, 500);
+            setTimeout(displayUserName, 1000);
         });
 
-        // Also try after a delay
-        setTimeout(displayUserName, 500);
-        setTimeout(displayUserName, 1000);
+        // Fallback: try every 2 seconds for 10 seconds
+        let attempts = 0;
+        const interval = setInterval(() => {
+            attempts++;
+            console.log(`🔄 Fallback attempt ${attempts}...`);
+
+            const found = checkLocalStorageForSession();
+            if (found) {
+                clearInterval(interval);
+                console.log('✅ Session found via fallback!');
+            } else if (attempts >= 5) {
+                clearInterval(interval);
+                console.log('ℹ️ No session found after 5 attempts');
+            }
+        }, 2000);
     </script>
 </body>
 </html>
