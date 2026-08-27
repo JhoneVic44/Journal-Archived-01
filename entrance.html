@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Option 6: Overlapping Glow (Mobile Full Screen)</title>
+    <title>The Unspoken Chapters | JhoneVic's Diary</title>
+
+    <meta name="description" content="The entrance to The Unspoken Chapters, a personal diary archive.">
+
+    <!-- =========================
+         SUPABASE
+    ========================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- =========================
+         FONTS
+    ========================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body {
@@ -26,6 +41,7 @@
                         radial-gradient(circle at 72% 18%, #3a3c3e, #202224 35%, #0b0c0d 72%);
         }
 
+        /* --- OVERLAPPING GLOW --- */
         .entrance::after {
             content: "";
             position: absolute;
@@ -58,6 +74,7 @@
             align-items: center;
         }
 
+        /* --- USER NAME --- */
         .user-name {
             color: #eeeae1;
             font-size: 9px;
@@ -67,6 +84,16 @@
             position: absolute;
             top: 28px;
             right: 8%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .user-name.visible {
+            opacity: 1;
+        }
+
+        .user-name .avatar {
+            margin-right: 6px;
         }
 
         .archive-label {
@@ -179,9 +206,7 @@
                 overflow: hidden;
             }
 
-            .entrance::after {
-                display: none;
-            }
+            .entrance::after { display: none; }
 
             .left-column,
             .right-column {
@@ -256,28 +281,15 @@
                 letter-spacing: 0.2em;
             }
 
-            .enter-ai-btn .icon {
-                font-size: 12px;
-            }
-            .enter-ai-btn .arrow {
-                font-size: 10px;
-            }
+            .enter-ai-btn .icon { font-size: 12px; }
+            .enter-ai-btn .arrow { font-size: 10px; }
         }
 
         @media (max-width: 480px) {
-            .entrance {
-                padding: 15px 15px 15px 15px;
-            }
+            .entrance { padding: 15px 15px 15px 15px; }
 
-            .left-column {
-                padding-bottom: 12px;
-                flex: 1;
-            }
-
-            .right-column {
-                padding-top: 12px;
-                flex: 1;
-            }
+            .left-column { padding-bottom: 12px; flex: 1; }
+            .right-column { padding-top: 12px; flex: 1; }
 
             h1, .right-title {
                 font-size: clamp(24px, 8vw, 32px);
@@ -301,12 +313,8 @@
                 letter-spacing: 0.18em;
             }
 
-            .enter-ai-btn .icon {
-                font-size: 11px;
-            }
-            .enter-ai-btn .arrow {
-                font-size: 9px;
-            }
+            .enter-ai-btn .icon { font-size: 11px; }
+            .enter-ai-btn .arrow { font-size: 9px; }
 
             .archive-label {
                 font-size: 7px;
@@ -327,19 +335,10 @@
         }
 
         @media (max-width: 380px) {
-            .entrance {
-                padding: 12px 12px 12px 12px;
-            }
+            .entrance { padding: 12px 12px 12px 12px; }
 
-            .left-column {
-                padding-bottom: 10px;
-                flex: 1;
-            }
-
-            .right-column {
-                padding-top: 10px;
-                flex: 1;
-            }
+            .left-column { padding-bottom: 10px; flex: 1; }
+            .right-column { padding-top: 10px; flex: 1; }
 
             h1, .right-title {
                 font-size: clamp(20px, 7vw, 26px);
@@ -362,12 +361,8 @@
                 letter-spacing: 0.15em;
             }
 
-            .enter-ai-btn .icon {
-                font-size: 10px;
-            }
-            .enter-ai-btn .arrow {
-                font-size: 8px;
-            }
+            .enter-ai-btn .icon { font-size: 10px; }
+            .enter-ai-btn .arrow { font-size: 8px; }
 
             .archive-label {
                 font-size: 6px;
@@ -380,7 +375,6 @@
             }
         }
 
-        /* scrollbar */
         .left-column::-webkit-scrollbar,
         .right-column::-webkit-scrollbar {
             width: 3px;
@@ -401,7 +395,7 @@
         <!-- LEFT COLUMN -->
         <div class="left-column">
             <div class="content">
-                <div class="user-name">👤 Welcome, User</div>
+                <div class="user-name" id="userName">👤 Loading...</div>
                 <div class="archive-label">Personal Archive</div>
                 <h1>The Unspoken<br>Chapters</h1>
                 <div class="divider"></div>
@@ -423,5 +417,94 @@
             </div>
         </div>
     </div>
+
+    <!-- =========================
+         SUPABASE SCRIPT
+    ========================== -->
+    <script>
+        // =================================================
+        // SUPABASE CONFIGURATION
+        // =================================================
+
+        const SUPABASE_URL = "https://ktytetimukmaqkxmzkha.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true,
+                storage: window.localStorage
+            }
+        });
+
+        // =================================================
+        // DISPLAY USER NAME
+        // =================================================
+
+        async function displayUserName() {
+            const userNameElement = document.getElementById('userName');
+            if (!userNameElement) return;
+
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                
+                if (error) {
+                    console.error('Error getting session:', error);
+                    userNameElement.textContent = '👤 User';
+                    userNameElement.classList.add('visible');
+                    return;
+                }
+                
+                if (session && session.user) {
+                    const user = session.user;
+                    
+                    // Try different places where the name might be stored
+                    let fullName = user.user_metadata?.full_name || 
+                                  user.user_metadata?.name || 
+                                  user.user_metadata?.display_name ||
+                                  user.user_metadata?.displayName ||
+                                  user.email?.split('@')[0] ||
+                                  'User';
+                    
+                    userNameElement.textContent = '👤 ' + fullName;
+                    userNameElement.classList.add('visible');
+                } else {
+                    // User not logged in - show a generic name
+                    userNameElement.textContent = '👤 Guest';
+                    userNameElement.classList.add('visible');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                userNameElement.textContent = '👤 User';
+                userNameElement.classList.add('visible');
+            }
+        }
+
+        // =================================================
+        // AUTH STATE CHANGE LISTENER
+        // =================================================
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            console.log('Auth event:', event);
+            if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+                displayUserName();
+            } else if (event === 'SIGNED_OUT') {
+                const userNameElement = document.getElementById('userName');
+                if (userNameElement) {
+                    userNameElement.textContent = '👤 Guest';
+                    userNameElement.classList.add('visible');
+                }
+            }
+        });
+
+        // =================================================
+        // CALL ON PAGE LOAD
+        // =================================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayUserName();
+        });
+    </script>
 </body>
 </html>
