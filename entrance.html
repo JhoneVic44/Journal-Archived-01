@@ -419,7 +419,7 @@
     </div>
 
     <!-- =========================
-         SUPABASE SCRIPT - FINAL
+         SUPABASE SCRIPT - FIXED
     ========================== -->
     <script>
         // =================================================
@@ -434,12 +434,15 @@
                 persistSession: true,
                 autoRefreshToken: true,
                 detectSessionInUrl: true,
-                storage: window.localStorage
+                storage: window.localStorage,
+                flowType: 'pkce'
             }
         });
 
+        console.log('✅ Supabase client created');
+
         // =================================================
-        // DISPLAY USER NAME
+        // SET USER NAME
         // =================================================
 
         function setUserName(name) {
@@ -448,19 +451,21 @@
 
             if (!userNameText || !userNameContainer) return;
 
-            userNameText.textContent = name || 'Guest';
+            const displayName = name || 'Guest';
+            userNameText.textContent = displayName;
             userNameContainer.classList.add('visible');
-            console.log('✅ User name set to:', name || 'Guest');
+            console.log('👤 User name set to:', displayName);
         }
 
-        async function displayUserName() {
-            const userNameText = document.getElementById('userNameText');
+        // =================================================
+        // CHECK SESSION
+        // =================================================
 
-            if (!userNameText) return;
+        async function checkSession() {
+            console.log('🔄 Checking session...');
 
             try {
-                console.log('🔄 Getting session...');
-
+                // First, try to get the session directly
                 const { data, error } = await supabaseClient.auth.getSession();
 
                 if (error) {
@@ -471,77 +476,69 @@
 
                 if (data && data.session && data.session.user) {
                     const user = data.session.user;
-                    console.log('✅ User found:', user.email);
+                    console.log('✅ Session found:', user.email);
 
-                    let fullName =
+                    let name =
                         user.user_metadata?.full_name ||
                         user.user_metadata?.name ||
                         user.user_metadata?.display_name ||
-                        user.user_metadata?.displayName ||
-                        user.user_metadata?.username ||
-                        (user.identities && user.identities[0]?.identity_data?.full_name) ||
-                        (user.identities && user.identities[0]?.identity_data?.name) ||
                         user.email?.split('@')[0] ||
                         'User';
 
-                    setUserName(fullName);
-                } else {
-                    console.log('ℹ️ No session found');
-                    setUserName('Guest');
+                    setUserName(name);
+                    return;
                 }
-            } catch (error) {
-                console.error('❌ Error:', error);
+
+                // If no session, check if we have a code in the URL (OAuth callback)
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                const accessToken = hashParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token');
+
+                if (accessToken) {
+                    console.log('🔄 OAuth callback detected with access_token');
+
+                    // Set the session using the tokens from the URL
+                    try {
+                        const { data: sessionData, error: sessionError } = await supabaseClient.auth.setSession({
+                            access_token: accessToken,
+                            refresh_token: refreshToken || ''
+                        });
+
+                        if (sessionError) {
+                            console.error('❌ Error setting session:', sessionError);
+                            setUserName('User');
+                            return;
+                        }
+
+                        if (sessionData && sessionData.user) {
+                            console.log('✅ Session set from OAuth callback:', sessionData.user.email);
+                            let name =
+                                sessionData.user.user_metadata?.full_name ||
+                                sessionData.user.user_metadata?.name ||
+                                sessionData.user.email?.split('@')[0] ||
+                                'User';
+                            setUserName(name);
+
+                            // Clear the hash from URL to prevent issues
+                            window.history.replaceState(null, '', window.location.pathname);
+                            return;
+                        }
+                    } catch (e) {
+                        console.error('❌ Error setting session from OAuth:', e);
+                    }
+                }
+
+                console.log('ℹ️ No session found');
+                setUserName('Guest');
+
+            } catch (e) {
+                console.error('❌ Unexpected error:', e);
                 setUserName('User');
             }
         }
 
         // =================================================
-        // MANUAL SESSION CHECK - FROM LOCALSTORAGE
-        // =================================================
-
-        function checkLocalStorageForSession() {
-            try {
-                console.log('🔍 Checking localStorage for Supabase session...');
-
-                // Supabase stores session in localStorage under this key
-                const storageKey = 'sb-ktytetimukmaqkxmzkha-auth-token';
-                const storedData = localStorage.getItem(storageKey);
-
-                console.log('📦 localStorage key:', storageKey);
-                console.log('📦 localStorage data:', storedData ? 'Found ✅' : 'Not found ❌');
-
-                if (storedData) {
-                    try {
-                        const parsed = JSON.parse(storedData);
-                        console.log('📦 Parsed session data:', parsed);
-
-                        if (parsed && parsed.user) {
-                            const user = parsed.user;
-                            console.log('✅ User from localStorage:', user.email);
-
-                            let fullName =
-                                user.user_metadata?.full_name ||
-                                user.user_metadata?.name ||
-                                user.user_metadata?.display_name ||
-                                user.email?.split('@')[0] ||
-                                'User';
-
-                            setUserName(fullName);
-                            return true;
-                        }
-                    } catch (e) {
-                        console.error('❌ Error parsing stored data:', e);
-                    }
-                }
-                return false;
-            } catch (e) {
-                console.error('❌ Error checking localStorage:', e);
-                return false;
-            }
-        }
-
-        // =================================================
-        // AUTH STATE CHANGE LISTENER
+        // AUTH STATE CHANGE
         // =================================================
 
         supabaseClient.auth.onAuthStateChange((event, session) => {
@@ -549,11 +546,16 @@
 
             if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
                 if (session && session.user) {
-                    console.log('✅ User logged in via event:', session.user.email);
-                    displayUserName();
+                    console.log('✅ User from event:', session.user.email);
+                    let name =
+                        session.user.user_metadata?.full_name ||
+                        session.user.user_metadata?.name ||
+                        session.user.email?.split('@')[0] ||
+                        'User';
+                    setUserName(name);
                 } else {
-                    // Try localStorage directly
-                    checkLocalStorageForSession();
+                    // Try checking again
+                    setTimeout(checkSession, 100);
                 }
             } else if (event === 'SIGNED_OUT') {
                 setUserName('Guest');
@@ -561,41 +563,26 @@
         });
 
         // =================================================
-        // MAIN - TRY MULTIPLE APPROACHES
+        // HANDLE OAUTH CALLBACK ON PAGE LOAD
         // =================================================
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📄 DOM loaded');
 
-            // First, try localStorage directly (fastest)
-            const found = checkLocalStorageForSession();
-
-            // If not found in localStorage, try Supabase session
-            if (!found) {
-                console.log('🔄 No localStorage session, trying Supabase...');
-                setTimeout(displayUserName, 200);
+            // Check if we're coming from OAuth
+            const hash = window.location.hash;
+            if (hash && hash.includes('access_token')) {
+                console.log('🔄 OAuth callback detected on page load');
             }
 
-            // Also listen for any changes
-            setTimeout(displayUserName, 500);
-            setTimeout(displayUserName, 1000);
+            // Check session
+            setTimeout(checkSession, 100);
+            setTimeout(checkSession, 500);
+            setTimeout(checkSession, 1000);
         });
 
-        // Fallback: try every 2 seconds for 10 seconds
-        let attempts = 0;
-        const interval = setInterval(() => {
-            attempts++;
-            console.log(`🔄 Fallback attempt ${attempts}...`);
-
-            const found = checkLocalStorageForSession();
-            if (found) {
-                clearInterval(interval);
-                console.log('✅ Session found via fallback!');
-            } else if (attempts >= 5) {
-                clearInterval(interval);
-                console.log('ℹ️ No session found after 5 attempts');
-            }
-        }, 2000);
+        // Also run immediately
+        setTimeout(checkSession, 50);
     </script>
 </body>
 </html>
