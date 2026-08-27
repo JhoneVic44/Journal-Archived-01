@@ -998,8 +998,14 @@ async function checkExistingSession() {
         );
 
 
+        // Pass the user name to entrance page
+        const userName = data.session.user.user_metadata?.full_name ||
+                        data.session.user.user_metadata?.name ||
+                        data.session.user.email?.split('@')[0] ||
+                        'User';
+
         window.location.replace(
-            "./entrance.html"
+            "./entrance.html?name=" + encodeURIComponent(userName)
         );
 
     }
@@ -1030,12 +1036,6 @@ googleButton.addEventListener(
             "Starting Google authentication..."
         );
 
-
-        /*
-         * IMPORTANT: This must EXACTLY match
-         * the URL in your Supabase dashboard
-         * Redirect URLs list.
-         */
 
         const redirectTo =
             "https://jhonevic44.github.io/Journal-Archived-01/entrance.html";
@@ -1103,13 +1103,6 @@ googleButton.addEventListener(
         }
 
 
-        /*
-         * Do NOT redirect manually here.
-         *
-         * Google/Supabase will redirect
-         * the browser to entrance.html.
-         */
-
         console.log(
             "Google authentication started."
         );
@@ -1147,18 +1140,18 @@ supabaseClient.auth.onAuthStateChange(
                 "Authenticated session confirmed."
             );
 
+            // Pass the user name to entrance page
+            const userName = session.user.user_metadata?.full_name ||
+                            session.user.user_metadata?.name ||
+                            session.user.email?.split('@')[0] ||
+                            'User';
 
-            /*
-             * Give Supabase a moment to finish
-             * persisting the session before
-             * changing pages.
-             */
 
             setTimeout(
                 function () {
 
                     window.location.replace(
-                        "./entrance.html"
+                        "./entrance.html?name=" + encodeURIComponent(userName)
                     );
 
                 },
