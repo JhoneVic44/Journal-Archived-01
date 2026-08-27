@@ -86,6 +86,9 @@
             right: 8%;
             opacity: 0;
             transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .user-name.visible {
@@ -93,7 +96,7 @@
         }
 
         .user-name .avatar {
-            margin-right: 6px;
+            font-size: 12px;
         }
 
         .archive-label {
@@ -395,7 +398,10 @@
         <!-- LEFT COLUMN -->
         <div class="left-column">
             <div class="content">
-                <div class="user-name" id="userName">👤 Loading...</div>
+                <div class="user-name" id="userName">
+                    <span class="avatar">👤</span>
+                    <span id="userNameText">Loading...</span>
+                </div>
                 <div class="archive-label">Personal Archive</div>
                 <h1>The Unspoken<br>Chapters</h1>
                 <div class="divider"></div>
@@ -439,45 +445,64 @@
         });
 
         // =================================================
-        // DISPLAY USER NAME
+        // DISPLAY USER NAME - UPDATED VERSION
         // =================================================
 
         async function displayUserName() {
-            const userNameElement = document.getElementById('userName');
-            if (!userNameElement) return;
+            const userNameText = document.getElementById('userNameText');
+            const userNameContainer = document.getElementById('userName');
+            
+            if (!userNameText || !userNameContainer) {
+                console.error('User name elements not found!');
+                return;
+            }
 
             try {
+                // Get the current session
                 const { data: { session }, error } = await supabaseClient.auth.getSession();
                 
                 if (error) {
-                    console.error('Error getting session:', error);
-                    userNameElement.textContent = '👤 User';
-                    userNameElement.classList.add('visible');
+                    console.error('Session error:', error);
+                    userNameText.textContent = 'User';
+                    userNameContainer.classList.add('visible');
                     return;
                 }
                 
                 if (session && session.user) {
                     const user = session.user;
                     
-                    // Try different places where the name might be stored
-                    let fullName = user.user_metadata?.full_name || 
-                                  user.user_metadata?.name || 
-                                  user.user_metadata?.display_name ||
-                                  user.user_metadata?.displayName ||
-                                  user.email?.split('@')[0] ||
-                                  'User';
+                    console.log('User object:', user);
+                    console.log('User metadata:', user.user_metadata);
                     
-                    userNameElement.textContent = '👤 ' + fullName;
-                    userNameElement.classList.add('visible');
+                    // Try ALL possible locations for the name
+                    let fullName = 
+                        // From user_metadata
+                        user.user_metadata?.full_name || 
+                        user.user_metadata?.name || 
+                        user.user_metadata?.display_name ||
+                        user.user_metadata?.displayName ||
+                        user.user_metadata?.username ||
+                        // From identities (Google login often puts it here)
+                        (user.identities && user.identities[0]?.identity_data?.full_name) ||
+                        (user.identities && user.identities[0]?.identity_data?.name) ||
+                        (user.identities && user.identities[0]?.identity_data?.display_name) ||
+                        // From email as last resort
+                        user.email?.split('@')[0] ||
+                        'User';
+                    
+                    console.log('Extracted name:', fullName);
+                    
+                    userNameText.textContent = fullName;
+                    userNameContainer.classList.add('visible');
                 } else {
-                    // User not logged in - show a generic name
-                    userNameElement.textContent = '👤 Guest';
-                    userNameElement.classList.add('visible');
+                    console.log('No session - user not logged in');
+                    userNameText.textContent = 'Guest';
+                    userNameContainer.classList.add('visible');
                 }
             } catch (error) {
-                console.error('Error:', error);
-                userNameElement.textContent = '👤 User';
-                userNameElement.classList.add('visible');
+                console.error('Unexpected error:', error);
+                userNameText.textContent = 'User';
+                userNameContainer.classList.add('visible');
             }
         }
 
@@ -487,13 +512,17 @@
 
         supabaseClient.auth.onAuthStateChange((event, session) => {
             console.log('Auth event:', event);
-            if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
-                displayUserName();
+            console.log('Session:', session);
+            
+            if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
+                // Wait a moment for the session to fully load
+                setTimeout(displayUserName, 100);
             } else if (event === 'SIGNED_OUT') {
-                const userNameElement = document.getElementById('userName');
-                if (userNameElement) {
-                    userNameElement.textContent = '👤 Guest';
-                    userNameElement.classList.add('visible');
+                const userNameText = document.getElementById('userNameText');
+                const userNameContainer = document.getElementById('userName');
+                if (userNameText && userNameContainer) {
+                    userNameText.textContent = 'Guest';
+                    userNameContainer.classList.add('visible');
                 }
             }
         });
@@ -503,8 +532,24 @@
         // =================================================
 
         document.addEventListener('DOMContentLoaded', function() {
-            displayUserName();
+            // Check for the URL hash that Supabase uses for OAuth
+            const urlParams = new URLSearchParams(window.location.hash.substring(1));
+            const accessToken = urlParams.get('access_token');
+            
+            if (accessToken) {
+                console.log('OAuth callback detected, setting session...');
+                // Let Supabase handle the OAuth callback
+                supabaseClient.auth.getSession().then(() => {
+                    setTimeout(displayUserName, 200);
+                });
+            } else {
+                displayUserName();
+            }
         });
+
+        // Also try again after a short delay to ensure session is fully loaded
+        setTimeout(displayUserName, 500);
+        setTimeout(displayUserName, 1000);
     </script>
 </body>
 </html>
