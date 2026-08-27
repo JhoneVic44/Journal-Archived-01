@@ -41,7 +41,6 @@
                         radial-gradient(circle at 72% 18%, #3a3c3e, #202224 35%, #0b0c0d 72%);
         }
 
-        /* --- OVERLAPPING GLOW --- */
         .entrance::after {
             content: "";
             position: absolute;
@@ -74,7 +73,6 @@
             align-items: center;
         }
 
-        /* --- USER NAME --- */
         .user-name {
             color: #eeeae1;
             font-size: 9px;
@@ -186,10 +184,6 @@
         .enter-ai-btn:hover .arrow {
             transform: translateX(4px);
         }
-
-        /* =================================================
-                   MOBILE VERSION - FULL SCREEN
-                ================================================= */
 
         @media (max-width: 900px) {
             html, body {
@@ -425,15 +419,19 @@
     </div>
 
     <!-- =========================
-         SUPABASE SCRIPT
+         DEBUG SCRIPT
     ========================== -->
     <script>
+        console.log('🔍 === PAGE LOADED ===');
+
         // =================================================
         // SUPABASE CONFIGURATION
         // =================================================
 
         const SUPABASE_URL = "https://ktytetimukmaqkxmzkha.supabase.co";
         const SUPABASE_KEY = "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
+
+        console.log('🔑 Creating Supabase client...');
 
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
             auth: {
@@ -444,63 +442,72 @@
             }
         });
 
+        console.log('✅ Supabase client created');
+
         // =================================================
-        // DISPLAY USER NAME - UPDATED VERSION
+        // DISPLAY USER NAME - DEBUG VERSION
         // =================================================
 
         async function displayUserName() {
             const userNameText = document.getElementById('userNameText');
             const userNameContainer = document.getElementById('userName');
-            
+
+            console.log('📝 displayUserName() called');
+            console.log('📝 Elements found:', { userNameText: !!userNameText, userNameContainer: !!userNameContainer });
+
             if (!userNameText || !userNameContainer) {
-                console.error('User name elements not found!');
+                console.error('❌ User name elements not found!');
                 return;
             }
 
             try {
-                // Get the current session
-                const { data: { session }, error } = await supabaseClient.auth.getSession();
-                
+                console.log('🔄 Getting session from Supabase...');
+
+                const { data, error } = await supabaseClient.auth.getSession();
+
+                console.log('📦 Session response:', { data, error });
+
                 if (error) {
-                    console.error('Session error:', error);
+                    console.error('❌ Session error:', error);
                     userNameText.textContent = 'User';
                     userNameContainer.classList.add('visible');
                     return;
                 }
-                
-                if (session && session.user) {
-                    const user = session.user;
-                    
-                    console.log('User object:', user);
-                    console.log('User metadata:', user.user_metadata);
-                    
+
+                console.log('👤 Session data:', data);
+                console.log('👤 Session object:', data?.session);
+                console.log('👤 User object:', data?.session?.user);
+                console.log('📝 User metadata:', data?.session?.user?.user_metadata);
+                console.log('🆔 User identities:', data?.session?.user?.identities);
+                console.log('📧 User email:', data?.session?.user?.email);
+
+                if (data && data.session && data.session.user) {
+                    const user = data.session.user;
+
                     // Try ALL possible locations for the name
-                    let fullName = 
-                        // From user_metadata
-                        user.user_metadata?.full_name || 
-                        user.user_metadata?.name || 
+                    let fullName =
+                        user.user_metadata?.full_name ||
+                        user.user_metadata?.name ||
                         user.user_metadata?.display_name ||
                         user.user_metadata?.displayName ||
                         user.user_metadata?.username ||
-                        // From identities (Google login often puts it here)
                         (user.identities && user.identities[0]?.identity_data?.full_name) ||
                         (user.identities && user.identities[0]?.identity_data?.name) ||
                         (user.identities && user.identities[0]?.identity_data?.display_name) ||
-                        // From email as last resort
                         user.email?.split('@')[0] ||
                         'User';
-                    
-                    console.log('Extracted name:', fullName);
-                    
+
+                    console.log('✅ Extracted name:', fullName);
+
                     userNameText.textContent = fullName;
                     userNameContainer.classList.add('visible');
                 } else {
-                    console.log('No session - user not logged in');
+                    console.log('ℹ️ No session found - user not logged in');
                     userNameText.textContent = 'Guest';
                     userNameContainer.classList.add('visible');
                 }
             } catch (error) {
-                console.error('Unexpected error:', error);
+                console.error('❌ Unexpected error:', error);
                 userNameText.textContent = 'User';
                 userNameContainer.classList.add('visible');
             }
@@ -511,11 +518,13 @@
         // =================================================
 
         supabaseClient.auth.onAuthStateChange((event, session) => {
-            console.log('Auth event:', event);
-            console.log('Session:', session);
-            
+            console.log('🔄 Auth event:', event);
+            console.log('📦 Session on event:', session);
+            console.log('👤 User on event:', session?.user);
+            console.log('📝 Metadata on event:', session?.user?.user_metadata);
+
             if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
-                // Wait a moment for the session to fully load
+                console.log('✅ Auth event triggered, updating user name...');
                 setTimeout(displayUserName, 100);
             } else if (event === 'SIGNED_OUT') {
                 const userNameText = document.getElementById('userNameText');
@@ -532,24 +541,53 @@
         // =================================================
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Check for the URL hash that Supabase uses for OAuth
+            console.log('📄 DOM loaded');
+
+            // Check for URL hash (OAuth callback)
+            console.log('🔗 Current URL:', window.location.href);
+            console.log('🔗 URL hash:', window.location.hash);
+
             const urlParams = new URLSearchParams(window.location.hash.substring(1));
             const accessToken = urlParams.get('access_token');
-            
+            const refreshToken = urlParams.get('refresh_token');
+
+            console.log('🪙 Access token from URL:', accessToken ? 'Yes (present)' : 'No');
+            console.log('🔄 Refresh token from URL:', refreshToken ? 'Yes (present)' : 'No');
+
             if (accessToken) {
-                console.log('OAuth callback detected, setting session...');
+                console.log('🔄 OAuth callback detected, waiting for session...');
                 // Let Supabase handle the OAuth callback
-                supabaseClient.auth.getSession().then(() => {
+                supabaseClient.auth.getSession().then((result) => {
+                    console.log('📦 Session after OAuth:', result);
                     setTimeout(displayUserName, 200);
                 });
             } else {
+                console.log('ℹ️ No OAuth callback detected, checking existing session...');
                 displayUserName();
             }
         });
 
-        // Also try again after a short delay to ensure session is fully loaded
-        setTimeout(displayUserName, 500);
-        setTimeout(displayUserName, 1000);
+        // Try multiple times with delays
+        console.log('⏰ Setting multiple delayed attempts...');
+
+        setTimeout(() => {
+            console.log('⏰ Attempt 1 (500ms)');
+            displayUserName();
+        }, 500);
+
+        setTimeout(() => {
+            console.log('⏰ Attempt 2 (1000ms)');
+            displayUserName();
+        }, 1000);
+
+        setTimeout(() => {
+            console.log('⏰ Attempt 3 (2000ms)');
+            displayUserName();
+        }, 2000);
+
+        console.log('🔍 === DEBUG SCRIPT LOADED ===');
+        console.log('📌 Open the Console (F12) to see what\'s happening');
+        console.log('📌 After logging in, check if user metadata is being received');
     </script>
 </body>
 </html>
