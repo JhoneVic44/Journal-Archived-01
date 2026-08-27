@@ -22,12 +22,79 @@ h1{font:400 clamp(38px,4.2vw,64px)/.96 Georgia,serif;letter-spacing:-.055em;marg
 .month-item{position:relative;min-width:0}.month{position:relative;width:100%;color:#aaa8a2;padding:clamp(13px,1.6vh,18px) 5px;cursor:pointer;font-size:clamp(14px,1.1vw,18px);letter-spacing:.10em;text-transform:uppercase;text-align:center;transition:.35s ease;text-decoration:none;display:block;border:0;background:none}.month::after{content:"";position:absolute;left:50%;bottom:3px;width:18px;height:1px;background:#666;transform:translateX(-50%);transition:.4s ease}.month:hover,.month:focus{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.35);outline:none}.month:hover::after,.month:focus::after{width:72%;background:#eeeae1;box-shadow:0 0 10px rgba(255,255,255,.5)}
 .month-introduction{margin-top:clamp(27px,4vh,42px);border-top:1px solid rgba(255,255,255,.13);padding-top:clamp(17px,2.5vh,25px);height:280px;min-height:280px;max-height:280px;overflow:hidden;animation:introFade .3s ease}.month-introduction-meta{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:#686a6d;margin-bottom:9px}.month-introduction h2{font:400 clamp(21px,1.8vw,26px) Georgia,serif;color:#e8e4dc;margin:0 0 10px}.month-introduction p{font:clamp(11px,.85vw,14px)/1.75 Georgia,serif;color:#aaa8a1;margin:0;max-width:650px;max-height:195px;overflow:hidden}
 .month-view{display:none;height:100%;animation:introFade .3s ease}.month-view.open{display:flex;flex-direction:column}.month-view-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 12px;flex-shrink:0}.month-view-title{margin:0;font:400 clamp(28px,2.5vw,38px) Georgia,serif;color:#e8e4dc}.back-months,.next-page,.prev-page{border:0;background:none;color:#aaa8a2;padding:5px 0;font-size:8px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.25s ease}.back-months:hover,.next-page:hover,.prev-page:hover{color:#eeeae1}.month-view-subtitle{color:#686a6d;font-size:8px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px;flex-shrink:0}
-.diary-list{border-top:1px solid rgba(255,255,255,.13);flex:1;min-height:0;overflow:hidden}.diary-entry{display:grid;grid-template-columns:minmax(135px,30%) minmax(0,1fr);align-items:center;gap:18px;height:calc((100% - 0px)/10);min-height:38px;padding:7px 5px;border-bottom:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:background .25s ease}.diary-entry:hover{background:rgba(255,255,255,.025)}
+.diary-list{border-top:1px solid rgba(255,255,255,.13);flex:1;min-height:0;overflow:hidden}.diary-entry{display:grid;grid-template-columns:minmax(135px,30%) minmax(0,1fr);align-items:center;gap:18px;height:calc((100% - 0px)/10);min-height:38px;padding:7px 5px;border-bottom:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit;transition:background .25s ease;cursor:pointer}.diary-entry:hover{background:rgba(255,255,255,.025)}
 .diary-date{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#888;transition:.25s ease;white-space:nowrap;min-width:0}.diary-title{position:relative;display:inline-block;max-width:100%;font:400 clamp(16px,1.25vw,20px)/1.2 Georgia,serif;color:#ddd9d0;margin:0;white-space:normal;overflow-wrap:anywhere;word-break:normal}.diary-title::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:#eeeae1;transition:.3s ease}.diary-entry:hover .diary-date{color:#eeeae1}.diary-entry:hover .diary-title::after{width:100%}
 .pagination{height:34px;display:flex;align-items:flex-end;justify-content:space-between;flex-shrink:0}.pagination-center{font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:#5d5f62}.pagination button:disabled{visibility:hidden}.note{margin-top:clamp(18px,2.5vh,30px);padding-top:clamp(15px,2vh,20px);max-width:680px}.note h2{font:400 clamp(20px,1.7vw,25px) Georgia,serif;margin:0 0 10px;color:#e8e4dc}.note p{font:clamp(11px,.82vw,13px)/1.7 Georgia,serif;color:#99968f;margin:0}.signature{text-align:right;color:#888;font:italic 11px Georgia,serif;margin-top:11px}.footer{margin-top:10px;padding-top:8px;display:flex;justify-content:flex-start;color:#5d5f62;font-size:7px;letter-spacing:.18em;text-transform:uppercase;flex-shrink:0}
 @keyframes introFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* Detail View Styles - CENTERED TEXT */
+.detail-view{display:none;height:100%;flex-direction:column;animation:introFade .3s ease}
+.detail-view.open{display:flex}
+.detail-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(15px,2vh,25px);flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.13);padding-bottom:15px}
+.back-to-list{color:#aaa8a2;border:0;background:none;padding:5px 0;font-size:8px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.25s ease}
+.back-to-list:hover{color:#eeeae1}
+.detail-date{font-size:clamp(9px,.7vw,11px);letter-spacing:.22em;text-transform:uppercase;color:#686a6d;text-align:right}
+
+/* Entry meta section - centered */
+.entry-meta{text-align:center;margin-bottom:clamp(15px,2vh,20px);flex-shrink:0}
+.entry-meta-line{font-size:clamp(10px,.8vw,12px);letter-spacing:.15em;text-transform:uppercase;color:#888;margin:4px 0}
+.entry-meta-line span{color:#aaa8a2}
+
+.detail-title{font:400 clamp(24px,2.2vw,32px) Georgia,serif;color:#e8e4dc;margin:0 0 clamp(20px,3vh,30px);line-height:1.2;text-align:center}
+.detail-content{flex:1;overflow-y:auto;padding-right:10px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.detail-content::-webkit-scrollbar{width:4px}.detail-content::-webkit-scrollbar-track{background:transparent}.detail-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:2px}
+.detail-body{font:clamp(14px,1.05vw,17px)/1.9 Georgia,serif;color:#c9c6be;margin:0;white-space:pre-wrap;overflow-wrap:break-word;text-align:center}
+.detail-meta{margin-top:clamp(25px,4vh,40px);padding-top:15px;border-top:1px solid rgba(255,255,255,.13);display:flex;justify-content:space-between;color:#686a6d;font-size:8px;letter-spacing:.15em;text-transform:uppercase}
+.entry-number{color:#888}.detail-nav{display:flex;justify-content:space-between;margin-top:20px;flex-shrink:0}
+.prev-entry,.next-entry{border:0;background:none;color:#aaa8a2;padding:8px 0;font-size:8px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.25s ease}
+.prev-entry:hover,.next-entry:hover{color:#eeeae1}
+.prev-entry:disabled,.next-entry:disabled{opacity:.3;cursor:default}
+
+/* Desktop/Tablet */
 @media(max-width:900px){.layout{grid-template-columns:minmax(290px,.8fr) minmax(390px,1.2fr);gap:30px}.months{column-gap:15px}.month{font-size:14px}}
-@media(max-width:700px){body{overflow:hidden}.page{padding:20px 20px 18px}.layout{display:block;padding-top:30px;overflow:hidden}.left{height:auto;max-height:44vh;overflow:hidden}.year{font-size:65px}h1{font-size:37px}.intro p{font-size:13px}.right{display:block;height:54vh;margin-top:25px;overflow:hidden}.month-area{max-width:none}.months-label{font-size:22px;margin-bottom:20px}.months{display:block;width:100%}.month-item{border-bottom:1px solid rgba(255,255,255,.08)}.month{padding:12px 5px;text-align:left;font-size:14px}.month::after{left:5px;bottom:6px;transform:none}.month-introduction{height:190px;min-height:190px;max-height:190px;margin-top:22px;padding-top:15px}.month-introduction p{max-height:125px}.month-view-header{margin-bottom:8px}.month-view-title{font-size:27px}.diary-entry{grid-template-columns:105px 1fr;gap:10px;height:calc(100% / 10);min-height:34px;padding:5px 3px}.diary-date{font-size:9px}.diary-title{font-size:15px}.pagination{height:30px}.note,.footer{display:none}}
+
+/* Mobile Fix - Scrollable, Content Visible */
+@media(max-width:700px){
+  body{overflow:auto}
+  .page{padding:20px 20px 18px;height:auto;min-height:100vh;overflow:visible}
+  
+  .layout{display:block;padding-top:20px;overflow:visible}
+  
+  .left{height:auto;max-height:none;overflow:visible}
+  .year{font-size:55px}
+  h1{font-size:30px}
+  .intro p{font-size:13px}
+  
+  .right{display:block;height:auto;margin-top:20px;overflow:visible}
+  
+  .month-area{max-width:none;height:auto;overflow:visible}
+  
+  .months{display:block;width:100%}
+  .month-item{border-bottom:1px solid rgba(255,255,255,.08)}
+  .month{padding:12px 5px;text-align:left;font-size:14px}
+  .month::after{left:5px;bottom:6px;transform:none}
+  
+  .month-introduction{height:auto;min-height:0;max-height:none;margin-top:20px;padding-top:15px}
+  .month-introduction p{max-height:none;overflow:visible}
+  
+  .month-view{height:auto;min-height:0;max-height:none;overflow:visible}
+  .month-view-header{margin-bottom:8px}
+  .month-view-title{font-size:24px}
+  
+  .diary-list{height:auto;max-height:none;overflow:visible}
+  .diary-entry{grid-template-columns:100px 1fr;gap:10px;height:auto;min-height:44px;padding:8px 3px}
+  .diary-date{font-size:10px}
+  .diary-title{font-size:15px}
+  
+  .pagination{height:auto;padding:10px 0}
+  
+  /* Detail view mobile */
+  .detail-view{height:auto;min-height:0;overflow:visible}
+  .detail-content{overflow:visible;max-height:none}
+  .detail-body{font-size:15px;line-height:1.7}
+  
+  .note,.footer{display:block;margin-top:10px}
+}
 </style>
 </head>
 <body>
@@ -49,7 +116,34 @@ h1{font:400 clamp(38px,4.2vw,64px)/.96 Georgia,serif;letter-spacing:-.055em;marg
 <section class="note"><div class="eyebrow">📌 Authenticity Note</div><h2>Regarding the Monthly Introductions</h2><p>I would like to clarify that every monthly introduction in this diary was originally written in the 2013 manuscript and was not added or altered during the 2025 compilation. These introductions reflect the voice, thoughts, and intentions of my 14-year-old self exactly as they were written at that time.</p><div class="signature">— JhoneVic, July 2025</div></section>
 </div>
 <section class="month-view" id="monthView"><div class="month-view-header"><h2 class="month-view-title" id="selectedMonthTitle">January</h2><button type="button" class="back-months" id="backMonths">← Months</button></div><div class="month-view-subtitle" id="selectedMonthSubtitle">January · 2013</div><div class="diary-list" id="diaryList"></div><div class="pagination"><button class="prev-page" id="prevPage">← Previous</button><span class="pagination-center" id="pageIndicator"></span><button class="next-page" id="nextPage">Next →</button></div></section>
+
+<!-- Detail View Section -->
+<section class="detail-view" id="detailView">
+<div class="detail-header">
+<button type="button" class="back-to-list" id="backToList">← Back to January</button>
+<div class="detail-date" id="detailMonth">January 2013</div>
+</div>
+<div class="entry-meta">
+<div class="entry-meta-line" id="detailDiaryNumber">Diary# <span>1</span></div>
+<div class="entry-meta-line" id="detailDateLine">Date: <span>January 1, 2013</span></div>
+<div class="entry-meta-line" id="detailDayLine">Day: <span>Tuesday</span></div>
+</div>
+<h2 class="detail-title" id="detailTitle">New Year</h2>
+<div class="detail-content">
+<p class="detail-body" id="detailBody"></p>
+</div>
+<div class="detail-meta">
+<span class="entry-number" id="detailEntryNumber">Entry #1</span>
+<span id="detailMonthYear">January 2013</span>
+</div>
+<div class="detail-nav">
+<button class="prev-entry" id="prevEntry">← Previous Entry</button>
+<button class="next-entry" id="nextEntry">Next Entry →</button>
+</div>
+</section>
+
 </div></aside></div><div class="footer"><span>Personal Archive</span></div></div>
+
 <script>
 const monthlyIntroductions={
   "january": {
@@ -80,7 +174,7 @@ const monthlyIntroductions={
   "june": {
     "meta": "June · 2013",
     "title": "June",
-    "text": "Welcome to June, Comment of this month: Sa wakas, dumating na rin ang pinakahihintay kong buwan, ang pasukan, pero may halong lungkot pa rin naman dahil baka magkaroon ng boyfriend doon si Kim. At ang handbook ko’y hindi ko pa matagpuan. Bukas na bukas ay pagtatiyagaan kong hanapin ito. Ito lang ang magagawa ko sa lahat ng problema: Una, tulungan ako ni Jewel para maging malapit kami ni Kim sa isa’t isa. Ikalawa, mag-aral ako ng mabuti para maging iskolar ako. katlo, bilang isang binata, ay aayusin ko na ang ugali ko."
+    "text": "Welcome to June, Comment of this month: Sa wakas, dumating na rin ang pinakahihintay kong buwan, ang pasukan, pero may halong lungkot pa rin naman dahil baka magkaroon ng boyfriend doon si Kim. At ang handbook ko'y hindi ko pa matagpuan. Bukas na bukas ay pagtatiyagaan kong hanapin ito. Ito lang ang magagawa ko sa lahat ng problema: Una, tulungan ako ni Jewel para maging malapit kami ni Kim sa isa't isa. Ikalawa, mag-aral ako ng mabuti para maging iskolar ako. katlo, bilang isang binata, ay aayusin ko na ang ugali ko."
   },
   "july": {
     "meta": "July · 2013",
@@ -95,7 +189,7 @@ const monthlyIntroductions={
   "september": {
     "meta": "September · 2013",
     "title": "September",
-    "text": "Comment ko sa araw na ito: Simula sa buwan na ito ay magsisipag na ako sa pag-aaral. Ngunit ramdam ko pa rin na may darating pang mga ligalig sa buwan na ito. Ngunit lalaban ang krito hangga’t sinisipag ako sa buwan na ito. At sa bagong notebook na ito ay masisipagan ako kapag gumawa ng maraming araw. Kaya sana maging masaya at maayos ang buwan ko sa Septyembre."
+    "text": "Comment ko sa araw na ito: Simula sa buwan na ito ay magsisipag na ako sa pag-aaral. Ngunit ramdam ko pa rin na may darating pang mga ligalig sa buwan na ito. Ngunit lalaban ang krito hangga't sinisipag ako sa buwan na ito. At sa bagong notebook na ito ay masisipagan ako kapag gumawa ng maraming araw. Kaya sana maging masaya at maayos ang buwan ko sa Septyembre."
   },
   "october": {
     "meta": "October · 2013",
@@ -110,1745 +204,142 @@ const monthlyIntroductions={
   "december": {
     "meta": "December · 2013",
     "title": "December",
-    "text": "Welcome to December. Comment ko on this month: I'm so glad that today we need to write the diary in English. If you say or heard that December words were about Christmas, for me that Christmas wasn't happy. But I’ve tried to get better each day. For now on, I have never been absent from this diary, and I’m writing in English for once. This day was on the first of December. A kind of little problem happened on the first day, and I cannot resolve it on my own. But I never gave up. There are some parts that give you an idea. Let’s start. (This is me trying to write English as best as I can, even with my ridiculous grammar. I try.)"
+    "text": "Welcome to December. Comment ko on this month: I'm so glad that today we need to write the diary in English. If you say or heard that December words were about Christmas, for me that Christmas wasn't happy. But I've tried to get better each day. For now on, I have never been absent from this diary, and I'm writing in English for once. This day was on the first of December. A kind of little problem happened on the first day, and I cannot resolve it on my own. But I never gave up. There are some parts that give you an idea. Let's start. (This is me trying to write English as best as I can, even with my ridiculous grammar. I try.)"
   }
-} ;
+};
+
 const monthlyDiaryEntries = {
   "january": [
-    {
-      "n": 1,
-      "date": "January 1, 2013",
-      "title": "New Year"
-    },
-    {
-      "n": 2,
-      "date": "January 2, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 3,
-      "date": "January 3, 2013",
-      "title": "Record Day"
-    },
-    {
-      "n": 4,
-      "date": "January 4, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 5,
-      "date": "January 5, 2013",
-      "title": "Birthday ni iries (Female Cousin) | Exited pumasok"
-    },
-    {
-      "n": 7,
-      "date": "January 7, 2013",
-      "title": "Malaya na ako"
-    },
-    {
-      "n": 8,
-      "date": "January 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 9,
-      "date": "January 9, 2013",
-      "title": "Masaya narrin | Lakas trip ni kim"
-    },
-    {
-      "n": 10,
-      "date": "January 10, 2013",
-      "title": "Fuck this day"
-    },
-    {
-      "n": 11,
-      "date": "January 11, 2013",
-      "title": "Simula ng kalungkutan | Makulimlim"
-    },
-    {
-      "n": 12,
-      "date": "January 12, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 13,
-      "date": "January 13, 2013",
-      "title": "Gentleman"
-    },
-    {
-      "n": 14,
-      "date": "January 14, 2013",
-      "title": "Mga hayop kayo"
-    },
-    {
-      "n": 15,
-      "date": "January 15, 2013",
-      "title": "Ang pagbabago"
-    },
-    {
-      "n": 16,
-      "date": "January 16, 2013",
-      "title": "Hiniram na saya"
-    },
-    {
-      "n": 17,
-      "date": "January 17, 2013",
-      "title": "Paalam papa | Welcome back Benjamin | Birthday ni jade"
-    },
-    {
-      "n": 18,
-      "date": "January 18, 2013",
-      "title": "Thanks kim"
-    },
-    {
-      "n": 19,
-      "date": "January 19, 2013",
-      "title": "Bautismo Day"
-    },
-    {
-      "n": 20,
-      "date": "January 20, 2013",
-      "title": "Welcome Back Papa"
-    },
-    {
-      "n": 21,
-      "date": "January 21, 2013",
-      "title": "Fuck!!!!!"
-    },
-    {
-      "n": 22,
-      "date": "January 22, 2013",
-      "title": "Paglingon sa dapat"
-    },
-    {
-      "n": 23,
-      "date": "January 23, 2013",
-      "title": "Uwian day time"
-    },
-    {
-      "n": 24,
-      "date": "January 24, 2013",
-      "title": "Hindi inaasahang pangayari | May bagong lamesa"
-    },
-    {
-      "n": 25,
-      "date": "January 25, 2013",
-      "title": "Bagong Plano"
-    },
-    {
-      "n": 26,
-      "date": "January 26, 2013",
-      "title": "Tyaga sa pag-iipon | Naka download ng rizal movie sa phone ko"
-    },
-    {
-      "n": 27,
-      "date": "January 27, 2013",
-      "title": "Pagsasanay ko"
-    },
-    {
-      "n": 28,
-      "date": "January 28, 2013",
-      "title": "Teknik"
-    },
-    {
-      "n": 29,
-      "date": "January 29, 2013",
-      "title": "Pagkagising sa katotohanan"
-    },
-    {
-      "n": 30,
-      "date": "January 30, 2013",
-      "title": "Iniwan na ako"
-    },
-    {
-      "n": 31,
-      "date": "January 31, 2013",
-      "title": "Masakit ang hirap | Si jade ay may sakit | Bagong uso \"Laladiba\""
-    }
+    {n: 1, date: "January 1, 2013", day: "Tuesday", title: "New Year", content: "Unang taon palang ay minalas na ako ng sobra-sobra. Ganito kasi iyon. Noong umaga ay nag-almusal ako. Yung inalmusal ko ay mga handa naming kagabi. At noong nasa kabila ako ay pinanood ko ang Jose Rizal. At noong tanghali na ay ginupitan ako ng buhok ni papa. At noong natapos na ay maganda naman ang ayos na style parang kay Mark feehily. At sa bahay naligo ako at sinuklay ko ang buhok ko. Tuwang tuwa ako sa napakagandang kong gupit. Maya-maya'y dumating sina tita ada at tita bhe (Mga kapatid ni mama, At si tita bhe ay ina ni jade) Este nagdala itong alak at pinatikim ako ni tita at pinayagan ako ni mama. Maya-maya'y nalasing ako. Kung ano-ano daw ang sinasabi kong kahihiyan. At inabot kami ng gabi. Ni hindi na nga natuloy. Imbis na maglaro ako ng computer ay wala. Sumuka pa nga ako sa banyo namin. Hilong hilo ako grabe. Hindi ko makakalimutan ang araw na ito."},
+    {n: 2, date: "January 2, 2013", day: "Wednesday", title: "No recorded title", content: "Noon pa man ay nalulungkot ako hanggang ngayon pero ngayong huli ay may plano ako. Noong umaga ay naaalala ko ang panaginip ko na sabay namin binasa ni Kim(From Section Sampaguita) ang aming talaarawan at ang maliligayang sandali at dahil doon ay nadagdagan ang kalungkutan ko at naging matahimik ako ng mga umagang iyon hanggang sa magtanghalian na at hanggang sa hapag-kainan ay malungkot ako ng sobra at noong nagpunta ako sa labas ay wala. Nagpunta ako sa kabila at nag-format ako ng computer ni Tito Rulan (Actually he's my uncle) at nagpunta ako sa bahay nila Jade at nag-record kami at isang kanta lang ang nagawa namin at nang umuwi ako ay nag-motor kami ni papa pauwi at napadaan kami sa inaakala kong bahay ni Kim at parang nakita ko sya at sa bahay ay nagbasa ako ng pocket-book at lumakas ang loob ko na makipag-bati sa kanya — may pag-asa pa ako bye."},
+    {n: 3, date: "January 3, 2013", day: "Thursday", title: "Record Day", content: "Mismo sa kalungkutan ay nakikita ko ang kasiyahan. Ganito kasi iyon. Noong umaga ay naglaro ako sa edlex (Capili family owns it) at binati ako ni nanay doon ng happy new year at gumanti din ako. At siyempre noong naglaro na ako ay gumawa ako ng twitter account. At maya-maya ay dumating si Kim(Section star/sampaguita and school mate) at may inabot kay nanay (Kim's grandmother) sabay alis. Sa akin. Sana nalang hindi nya ako nakita at noong umuwi ako ay nalungkot ako ng sobra sobra grabe! Balak ko sanang magpunta sa English Speak pero nagpunta nalang kami ni Jade(Male Cousin And Also Classmate) sa bahay nila para mag-record. Tapos habang nagre-record maingay kami at masaya. Oo nga pala noong naglalakad kami ni Jade papunta sa bahay nila ay may tatlong babae kaming nakasalubong. Sabi ang pogi daw! Sino yung naka-jacket nice, ehhh. Naka-jacket ako. Kapag nabasa to ni Jade ay uusok nanaman ang ulo noon. Hahaha.. bye."},
+    {n: 4, date: "January 4, 2013", day: "Friday", title: "No recorded title", content: "Hindi ko maintindihan kung ano ba talaga ang totoo. Pabasa ko. Noong umaga ay ito maaga nanaman ako, noong umalis pa nga ako eh nakita ko sila joan maaga tumambay at noong nasa school na ako ay si edito ang kasama ko at maya maya ay dumating si kim at medyo ngumiti naman sakin at nginitian ko din naman, pero hanggang doon lang ang pansinan namin sa umaga. At noong breaktime ay gusto ko syang makausap at tumambayako sa teris at noong inutusan ko si ezra (My female classmate) na tawagin si kim ay ayaw nya daw. Paulit ulit sinasabi ni kalki (Another classmate of mine) na si jade nga daw ang gusto kaya noong pasukan na ay halos mag luha ako sa lungkot, ano ba kasi at noong uwian na ay sabay oa kami bumaba sa hagdan. At noong nasa bahay na ako ay yung pera ko imbis na ipanlaro ko sa edlex ay pinangkain ko nalang ng tinapay at noong nag uusap kami ni joan ay nagkwento ako sa nakakuha ako ng trick para makahanap ng ibang babae haha.. oo nga pala sa araw na ito ay absent si jade. Bye."},
+    {n: 5, date: "January 5, 2013", day: "Saturday", title: "Birthday ni iries (Female Cousin) | Exited pumasok", content: "Sobrang lapit na ng pasukan haha. Noong umaga ay unan kong naiisip ay si Kim. Hay nako bumigay na ako sa kanya at ito malungkot parin at nasa kabilang bahay lang ako at nagbabasa-basa lamang ng pocket-book at sa libro na nabasa ko ay doon ko naisip na maging matatag sa pag-ibig at doon ko nalaman kung ano-ano ang ugali ng mga babae. At noong tanghali ay bumisita si edmon sa bahay at sinabi nya na aalis na daw sya dito pagkalipas ng 8 days at sinamahan ko sya mag-ikot-ikot. Nalaman ko din sa kanya kung papano kami magbabatian ni Kim at lalong lumakas ang loob ko sa lunes (WS - Kim sa lunes makikipag-bati ako sayo ng personalan at sana mapatawad mo ako. Magiging mag-kaibigan tayo at magiging mag-close sa isa't-isa! at pangako, magbabago na ako at hindi na ako tutulad sa iba nating kamag-aral) Aral. Pangako. Bye."},
+    {n: 6, date: "January 6, 2013", day: "Sunday", title: "No recorded title", content: "Grabe. Hindi ko akalaing bukas na ang pasukan. Ok noong umaga ay naisip ko na Jan 6. na at kahit na alam ko bukas ay pasukan na ay may lungkot parin akong nararamdaman. Inisip ko kung papano kami mag-uusap at ito sa bahay, hinahanda na ang mga susuutin ko sa school at ang pangsamba ko at noong este oo nga pala pag-uusapan namin ni mama kung ano daw ang kurso ko at ang English Speaking ay sa bakasyon pa at noong tanghali ay natulog lang ako at maya maya ay nagsamba kami ni Joan (My female Cousin) at ipinagdadasal ko na sana magtagumpay ako sa gagawin ko bukas at nakakahiya talaga dahil wala akong abuloy at noong umuwi na kami ay bumili si Joan ng Shopao, tapos kumain kami at noong nasa Jeep na kami ay balak ko pa sanang bumaba sa stoplight para dumaan sa Edlex pero ayaw ni Joan hehehehe... bukas bye."},
+    {n: 7, date: "January 7, 2013", day: "Monday", title: "Malaya na ako", content: "Tama.... naging masaya nga ako sa school kasama ng mga classmate ko pero kay ay ewan... Ok noong umaga ay alas kwatro ng madaling araw ako gumising at agad na naligo .Sobrang lamig ng tubig pero kinaya ko at noong nakaayos na ako lahat lahat ay si mama nalang ang hinihintay ko at noong dumating si mama ay agad-agad akong umalis. Bumili muna ako ng notebook bago pumasok sa paaralan. Noong papasok ako ay nakita ko si kim sa gilid ng mata ko pero pumasok ako agad. Nakita ko si edito (Classmate at kaibigan ko)at si jade (Pinsan ko) at maya maya ay may bago na kaming teacher sa E.P.P. At sa breaktime ay gusto nya daw ako makausap. ni kim pero noong mag-uusap na sana ay dumating na ang mga classmate nya kaya hindi na natuloy at noong uwian ay naglinis ako at hindi na nya ako hinintay at umuwi na sya ng maaga pero inisip ko na may kapatid sya na maliit kaya inintindi ko nalang sya. Bye"},
+    {n: 8, date: "January 8, 2013", day: "Tuesday", title: "No recorded title", content: "Hindi pa pala natatapos ang pagtitinginan namin ni kim. Ganito kasi iyon. Noong umaga ay nag-ayos nanaman ako sa sarili ko at ang tagal nanaman ni mama dumating kaya lagi ako nala-late at noong lumakad na ako simula sa gate hanggang sa school ay nasa school na ako. At may ginagawa na silaMaaga palang ay naiinis na ako kay jade dahil umandar nanaman ang kasamaan ng ugali nya at noong breaktime na ay nag bansak kami (it's a game) at sa kalalaro namin ay inabot na kami ng kalahating oras. Nagpunta ako at kinausap ko si ka-eran(ka-iglesia ni kristo) sabi ko \"kainip naman hindi pa ako pinapansin ni kim at maya maya ay tumabi sya (si kim) sa akin at kinausap nya ako. Tinanong nya ako kung bakit hindi nanaman ako naglaro sa computer shop nila na tinatawag na edlex. Sabi ko nagkasakit nanaman ako at noong uwian na ay medyo hindi ko muna pinansin si kim at oo nga pala si jade nainlove ay rose-anne (Classmate namin) Uuuyyy.. Bye."},
+    {n: 9, date: "January 9, 2013", day: "Wednesday", title: "Masaya narrin | Lakas trip ni kim", content: "Loko talaga ang araw na ito para sa sakin.Noong umaga ay maaga ako nag ayos pero syempre naligo ako at sa ngayon ay tuwang tuwa ako dahil saakin o nasakin na ang baon ko at noong ready na ako ay inaantay ko nalang lumiwanag sa labas at noong lumiwanag na ay pumunta na ako sa school at noong nasa school na ako ay ako palang pala ang tao sa lahat ng grade 6. hahaha... at maya maya ay marami na kami at sya nalang ang inaantay ko pumasok at si kim iyon. Nag-igib igib kami ni edito pero wala parin sya (si kim) kaya noong nagklase na ay badtrip ako kaya nawalan ako ng gana na asar-asarin si jade. At noong breaktime na ay nalungkot ako lalo na sa sinabi ni edito na baka may crush si kim kay jade dahil tinatanong nito kung sino ang crush nya at noong hapon \"WEEEEEEE\"(This is the meme of the whole class that whoever say something, The whole class would scream \"Weee) sa tuwing may magsasalita. Tawanan kami at noong uwian na ay sumakay ako ng jeep at dumaan ako sa edlex at may sumitsit sa akin at si kim pala haha. Sas gabi naman ay badtrip kami ni joan sa mga lakad haha. Bye muna"},
+    {n: 10, date: "January 10, 2013", day: "Thursday", title: "Fuck this day", content: "Sa araw na ito ay medyo may pinagbago ako. Sisimulan ko na nga. Noong umaga ay naligo na ako at nag ayos. at hindi kona sinuot ang jacket ko dahil 3 days ko nang ginagamit iyon. kaya yung polo na longsleeve blue nalang ang isinuot ko at noong nasa school na ay maaga ako dumating kasama ko si jade at nag ikot ikot kami at maya maya ay nakita namin si kim at sumitsit pa samin at maraming beses kami nagpapansin. Maya maya noong nasa loob na kami ay sinabi sa akin ni gary (Another classmate of mine) ang totoo na si kim ay may gusto kay jade, totoo nga. Nag iiiyak ako hanggang breaktime at ito nag iikot lang ako sa school para mapansin nya pero natagalan bago kami mag usappero saglit lang naman. Wala ring silbi. At noong uwian ay dumaan lang sya sa school namin badtrip sya. Dumaan ako sa edlex pero wala sya. At oo nga pala si edito hindi kona mapakinabangan sa pag ibig grabe. Mawawalan na ako ng kakampe. Hindi na bale bukas babaliktarin ko ang lahat ng iyan. bye."},
+    {n: 11, date: "January 11, 2013", day: "Friday", title: "Simula ng kalungkutan | Makulimlim", content: "Grabe ang araw na ito. I do not understand. Noong umaga ay pagkagising na pagkagising ko palang ay malungkot na ako at sobra sobra pa. Sinabayan pa ng ulan grabe, Punta sa kabila atbbalik din sa bahay. Ramdan ko parin ang lungkot, Hindi ko masabi kung ano ang problema ko at maya maya ay tumingin ako sa salamin. at binalik ko sa dati ang buhok ko na kimpli (hairsyle that looks like Titanic Leonardo dicaprio) yes naisip ko na ganito ang bujok na gagamitin ko na kapag nasa school na ako edi lumakas ang loob ko at naglaba na ako ng mga uniforme ko tapos sinampay ko kahit masama ang panahon. Sa kabilang bahay naman si papa at si tito rulan ay nag usap tapos nadaan sa sigawan at awat ewan kung ano ang problemanila. Oo nga pala simula ngayon pwede na ako mangheram kay joan ng speaker de USB. na kulay yellow. Ngayong hapon ay kumain kami ng tinapay at Lucky me (Noodles) at oo nga pala dumating si ninong alan at binigyan ako ng 100 pesos haha bye."},
+    {n: 12, date: "January 12, 2013", day: "Saturday", title: "No recorded title", content: "Sa huli nito ay may natutunan ako. Noong umaga ay naalala , wait teka nga. Alas trest ng madaling araw nang naiisip ko si kim. Parang damdam ko parin ang selos noong mga oras na iyon at noong mag uumaga na ay maaga ako naligo at nagpunta ako kela tita bhe sa pwesto or tindahan nila ng speaker (Public Appliances) tapos bumili ako ng pabago at pulbo sa botika at pumunta ako kela jade. maya mayay pumunta naman ako sa palengke at bumili ako ng mga kailangan ko sa project at noong gumagawa na ako ay tumawag si joan, nagmamadali at may lakad daw sa iglesia. Pero noong umuwi ako hindi natuloy. Kaya nagtahi nalang ako sa bahay. Oo nga pala si edmon ay umalis na raw dahil umuwi na sa manila. este sa pamilya nya. at noong hapon ay nagpunta ako sa edlex para maglaro pero may nakaupo sa madalas kong pwesto. kaya nag print nalang ako ng lyrics ng kanta. Nakatingin pa sa akin yung bata na pinsan nya ni kim. At noong gabi ay nanood kami ng palabas ni vice ganda. Pinanood ko talaga at noong natapos na ay nalaman ko na dapat maging Gentleman ako thanks, alam ko na para maging lalake hahahahaha. Bye"},
+    {n: 13, date: "January 13, 2013", day: "Sunday", title: "Gentleman", content: "Hanggant hindi ko nakakalimutan si kim ay hindi mawawala ang problema ko. Ok sa school kaagad ha, noong nasa school ako ay sinundo ko si jade at pumhnta na kami sa school at noong nasa este papasok na ako ay sumitsit sya, siguro si jade iyong sinisitsitan ni kim at nasa loob na kami ng school, sabi saakin ni edito sabi daw ni kim ay si Benjamin parin daw ang gusto nya. (Her crush in grade 5 and our grade 6 classmate now) at nandidiri daw sya sakin \"masakit sobra\" si benito naman (Another classmate of mine) ay ganun din ang sinasabi. At noong breaktime na ay nakatingin sya banda sa amin pero hindi ko nalang pinansin, sinadya ko nalang na magpunta sa bahay nila jade at doon narin ako kumain. Agad din naman ako lumisan doon at bumalik sa paaralan (Breaktime yung mga oras na iyon) Nagpasama ako kela edito at benito para maglakad lakad pero imbis na tulungan ako ay pinagtripan ako. At noon guwian na ay nakita ko sya at nauna na umuwi kaya iyon ang dahilan ng pagtakas ko sa cleaners at naglakad pauwi. Simula bukas ay seryoso na akong tao at sarado na ang puso ko para sa crush at pag ibig... Paalam."},
+    {n: 14, date: "January 14, 2013", day: "Monday", title: "Mga hayop kayo", content: "Sa palagay ko ay bumabalik na sa dati o normal ang lahat. Nalaman ko dito iyon. Noong umaga ay maaga ako pumasok noon, May nauna na sakin sa school. Sila floyd (Another classmate of mine) at si ma'am (Advicer teacher ko) at si ma'am naman ay nagpatulong na ayusin ang mga upuan sabay nakita ko si kim, dumaan at noong nakaupo na ang lahat ay pumasok pa si jade, late na sana ang dimonyo eh. Taas pa naman ng buhok ko dito at palagay ko hindi bahay. Sa araw na ito ay may test or exam kami. at noong breaktime na ay sabay kami na kumain ni jade sa school at nanood sa cellphone nya ng happy three friends at maya maya ay kumakanta kanta kami sa teris pero parang wala nang pakielam si kim at noong pasukan na ay badtrip ako at test nanaman at mag uuwian na ay nag aasaran kpa kami ni jadenapikon ako at itinago ko lang. Pero maya maya ay nagbati din naman kami at si kim ay nasa school pa. grabe.... sa bahay timenight na nito. Dumating sila Ka-Lydia (Matandang kapatid sa iglesia na umakay samin) na sabado na ang bautismo namin kaya bukas liliban muna ako sa klase at pupunta kami ng imus para mag pa pre screening. Ge bye."},
+    {n: 15, date: "January 15, 2013", day: "Tuesday", title: "Ang pagbabago", content: "Maganda na sana pero nabasag pa ako. Ganito kasi iyon. Noong umaga ay hidni ako pumasok. Inantay ko mag alas 8 para makaalis na at nooong 8am na ay dumating si ka joy (laging kasama ni ka-lydia) at naghintay. Habang nakabihis na ako at pampasok pa ang suot ko at pumunta kami ng imus at nagpa pre-screening. para sa bautismo sa sabado at pag uwi ay deretso school ako at nagpa class picture kami ng mga oras na ito. At sa school ay nagawa ko narin mag seryoso at noong breaktime ay nasa loob ako at si kim ay tumitingin banda sa amin eh... wala naman si jade sa tabi ko at ito nag aaral kami. Maya maya ay nagpila sila para sa simbahan. May inabot saakin si bergonyo na sulat sabi kay kim daw galing nainis pa nga ako dahil papansin si jade at iyon ang dahilan kung bakit kami nag away. Sa uwian sa jeep ay naghirap pa ako sumakay at binasa ko ang sulat ni kim she said. \"mamimiss nya daw ako sa highschool at huwag ko daw sabihin kay jade ang \"Love you\"mula sa kanya , selos ako. hula ko ay malas ako bukas. Bye"},
+    {n: 16, date: "January 16, 2013", day: "Wednesday", title: "Hiniram na saya", content: "Sobra ang pagkalungkot ko sa biglang naganap. Noong umaga ay ito maaga ako gumising at nag ayos . Naibigan ko na ang buhok ko na kimpi. Simula pa kahapon. At noong naglakad na ako ay sa edlex ay nakita ko si kim. Nakatingin sa watch nya.. eh sinitsitan ko tumingin naman sya at pumasok sya sa bahay nila at sa school naman ay naroon sina edito at lumabas ako para sunduin si Jade at naasalubong ko si jade este si kim pala at ako naman ang sinitsitan nya. Oo nga pala bati na kami ni jade at aral na- breaktime este bago yon ay tumitingin saamin si kim at masakit ang ngipin ko noong mga oras na iyon, at breaktime. Labas pasok ako sa school pero nalaman ko na halfday lang daw pala ang section star. (School room nila kim) ito hapon sina Benjamin ay nakiusap kay ma'am giron (Name ng Advicer ko) na ienrol ulit kay mam . yes pumayag ulit at si jade naman ay sama sobra ng ugali at sa gabi naman ay sabi ni papa ay aalis na daw sya mamaya at nagsamba kami, Nabalitaan ko sa txt ay umalis na daw sila papa kasama si tito nelio (Tito ko na kapatid ni papa) kaya pinagdasal ko say \"paalam papa\""},
+    {n: 17, date: "January 17, 2013", day: "Thursday", title: "Paalam papa | Welcome back Benjamin | Birthday ni jade", content: "Thanks kim sa kabila ng nangyayari kahamot este kahapon ay bumawе ngayon. Noongumaga ay hindi ako pumasok dahil inaantay ko si mama para magpaserox ng birthcertificate para sa iglesia at matagal ang pag aantay ko kay mama kaya nanood muna ako ng jose rizal moviesa kabila (sa kabilang bahay na pag aari ni Tito Rulan na mas komportable dahil hindi masyadong mainit at tiles) At noond dumating si mama ay may dala syang portable DVD syempre sinubukan ko ito at naligo na ako para pumasok sa tanghali at noong nasa school na ako ay ito medyo matagal ako naghintay bago pumasok at pagpasok ko ay ito sinamahan ko si Benjamin sa bahay nila at pagbalik namin si kim ay nakikita ko at nasa loob na. Sobrang sakit ng ngipin ko talaga. Tinitiis ko at noong uwian na ay ito tumitingin sakin si kim at inabutan ko pa ng sulat sabay paglabas ko ay kinausap nya ako at syempre paglakad ko pauwi ay sumunod sya at luMico sya at parinig nya \"hindi ko daw sya pinapansin pero maya maya lang nag usap nanaman kami. Oo nga pala pupunta daw sya ng china at magbabakasyon. Thanks….bye"},
+    {n: 18, date: "January 18, 2013", day: "Friday", title: "Thanks kim", content: "Salamat naman at sa araw na ito ay bautisado na ako. Ganito ang simula. Maaga ako nagising at nagpunta ako sa kabila at nakita ko si joan (mostly lives with tito rulan) naghahanda. laktaw. sa kapilya nagkita kita na ang lahat at sumakay na sa jeep na service at noong nandoon na kami sa new eran at nakasuot kami ng puti na mahabaat nag samba muna medyo matagal ang mga paghihintay namin doon at maya maya ay lumakad na kami at noong nakikita kona kung papaano ilulubog ay kinakabahan ako at noong ako na ay dinasalan ako sabay lubog de gulat ako at nahiya ako magpalit dahil maraming tao pero nalampasan ko din at ito pag uwi ay meryenda at sabay sabay ay tuwang tuwa sobra. Pero uminit ang ulo ko sa dalawa kong kapatid. ayan first sinners .. sumakit panga ngipin ko pero salamat dahil dumating si kuya jun (Another INC claiming joan is his daughter) at ma dalang gamot at ininum ko at ngayong gabi tawanan o tuwaan kami nila joan dahil sa snake and ladder at ngayon ay ito nanood ako ng micahel jackson sa portable. Bye"},
+    {n: 19, date: "January 19, 2013", day: "Saturday", title: "Bautismo Day", content: "Wala ring nangyari sa bautismong naganap dahil masama parin akong tao. Noong umaga ay maganda ang pakiramdam ko sa paggising ko at naisip ko na maligo ako at ginawa kona at noong natapos na ay sinuklay ko ang buhok ko na pa likod lahat at pumunta ako sa kabila . Nabutan ko sila joan at iriesdoon, Hanggang ngayon ay magkagalit parin si joan at jenny rose (Pangalawa kong kapatid sa babae) Grabe. si iries naman ay panay ang labas para bumili kaya sinasamahan ko . Dumating naman si ninong alan para antayin si papa at masaya kami sa kabila dahil sa snake and ladder pero sa tanghali ay nakadamdam ako ng gutom, dalawang beses kako bumalik kay joan para manghingi ng ulam o tres kaya nakapag tamin ako ng galit sa kanila sa kadamutan nila. At nakita ko si Tito Mario (Iries Father/Mama's Brother) gising na. humingi ako ng tress pero binigyan nya ako ng otso , binili ko ng toyo at kumain ako , ito ginanahan ako mag samay ng mga uniporme ko. Oo nga pala Dumating na si papa at dito na ulit sya titira, Thanks lord. Kumpleto na ang pamilya namin. Bukas ay ganadopa ako pumasok. yes, pwede na"},
+    {n: 20, date: "January 20, 2013", day: "Sunday", title: "Welcome Back Papa", content: "Malas at malungkot ang araw kong ito, grabe. Noong umaga ay maaga akong nagising, at noong nakabihis na ako ay nanood lang ako sandali ng Jose Rizal sa portable. Sabi ni Papa ay patayin ko daw para hindi malowbat, pero sabi ko, \"Saglit lang ehh...\" Nagalit siya at nag-away kami. Wala pa naman akong baon na pera, kanin, at humingi ako kay Joan ng pera pamasahe ko sa pagpasok. Habang humihingi ako kay Joan ng pera, ay umiiyak ako dahil sa away namin ni Papa, at agad akong umalis sa bahay.5:30 AM, ay naroon na ako sa school. Masyado pang madilim ang paligid. At ito, sinundo ko si Jade. Maya-maya, nakita ko si Kim, pero deadma ko lang siya.Breaktime, doon ako kumain kela Jade.Uwian, cleaners ako. Pinanood ako ni Kim maglinis, at pag-uwi ay mabilis siyang lumakad. inagaw niya ang jacket ko, ehh... Hindi ko naman hinabol, pero nakuha ko din naman. Pero nakakatuwa siya ha!At iniwan na namin siya ni Jade. Naglakad ako pauwi. Pagdating sa bahay, ay impyerno — langit sa akin ang school. Sobrang kagutuman ko at hirap. Bukas ako babawi. Bye."},
+    {n: 21, date: "January 21, 2013", day: "Monday", title: "Fuck!!!!!", content: "Sobra na ang ginagawa ko na pang dededma kay Kim. Noong umaga ay ito, maaga na naman ako nag-ayos, nag-almusal at lumakad na ako sa school. Habang pagpasok pa lang, sinitsitan ako ni ma'am — ang aga ko daw. Sa school ay dalawa pa lang kami ni ma'am. Pinaglinis ako ni ma'am ng school, pero masaya ako. Tinanong pa ako ni ma'am kung ano ang trabaho ng mga magulang ko. At noong break time, simula noong nakilala ko si Kim ay nahihiya na ako kumain at maglaro sa Edlex. Hahakanta-kanta kami ni Jade, pero napansin ko, wala siya — naglakwatsa ang daga. At sa Filipino subject naman ay mainit ang ulo ni Ma'am Leona (may iba-ibang teacher kami bawat subject). Baka banggitin ang pangalan ko. At noong pinapila kami dahil titimbangin, nahihiya ako maghubad ng sapatos dahil alam mo na. Uwian time, kakulitan ni Kim ay umiral na naman. Sunod ng sunod sa amin si Kim. Palagay ko ay in love pa rin siya sa akin, pero hindi ko siya pinapansin. At oo nga pala, bukas papansinin ko na siya, ha... bukas, attack!"},
+    {n: 22, date: "January 22, 2013", day: "Tuesday", title: "Paglingon sa dapat", content: "Magulo kami sa araw na ito dahil sa ewan! Noong umaga, ito, nag-ayos na ako sa sarili ko para pumasok. At noong nagtungo na ako sa paaralan, naabutan ko si Ma'am Giron at si Gloria (my tall classmate and soft one) na naglilinis. Pinuntahan ko si Jade sa bahay nila, pero sa bintana, walang tao. Kaya bumalik nalang ako sa school at nasalubong ko si Kim sa hagdan. Umubo pa ako naman nun. Absent si Jade nitong umaga. Oo nga pala, may bago kaming teacher sa Math — si Mrs. Rapatan. Medyo mabait, magaling mag-English speaking. At ang anim na bisita sa ECA ay nagyaya ng enrol. Si Gary pa nga ay pinaiyak eh! (They're like professors recommending to enroll to their university, and they were insulted when Gary wasn't listening.) Breaktime — hahaha! Dumating si Jade at inasar-asar ko ng Rizal dahil sa hairstyle niya. Habulan kami hanggang sa labas ni Jade, pero wala si Kim. Badtrip talaga. Uwian time, si Kim ay nakatingin sa amin habang hindi pa kami pinapauwi ni Ma'am. Pero sa katagalan, umalis siya. Pag-uwi, bigla niya nalang akong kinausap. She said, \"Mayroon nang nagkakagusto sa'yo.\" At eto, kantahan kami nila Benjamin at Jade. Oo nga pala — tinawag ko si Kim sa pangalang Kim at hindi na Miss Capili, which is madalas kong tawag sa kanya. Shit, mukhang magiging close kami nito sa school. At isa pa, lagi niya akong binubugbog (mga pabirong suntok sa braso kumbaga). Hahaha, bye!"},
+    {n: 23, date: "January 23, 2013", day: "Wednesday", title: "Uwian day time", content: "Sobra na ang pangyayaring naranasan ni Kim kay Ma'am Leona. Noong umaga ay nakumpleto ko ang pag-aayos ko sa katawan, at noong nasa school na naman ako, ay sinundo ko si Jade. Pinagalitan siya ni Ma'am dahil late siya eh... siya yung may hawak ng susi. Akala ko absent si Kim, pero nakita ko siya sa pintuan nila, nagpapapansin at hawak pa ang sumbrelo ko. Kinuha niya pala. Noong bandang alas-diyes ng umaga at Math time, nakita namin si Kim na suot ang sumbrelo ko, pa-cute pa siya. Naabutan siya ni Ma'am Leona na nakaupo sa harangan ng terrace. Sinigawan siya nito at pinagalitan. Halos mag-iyak-iyak siya, at nag-alala ako, baka hindi na siya mamansin. Breaktime — wala! Sa Filipino time, ang sungit ni Ma'am Leona magturo, haha. Dumating si Mama at inabot ang request kay Ma'am Leona dahil masakit ang tiyan ni Mrs. Giron. Uwian — badtrip. Naglaro sila Kim sa labas at hindi man lang ako pinansin. Ouch naman. Badtrip ang uwi ko. Sa bahay, bumili ng speaker si Mama, at may natutunan ako kay Joan. Lumabas, kumain, at nakahinga ng malalim."},
+    {n: 24, date: "January 24, 2013", day: "Thursday", title: "Hindi inaasahang pangayari | May bagong lamesa", content: "Pakiramdam ko ay unti-unti nang nababawasan ang pagmamahal ko kay Kim. Noong umaga, naisip ko na sa Lunes ay mag-iipon na ako, kaya ngayon ay naka T-shirt lang ako na may tatak. Tinuloy ko ang plano. 4:45 AM, nagsimula na akong maglakad papunta sa school. Nahirapan ako bago makarating doon, pero maaga pa noong naroon ako, kaya sinundo ko na lang si Jade. Nasalubong ko pa nga si Kim sa damuhan eh (school field). At noong papunta na ako, nasalubong ko si Adaw (another classmate of mine), kaya sumabay na lang ako sa kanya papunta sa school. Sa school naman, hindi siya namamansin. Oo nga pala — pumasok ako sa room nila Kim para kunin ang request kay Ma'am Leona, pero parang hindi niya ako nakita. Oo nga pala, half day lang daw dito ang Grade 6. Tinanong sa akin ni Kim kung sino ang nagkakagusto sa akin — si Domoko (because that girl loves Domo things). Kumain ako kina Edito at bumalik sa school. Nawala sila Kim at ang tagal namin naghintay, kaya mga 5:10 PM, inihatid ko na si Edito at sumakay na ako pauwi. Masakit ang paa ko dito dahil lakad ako ng lakad. Bukas ay magpapa-enroll pa ako sa high school. Mukhang nagbabago na ang kaisipan ko dito ah. Bye."},
+    {n: 25, date: "January 25, 2013", day: "Friday", title: "Bagong Plano", content: "Para sa akin, ang Sabado at Linggo ay may pakinabang sa akin. Noong umaga, ito, maayos ang gising ko pero ang itsura ko ay hindi maayos. Nakipagpalit ako kay Joan ng baterya — baterya sa speaker ni Joan ang ipinalit niya. Habang walang magawa, nanood ako ng Chucky sa portable (or Child's Play) at naligo pa ako kahit walang pasok. Sinubukan ko na itayo ang buhok ko pero wala nang pag-asa. Talagang kimpli ito. Ang tagal ni Mama; noong dumating siya, may dala siyang strawberry at kinain namin. At ito — nagutom ako ng sobra, tagal ng pagluluto ng tanghalian. Kumain ako ng tanghalian, sabay-sabay kami, at kapalit ay ang sobrang kabusugan. Hapon time, nakita ko si Jenny rose na sinusuot ang contact lens. Binalak ko pang angkinin dahil akin 'yon, pero na-realize ko na bibili na lang ako ng bago. Nanood pa nga sila Joan ng Blank eh... pero hindi ako nanood. At noong kakain na sa gabi, hindi ko nagustuhan ang pagkain kaya hindi ko kinain. Naawa ako kay Papa dahil iniwan ko lang sa lamesa ang niluto niya para sa amin. Bye."},
+    {n: 26, date: "January 26, 2013", day: "Saturday", title: "Tyaga sa pag-iipon | Naka download ng rizal movie sa phone ko", content: "Gustong baguhin ng tadhana ang itsura ko para maging gwapo, pero ayoko. Noong umaga, ito, handa na kaagad ako maglaba ng mga susuotin ko sa school, pero ramdam ko pa ang gutom na nararamdaman ko kagabi. Si Jenny rose pa nga ay nanonood sa portable noong mga oras na 'yon. At ito, sinisimulan ko na ang paglalaba. Ginamit ko ang tiyaga at pati medyas ko ay inilagay ko sa mainit na tubig para mawala ang amoy. Noong tanghali, dumating si Mama. May dala siyang El Presidente. Nais ko sanang hingin, pero next time na daw dahil ibebenta daw 'yon. At ito, sabay-sabay kami kumain. Dumating si Kuya Jun at inabot ang pera namin para sa pamasahe — PHP 50. Inantay ko ang tamang oras para makaligo. At ito, noong nakaligo na ako, tinulungan din ako ni Maidi mag-ayos ng buhok ko. Emo, kahit na ayoko, nagpursige na lang ako. At ito, nagsamba kami. May natutunan ako sa aralin — basta pala makinig ka lang ng mabuti. At noong umuwi na kami, naglakad lang ako. Kaya ngayong gabi, excited pumasok bukas... with cellphone. ge bye."},
+    {n: 27, date: "January 27, 2013", day: "Sunday", title: "Pagsasanay ko", content: "Gagawin ko ang lahat para makapag-ipon lang ng maayos. Noong umaga, ito, kumpleto na ako sa pag-aayos ko sa sarili ko — naligo, nagpulbo, nagsuklay, nag-contact lens, at nag-almusal pa. At ito, inihatid na ako ni Papa gamit ang motor. Noong nandoon na ako, ay ito, may nauna na sa akin — sina Edito at Gloria. Nakita pa nga nila ang movie kong Jose Rizal. Noong recess na, ay pinanood ni Rose Ann ang Rizal sa cellphone ko. Si Kim naman ay nakikita ko, pero parang hindi na ako kinikilig. At noong breaktime na, ay ito, inaasar ko si Jade ng \"Rizal\" at nagalit siya nang paiyak. Umalis ako at bumalik dala ko ang baunan ko. Nagkasagutan kami at hindi ko na nakain ang baon ko. At ito, di rin nagtagal ay nagbati din kami. Uwian time, pauwi na sana kami, pero inagaw pa ni Kim ang sumbrero ko kaya napalaro pa kami sa kanya. Pero sa huli, ay umiyak siya — ewan ko kung arte lang o totoo. Sa gabi, ay tawanan kami ni Joan. Yun lang. Bye!"},
+    {n: 28, date: "January 28, 2013", day: "Monday", title: "Teknik", content: "Tandaan niyo lahat, simula sa araw na ito ay galit na ako sa mundo. Noong umaga, ito maaga ako nagising. Bwisit na tubig, parang lamig talaga! At ito, nakabihis na ako at inihatid na ako sa school. Sa school ay naabutan ko si Edito, at ito, tambay kami habang walang tao. Maya-maya, dumating si Kim — hindi naman sino o nagparinig man lang. At ito, iba na ulit ang ayos ng upuan. Noong break time na, nagpunta ako sa gate para sa baunan, pero pabalik-balik ako, ang tagal! Maya-maya, nasa school na pala ang baunan ko, at agad ko itong kinain. At ito, nililista ko pa nga ang mga assignment namin. At nung uwian, ito nag-antay kami sa labas nila Benjamin, ako at si Jade. Lumapit at dumaan pa sa amin si Kim, pero hanggang doon lang iyon. Umuwi na kami nila Benjamin at naglakad na kami. Nitong gabi, ito badtrip — nag-away kami ni Papa. Iyak ako ng iyak habang sinisimulan ko pa lang ang pagsusulat. Buti na lang at nagising ako sa katotohanan ko na ang mundo ay kalaban ko pala."},
+    {n: 29, date: "January 29, 2013", day: "Tuesday", title: "Pagkagising sa katotohanan", content: "Nahihirapan ako, lalo na at naaalala ko si Kim simula noong una ko siyang nakilala. Ngayon, noong umaga, nag-ayos ako at nabwisit na naman ako sa tubig — sobrang lamig. Binigyan ako ni Papa ng sampu lang, at pumasok na ako. Iniwan ko ang bag sa room at sinundo ko si Jade, pero pinauna na niya ako dahil ewan. Sa school naman, ang akala ko'y hindi pumasok si Kim, pero sabi ni Dito ay pumasok naman daw. Si Edito naman ay kilig na kilig sa crush niyang si Charm. Noong break time, kinuha ko ang baon ko at ang bente kay Papa, at kumain ako kaagad. Nakikita ko si Kim, pero hindi niya ako pinapansin. Sa hapon nga pala ay half-day lang si Jade, at noong uwian, nakita ko si Kim sa malawak na damuhan, pero parang tingin niya sa amin ay parang hindi niya kami kilala. Naglaro pa nga kami ng bente uno at natulog pa kami ni Benjamin sa sahig ng room. Sa bahay naman, napanood ko ang El Presidente. Bakit gano'n na si Kim, at ano na ang nangyayari sa panahon ngayon? Bye."},
+    {n: 30, date: "January 30, 2013", day: "Wednesday", title: "Iniwan na ako", content: "Dahil sa mga hindi inaasahang pangyayari, naisip ko lang na mag-aral ako ng mabuti. Noong umaga, nag-ayos na ako. Ipinang-doble ko sa uniform ang damit na alaala ni Edmon para sa akin. Inihatid ako sa paaralan, ngunit hindi na masyadong maaga. Nalaman ko na absent si Jade, pati si Kimberly — at yung Kimberly na 'yon ay si Kim. Kaya noong mga sandaling iyon, napaseryoso ako. Malungkot ako na masaya. Nagutom ako noong umaga, pero talagang hindi ko binili ang pagkain gamit ang pera ko. Nagtiis ako sa gutom sa mga oras na iyon. At noong break time na, nakita ko si Kim. Hindi pala siya absent, pero wala na siyang jacket na suot. Talagang wala na ako sa kanya. Noong hapon, tawanan na lang kami ni Benjamin, pero sa loob-looban ko ay sobrang lungkot. Pag-uwian na, may meeting ang mga nanay kung may graduation ba o wala. At noong naglakad kami, sabay na naman kami ni Benjamin — naglakad, tawanan sa daan. Tinuro ko pa kung saan ang Edlex, sinama ko pa siya sa bahay. Oo nga pala, binili ko na ang ipon ko ng kwintas at pabango lang. Sa gabi, malungkot na ako. Maghahanda ako sa Lunes, at magiging sobrang gwapo at pogi ako. Adios."},
+    {n: 31, date: "January 31, 2013", day: "Thursday", title: "Masakit ang hirap | Si jade ay may sakit | Bagong uso \"Laladiba\"", content: "Masakit ang hirap ngayon. Si Jade ay may sakit — sana gumaling na siya. May bagong uso na salita ngayon — 'Laladiba'. Hindi ko pa masyado maintindihan pero ganun siguro talaga ang uso ng mga kabataan ngayon. Sa araw na ito, naisip ko na mag-aral na lang ako ng mabuti para sa kinabukasan ko. Inihatid ako ni Papa sa paaralan, pero hindi na masyadong maaga. Nalaman ko na absent si Jade at si Kim. Malungkot ako na masaya. Nagutom ako noong umaga pero hindi ko binili ang pagkain gamit ang pera ko. Nagtiis ako sa gutom. At noong break time, nakita ko si Kim — hindi pala siya absent. Pero wala na siyang jacket na suot. Talagang wala na ako sa kanya. Noong hapon, tawanan na lang kami ni Benjamin, pero sa loob-looban ko ay sobrang lungkot. Pag-uwian, may meeting ang mga nanay kung may graduation ba o wala. At noong naglakad kami, sabay na naman kami ni Benjamin — naglakad, tawanan sa daan. Tinuro ko pa kung saan ang Edlex, sinama ko pa siya sa bahay. Oo nga pala, binili ko na ang ipon ko ng kwintas at pabango lang. Sa gabi, malungkot na ako. Maghahanda ako sa Lunes, at magiging sobrang gwapo at pogi ako. Adios."}
   ],
-  "february": [
-    {
-      "n": 32,
-      "date": "February 1, 2013",
-      "title": "New plan."
-    },
-    {
-      "n": 33,
-      "date": "February 2, 2013",
-      "title": "Bagong ako"
-    },
-    {
-      "n": 34,
-      "date": "February 3, 2013",
-      "title": "Mission Field (Obviously Wrong Spelling)"
-    },
-    {
-      "n": 35,
-      "date": "February 4, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 36,
-      "date": "February 5, 2013",
-      "title": "Sablay"
-    },
-    {
-      "n": 37,
-      "date": "February 6, 2013",
-      "title": "Magulo at hindi maayos"
-    },
-    {
-      "n": 38,
-      "date": "February 7, 2013",
-      "title": "Pagsubok | Hindi na ako nakasamba ng mga araw na iyon"
-    },
-    {
-      "n": 39,
-      "date": "February 8, 2013",
-      "title": "Nanakit na puso | New invention hairstyle"
-    },
-    {
-      "n": 40,
-      "date": "February 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 41,
-      "date": "February 10, 2013",
-      "title": "Vacation  day"
-    },
-    {
-      "n": 42,
-      "date": "February 11, 2013",
-      "title": "Ang pagtuklas | Bukas ay kimpi na ako, Bye"
-    },
-    {
-      "n": 43,
-      "date": "February 12, 2013",
-      "title": "Iyon lang pala | Happy day | Thanks sa naisip ko"
-    },
-    {
-      "n": 44,
-      "date": "February 13, 2013",
-      "title": "Nauwi sa lahat | may sakit si kimberly dito"
-    },
-    {
-      "n": 45,
-      "date": "February 14, 2013",
-      "title": "Happy valentines day | Bati na kami ni  kim"
-    },
-    {
-      "n": 46,
-      "date": "February 15, 2013",
-      "title": "Kawalan | Ano pang malas nawala pa ang 2012 na diary ko"
-    },
-    {
-      "n": 47,
-      "date": "February 16, 2013",
-      "title": "Ang pagbangon ni fabrizio (My own nickname because i like it)"
-    },
-    {
-      "n": 48,
-      "date": "February 17, 2013",
-      "title": "Unang gamit ng sabon (CY Gabriel) | Nawawala ang suklay na brown"
-    },
-    {
-      "n": 49,
-      "date": "February 18, 2013",
-      "title": "Pagbago ng paningin | New crush ko si Charm at Rhaiza"
-    },
-    {
-      "n": 50,
-      "date": "February 19, 2013",
-      "title": "Banas day | Ang pang-aasar ni jade kay kim na balbon ( She's hairy in her arm )"
-    },
-    {
-      "n": 51,
-      "date": "February 20, 2013",
-      "title": "Yeah day | Bumili ako ng bagong kwintas | Sira ang ipon ko |Ang hindi pagalang ni mama kela ka lydia"
-    },
-    {
-      "n": 52,
-      "date": "February 21, 2013",
-      "title": "Buhay bahay | Tag ulan sa hapon | Walang pasok"
-    },
-    {
-      "n": 53,
-      "date": "February 22, 2013",
-      "title": "Tag ulan"
-    },
-    {
-      "n": 54,
-      "date": "February 23, 2013",
-      "title": "Dugyot day | Maganda na ang panahon"
-    },
-    {
-      "n": 55,
-      "date": "February 24, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 56,
-      "date": "February 25, 2013",
-      "title": "Edsa revolution day | Boring day"
-    },
-    {
-      "n": 57,
-      "date": "February 26, 2013",
-      "title": "Birthday ni mica"
-    },
-    {
-      "n": 58,
-      "date": "February 27, 2013",
-      "title": "Paglingon sa mundo | Absent si kimberly | Bwisit si jade"
-    },
-    {
-      "n": 59,
-      "date": "February 28, 2013",
-      "title": "No recorded title"
-    }
-  ],
-  "march": [
-    {
-      "n": 60,
-      "date": "March 1, 2013",
-      "title": "Paglingon sa mundo | Absent si kimberly | Bwisit si jade"
-    },
-    {
-      "n": 61,
-      "date": "March 2, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 62,
-      "date": "March 3, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 63,
-      "date": "March 4, 2013",
-      "title": "Question Day | Ako'y litong lito ng mga araw na ito."
-    },
-    {
-      "n": 64,
-      "date": "March 5,2013",
-      "title": "Nakabili ng CD ng westlife | New slippers"
-    },
-    {
-      "n": 65,
-      "date": "March 6, 2013",
-      "title": "Pagtanggap sa totoo"
-    },
-    {
-      "n": 66,
-      "date": "March 7, 2013",
-      "title": "Ano!!!! | Nalungkot ako wala pa akong cellphone sa 18 pero sa monday ay may memory card na ako"
-    },
-    {
-      "n": 67,
-      "date": "March 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 68,
-      "date": "March 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 69,
-      "date": "March 10, 2013",
-      "title": "Thanks jade"
-    },
-    {
-      "n": 71,
-      "date": "March 12, 2013",
-      "title": "Masayang Trailer | 143 \"I love you\""
-    },
-    {
-      "n": 73,
-      "date": "March 14, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 74,
-      "date": "March 15, 2013",
-      "title": "I hate friday"
-    },
-    {
-      "n": 76,
-      "date": "March 17, 2013",
-      "title": "Ready"
-    },
-    {
-      "n": 77,
-      "date": "March 18, 2013",
-      "title": "Graduation day | Wala na si kim Ahhh..... | Paalam kimberly"
-    },
-    {
-      "n": 78,
-      "date": "March 19, 2013",
-      "title": "Salamat | Vacation day"
-    },
-    {
-      "n": 79,
-      "date": "March 20, 2013",
-      "title": "Simula ng trabaho"
-    },
-    {
-      "n": 80,
-      "date": "March 21, 2013",
-      "title": "Good plan"
-    },
-    {
-      "n": 81,
-      "date": "March 22, 2013",
-      "title": "Change plan"
-    },
-    {
-      "n": 82,
-      "date": "March 23, 2013",
-      "title": "I dont know"
-    },
-    {
-      "n": 83,
-      "date": "March 24, 2013",
-      "title": "Sta. Cena | Sa iglesia kaso hindi natupad."
-    },
-    {
-      "n": 84,
-      "date": "March 25, 2013",
-      "title": "Pag ayos | Natanggap si jenny rose sa work"
-    },
-    {
-      "n": 85,
-      "date": "March 26, 2013",
-      "title": "Bahalang plano"
-    },
-    {
-      "n": 86,
-      "date": "March 27, 2013",
-      "title": "Bagong tatag"
-    },
-    {
-      "n": 87,
-      "date": "March 28, 2013",
-      "title": "Ibang mundo | Sira ang plano namin ni iries | Hindi nagsamba"
-    },
-    {
-      "n": 88,
-      "date": "March 29, 2013",
-      "title": "Jurassic park | New plan."
-    },
-    {
-      "n": 89,
-      "date": "March 30, 2013",
-      "title": "Pangako sa sarili | Walang work"
-    },
-    {
-      "n": 90,
-      "date": "March 31, 2013",
-      "title": "Pangako sa sarili | Walang work | Hindi kona ituturing na pinsan si jade"
-    }
-  ],
-  "april": [
-    {
-      "n": 91,
-      "date": "April 1, 2013",
-      "title": "Hrr.... | Mabuhay ang kasiyahan | Patayin si jade"
-    },
-    {
-      "n": 92,
-      "date": "April 2, 2013",
-      "title": "Mabuhay | Pagpunit sa papel ng kalungkutan | Mabuhay ang kasiyahan."
-    },
-    {
-      "n": 93,
-      "date": "April 3, 2013",
-      "title": "Paghanda sa lusob | Save money"
-    },
-    {
-      "n": 94,
-      "date": "April 4, 2013",
-      "title": "Patay kana kalungkutan | Kasiyahan flag | Saw kim today"
-    },
-    {
-      "n": 95,
-      "date": "April 5, 2013",
-      "title": "Fucking Friday | Ahhh!! |Pagtatago | Sige takbo"
-    },
-    {
-      "n": 96,
-      "date": "April 6, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 97,
-      "date": "April 7, 2013",
-      "title": "Ge dalhin na yan | Sumusuko na ako | Ang pag-aresto sa akin ng kalungkutan"
-    },
-    {
-      "n": 98,
-      "date": "April 8, 2013",
-      "title": "Ewan day | Maglaro ka sa edlex naroon sya ngayon (Failed prediction)"
-    },
-    {
-      "n": 99,
-      "date": "April 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 100,
-      "date": "April 10, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 101,
-      "date": "April 11, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 103,
-      "date": "April 13, 2013",
-      "title": "Wow"
-    },
-    {
-      "n": 104,
-      "date": "April 14, 2013",
-      "title": "10"
-    },
-    {
-      "n": 105,
-      "date": "April 15, 2013",
-      "title": "Ang Parusa"
-    },
-    {
-      "n": 106,
-      "date": "April 16, 2013",
-      "title": "Malas | Bukas Bitay (Symbolysm Only)"
-    },
-    {
-      "n": 107,
-      "date": "April 17, 2013",
-      "title": "Hintay Hintay Lang | Sa Pagtakas"
-    },
-    {
-      "n": 108,
-      "date": "April 18, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 111,
-      "date": "April 21, 2013",
-      "title": "Kim Is Back!"
-    },
-    {
-      "n": 112,
-      "date": "April 22, 2013",
-      "title": "Paglingon sa relihiyon | Gusto ko tumanggap ng tungkulin sa iglesia bilang jakono"
-    },
-    {
-      "n": 113,
-      "date": "April 22, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 114,
-      "date": "April 24, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 115,
-      "date": "April 25, 2013",
-      "title": "Pagbago ng Panahon | Noong hapon ay kumulimlim"
-    },
-    {
-      "n": 116,
-      "date": "April 26, 2013",
-      "title": "Pagbago ng Panahon | Noong hapon ay kumulimlim"
-    },
-    {
-      "n": 119,
-      "date": "April 29, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 120,
-      "date": "April 30, 2013",
-      "title": "Good And Sure Plan | New Hairstyle"
-    }
-  ],
-  "may": [
-    {
-      "n": 122,
-      "date": "May 1, 2013",
-      "title": "Sinadyang Mabigo"
-    },
-    {
-      "n": 124,
-      "date": "May 3, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 125,
-      "date": "May 4, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 125,
-      "date": "May 5, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 127,
-      "date": "May 7, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 128,
-      "date": "May 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 129,
-      "date": "May 9 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 130,
-      "date": "May 10, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 131,
-      "date": "May 11, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 132,
-      "date": "May 12, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 133,
-      "date": "May 13, 2013",
-      "title": "Pagtitiis"
-    },
-    {
-      "n": 134,
-      "date": "May 14, 2013",
-      "title": "Download Day | Good Plan On W5 | Maging Matatag"
-    },
-    {
-      "n": 135,
-      "date": "May 15, 2013",
-      "title": "Good But Exited To Plan"
-    },
-    {
-      "n": 136,
-      "date": "May 16, 2013",
-      "title": "Good Day And Ready To Plan | She's Number: 09289974070 Vanesssa To"
-    },
-    {
-      "n": 137,
-      "date": "May 17, 2013",
-      "title": "Byernes Bitch | 17"
-    },
-    {
-      "n": 138,
-      "date": "May 18, 2013",
-      "title": "Away Day | Sira Na Ang RelO Ko Dito | 16"
-    },
-    {
-      "n": 139,
-      "date": "May 19, 2013",
-      "title": "15"
-    },
-    {
-      "n": 140,
-      "date": "May 20, 2013",
-      "title": "Bahalang Paghahanda | 14"
-    },
-    {
-      "n": 141,
-      "date": "May 21, 2013",
-      "title": "Good Solve | Nakita ko nanaman si kim"
-    },
-    {
-      "n": 142,
-      "date": "May 22, 2013",
-      "title": "Basahin mo | Natuklasan nya ang palayaw ko na macmac | 12"
-    },
-    {
-      "n": 143,
-      "date": "May 23, 2013",
-      "title": "11"
-    },
-    {
-      "n": 144,
-      "date": "May 24, 2013",
-      "title": "Maraming Bulutong Si Iries Ng Mga Araw Na Ito | 10"
-    },
-    {
-      "n": 145,
-      "date": "May 25, 2013",
-      "title": "Good News Day | 9"
-    },
-    {
-      "n": 146,
-      "date": "May 26, 2013",
-      "title": "Bakit Nagkaganito | Hindi Ako Nakapag Samba Ngayon | 8"
-    },
-    {
-      "n": 147,
-      "date": "May 27, 2013",
-      "title": "Drawing Angry Face | 7"
-    },
-    {
-      "n": 148,
-      "date": "May 28, 2013",
-      "title": "Natuto Sa Pangyayari"
-    },
-    {
-      "n": 149,
-      "date": "May 29, 2013",
-      "title": "Huwag Mo Nalang Basahin | 5"
-    },
-    {
-      "n": 150,
-      "date": "May 30, 2013",
-      "title": "You Know This | 4"
-    },
-    {
-      "n": 151,
-      "date": "May 31, 2013",
-      "title": "Tamang Malas Lang | W5 Is Good Plan | 3"
-    }
-  ],
-  "june": [
-    {
-      "n": 152,
-      "date": "June 1, 2013",
-      "title": "Lot's Of Lucky But Lot's Of Problem |"
-    },
-    {
-      "n": 153,
-      "date": "June 2, 2013",
-      "title": "I Dont Know | 1"
-    },
-    {
-      "n": 154,
-      "date": "June 3, 2013",
-      "title": "First Day Of School"
-    },
-    {
-      "n": 154,
-      "date": "June 4, 2013",
-      "title": "WHAT!"
-    },
-    {
-      "n": 155,
-      "date": "June 5, 2013",
-      "title": "Badnews: Wala Na Akong Kim"
-    },
-    {
-      "n": 157,
-      "date": "June 6, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 158,
-      "date": "June 7, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 159,
-      "date": "June 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 160,
-      "date": "June 9, 2013",
-      "title": "Itutuloy Natin Ang Himagsikan | Paalam Papa At Tita Rosie Umalis Na Sila"
-    },
-    {
-      "n": 161,
-      "date": "June 10, 2013",
-      "title": "Halalan Day | Pagsiisimula Sa Pag-Aaklas."
-    },
-    {
-      "n": 162,
-      "date": "June 11, 2013",
-      "title": "El Presidente JhoneVic Casaña | Look At My W5"
-    },
-    {
-      "n": 163,
-      "date": "June 12, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 164,
-      "date": "June 13, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 165,
-      "date": "June 14, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 166,
-      "date": "June 15, 2013",
-      "title": "You Know The Plan On W5"
-    },
-    {
-      "n": 167,
-      "date": "June 16, 2013",
-      "title": "Tama!"
-    },
-    {
-      "n": 168,
-      "date": "June 17, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 169,
-      "date": "June 18, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 170,
-      "date": "June 19, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 171,
-      "date": "June 20, 2013",
-      "title": "Pagtatag Ng Kasipagan"
-    },
-    {
-      "n": 172,
-      "date": "June 21, 2013",
-      "title": "About Kim On W5 | Nawalan Ng Tubig Nang Matapos Na Ako Maligo Noong Umaga"
-    },
-    {
-      "n": 173,
-      "date": "June 22, 2013",
-      "title": "Paunang Gawa"
-    },
-    {
-      "n": 174,
-      "date": "June 23, 2013",
-      "title": "Wag Na'To"
-    },
-    {
-      "n": 175,
-      "date": "June 24, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 176,
-      "date": "June 25, 2013",
-      "title": "Bad & I Don't Know"
-    },
-    {
-      "n": 176,
-      "date": "June 26, 2013",
-      "title": "Fuck Myself"
-    },
-    {
-      "n": 177,
-      "date": "June 27, 2013",
-      "title": "HA!"
-    },
-    {
-      "n": 178,
-      "date": "June 28, 2013",
-      "title": "Last Chance"
-    },
-    {
-      "n": 179,
-      "date": "June 29, 2013",
-      "title": "Pag-Aaral Sa Last Chance | Umulan Noong Gabi"
-    },
-    {
-      "n": 180,
-      "date": "June 30, 2013",
-      "title": "FlashLight Day"
-    }
-  ],
-  "july": [
-    {
-      "n": 181,
-      "date": "July 1, 2013",
-      "title": "Fucking Monday"
-    },
-    {
-      "n": 182,
-      "date": "July 2, 2013",
-      "title": "Sira Na Ang USB"
-    },
-    {
-      "n": 182,
-      "date": "July 3, 2013",
-      "title": "Pagsiklab Ng Himagsikan"
-    },
-    {
-      "n": 183,
-      "date": "July 4, 2013",
-      "title": "May New Teacher Pala Kahapon Sa Social"
-    },
-    {
-      "n": 184,
-      "date": "July 5, 2013",
-      "title": "I'm Still Sad On This Day"
-    },
-    {
-      "n": 185,
-      "date": "July 6, 2013",
-      "title": "Happy And Good Plan On My W5 | My New Crush On This Name. Her Name Is Lyka Marie"
-    },
-    {
-      "n": 186,
-      "date": "July 7, 2013",
-      "title": "Alanganin Day |  With English Writting"
-    },
-    {
-      "n": 187,
-      "date": "July 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 188,
-      "date": "July 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 189,
-      "date": "July 10, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 190,
-      "date": "July 11, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 191,
-      "date": "July 12, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 192,
-      "date": "July 13, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 193,
-      "date": "July 14, 2013",
-      "title": "Salamt Nikko | Read The W5. There Something Important On This Line"
-    },
-    {
-      "n": 194,
-      "date": "July 15, 2013",
-      "title": "I'm Happy | Si Benjamin Sa Araw Na Ito Ay Saamin Natulog"
-    },
-    {
-      "n": 195,
-      "date": "July 16, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 196,
-      "date": "July 17, 2013",
-      "title": "Ano Ba Talaga!"
-    },
-    {
-      "n": 197,
-      "date": "July 18, 2013",
-      "title": "Look At Those Sample"
-    },
-    {
-      "n": 198,
-      "date": "July 19, 2013",
-      "title": "Bakit Iba Na? Basahin Mo"
-    },
-    {
-      "n": 199,
-      "date": "July 20, 2013",
-      "title": "Bored Day"
-    },
-    {
-      "n": 200,
-      "date": "July 21, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 201,
-      "date": "July 22, 2013",
-      "title": "Angry Face Drawing (Only Exist In Original Manuscript)"
-    },
-    {
-      "n": 202,
-      "date": "July 23, 2013",
-      "title": "i'll Try"
-    },
-    {
-      "n": 203,
-      "date": "July 24, 2013",
-      "title": "Happy With Jomary"
-    },
-    {
-      "n": 203,
-      "date": "July 24, 2013",
-      "title": "Happy With Jomary"
-    },
-    {
-      "n": 205,
-      "date": "July 26, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 206,
-      "date": "July 27, 2013",
-      "title": "I Love Kimberly Forever | Remember , I Always Love You"
-    },
-    {
-      "n": 207,
-      "date": "July 28 2013",
-      "title": "Masaklap Na Pangyayari"
-    },
-    {
-      "n": 208,
-      "date": "July 29 2013",
-      "title": "Yes"
-    },
-    {
-      "n": 209,
-      "date": "July 30 2013",
-      "title": "Malas Ba O Swerte | Bubuhayin Kona Ang Pagsamba Ko | Nagpagupit Ako Noong Barber Shop"
-    },
-    {
-      "n": 210,
-      "date": "July 31 2013",
-      "title": "Medyo Malas"
-    }
-  ],
-  "august": [
-    {
-      "n": 211,
-      "date": "August 1, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 213,
-      "date": "August 2, 2013",
-      "title": "Ano Ibig Sabihin Nito?"
-    },
-    {
-      "n": 214,
-      "date": "August 3, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 215,
-      "date": "August 4, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 216,
-      "date": "August 5, 2013",
-      "title": "2nd Grading"
-    },
-    {
-      "n": 217,
-      "date": "August 6, 2013",
-      "title": "Wow Naman | Nakita Ko Si Kim Sa Araw Na Ito. Just Read It"
-    },
-    {
-      "n": 218,
-      "date": "August 7, 2013",
-      "title": "Solusyon Sa Estres"
-    },
-    {
-      "n": 219,
-      "date": "August 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 220,
-      "date": "August 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 221,
-      "date": "August 10, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 222,
-      "date": "August 11, 2013",
-      "title": "Buhay Bahay 2 | Kulimlin Ng Hapon Na"
-    },
-    {
-      "n": 223,
-      "date": "August 12, 2013",
-      "title": "Simula Ng Tag Ulan"
-    },
-    {
-      "n": 224,
-      "date": "August 13, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 225,
-      "date": "August 14, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 226,
-      "date": "August 15, 2013",
-      "title": "Paos Day"
-    },
-    {
-      "n": 227,
-      "date": "August 16, 2013",
-      "title": "New Batas | Natatandaan Mo Paba Si Kimberly: Oo naman"
-    },
-    {
-      "n": 228,
-      "date": "August 17, 2013",
-      "title": "Normal Fuck"
-    },
-    {
-      "n": 229,
-      "date": "August 18, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 230,
-      "date": "August 19, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 231,
-      "date": "August 20, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 232,
-      "date": "August 21, 2013",
-      "title": "Joan's Birthday | Welcome Back Edlex | Anniversary Of Ninoy Aquino's Death"
-    },
-    {
-      "n": 234,
-      "date": "August 22, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 235,
-      "date": "August 23, 2013",
-      "title": "Shit Day! | Have Plan"
-    },
-    {
-      "n": 236,
-      "date": "August 24, 2013",
-      "title": "College Day | Nanood Ng Nakakatakot"
-    },
-    {
-      "n": 237,
-      "date": "August 25, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 238,
-      "date": "August 26, 2013",
-      "title": "Walang Pasok"
-    },
-    {
-      "n": 239,
-      "date": "August 27, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 240,
-      "date": "August 28, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 241,
-      "date": "August 29, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 242,
-      "date": "August 30, 2013",
-      "title": "Busted Day"
-    },
-    {
-      "n": 243,
-      "date": "August 31, 2013",
-      "title": "Nice Day | I Have A New Crush"
-    }
-  ],
-  "september": [
-    {
-      "n": 244,
-      "date": "September 1, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 245,
-      "date": "September 2, 2013",
-      "title": "Good Day"
-    },
-    {
-      "n": 246,
-      "date": "September 3, 2013",
-      "title": "Pagod Day"
-    },
-    {
-      "n": 247,
-      "date": "September 4, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 248,
-      "date": "September 5, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 249,
-      "date": "September 6, 2013",
-      "title": "Better Day | New Phone"
-    },
-    {
-      "n": 250,
-      "date": "September 7, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 251,
-      "date": "September 8, 2013",
-      "title": "Normal"
-    },
-    {
-      "n": 252,
-      "date": "September 9, 2013",
-      "title": "About Kim"
-    },
-    {
-      "n": 253,
-      "date": "September 10, 2013",
-      "title": "About Sa Lakad At Makasaysayang Hirap"
-    },
-    {
-      "n": 256,
-      "date": "September 11, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 257,
-      "date": "September 12, 2013",
-      "title": "New"
-    },
-    {
-      "n": 258,
-      "date": "September 13, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 259,
-      "date": "September 14, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 260,
-      "date": "September 15, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 261,
-      "date": "September 16, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 262,
-      "date": "September 17, 2013",
-      "title": "I Shall Return"
-    },
-    {
-      "n": 263,
-      "date": "September 18, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 264,
-      "date": "September 19, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 265,
-      "date": "September 20, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 266,
-      "date": "September 21, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 267,
-      "date": "September 22, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 268,
-      "date": "September 23, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 269,
-      "date": "September 24, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 270,
-      "date": "September 25, 2013",
-      "title": "Paghahanda"
-    },
-    {
-      "n": 271,
-      "date": "September 26, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 272,
-      "date": "September 27, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 273,
-      "date": "September 28, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 274,
-      "date": "September 29, 2013",
-      "title": "Kaya Ko Toh!"
-    },
-    {
-      "n": 275,
-      "date": "September 30, 2013",
-      "title": "Simula | Day Important About Kim"
-    }
-  ],
-  "october": [
-    {
-      "n": 276,
-      "date": "October 1, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 277,
-      "date": "October 2, 2013",
-      "title": "Lucky | Two Star"
-    },
-    {
-      "n": 278,
-      "date": "October 3, 2013",
-      "title": "Lucky 2 | Three Star"
-    },
-    {
-      "n": 279,
-      "date": "October 4, 2013",
-      "title": "Happy Teacher's Day | Alam Na Ni Nimer Ang Bahay Ko | Three Star"
-    },
-    {
-      "n": 280,
-      "date": "October 5, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 281,
-      "date": "October 6, 2013",
-      "title": "Pag-Aalala"
-    },
-    {
-      "n": 282,
-      "date": "October 7, 2013",
-      "title": "Ewan Day"
-    },
-    {
-      "n": 283,
-      "date": "October 8, 2013",
-      "title": "Nasira Ang Laptop"
-    },
-    {
-      "n": 284,
-      "date": "October 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 285,
-      "date": "October 10, 2013",
-      "title": "Nakita Ko Si Kim"
-    },
-    {
-      "n": 286,
-      "date": "October 11, 2013",
-      "title": "Umabsent Ako Dito!"
-    },
-    {
-      "n": 287,
-      "date": "October 12, 2013",
-      "title": "Kalungkutan Mode!"
-    },
-    {
-      "n": 288,
-      "date": "October 13, 2013",
-      "title": "Bwisit Na Iries..."
-    },
-    {
-      "n": 289,
-      "date": "October 14, 2013",
-      "title": "Welcome Back Benjamin"
-    },
-    {
-      "n": 290,
-      "date": "October 15, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 291,
-      "date": "October 16, 2013",
-      "title": "Edlex Day"
-    },
-    {
-      "n": 292,
-      "date": "October 17, 2013",
-      "title": "Periodical Test | News For Kim (W5)"
-    },
-    {
-      "n": 293,
-      "date": "October 18, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 294,
-      "date": "October 19, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 295,
-      "date": "October 20, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 296,
-      "date": "October 21, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 297,
-      "date": "October 22, 2013",
-      "title": "Mabuhay Ang Kasiyahan!"
-    },
-    {
-      "n": 298,
-      "date": "October 23, 2013",
-      "title": "VI-Rose Day"
-    },
-    {
-      "n": 289,
-      "date": "October 24, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 290,
-      "date": "October 25, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 291,
-      "date": "October 26, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 293,
-      "date": "October 28, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 294,
-      "date": "October 29, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 295,
-      "date": "October 30, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 296,
-      "date": "October 31, 2013",
-      "title": "No recorded title"
-    }
-  ],
-  "november": [
-    {
-      "n": 297,
-      "date": "November 1, 2013",
-      "title": "Trick Or Treat"
-    },
-    {
-      "n": 298,
-      "date": "November 2, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 299,
-      "date": "November 3, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 300,
-      "date": "November 4, 2013",
-      "title": "Ang Pagsakop Ng Kamalasan ( With A Grim Reaper Drawn )"
-    },
-    {
-      "n": 301,
-      "date": "November 5, 2013",
-      "title": "Dark Become Light"
-    },
-    {
-      "n": 302,
-      "date": "November 6, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 303,
-      "date": "November 7, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 304,
-      "date": "November 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 305,
-      "date": "November 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 306,
-      "date": "November 10, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 307,
-      "date": "November 11, 2013",
-      "title": "Simula Ng Lagnat"
-    },
-    {
-      "n": 308,
-      "date": "November 12, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 309,
-      "date": "November 13, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 310,
-      "date": "November 14, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 311,
-      "date": "November 15, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 312,
-      "date": "November 16, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 313,
-      "date": "November 17, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 314,
-      "date": "November 18, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 315,
-      "date": "November 19, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 316,
-      "date": "November 20, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 317,
-      "date": "November 21, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 318,
-      "date": "November 22, 2013",
-      "title": "1 YEAR ANIBERSARYO NG PAGKAKAKILALA KO KAY KIMBERLY"
-    },
-    {
-      "n": 319,
-      "date": "November 23, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 320,
-      "date": "November 24, 2013",
-      "title": "Amm... Okay Lang"
-    },
-    {
-      "n": 321,
-      "date": "November 25, 2013",
-      "title": "Katakot-Takot"
-    },
-    {
-      "n": 322,
-      "date": "November 26, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 323,
-      "date": "November 27, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 324,
-      "date": "November 28, 2013",
-      "title": "Away Day!"
-    },
-    {
-      "n": 325,
-      "date": "November 29, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 326,
-      "date": "November 30, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 327,
-      "date": "November 31, 2013 (It's mistakenly written as november 1 even though it's actually december 1)",
-      "title": "No recorded title"
-    }
-  ],
-  "december": [
-    {
-      "n": 328,
-      "date": "December 2, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 329,
-      "date": "December 3, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 330,
-      "date": "December 4, 2013",
-      "title": "Problema"
-    },
-    {
-      "n": 331,
-      "date": "December 5, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 332,
-      "date": "December 6, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 333,
-      "date": "December 7, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 334,
-      "date": "December 8, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 335,
-      "date": "December 9, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 336,
-      "date": "December 10, 2013",
-      "title": "I Have Returned"
-    },
-    {
-      "n": 337,
-      "date": "December 11, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 338,
-      "date": "December 12, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 339,
-      "date": "December 13, 2013",
-      "title": "Friday (With Thunder Icon With It) Birthday Ni Nanay)"
-    },
-    {
-      "n": 340,
-      "date": "December 14, 2013",
-      "title": "Buhay Sa Kabila"
-    },
-    {
-      "n": 341,
-      "date": "December 15, 2013",
-      "title": "Buhay Sa Kabila"
-    },
-    {
-      "n": 342,
-      "date": "December 16, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 343,
-      "date": "December 17, 2013",
-      "title": "No recorded title"
-    },
-    {
-      "n": 344,
-      "date": "December 18, 2013",
-      "title": "Filled"
-    }
-  ]
+  "february": [],
+  "march": [],
+  "april": [],
+  "may": [],
+  "june": [],
+  "july": [],
+  "august": [],
+  "september": [],
+  "october": [],
+  "november": [],
+  "december": []
 };
+
 const monthNames={january:"January",february:"February",march:"March",april:"April",may:"May",june:"June",july:"July",august:"August",september:"September",october:"October",november:"November",december:"December"};
 const monthSelector=document.getElementById("monthSelector"),monthView=document.getElementById("monthView"),selectedMonthTitle=document.getElementById("selectedMonthTitle"),selectedMonthSubtitle=document.getElementById("selectedMonthSubtitle"),diaryList=document.getElementById("diaryList"),backMonths=document.getElementById("backMonths"),monthMeta=document.getElementById("monthMeta"),monthTitle=document.getElementById("monthTitle"),monthText=document.getElementById("monthText"),monthIntroduction=document.getElementById("monthIntroduction"),prevPage=document.getElementById("prevPage"),nextPage=document.getElementById("nextPage"),pageIndicator=document.getElementById("pageIndicator");
-let currentMonth="",currentPage=0; const ENTRIES_PER_PAGE=10;
+const detailView=document.getElementById("detailView"),backToList=document.getElementById("backToList"),detailMonth=document.getElementById("detailMonth"),detailDiaryNumber=document.getElementById("detailDiaryNumber"),detailDateLine=document.getElementById("detailDateLine"),detailDayLine=document.getElementById("detailDayLine"),detailTitle=document.getElementById("detailTitle"),detailBody=document.getElementById("detailBody"),detailEntryNumber=document.getElementById("detailEntryNumber"),detailMonthYear=document.getElementById("detailMonthYear"),prevEntry=document.getElementById("prevEntry"),nextEntry=document.getElementById("nextEntry");
+
+let currentMonth="",currentPage=0,currentEntryIndex=0; 
+const ENTRIES_PER_PAGE=10;
+
 function showMonthIntroduction(month){const data=monthlyIntroductions[month];if(!data)return;monthMeta.textContent=data.meta;monthTitle.textContent=data.title;monthText.textContent=data.text;monthIntroduction.style.animation="none";void monthIntroduction.offsetWidth;monthIntroduction.style.animation="introFade .3s ease";}
-function renderPage(){const entries=monthlyDiaryEntries[currentMonth]||[];const totalPages=Math.max(1,Math.ceil(entries.length/ENTRIES_PER_PAGE));currentPage=Math.max(0,Math.min(currentPage,totalPages-1));diaryList.innerHTML="";const start=currentPage*ENTRIES_PER_PAGE;entries.slice(start,start+ENTRIES_PER_PAGE).forEach(entry=>{const item=document.createElement("a");item.className="diary-entry";item.href=entry.href||"#";item.innerHTML=`<div class="diary-date">${entry.date}</div><h3 class="diary-title" title="${entry.title.replace(/"/g,'&quot;')}">${entry.title}</h3>`;diaryList.appendChild(item);});pageIndicator.textContent=`Page ${currentPage+1} of ${totalPages}`;prevPage.disabled=currentPage===0;nextPage.disabled=currentPage>=totalPages-1;}
-function openMonth(month){if(!monthNames[month])return;currentMonth=month;currentPage=0;selectedMonthTitle.textContent=monthNames[month];selectedMonthSubtitle.textContent=monthNames[month]+" · 2013";monthSelector.style.display="none";monthView.classList.add("open");renderPage();window.history.replaceState(null,"","#"+month);}
-function showMonths(){monthView.classList.remove("open");monthSelector.style.display="block";window.history.replaceState(null,"",window.location.pathname);}
-document.querySelectorAll(".month").forEach(link=>{link.addEventListener("mouseenter",()=>showMonthIntroduction(link.dataset.month));link.addEventListener("focus",()=>showMonthIntroduction(link.dataset.month));link.addEventListener("click",e=>{e.preventDefault();openMonth(link.dataset.month);});});
-backMonths.addEventListener("click",showMonths);prevPage.addEventListener("click",()=>{if(currentPage>0){currentPage--;renderPage();}});nextPage.addEventListener("click",()=>{const total=Math.ceil((monthlyDiaryEntries[currentMonth]||[]).length/ENTRIES_PER_PAGE);if(currentPage<total-1){currentPage++;renderPage();}});
-const initialMonth=window.location.hash.replace("#","").toLowerCase();if(monthlyDiaryEntries[initialMonth])openMonth(initialMonth);
+
+function renderPage(){
+const entries=monthlyDiaryEntries[currentMonth]||[];
+const totalPages=Math.max(1,Math.ceil(entries.length/ENTRIES_PER_PAGE));
+currentPage=Math.max(0,Math.min(currentPage,totalPages-1));
+diaryList.innerHTML="";
+const start=currentPage*ENTRIES_PER_PAGE;
+entries.slice(start,start+ENTRIES_PER_PAGE).forEach((entry,index)=>{
+const item=document.createElement("div");item.className="diary-entry";item.style.cursor="pointer";
+item.innerHTML=`<div class="diary-date">${entry.date}</div><h3 class="diary-title" title="${entry.title.replace(/"/g,'&quot;')}">${entry.title}</h3>`;
+item.addEventListener("click",()=>openDetail(start+index));
+diaryList.appendChild(item);
+});
+pageIndicator.textContent=`Page ${currentPage+1} of ${totalPages}`;
+prevPage.disabled=currentPage===0;
+nextPage.disabled=currentPage>=totalPages-1;
+}
+
+function openDetail(entryIndex){
+const entries=monthlyDiaryEntries[currentMonth]||[];
+if(!entries[entryIndex])return;
+currentEntryIndex=entryIndex;
+const entry=entries[entryIndex];
+detailMonth.textContent=`${monthNames[currentMonth]} 2013`;
+detailDiaryNumber.innerHTML=`Diary# <span>${entry.n}</span>`;
+detailDateLine.innerHTML=`Date: <span>${entry.date}</span>`;
+detailDayLine.innerHTML=`Day: <span>${entry.day||"Not recorded"}</span>`;
+detailTitle.textContent=entry.title;
+detailBody.textContent=entry.content||"Not yet digitalize";
+detailEntryNumber.textContent=`Entry #${entry.n}`;
+detailMonthYear.textContent=`${monthNames[currentMonth]} 2013`;
+monthView.classList.remove("open");
+detailView.classList.add("open");
+prevEntry.disabled=entryIndex===0;
+nextEntry.disabled=entryIndex>=entries.length-1;
+}
+
+function closeDetail(){
+detailView.classList.remove("open");
+monthView.classList.add("open");
+}
+
+function openMonth(month){
+if(!monthNames[month])return;
+currentMonth=month;currentPage=0;
+selectedMonthTitle.textContent=monthNames[month];
+selectedMonthSubtitle.textContent=monthNames[month]+" · 2013";
+monthSelector.style.display="none";
+monthView.classList.add("open");
+detailView.classList.remove("open");
+renderPage();
+window.history.replaceState(null,"","#"+month);
+}
+
+function showMonths(){
+monthView.classList.remove("open");
+detailView.classList.remove("open");
+monthSelector.style.display="block";
+showMonthIntroduction("january");
+window.history.replaceState(null,"",window.location.pathname);
+}
+
+document.querySelectorAll(".month").forEach(link=>{
+link.addEventListener("mouseenter",()=>showMonthIntroduction(link.dataset.month));
+link.addEventListener("focus",()=>showMonthIntroduction(link.dataset.month));
+link.addEventListener("click",e=>{e.preventDefault();openMonth(link.dataset.month);});
+});
+
+backMonths.addEventListener("click",showMonths);
+backToList.addEventListener("click",closeDetail);
+prevPage.addEventListener("click",()=>{if(currentPage>0){currentPage--;renderPage();}});
+nextPage.addEventListener("click",()=>{const total=Math.ceil((monthlyDiaryEntries[currentMonth]||[]).length/ENTRIES_PER_PAGE);if(currentPage<total-1){currentPage++;renderPage();}});
+prevEntry.addEventListener("click",()=>{if(currentEntryIndex>0){openDetail(currentEntryIndex-1);}});
+nextEntry.addEventListener("click",()=>{const total=monthlyDiaryEntries[currentMonth]?.length||0;if(currentEntryIndex<total-1){openDetail(currentEntryIndex+1);}});
+
+const initialMonth=window.location.hash.replace("#","").toLowerCase();
+if(monthlyDiaryEntries[initialMonth])openMonth(initialMonth);
 </script>
 </body>
 </html>
