@@ -419,7 +419,7 @@
     </div>
 
     <!-- =========================
-         DEBUG SCRIPT
+         SUPABASE SCRIPT - FIXED
     ========================== -->
     <script>
         console.log('🔍 === PAGE LOADED ===');
@@ -438,22 +438,20 @@
                 persistSession: true,
                 autoRefreshToken: true,
                 detectSessionInUrl: true,
-                storage: window.localStorage
+                storage: window.localStorage,
+                flowType: 'pkce'
             }
         });
 
         console.log('✅ Supabase client created');
 
         // =================================================
-        // DISPLAY USER NAME - DEBUG VERSION
+        // DISPLAY USER NAME
         // =================================================
 
         async function displayUserName() {
             const userNameText = document.getElementById('userNameText');
             const userNameContainer = document.getElementById('userName');
-
-            console.log('📝 displayUserName() called');
-            console.log('📝 Elements found:', { userNameText: !!userNameText, userNameContainer: !!userNameContainer });
 
             if (!userNameText || !userNameContainer) {
                 console.error('❌ User name elements not found!');
@@ -465,8 +463,6 @@
 
                 const { data, error } = await supabaseClient.auth.getSession();
 
-                console.log('📦 Session response:', { data, error });
-
                 if (error) {
                     console.error('❌ Session error:', error);
                     userNameText.textContent = 'User';
@@ -474,15 +470,9 @@
                     return;
                 }
 
-                console.log('👤 Session data:', data);
-                console.log('👤 Session object:', data?.session);
-                console.log('👤 User object:', data?.session?.user);
-                console.log('📝 User metadata:', data?.session?.user?.user_metadata);
-                console.log('🆔 User identities:', data?.session?.user?.identities);
-                console.log('📧 User email:', data?.session?.user?.email);
-
                 if (data && data.session && data.session.user) {
                     const user = data.session.user;
+                    console.log('✅ User found:', user.email);
 
                     // Try ALL possible locations for the name
                     let fullName =
@@ -497,7 +487,7 @@
                         user.email?.split('@')[0] ||
                         'User';
 
-                    console.log('✅ Extracted name:', fullName);
+                    console.log('✅ Displaying name:', fullName);
 
                     userNameText.textContent = fullName;
                     userNameContainer.classList.add('visible');
@@ -519,13 +509,12 @@
 
         supabaseClient.auth.onAuthStateChange((event, session) => {
             console.log('🔄 Auth event:', event);
-            console.log('📦 Session on event:', session);
-            console.log('👤 User on event:', session?.user);
-            console.log('📝 Metadata on event:', session?.user?.user_metadata);
-
+            
             if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
-                console.log('✅ Auth event triggered, updating user name...');
-                setTimeout(displayUserName, 100);
+                if (session && session.user) {
+                    console.log('✅ User logged in:', session.user.email);
+                    displayUserName();
+                }
             } else if (event === 'SIGNED_OUT') {
                 const userNameText = document.getElementById('userNameText');
                 const userNameContainer = document.getElementById('userName');
@@ -537,57 +526,50 @@
         });
 
         // =================================================
+        // CHECK FOR OAUTH CALLBACK AND HANDLE IT
+        // =================================================
+
+        async function handleOAuthCallback() {
+            console.log('🔍 Checking for OAuth callback...');
+            
+            // Check if we have a hash in the URL
+            if (window.location.hash && window.location.hash.includes('access_token')) {
+                console.log('🔄 OAuth callback detected!');
+                
+                // Let Supabase handle the exchange
+                try {
+                    const { data, error } = await supabaseClient.auth.getSession();
+                    if (error) {
+                        console.error('❌ Error getting session after OAuth:', error);
+                        return;
+                    }
+                    if (data && data.session) {
+                        console.log('✅ Session established after OAuth');
+                        displayUserName();
+                    }
+                } catch (err) {
+                    console.error('❌ OAuth handling error:', err);
+                }
+            }
+        }
+
+        // =================================================
         // CALL ON PAGE LOAD
         // =================================================
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📄 DOM loaded');
-
-            // Check for URL hash (OAuth callback)
-            console.log('🔗 Current URL:', window.location.href);
-            console.log('🔗 URL hash:', window.location.hash);
-
-            const urlParams = new URLSearchParams(window.location.hash.substring(1));
-            const accessToken = urlParams.get('access_token');
-            const refreshToken = urlParams.get('refresh_token');
-
-            console.log('🪙 Access token from URL:', accessToken ? 'Yes (present)' : 'No');
-            console.log('🔄 Refresh token from URL:', refreshToken ? 'Yes (present)' : 'No');
-
-            if (accessToken) {
-                console.log('🔄 OAuth callback detected, waiting for session...');
-                // Let Supabase handle the OAuth callback
-                supabaseClient.auth.getSession().then((result) => {
-                    console.log('📦 Session after OAuth:', result);
-                    setTimeout(displayUserName, 200);
-                });
-            } else {
-                console.log('ℹ️ No OAuth callback detected, checking existing session...');
-                displayUserName();
-            }
+            
+            // Check if we're coming from OAuth
+            handleOAuthCallback();
+            
+            // Then display the user name
+            setTimeout(displayUserName, 200);
         });
 
-        // Try multiple times with delays
-        console.log('⏰ Setting multiple delayed attempts...');
-
-        setTimeout(() => {
-            console.log('⏰ Attempt 1 (500ms)');
-            displayUserName();
-        }, 500);
-
-        setTimeout(() => {
-            console.log('⏰ Attempt 2 (1000ms)');
-            displayUserName();
-        }, 1000);
-
-        setTimeout(() => {
-            console.log('⏰ Attempt 3 (2000ms)');
-            displayUserName();
-        }, 2000);
-
-        console.log('🔍 === DEBUG SCRIPT LOADED ===');
-        console.log('📌 Open the Console (F12) to see what\'s happening');
-        console.log('📌 After logging in, check if user metadata is being received');
+        // Also try after a delay
+        setTimeout(displayUserName, 500);
+        setTimeout(displayUserName, 1000);
     </script>
 </body>
 </html>
