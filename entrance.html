@@ -97,6 +97,21 @@
             font-size: 12px;
         }
 
+        .user-name .logout-link {
+            color: #5d5f62;
+            font-size: 7px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .user-name .logout-link:hover {
+            color: #aaa9a3;
+        }
+
         .archive-label {
             color: #aaa9a3;
             font-size: 9px;
@@ -395,6 +410,7 @@
                 <div class="user-name" id="userName">
                     <span class="avatar">👤</span>
                     <span id="userNameText">Loading...</span>
+                    <a href="#" class="logout-link" id="logoutBtn">Logout</a>
                 </div>
                 <div class="archive-label">Personal Archive</div>
                 <h1>The Unspoken<br>Chapters</h1>
@@ -419,7 +435,7 @@
     </div>
 
     <!-- =========================
-         SUPABASE SCRIPT - FIXED
+         SUPABASE SCRIPT
     ========================== -->
     <script>
         // =================================================
@@ -434,155 +450,143 @@
                 persistSession: true,
                 autoRefreshToken: true,
                 detectSessionInUrl: true,
-                storage: window.localStorage,
-                flowType: 'pkce'
+                storage: window.localStorage
             }
         });
 
         console.log('✅ Supabase client created');
 
         // =================================================
-        // SET USER NAME
+        // GET USER NAME FROM URL PARAMETER
         // =================================================
 
-        function setUserName(name) {
-            const userNameText = document.getElementById('userNameText');
-            const userNameContainer = document.getElementById('userName');
+        function getUserNameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
 
-            if (!userNameText || !userNameContainer) return;
+            if (name) {
+                console.log('✅ User name from URL:', name);
+                const userNameText = document.getElementById('userNameText');
+                const userNameContainer = document.getElementById('userName');
 
-            const displayName = name || 'Guest';
-            userNameText.textContent = displayName;
-            userNameContainer.classList.add('visible');
-            console.log('👤 User name set to:', displayName);
+                if (userNameText && userNameContainer) {
+                    userNameText.textContent = decodeURIComponent(name);
+                    userNameContainer.classList.add('visible');
+                    return true;
+                }
+            }
+            return false;
         }
 
         // =================================================
-        // CHECK SESSION
+        // TRY SUPABASE SESSION
         // =================================================
 
-        async function checkSession() {
-            console.log('🔄 Checking session...');
-
+        async function trySupabaseSession() {
             try {
-                // First, try to get the session directly
                 const { data, error } = await supabaseClient.auth.getSession();
 
                 if (error) {
                     console.error('❌ Session error:', error);
-                    setUserName('User');
-                    return;
+                    return false;
                 }
 
                 if (data && data.session && data.session.user) {
                     const user = data.session.user;
-                    console.log('✅ Session found:', user.email);
+                    let name = user.user_metadata?.full_name ||
+                              user.user_metadata?.name ||
+                              user.email?.split('@')[0] ||
+                              'User';
 
-                    let name =
-                        user.user_metadata?.full_name ||
-                        user.user_metadata?.name ||
-                        user.user_metadata?.display_name ||
-                        user.email?.split('@')[0] ||
-                        'User';
+                    console.log('✅ User from Supabase:', name);
 
-                    setUserName(name);
-                    return;
-                }
+                    const userNameText = document.getElementById('userNameText');
+                    const userNameContainer = document.getElementById('userName');
 
-                // If no session, check if we have a code in the URL (OAuth callback)
-                const hashParams = new URLSearchParams(window.location.hash.substring(1));
-                const accessToken = hashParams.get('access_token');
-                const refreshToken = hashParams.get('refresh_token');
-
-                if (accessToken) {
-                    console.log('🔄 OAuth callback detected with access_token');
-
-                    // Set the session using the tokens from the URL
-                    try {
-                        const { data: sessionData, error: sessionError } = await supabaseClient.auth.setSession({
-                            access_token: accessToken,
-                            refresh_token: refreshToken || ''
-                        });
-
-                        if (sessionError) {
-                            console.error('❌ Error setting session:', sessionError);
-                            setUserName('User');
-                            return;
-                        }
-
-                        if (sessionData && sessionData.user) {
-                            console.log('✅ Session set from OAuth callback:', sessionData.user.email);
-                            let name =
-                                sessionData.user.user_metadata?.full_name ||
-                                sessionData.user.user_metadata?.name ||
-                                sessionData.user.email?.split('@')[0] ||
-                                'User';
-                            setUserName(name);
-
-                            // Clear the hash from URL to prevent issues
-                            window.history.replaceState(null, '', window.location.pathname);
-                            return;
-                        }
-                    } catch (e) {
-                        console.error('❌ Error setting session from OAuth:', e);
+                    if (userNameText && userNameContainer) {
+                        userNameText.textContent = name;
+                        userNameContainer.classList.add('visible');
+                        return true;
                     }
                 }
-
-                console.log('ℹ️ No session found');
-                setUserName('Guest');
-
             } catch (e) {
-                console.error('❌ Unexpected error:', e);
-                setUserName('User');
+                console.error('❌ Supabase error:', e);
+            }
+            return false;
+        }
+
+        // =================================================
+        // SET GUEST
+        =================================================
+
+        function setGuest() {
+            const userNameText = document.getElementById('userNameText');
+            const userNameContainer = document.getElementById('userName');
+
+            if (userNameText && userNameContainer) {
+                userNameText.textContent = 'Guest';
+                userNameContainer.classList.add('visible');
             }
         }
 
         // =================================================
-        // AUTH STATE CHANGE
+        // LOGOUT
         // =================================================
 
-        supabaseClient.auth.onAuthStateChange((event, session) => {
-            console.log('🔄 Auth event:', event);
+        function setupLogout() {
+            const logoutBtn = document.getElementById('logoutBtn');
 
-            if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'INITIAL_SESSION') {
-                if (session && session.user) {
-                    console.log('✅ User from event:', session.user.email);
-                    let name =
-                        session.user.user_metadata?.full_name ||
-                        session.user.user_metadata?.name ||
-                        session.user.email?.split('@')[0] ||
-                        'User';
-                    setUserName(name);
-                } else {
-                    // Try checking again
-                    setTimeout(checkSession, 100);
-                }
-            } else if (event === 'SIGNED_OUT') {
-                setUserName('Guest');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    console.log('🔄 Logging out...');
+
+                    supabaseClient.auth.signOut().then(() => {
+                        console.log('✅ Logged out');
+                        localStorage.clear();
+                        window.location.href = './login.html';
+                    }).catch((error) => {
+                        console.error('❌ Logout error:', error);
+                        localStorage.clear();
+                        window.location.href = './login.html';
+                    });
+                });
             }
-        });
+        }
 
         // =================================================
-        // HANDLE OAUTH CALLBACK ON PAGE LOAD
+        // MAIN
         // =================================================
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📄 DOM loaded');
 
-            // Check if we're coming from OAuth
-            const hash = window.location.hash;
-            if (hash && hash.includes('access_token')) {
-                console.log('🔄 OAuth callback detected on page load');
+            // Try URL parameter first
+            const found = getUserNameFromURL();
+
+            // If not found, try Supabase
+            if (!found) {
+                console.log('ℹ️ No name in URL, trying Supabase session...');
+                setTimeout(trySupabaseSession, 200);
             }
 
-            // Check session
-            setTimeout(checkSession, 100);
-            setTimeout(checkSession, 500);
-            setTimeout(checkSession, 1000);
+            // Fallback to Guest
+            setTimeout(function() {
+                const userNameText = document.getElementById('userNameText');
+                if (userNameText && userNameText.textContent === 'Loading...') {
+                    setGuest();
+                }
+            }, 1000);
+
+            // Setup logout
+            setupLogout();
         });
 
-        // Also run immediately
-        setTimeout(checkSession, 50);
+        // Run immediately too
+        if (!getUserNameFromURL()) {
+            setTimeout(trySupabaseSession, 100);
+        }
     </script>
 </body>
 </html>
