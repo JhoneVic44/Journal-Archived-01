@@ -8,11 +8,6 @@
     <meta name="description" content="The entrance to The Unspoken Chapters, a personal diary archive.">
 
     <!-- =========================
-         SUPABASE
-    ========================== -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- =========================
          FONTS
     ========================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,8 +28,9 @@
         }
 
         .entrance {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
             position: relative;
             background: linear-gradient(to top, rgba(0,0,0,0.94), rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05)),
@@ -54,62 +50,14 @@
             pointer-events: none;
         }
 
-        .left-column, .right-column {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 8%;
-            overflow-y: auto;
-        }
-
-        .left-column .content,
-        .right-column .content {
+        .content {
             width: 100%;
             max-width: 420px;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .user-name {
-            color: #eeeae1;
-            font-size: 9px;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            position: absolute;
-            top: 28px;
-            right: 8%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .user-name.visible {
-            opacity: 1;
-        }
-
-        .user-name .avatar {
-            font-size: 12px;
-        }
-
-        .user-name .logout-link {
-            color: #5d5f62;
-            font-size: 7px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            text-decoration: none;
-            margin-left: 10px;
-            transition: color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .user-name .logout-link:hover {
-            color: #aaa9a3;
+            text-align: center;
+            padding: 40px 8%;
         }
 
         .archive-label {
@@ -121,7 +69,7 @@
             margin-bottom: 18px;
         }
 
-        h1, .right-title {
+        h1 {
             margin: 0 0 12px 0;
             color: #eeeae1;
             font-family: "Playfair Display", Georgia, serif;
@@ -130,8 +78,6 @@
             line-height: 0.9;
             letter-spacing: -0.06em;
         }
-
-        .right-title { text-align: center; }
 
         .divider {
             width: 40px;
@@ -147,15 +93,7 @@
             margin: 0 auto 25px auto;
         }
 
-        .ai-intro {
-            color: #888;
-            font-size: clamp(13px, 1vw, 16px);
-            line-height: 1.6;
-            margin: 0 auto 30px auto;
-        }
-
-        .year-button,
-        .enter-ai-btn {
+        .year-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -177,27 +115,10 @@
             white-space: nowrap;
         }
 
-        .year-button:hover,
-        .enter-ai-btn:hover {
+        .year-button:hover {
             background: rgba(255,255,255,0.11);
             border-color: rgba(255,255,255,0.65);
             transform: translateY(-2px);
-        }
-
-        .enter-ai-btn .icon {
-            font-size: 14px;
-            line-height: 1;
-            flex-shrink: 0;
-        }
-
-        .enter-ai-btn .arrow {
-            font-size: 11px;
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .enter-ai-btn:hover .arrow {
-            transform: translateX(4px);
         }
 
         @media (max-width: 900px) {
@@ -213,51 +134,19 @@
                 height: 100dvh;
                 min-height: 100vh;
                 min-height: 100dvh;
-                padding: 20px 20px 20px 20px;
-                gap: 0;
-                overflow: hidden;
+                padding: 20px;
             }
 
             .entrance::after { display: none; }
 
-            .left-column,
-            .right-column {
-                flex: 1;
-                padding: 0;
-                justify-content: center;
-                overflow-y: auto;
-                min-height: 0;
-            }
-
-            .left-column {
-                border-bottom: 1px solid rgba(255,255,255,.06);
-                padding-bottom: 15px;
-                margin-bottom: 0;
-                flex: 1;
-            }
-
-            .right-column {
-                padding-top: 15px;
-                flex: 1;
-            }
-
-            .left-column .content,
-            .right-column .content {
+            .content {
                 max-width: 100%;
                 padding: 0 5px;
                 justify-content: center;
                 height: 100%;
             }
 
-            .user-name {
-                position: absolute;
-                top: 16px;
-                right: 20px;
-                font-size: 8px;
-                margin-bottom: 0;
-            }
-
-            h1, .right-title {
+            h1 {
                 font-size: clamp(28px, 8vw, 38px);
                 line-height: 0.95;
                 margin-bottom: 8px;
@@ -269,8 +158,7 @@
                 letter-spacing: 0.25em;
             }
 
-            .subtitle,
-            .ai-intro {
+            .subtitle {
                 font-size: 13px;
                 line-height: 1.5;
                 margin-bottom: 18px;
@@ -283,8 +171,7 @@
                 margin: 6px auto 14px auto;
             }
 
-            .year-button,
-            .enter-ai-btn {
+            .year-button {
                 min-width: 120px;
                 height: 40px;
                 padding: 0 16px;
@@ -292,31 +179,23 @@
                 gap: 6px;
                 letter-spacing: 0.2em;
             }
-
-            .enter-ai-btn .icon { font-size: 12px; }
-            .enter-ai-btn .arrow { font-size: 10px; }
         }
 
         @media (max-width: 480px) {
-            .entrance { padding: 15px 15px 15px 15px; }
+            .entrance { padding: 15px; }
 
-            .left-column { padding-bottom: 12px; flex: 1; }
-            .right-column { padding-top: 12px; flex: 1; }
-
-            h1, .right-title {
+            h1 {
                 font-size: clamp(24px, 8vw, 32px);
                 margin-bottom: 6px;
             }
 
-            .subtitle,
-            .ai-intro {
+            .subtitle {
                 font-size: 12px;
                 margin-bottom: 14px;
                 line-height: 1.4;
             }
 
-            .year-button,
-            .enter-ai-btn {
+            .year-button {
                 min-width: 110px;
                 height: 36px;
                 padding: 0 12px;
@@ -324,9 +203,6 @@
                 gap: 5px;
                 letter-spacing: 0.18em;
             }
-
-            .enter-ai-btn .icon { font-size: 11px; }
-            .enter-ai-btn .arrow { font-size: 9px; }
 
             .archive-label {
                 font-size: 7px;
@@ -338,33 +214,22 @@
                 width: 25px;
                 margin: 4px auto 10px auto;
             }
-
-            .user-name {
-                font-size: 7px;
-                top: 12px;
-                right: 15px;
-            }
         }
 
         @media (max-width: 380px) {
-            .entrance { padding: 12px 12px 12px 12px; }
+            .entrance { padding: 12px; }
 
-            .left-column { padding-bottom: 10px; flex: 1; }
-            .right-column { padding-top: 10px; flex: 1; }
-
-            h1, .right-title {
+            h1 {
                 font-size: clamp(20px, 7vw, 26px);
                 margin-bottom: 4px;
             }
 
-            .subtitle,
-            .ai-intro {
+            .subtitle {
                 font-size: 11px;
                 margin-bottom: 12px;
             }
 
-            .year-button,
-            .enter-ai-btn {
+            .year-button {
                 min-width: 100px;
                 height: 32px;
                 padding: 0 10px;
@@ -372,9 +237,6 @@
                 gap: 4px;
                 letter-spacing: 0.15em;
             }
-
-            .enter-ai-btn .icon { font-size: 10px; }
-            .enter-ai-btn .arrow { font-size: 8px; }
 
             .archive-label {
                 font-size: 6px;
@@ -386,207 +248,17 @@
                 margin: 3px auto 8px auto;
             }
         }
-
-        .left-column::-webkit-scrollbar,
-        .right-column::-webkit-scrollbar {
-            width: 3px;
-        }
-        .left-column::-webkit-scrollbar-track,
-        .right-column::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .left-column::-webkit-scrollbar-thumb,
-        .right-column::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,.15);
-            border-radius: 2px;
-        }
     </style>
 </head>
 <body>
     <div class="entrance">
-        <!-- LEFT COLUMN -->
-        <div class="left-column">
-            <div class="content">
-                <div class="user-name" id="userName">
-                    <span class="avatar">👤</span>
-                    <span id="userNameText">Loading...</span>
-                    <a href="#" class="logout-link" id="logoutBtn">Logout</a>
-                </div>
-                <div class="archive-label">Personal Archive</div>
-                <h1>The Unspoken<br>Chapters</h1>
-                <div class="divider"></div>
-                <p class="subtitle">A collection of personal diary entries from 2013. Explore the past, one entry at a time.</p>
-                <a class="year-button" href="./2013.html">2013</a>
-            </div>
-        </div>
-
-        <!-- RIGHT COLUMN -->
-        <div class="right-column">
-            <div class="content">
-                <div class="archive-label">AI Archive</div>
-                <div class="right-title">The Unspoken<br>Chapters</div>
-                <div class="divider"></div>
-                <p class="ai-intro">Ask the archive anything about your diary entries — people, places, feelings, or specific moments.</p>
-                <a class="enter-ai-btn" href="./ai-chat.html">
-                    <span class="icon">✦</span> Enter AI <span class="arrow">→</span>
-                </a>
-            </div>
+        <div class="content">
+            <div class="archive-label">Personal Archive</div>
+            <h1>The Unspoken<br>Chapters</h1>
+            <div class="divider"></div>
+            <p class="subtitle">A collection of personal diary entries from 2013. Explore the past, one entry at a time.</p>
+            <a class="year-button" href="./2013.html">2013</a>
         </div>
     </div>
-
-    <!-- =========================
-         SUPABASE SCRIPT
-    ========================== -->
-    <script>
-        // =================================================
-        // SUPABASE CONFIGURATION
-        // =================================================
-
-        const SUPABASE_URL = "https://ktytetimukmaqkxmzkha.supabase.co";
-        const SUPABASE_KEY = "sb_publishable_SpdBWTILWEJbkFpZj-FUjw_ljr1I8K";
-
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-            auth: {
-                persistSession: true,
-                autoRefreshToken: true,
-                detectSessionInUrl: true,
-                storage: window.localStorage
-            }
-        });
-
-        console.log('✅ Supabase client created');
-
-        // =================================================
-        // GET USER NAME FROM URL PARAMETER
-        // =================================================
-
-        function getUserNameFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name');
-
-            if (name) {
-                console.log('✅ User name from URL:', name);
-                const userNameText = document.getElementById('userNameText');
-                const userNameContainer = document.getElementById('userName');
-
-                if (userNameText && userNameContainer) {
-                    userNameText.textContent = decodeURIComponent(name);
-                    userNameContainer.classList.add('visible');
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // =================================================
-        // TRY SUPABASE SESSION
-        // =================================================
-
-        async function trySupabaseSession() {
-            try {
-                const { data, error } = await supabaseClient.auth.getSession();
-
-                if (error) {
-                    console.error('❌ Session error:', error);
-                    return false;
-                }
-
-                if (data && data.session && data.session.user) {
-                    const user = data.session.user;
-                    let name = user.user_metadata?.full_name ||
-                              user.user_metadata?.name ||
-                              user.email?.split('@')[0] ||
-                              'User';
-
-                    console.log('✅ User from Supabase:', name);
-
-                    const userNameText = document.getElementById('userNameText');
-                    const userNameContainer = document.getElementById('userName');
-
-                    if (userNameText && userNameContainer) {
-                        userNameText.textContent = name;
-                        userNameContainer.classList.add('visible');
-                        return true;
-                    }
-                }
-            } catch (e) {
-                console.error('❌ Supabase error:', e);
-            }
-            return false;
-        }
-
-        // =================================================
-        // SET GUEST
-        =================================================
-
-        function setGuest() {
-            const userNameText = document.getElementById('userNameText');
-            const userNameContainer = document.getElementById('userName');
-
-            if (userNameText && userNameContainer) {
-                userNameText.textContent = 'Guest';
-                userNameContainer.classList.add('visible');
-            }
-        }
-
-        // =================================================
-        // LOGOUT
-        // =================================================
-
-        function setupLogout() {
-            const logoutBtn = document.getElementById('logoutBtn');
-
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    console.log('🔄 Logging out...');
-
-                    supabaseClient.auth.signOut().then(() => {
-                        console.log('✅ Logged out');
-                        localStorage.clear();
-                        window.location.href = './login.html';
-                    }).catch((error) => {
-                        console.error('❌ Logout error:', error);
-                        localStorage.clear();
-                        window.location.href = './login.html';
-                    });
-                });
-            }
-        }
-
-        // =================================================
-        // MAIN
-        // =================================================
-
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('📄 DOM loaded');
-
-            // Try URL parameter first
-            const found = getUserNameFromURL();
-
-            // If not found, try Supabase
-            if (!found) {
-                console.log('ℹ️ No name in URL, trying Supabase session...');
-                setTimeout(trySupabaseSession, 200);
-            }
-
-            // Fallback to Guest
-            setTimeout(function() {
-                const userNameText = document.getElementById('userNameText');
-                if (userNameText && userNameText.textContent === 'Loading...') {
-                    setGuest();
-                }
-            }, 1000);
-
-            // Setup logout
-            setupLogout();
-        });
-
-        // Run immediately too
-        if (!getUserNameFromURL()) {
-            setTimeout(trySupabaseSession, 100);
-        }
-    </script>
 </body>
 </html>
