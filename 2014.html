@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 2014 Diaries of JhoneVic</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: #0b0c0d;
+      color: #eeeae1;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+      overflow-x: hidden;
+      background: radial-gradient(circle at 78% 8%, rgba(255,255,255,.075), transparent 30%),
+                  linear-gradient(135deg, #090a0b, #151719 52%, #202224);
+      background-attachment: fixed;
+    }
+    .page {
+      width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: clamp(18px, 3vw, 42px) clamp(25px, 5vw, 75px) 18px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+    }
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      padding-bottom: clamp(14px, 1.7vh, 22px);
+      color: #888;
+      font-size: clamp(7px, .55vw, 9px);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .home-button {
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,.27);
+      background: rgba(255,255,255,.035);
+      color: #aaa8a2;
+      text-decoration: none;
+      font-size: 8px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+    .home-button:hover {
+      color: #eeeae1;
+      border-color: rgba(255,255,255,.6);
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 16px rgba(255,255,255,.12);
+      transform: translateY(-1px);
+    }
+    .layout {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(360px, .88fr) minmax(500px, 1.12fr);
+      gap: clamp(45px, 6vw, 95px);
+      padding-top: clamp(24px, 4vh, 55px);
+      align-items: start;
+      overflow: hidden;
+    }
+    .left { 
+      padding-right: 5px; 
+      min-width: 0;
+      overflow-y: auto;
+      max-height: 100%;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.2) transparent;
+    }
+    .left::-webkit-scrollbar { width: 4px; }
+    .left::-webkit-scrollbar-track { background: transparent; }
+    .left::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
+    .eyebrow {
+      font-size: clamp(7px, .55vw, 9px);
+      letter-spacing: .27em;
+      text-transform: uppercase;
+      color: #777a7d;
+      margin-bottom: clamp(12px, 1.5vh, 18px);
+    }
+    .year {
+      font: 400 clamp(72px, 8vw, 118px)/.78 Georgia, serif;
+      letter-spacing: -.07em;
+      color: #eeeae1;
+      margin: 0 0 clamp(22px, 3vh, 32px);
+    }
+    h1 {
+      font: 400 clamp(38px, 4.2vw, 64px)/.96 Georgia, serif;
+      letter-spacing: -.055em;
+      margin: 0 0 clamp(18px, 2.5vh, 26px);
+      color: #eeeae1;
+    }
+    .meta {
+      font-size: clamp(8px, .62vw, 10px);
+      line-height: 1.8;
+      color: #888;
+      max-width: 600px;
+    }
+    .rule {
+      height: 1px;
+      background: rgba(255,255,255,.18);
+      width: 58px;
+      margin: clamp(28px, 4vh, 42px) 0 clamp(20px, 3vh, 30px);
+    }
+    .intro h2 {
+      font: 400 clamp(20px, 1.7vw, 25px) Georgia, serif;
+      margin: 0 0 9px;
+      color: #e8e4dc;
+    }
+    .original {
+      font-size: 8px;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 15px;
+    }
+    .intro p {
+      font: clamp(13px, 1vw, 16px)/1.85 Georgia, serif;
+      color: #b9b6ae;
+      max-width: 620px;
+      margin: 0;
+    }
+    .right {
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100%;
+      overflow: hidden;
+    }
+    .month-area {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .months-label {
+      text-align: center;
+      margin: 0 0 clamp(20px, 3vh, 32px);
+      font: 400 clamp(23px, 2vw, 29px) Georgia, serif;
+      color: #ddd9d0;
+    }
+    .months {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: clamp(15px, 2.5vw, 38px);
+      row-gap: clamp(0px, .5vh, 6px);
+      flex-shrink: 0;
+    }
+    .month-item { position: relative; min-width: 0; }
+    .month {
+      position: relative;
+      width: 100%;
+      color: #aaa8a2;
+      padding: clamp(13px, 1.6vh, 18px) 5px;
+      cursor: pointer;
+      font-size: clamp(14px, 1.1vw, 18px);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      text-align: center;
+      transition: .35s ease;
+      text-decoration: none;
+      display: block;
+      border: 0;
+      background: none;
+    }
+    .month::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 3px;
+      width: 18px;
+      height: 1px;
+      background: #666;
+      transform: translateX(-50%);
+      transition: .4s ease;
+    }
+    .month:hover, .month:focus {
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255,255,255,.35);
+      outline: none;
+    }
+    .month:hover::after, .month:focus::after {
+      width: 72%;
+      background: #eeeae1;
+      box-shadow: 0 0 10px rgba(255,255,255,.5);
+    }
+    .month-introduction {
+      margin-top: clamp(27px, 4vh, 42px);
+      border-top: 1px solid rgba(255,255,255,.13);
+      padding-top: clamp(17px, 2.5vh, 25px);
+      height: 280px;
+      min-height: 280px;
+      max-height: 280px;
+      overflow: hidden;
+      animation: introFade .3s ease;
+      flex-shrink: 0;
+    }
+    .month-introduction-meta {
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #686a6d;
+      margin-bottom: 9px;
+    }
+    .month-introduction h2 {
+      font: 400 clamp(21px, 1.8vw, 26px) Georgia, serif;
+      color: #e8e4dc;
+      margin: 0 0 10px;
+    }
+    .month-introduction p {
+      font: clamp(11px, .85vw, 14px)/1.75 Georgia, serif;
+      color: #aaa8a1;
+      margin: 0;
+      max-width: 650px;
+      max-height: 195px;
+      overflow: hidden;
+    }
+    .month-view {
+      display: none;
+      height: 100%;
+      animation: introFade .3s ease;
+      background: transparent;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .month-view.open { display: flex; }
+    .month-view-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 0 0 12px;
+      flex-shrink: 0;
+    }
+    .month-view-title {
+      margin: 0;
+      font: 400 clamp(28px, 2.5vw, 38px) Georgia, serif;
+      color: #e8e4dc;
+    }
+    .back-months, .next-page, .prev-page {
+      border: 0;
+      background: none;
+      color: #aaa8a2;
+      padding: 5px 0;
+      font-size: 8px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+    .back-months:hover, .next-page:hover, .prev-page:hover { color: #eeeae1; }
+    .month-view-subtitle {
+      color: #686a6d;
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .diary-list {
+      border-top: 1px solid rgba(255,255,255,.13);
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.2) transparent;
+    }
+    .diary-list::-webkit-scrollbar { width: 4px; }
+    .diary-list::-webkit-scrollbar-track { background: transparent; }
+    .diary-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
+    .diary-entry {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 7px 5px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-decoration: none;
+      color: inherit;
+      transition: background .25s ease;
+      cursor: pointer;
+      min-height: 38px;
+    }
+    .diary-entry:hover { background: rgba(255,255,255,.025); }
+    .diary-date {
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #888;
+      transition: .25s ease;
+      white-space: nowrap;
+    }
+    .diary-title {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      font: 400 clamp(16px, 1.25vw, 20px)/1.2 Georgia, serif;
+      color: #ddd9d0;
+      margin: 0;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+    .diary-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: #eeeae1;
+      transition: .3s ease;
+    }
+    .diary-entry:hover .diary-date { color: #eeeae1; }
+    .diary-entry:hover .diary-title::after { width: 100%; }
+    .pagination {
+      height: 34px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-shrink: 0;
+      padding-top: 8px;
+    }
+    .pagination-center {
+      font-size: 7px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #5d5f62;
+    }
+    .pagination button:disabled { visibility: hidden; }
+    .note {
+      margin-top: clamp(18px, 2.5vh, 30px);
+      padding-top: clamp(15px, 2vh, 20px);
+      max-width: 680px;
+      flex-shrink: 0;
+    }
+    .note h2 {
+      font: 400 clamp(20px, 1.7vw, 25px) Georgia, serif;
+      margin: 0 0 10px;
+      color: #e8e4dc;
+    }
+    .note p {
+      font: clamp(11px, .82vw, 13px)/1.7 Georgia, serif;
+      color: #99968f;
+      margin: 0;
+    }
+    .signature {
+      text-align: right;
+      color: #888;
+      font: italic 11px Georgia, serif;
+      margin-top: 11px;
+    }
+    .footer {
+      margin-top: 10px;
+      padding-top: 8px;
+      display: flex;
+      justify-content: flex-start;
+      color: #5d5f62;
+      font-size: 7px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .detail-view {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      animation: introFade .3s ease;
+      overflow: hidden;
+    }
+    .detail-view.open { display: flex; }
+    .detail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: clamp(15px, 2vh, 25px);
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,.13);
+      padding-bottom: 15px;
+    }
+    .back-to-list {
+      color: #aaa8a2;
+      border: 0;
+      background: none;
+      padding: 5px 0;
+      font-size: 8px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+    .back-to-list:hover { color: #eeeae1; }
+    .detail-date {
+      font-size: clamp(9px, .7vw, 11px);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #686a6d;
+      text-align: right;
+    }
+    .entry-meta { 
+      text-align: center; 
+      margin-bottom: clamp(15px, 2vh, 20px); 
+      flex-shrink: 0; 
+    }
+    .entry-meta-line {
+      font-size: clamp(10px, .8vw, 12px);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: #888;
+      margin: 4px 0;
+    }
+    .entry-meta-line span { color: #aaa8a2; }
+    .detail-title {
+      font: 400 clamp(24px, 2.2vw, 32px) Georgia, serif;
+      color: #e8e4dc;
+      margin: 0 0 clamp(20px, 3vh, 30px);
+      line-height: 1.2;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .detail-content {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.2) transparent;
+    }
+    .detail-content::-webkit-scrollbar { width: 4px; }
+    .detail-content::-webkit-scrollbar-track { background: transparent; }
+    .detail-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
+    .detail-body {
+      font: clamp(14px, 1.05vw, 17px)/1.9 Georgia, serif;
+      color: #c9c6be;
+      margin: 0;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      text-align: center;
+    }
+    .detail-meta {
+      margin-top: clamp(25px, 4vh, 40px);
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,.13);
+      display: flex;
+      justify-content: space-between;
+      color: #686a6d;
+      font-size: 8px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .entry-number { color: #888; }
+    .detail-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      flex-shrink: 0;
+    }
+    .prev-entry, .next-entry {
+      border: 0;
+      background: none;
+      color: #aaa8a2;
+      padding: 8px 0;
+      font-size: 8px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+    .prev-entry:hover, .next-entry:hover { color: #eeeae1; }
+    .prev-entry:disabled, .next-entry:disabled { opacity: .3; cursor: default; }
+    @keyframes introFade {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Mobile intro that appears below clicked month ── */
+    .mobile-month-intro {
+      display: none;
+      margin-top: 10px;
+      padding: 15px 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 4px;
+      animation: introFade .3s ease;
+    }
+    .mobile-month-intro .intro-meta {
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #686a6d;
+      margin-bottom: 6px;
+    }
+    .mobile-month-intro .intro-title {
+      font: 400 clamp(18px, 2vw, 22px) Georgia, serif;
+      color: #e8e4dc;
+      margin: 0 0 8px;
+    }
+    .mobile-month-intro .intro-text {
+      font: clamp(12px, .9vw, 14px)/1.7 Georgia, serif;
+      color: #aaa8a1;
+      margin: 0;
+    }
+    .mobile-view-entries-btn {
+      display: block;
+      margin-top: 12px;
+      padding: 10px;
+      width: 100%;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #ddd9d0;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .25s ease;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .mobile-view-entries-btn:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+
+    /* ── responsive ── */
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(290px, .8fr) minmax(390px, 1.2fr);
+        gap: 30px;
+      }
+      .months { column-gap: 15px; }
+      .month { font-size: 14px; }
+    }
+
+    @media (max-width: 700px) {
+      html, body {
+        height: auto;
+        min-height: 100%;
+        background-attachment: scroll;
+      }
+      body {
+        overflow: auto;
+        background-attachment: scroll;
+      }
+      .page { 
+        padding: 20px; 
+        height: auto; 
+        min-height: 100vh; 
+        overflow: visible;
+        max-height: none;
+      }
+      .layout { display: block; padding-top: 20px; overflow: visible; }
+      .left { height: auto; max-height: none; overflow: visible; }
+      .year { font-size: 55px; }
+      h1 { font-size: 30px; }
+      .intro p { font-size: 13px; }
+      .right { display: block; height: auto; margin-top: 20px; overflow: visible; }
+      .month-area { max-width: none; height: auto; overflow: visible; }
+
+      .months {
+        display: block;
+        width: 100%;
+      }
+      .month-item { border-bottom: 1px solid rgba(255,255,255,.08); }
+      .month {
+        padding: 12px 5px;
+        text-align: left;
+        font-size: 14px;
+      }
+      .month::after {
+        left: 5px;
+        bottom: 6px;
+        transform: none;
+      }
+
+      .month-introduction { display: none; }
+
+      .month-view { height: auto; min-height: 0; max-height: none; overflow: visible; }
+      .month-view-header { margin-bottom: 8px; }
+      .month-view-title { font-size: 24px; }
+      .diary-list { height: auto; max-height: none; overflow: visible; }
+      .diary-entry {
+        grid-template-columns: 100px 1fr;
+        gap: 10px;
+        height: auto;
+        min-height: 44px;
+        padding: 8px 3px;
+      }
+      .diary-date { font-size: 10px; }
+      .diary-title { font-size: 15px; }
+      .pagination { height: auto; padding: 10px 0; }
+      .detail-view { height: auto; min-height: 0; overflow: visible; }
+      .detail-content { overflow: visible; max-height: none; }
+      .detail-body { font-size: 15px; line-height: 1.7; }
+      .note, .footer { display: block; margin-top: 10px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <span>JhoneVic's Diary</span>
+    <a href="./entrance.html" class="home-button">Home</a>
+  </div>
+
+  <div class="layout">
+    <main class="left">
+      <div class="eyebrow">Volume II · The 2014 Archive</div>
+      <div class="year">2014</div>
+      <h1>The 2014 Diaries<br>of JhoneVic</h1>
+      <div class="meta">
+        Compiled: 2026<br>
+        By: JhoneVic<br>
+        © 2026 JhoneVic M. Casaña<br>
+        All rights reserved.<br>
+        No part of this diary may be reproduced, stored, or transmitted in any form without prior written permission from the author.<br>
+        Printed in the Philippines.
+      </div>
+      <div class="rule"></div>
+      <section class="note">
+        <div class="eyebrow"> Note</div>
+        <h2>About This Volume</h2>
+        <p>This volume contains diary entries written in 2014, preserved and transcribed in 2026. Some entries may be incomplete or missing as found in the original manuscript.</p>
+      </section>
+    </main>
+
+    <aside class="right">
+      <div class="month-area">
+        <!-- month selector -->
+        <div id="monthSelector" style="display:flex;flex-direction:column;height:100%;overflow:hidden;">
+          <div class="months-label">Months</div>
+          <div class="months" id="monthsGrid">
+            <div class="month-item">
+              <a class="month" href="#" data-month="january">January</a>
+              <div class="mobile-month-intro" data-month="january">
+                <div class="intro-meta">January · 2014</div>
+                <div class="intro-title">January</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="january">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="february">February</a>
+              <div class="mobile-month-intro" data-month="february">
+                <div class="intro-meta">February · 2014</div>
+                <div class="intro-title">February</div>
+                <div class="intro-text">Alam ko kung ano ang best sa buwang ito: ang Valentine’s Day. Ang bala ko dito ay mag-ipon ng pera para sa pangregalo sa mga crush ko. Pero may mga bagong suliranin at date siguro na darating sa araw na ito. Sana ay malampasan ko ang mga ito. Go na.</div>
+                <button class="mobile-view-entries-btn" data-month="february">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="march">March</a>
+              <div class="mobile-month-intro" data-month="march">
+                <div class="intro-meta">March · 2014</div>
+                <div class="intro-title">March</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="march">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="april">April</a>
+              <div class="mobile-month-intro" data-month="april">
+                <div class="intro-meta">April · 2014</div>
+                <div class="intro-title">April</div>
+                <div class="intro-text">Sa buwan na ito, at sa unang buwan pa lang, ay medyo sineswerte na ako. Marami akong naka-schedule ngayong buwan. Sana naman, sa buwang ito, marami akong magagawang maganda para maganda rin ang maging resulta. At sana, sa buwang ito, puro swerte na araw ang matanggap ko. Kung may malas man, ay bihira na sana. Pero salamat sa gift sa akin ng March, at welcome to March... este, April. Please.</div>
+                <button class="mobile-view-entries-btn" data-month="april">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="may">May</a>
+              <div class="mobile-month-intro" data-month="may">
+                <div class="intro-meta">May · 2014</div>
+                <div class="intro-title">May</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="may">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="june">June</a>
+              <div class="mobile-month-intro" data-month="june">
+                <div class="intro-meta">June · 2014</div>
+                <div class="intro-title">June</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="june">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="july">July</a>
+              <div class="mobile-month-intro" data-month="july">
+                <div class="intro-meta">July · 2014</div>
+                <div class="intro-title">July</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="july">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="august">August</a>
+              <div class="mobile-month-intro" data-month="august">
+                <div class="intro-meta">August · 2014</div>
+                <div class="intro-title">August</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="august">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="september">September</a>
+              <div class="mobile-month-intro" data-month="september">
+                <div class="intro-meta">September · 2014</div>
+                <div class="intro-title">September</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="september">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="october">October</a>
+              <div class="mobile-month-intro" data-month="october">
+                <div class="intro-meta">October · 2014</div>
+                <div class="intro-title">October</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="october">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="november">November</a>
+              <div class="mobile-month-intro" data-month="november">
+                <div class="intro-meta">November · 2014</div>
+                <div class="intro-title">November</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="november">View Entries →</button>
+              </div>
+            </div>
+            <div class="month-item">
+              <a class="month" href="#" data-month="december">December</a>
+              <div class="mobile-month-intro" data-month="december">
+                <div class="intro-meta">December · 2014</div>
+                <div class="intro-title">December</div>
+                <div class="intro-text">No monthly introduction is present in the surviving manuscript.</div>
+                <button class="mobile-view-entries-btn" data-month="december">View Entries →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop intro (hidden on mobile) -->
+          <section class="month-introduction" id="monthIntroduction">
+            <div class="month-introduction-meta" id="monthMeta">Hover over a month</div>
+            <h2 id="monthTitle">Monthly Introduction</h2>
+            <p id="monthText">Move your mouse over January through December to read each month's introduction.</p>
+          </section>
+
+          <section class="note">
+            <div class="eyebrow">📌 Authenticity Note</div>
+            <h2>Regarding the Monthly Introductions</h2>
+            <p>I would like to clarify that every monthly introduction in this diary was originally written in the 2014 manuscript and was not added or altered during the 2026 compilation. These introductions reflect the voice, thoughts, and intentions of my 14-year-old self exactly as they were written at that time.</p>
+            <div class="signature">— JhoneVic, July 2026</div>
+          </section>
+        </div>
+
+        <!-- month view (entries) -->
+        <section class="month-view" id="monthView">
+          <div class="month-view-header">
+            <h2 class="month-view-title" id="selectedMonthTitle">January</h2>
+            <button type="button" class="back-months" id="backMonths">← Months</button>
+          </div>
+          <div class="month-view-subtitle" id="selectedMonthSubtitle">January · 2014</div>
+          <div class="diary-list" id="diaryList"></div>
+          <div class="pagination">
+            <button class="prev-page" id="prevPage">← Previous</button>
+            <span class="pagination-center" id="pageIndicator"></span>
+            <button class="next-page" id="nextPage">Next →</button>
+          </div>
+        </section>
+
+        <!-- detail view -->
+        <section class="detail-view" id="detailView">
+          <div class="detail-header">
+            <button type="button" class="back-to-list" id="backToList">← Back</button>
+            <div class="detail-date" id="detailMonth">January 2014</div>
+          </div>
+          <div class="entry-meta">
+            <div class="entry-meta-line" id="detailDiaryNumber">Diary# <span>1</span></div>
+            <div class="entry-meta-line" id="detailDateLine">Date: <span>January 1</span></div>
+            <div class="entry-meta-line" id="detailDayLine">Day: <span>Wednesday</span></div>
+          </div>
+          <h2 class="detail-title" id="detailTitle">No Entry Yet</h2>
+          <div class="detail-content">
+            <p class="detail-body" id="detailBody">This entry has not been digitized yet.</p>
+          </div>
+          <div class="detail-meta">
+            <span class="entry-number" id="detailEntryNumber">Entry #1</span>
+            <span id="detailMonthYear">January 2014</span>
+          </div>
+          <div class="detail-nav">
+            <button class="prev-entry" id="prevEntry">← Previous Entry</button>
+            <button class="next-entry" id="nextEntry">Next Entry →</button>
+          </div>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footer"><span>Personal Archive</span></div>
+</div>
+
+<script>
+  (function() {
+    // ── All diary entries for all months (EMPTY - Add your 2014 entries here) ──
+    const monthlyDiaryEntries = {
+      "january": [],
+      "february": [],
+      "march": [],
+      "april": [],
+      "may": [],
+      "june": [],
+      "july": [],
+      "august": [],
+      "september": [],
+      "october": [],
+      "november": [],
+      "december": []
+    };
+
+    const monthNames = {january:"January",february:"February",march:"March",april:"April",may:"May",june:"June",july:"July",august:"August",september:"September",october:"October",november:"November",december:"December"};
+
+    // DOM refs
+    const monthSelector = document.getElementById("monthSelector");
+    const monthView = document.getElementById("monthView");
+    const selectedMonthTitle = document.getElementById("selectedMonthTitle");
+    const selectedMonthSubtitle = document.getElementById("selectedMonthSubtitle");
+    const diaryList = document.getElementById("diaryList");
+    const backMonths = document.getElementById("backMonths");
+    const monthMeta = document.getElementById("monthMeta");
+    const monthTitle = document.getElementById("monthTitle");
+    const monthText = document.getElementById("monthText");
+    const monthIntroduction = document.getElementById("monthIntroduction");
+    const prevPage = document.getElementById("prevPage");
+    const nextPage = document.getElementById("nextPage");
+    const pageIndicator = document.getElementById("pageIndicator");
+
+    const detailView = document.getElementById("detailView");
+    const backToList = document.getElementById("backToList");
+    const detailMonth = document.getElementById("detailMonth");
+    const detailDiaryNumber = document.getElementById("detailDiaryNumber");
+    const detailDateLine = document.getElementById("detailDateLine");
+    const detailDayLine = document.getElementById("detailDayLine");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailBody = document.getElementById("detailBody");
+    const detailEntryNumber = document.getElementById("detailEntryNumber");
+    const detailMonthYear = document.getElementById("detailMonthYear");
+    const prevEntry = document.getElementById("prevEntry");
+    const nextEntry = document.getElementById("nextEntry");
+
+    let currentMonth = "";
+    let currentPage = 0;
+    let currentEntryIndex = 0;
+    const ENTRIES_PER_PAGE = 10;
+
+    function formatDateWithoutYear(dateStr) {
+      if (!dateStr) return "";
+      return dateStr.replace(/,\s*\d{4}/, "");
+    }
+
+    const monthlyIntroductions = {
+      "january":   { meta: "January · 2014",  title: "January",  text: "No monthly introduction is present in the surviving manuscript." },
+      "february":  { meta: "February · 2014", title: "February", text: "Alam ko kung ano ang best sa buwang ito: ang Valentine’s Day. Ang bala ko dito ay mag-ipon ng pera para sa pangregalo sa mga crush ko. Pero may mga bagong suliranin at date siguro na darating sa araw na ito. Sana ay malampasan ko ang mga ito. Go na." },
+      "march":     { meta: "March · 2014",    title: "March", text: "No monthly introduction is present in the surviving manuscript." },
+      "april":     { meta: "April · 2014",    title: "April", text: "Sa buwan na ito, at sa unang buwan pa lang, ay medyo sineswerte na ako. Marami akong naka-schedule ngayong buwan. Sana naman, sa buwang ito, marami akong magagawang maganda para maganda rin ang maging resulta. At sana, sa buwang ito, puro swerte na araw ang matanggap ko. Kung may malas man, ay bihira na sana. Pero salamat sa gift sa akin ng March, at welcome to March... este, April. Please." },
+      "may":       { meta: "May · 2014",      title: "May", text: "No monthly introduction is present in the surviving manuscript." },
+      "june":      { meta: "June · 2014",     title: "June", text: "No monthly introduction is present in the surviving manuscript." },
+      "july":      { meta: "July · 2014",     title: "July", text: "No monthly introduction is present in the surviving manuscript." },
+      "august":    { meta: "August · 2014",   title: "August", text: "No monthly introduction is present in the surviving manuscript." },
+      "september": { meta: "September · 2014", title: "September", text: "No monthly introduction is present in the surviving manuscript." },
+      "october":   { meta: "October · 2014",  title: "October", text: "No monthly introduction is present in the surviving manuscript." },
+      "november":  { meta: "November · 2014", title: "November", text: "No monthly introduction is present in the surviving manuscript." },
+      "december":  { meta: "December · 2014", title: "December", text: "No monthly introduction is present in the surviving manuscript." }
+    };
+
+    function showDesktopIntro(month) {
+      const data = monthlyIntroductions[month];
+      if (!data) return;
+      monthMeta.textContent = data.meta;
+      monthTitle.textContent = data.title;
+      monthText.textContent = data.text;
+      monthIntroduction.style.animation = "none";
+      void monthIntroduction.offsetWidth;
+      monthIntroduction.style.animation = "introFade .3s ease";
+    }
+
+    function toggleMobileIntro(month) {
+      const allIntros = document.querySelectorAll('.mobile-month-intro');
+      allIntros.forEach(intro => {
+        if (intro.dataset.month === month) {
+          if (intro.style.display === 'block') {
+            intro.style.display = 'none';
+          } else {
+            intro.style.display = 'block';
+          }
+        } else {
+          intro.style.display = 'none';
+        }
+      });
+    }
+
+    function renderPage() {
+      const entries = monthlyDiaryEntries[currentMonth] || [];
+      const totalPages = Math.max(1, Math.ceil(entries.length / ENTRIES_PER_PAGE));
+      currentPage = Math.max(0, Math.min(currentPage, totalPages - 1));
+      diaryList.innerHTML = "";
+      const start = currentPage * ENTRIES_PER_PAGE;
+      entries.slice(start, start + ENTRIES_PER_PAGE).forEach((entry, index) => {
+        const item = document.createElement("div");
+        item.className = "diary-entry";
+        item.style.cursor = "pointer";
+        const dateDisplay = formatDateWithoutYear(entry.date);
+        item.innerHTML = `<div class="diary-date">${dateDisplay}</div><h3 class="diary-title" title="${entry.title.replace(/"/g,'&quot;')}">${entry.title}</h3>`;
+        item.addEventListener("click", () => openDetail(start + index));
+        diaryList.appendChild(item);
+      });
+      pageIndicator.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+      prevPage.disabled = currentPage === 0;
+      nextPage.disabled = currentPage >= totalPages - 1;
+    }
+
+    function openDetail(entryIndex) {
+      const entries = monthlyDiaryEntries[currentMonth] || [];
+      if (!entries[entryIndex]) return;
+      currentEntryIndex = entryIndex;
+      const entry = entries[entryIndex];
+      detailMonth.textContent = `${monthNames[currentMonth]} 2014`;
+      detailDiaryNumber.innerHTML = `Diary# <span>${entry.n}</span>`;
+      detailDateLine.innerHTML = `Date: <span>${formatDateWithoutYear(entry.date)}</span>`;
+      detailDayLine.innerHTML = `Day: <span>${entry.day || "Not recorded"}</span>`;
+      detailTitle.textContent = entry.title;
+      detailBody.textContent = entry.content || "Not yet digitalize";
+      detailEntryNumber.textContent = `Entry #${entry.n}`;
+      detailMonthYear.textContent = `${monthNames[currentMonth]} 2014`;
+      monthView.classList.remove("open");
+      detailView.classList.add("open");
+      prevEntry.disabled = entryIndex === 0;
+      nextEntry.disabled = entryIndex >= entries.length - 1;
+    }
+
+    function closeDetail() {
+      detailView.classList.remove("open");
+      monthView.classList.add("open");
+    }
+
+    function openMonth(month) {
+      if (!monthNames[month]) return;
+      currentMonth = month;
+      currentPage = 0;
+      selectedMonthTitle.textContent = monthNames[month];
+      selectedMonthSubtitle.textContent = monthNames[month] + " · 2014";
+      monthSelector.style.display = "none";
+      monthView.classList.add("open");
+      detailView.classList.remove("open");
+      renderPage();
+      window.history.replaceState(null, "", "#" + month);
+    }
+
+    function showMonths() {
+      monthView.classList.remove("open");
+      detailView.classList.remove("open");
+      monthSelector.style.display = "flex";
+      document.querySelectorAll('.mobile-month-intro').forEach(intro => {
+        intro.style.display = 'none';
+      });
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+
+    document.querySelectorAll(".month").forEach(link => {
+      link.addEventListener("mouseenter", () => {
+        if (window.innerWidth > 700) {
+          showDesktopIntro(link.dataset.month);
+        }
+      });
+      link.addEventListener("focus", () => {
+        if (window.innerWidth > 700) {
+          showDesktopIntro(link.dataset.month);
+        }
+      });
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        const month = this.dataset.month;
+        if (window.innerWidth <= 700) {
+          toggleMobileIntro(month);
+        } else {
+          openMonth(month);
+        }
+      });
+    });
+
+    document.querySelectorAll('.mobile-view-entries-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const month = this.dataset.month;
+        if (month && monthNames[month]) {
+          openMonth(month);
+        }
+      });
+    });
+
+    backMonths.addEventListener("click", showMonths);
+    backToList.addEventListener("click", closeDetail);
+
+    prevPage.addEventListener("click", () => {
+      if (currentPage > 0) { currentPage--; renderPage(); }
+    });
+    nextPage.addEventListener("click", () => {
+      const total = Math.ceil((monthlyDiaryEntries[currentMonth] || []).length / ENTRIES_PER_PAGE);
+      if (currentPage < total - 1) { currentPage++; renderPage(); }
+    });
+
+    prevEntry.addEventListener("click", () => {
+      if (currentEntryIndex > 0) { openDetail(currentEntryIndex - 1); }
+    });
+    nextEntry.addEventListener("click", () => {
+      const total = monthlyDiaryEntries[currentMonth]?.length || 0;
+      if (currentEntryIndex < total - 1) { openDetail(currentEntryIndex + 1); }
+    });
+
+    const initialMonth = window.location.hash.replace("#", "").toLowerCase();
+    if (monthlyDiaryEntries[initialMonth]) {
+      openMonth(initialMonth);
+    }
+  })();
+</script>
+</body>
+</html>
