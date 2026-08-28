@@ -93,6 +93,13 @@
             margin: 0 auto 25px auto;
         }
 
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .year-button {
             display: inline-flex;
             align-items: center;
@@ -179,6 +186,10 @@
                 gap: 6px;
                 letter-spacing: 0.2em;
             }
+
+            .button-group {
+                gap: 10px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -214,6 +225,10 @@
                 width: 25px;
                 margin: 4px auto 10px auto;
             }
+
+            .button-group {
+                gap: 8px;
+            }
         }
 
         @media (max-width: 380px) {
@@ -247,6 +262,10 @@
                 width: 20px;
                 margin: 3px auto 8px auto;
             }
+
+            .button-group {
+                gap: 6px;
+            }
         }
     </style>
 </head>
@@ -256,8 +275,11 @@
             <div class="archive-label">Personal Archive</div>
             <h1>The Unspoken<br>Chapters</h1>
             <div class="divider"></div>
-            <p class="subtitle">A collection of personal diary entries from 2013. Explore the past, one entry at a time.</p>
-            <a class="year-button" href="./2013.html">2013</a>
+            <p class="subtitle">A collection of personal diary entries from 2013 and 2014. Explore the past, one entry at a time.</p>
+            <div class="button-group">
+                <a class="year-button" href="./2013.html">2013</a>
+                <a class="year-button" href="./2014.html">2014</a>
+            </div>
         </div>
     </div>
 </body>
